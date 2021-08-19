@@ -49,7 +49,6 @@ class EmpresaUsuariosComponent extends Component
         $this->openModalPopover();
         $this->isModalOpen = true;
         return view('livewire.empresa-usuarios.empresarelacion');
-        // return view('livewire.empresa-usuarios.empresa-usuarios-component')->with('isModalOpen', $this->isModalOpen);
     }
 
     public function mostrarmodal()
