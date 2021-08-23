@@ -10,7 +10,9 @@ use App\Http\Livewire\Cuenta\CuentaComponent;
 use App\Http\Livewire\Proveedor\ProveedorComponent;
 use App\Http\Livewire\Cliente\ClienteComponent;
 use App\Http\Livewire\Empleado\EmpleadoComponent;
+use App\Http\Livewire\EmpresaModulos\EmpresaModulosComponent;
 use App\Http\Livewire\EmpresaUsuarios\EmpresaUsuariosComponent;
+use App\Http\Livewire\ModuloUsuarios\ModuloUsuariosComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +40,8 @@ Route::get('proveedores',ProveedorComponent::class)->name('proveedores');
 Route::get('clientes',ClienteComponent::class)->name('clientes');
 Route::get('empleados',EmpleadoComponent::class)->name('empleados');
 Route::get('empresausuarios',EmpresaUsuariosComponent::class)->name('empresausuarios');
+Route::get('empresamodulos',EmpresaModulosComponent::class)->name('empresamodulos');
+Route::get('modulousuarios',ModuloUsuariosComponent::class)->name('modulousuarios');
 
 
 Route::get('empresas',EmpresaComponent::class)->name('empresas');

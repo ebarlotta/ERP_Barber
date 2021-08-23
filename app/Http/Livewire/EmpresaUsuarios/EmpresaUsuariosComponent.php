@@ -5,7 +5,6 @@ namespace App\Http\Livewire\EmpresaUsuarios;
 use Livewire\Component;
 use App\Models\EmpresaUsuario;
 use App\Models\Empresa;
-//use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\User;
 

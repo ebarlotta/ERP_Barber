@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class ModuloUsuario extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'modulo_id',
+        'user_id',
+    ];
 
         //Relación de uno a muchos inversa
         public function modulo()
