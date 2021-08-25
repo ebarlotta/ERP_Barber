@@ -18,8 +18,16 @@ class EmpresaComponent extends Component
     public function render()
     {
         $userid=auth()->user()->id;
-        $empresas_usuario = EmpresaUsuario::where('user_id',$userid)->get('id');
-        $this->empresas=Empresa::find($empresas_usuario);
+        //$empresas_usuario = EmpresaUsuario::where('user_id',$userid)->get('id');
+        //dd($empresas_usuario);
+        //$this->empresas=Empresa::find($empresas_usuario);
+        //$this->empresas=EmpresaUsuario::where('user_id',$userid)->get('id');
+        $empresas_usuario = EmpresaUsuario::where('user_id',$userid)->get();
+        foreach($empresas_usuario as $empresa) {
+            //dd($empresa->empresa_id);
+            $this->empresas[] = Empresa::find($empresa->empresa_id);
+        }
+        
         return view('livewire.empresa.empresa-component');
     }
 
