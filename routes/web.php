@@ -14,6 +14,8 @@ use App\Http\Livewire\EmpresaModulos\EmpresaModulosComponent;
 use App\Http\Livewire\EmpresaUsuarios\EmpresaUsuariosComponent;
 use App\Http\Livewire\ModuloUsuarios\ModuloUsuariosComponent;
 
+use App\Http\Livewire\Compra\CompraComponent;
+use App\Http\Livewire\Venta\VentaComponent;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,6 +45,8 @@ Route::get('empresausuarios',EmpresaUsuariosComponent::class)->name('empresausua
 Route::get('empresamodulos',EmpresaModulosComponent::class)->name('empresamodulos');
 Route::get('modulousuarios',ModuloUsuariosComponent::class)->name('modulousuarios');
 
+Route::get('compras',CompraComponent::class)->name('compras');
+Route::get('ventas',VentaComponent::class)->name('ventas');
 
 Route::get('empresas',EmpresaComponent::class)->name('empresas');
 Route::get('modulos',ModuloComponent::class)->name('modulos');
