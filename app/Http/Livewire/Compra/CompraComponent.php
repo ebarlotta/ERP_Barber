@@ -2,26 +2,38 @@
 
 namespace App\Http\Livewire\Compra;
 
+use App\Models\Cliente;
 use Livewire\Component;
+use App\Models\Proveedor;
+use App\Models\Area;
+use App\Models\Cuenta;
+use App\Models\Iva;
+
 
 class CompraComponent extends Component
 {
     public $isModalOpen = false;
-    public $cliente, $cliente_id;
-    public $clientes;
 
-    public $name;
-    public $direccion;
-    public $cuil;
-    public $telefono;
-    public $email;
-
+    public $areas, $cuentas, $ivas, $proveedores;
     public $empresa_id;
+    
+    // public $cliente, $cliente_id;
+    // public $clientes;
+
+    // public $name;
+    // public $direccion;
+    // public $cuil;
+    // public $telefono;
+    // public $email;
+
 
     public function render()
     {
         $this->empresa_id = session('empresa_id');
-        $this->clientes = Cliente::where('empresa_id', $this->empresa_id)->get();
+        $this->areas = Area::where('empresa_id', $this->empresa_id)->get();
+        $this->cuentas = Cuenta::where('empresa_id', $this->empresa_id)->get();
+        $this->proveedores = Proveedor::where('empresa_id', $this->empresa_id)->get();
+        $this->ivas = Iva::all();
         return view('livewire.compra.compra-component');
     }
 
