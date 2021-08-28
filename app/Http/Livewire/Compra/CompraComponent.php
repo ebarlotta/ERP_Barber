@@ -17,6 +17,7 @@ class CompraComponent extends Component
     public $areas, $cuentas, $ivas, $proveedores;
     public $empresa_id;
     
+    public $tabActivo=1;
     // public $cliente, $cliente_id;
     // public $clientes;
 
@@ -108,5 +109,9 @@ class CompraComponent extends Component
     {
         Cliente::find($id)->delete();
         session()->flash('message', 'Cliente Eliminado.');
+    }
+
+    public function CambiarTab($id) {
+        $this->tabActivo=$id;
     }
 }
