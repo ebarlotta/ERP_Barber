@@ -35,6 +35,7 @@ class CompraComponent extends Component
         $this->cuentas = Cuenta::where('empresa_id', $this->empresa_id)->get();
         $this->proveedores = Proveedor::where('empresa_id', $this->empresa_id)->get();
         $this->ivas = Iva::all();
+        //return view('livewire.compra.index');
         return view('livewire.compra.compra-component');
     }
 

@@ -1,6 +1,7 @@
+@extends('layouts.app2')
 <div>
     <x-titulo>Comprobantes de Compras</x-titulo>
-    <x-slot name="header">
+    {{-- <x-slot name="header">
         <div class="flex">
             <!-- //Comienza en submenu de encabezado -->
 
@@ -8,7 +9,7 @@
             @livewire('submenu')
         </div>
 
-    </x-slot>
+    </x-slot> --}}
 
     <div class="content-center flex">
         <div class="bg-white p-2 text-center rounded-lg shadow-lg w-full">
@@ -69,8 +70,7 @@
                                     </a>
                                 </li>
                             </ul>
-                            <div
-                                class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+                            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                                 <div class="px-4 py-5 flex-auto">
                                     <div class="tab-content tab-space">
                                         <div class="{{ $tabActivo<>1 ? 'hidden' : '' }}">
@@ -232,10 +232,92 @@
                                                         <input class="ml-2 w-40" type="text">
                                                     </div>
                                                 </div>
-                                            </div>
+                                                <div>
+                                                    <table class="table-auto w-full border border-green-800 border-collapse mt-3 bg-gray-200 rounded-md">
+                                                        <tr>
+                                                            <td class="border border-green-600">Mes</td>
+                                                            <td class="border border-green-600">Proveedor</td>
+                                                            <td class="border border-green-600">PartIva</td>
+                                                            <td class="border border-green-600">Iva</td>
+                                                            <td class="border border-green-600">Detalle</td>
+                                                            <td class="border border-green-600">Area</td>
+                                                            <td class="border border-green-600">Cuenta</td>
+                                                            <td class="border border-green-600">Año</td>
+                                                            <td class="border border-green-600">Asc. C/Saldo</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="border border-green-600">
+                                                                <select name="" id="">
+                                                                    <option value=""></option>
+                                                                    <option value="1">Enero</option>
+                                                                    <option value="2">Febrero</option>
+                                                                    <option value="3">Marzo</option>
+                                                                    <option value="4">Abril</option>
+                                                                    <option value="5">Mayo</option>
+                                                                    <option value="6">Junio</option>
+                                                                    <option value="7">Julio</option>
+                                                                    <option value="8">Agosto</option>
+                                                                    <option value="9">Setiembre</option>
+                                                                    <option value="10">Octubre</option>
+                                                                    <option value="11">Noviembre</option>
+                                                                    <option value="12">Diciembre</option>
+                                                                </select>
+                                                            </td>
+                                                            <td class="border border-green-600"> 
+                                                                <select name="" id="">
+                                                                    <option value=""></option>
+                                                                    @foreach ($proveedores as $proveedor)
+                                                                        <option value="{{ $proveedor->id }}">{{ $proveedor->name }}</option>
+                                                                    @endforeach
+                                                                </select>
 
+                                                            </td>
+                                                            <td class="border border-green-600">
+                                                                <select name="" id="">
+                                                                    <option value=""></option>
+                                                                    <option value="Si">Si</option>
+                                                                    <option value="No">No</option>
+                                                                    <option value="Ganancias">Ganancias</option>
+                                                                    <option value="BsPers">Bs. Pers.</option>
+                                                                </select>
+                                                            </td>
+                                                            <td class="border border-green-600">
+                                                                <select name="" id="">
+                                                                    <option value=""></option>
+                                                                    @foreach ($ivas as $iva)
+                                                                    <option value="{{ $iva->id }}">{{ $iva->descripcion }}</option>
+                                                                @endforeach
 
-                                            
+                                                                </select>
+                                                            </td>
+                                                            <td class="border border-green-600"><select name="" id=""><option value=""></option></select></td>
+                                                            <td class="border border-green-600">
+                                                                <select name="" id="">
+                                                                    <option value=""></option>
+                                                                    @foreach ($areas as $area)
+                                                                        <option value="{{ $area->id }}">{{ $area->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
+                                                            <td class="border border-green-600">
+                                                                <select name="" id="">
+                                                                    <option value=""></option>
+                                                                    @foreach ($cuentas as $cuenta)
+                                                                        <option value="{{ $cuenta->id }}">{{ $cuenta->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
+                                                            <td class="border border-green-600">
+                                                                <select name="" id="">
+                                                                    <option value=""></option>
+                                                                    <option value="2021">2021</option>
+                                                                    <option value="2020">2020</option>
+                                                                </select>
+                                                            </td>                                                            <td class="border border-green-600"><input type="checkbox"><input type="checkbox"></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>                                            
                                         </div>
                                         <div class="{{ $tabActivo<>2 ? 'hidden' : '' }}">
                                             <p>
