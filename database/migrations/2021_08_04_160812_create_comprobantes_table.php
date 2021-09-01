@@ -23,7 +23,7 @@ class CreateComprobantesTable extends Migration
             $table->string('detalle');
 
             $table->double('BrutoComp')->default(0);
-            $table->double('IvaComp')->default(0);
+            $table->double('ParticIva')->default("No");
             $table->double('MontoIva')->default(0);
             $table->double('ExentoComp')->default(0);
             $table->double('ImpInternoComp')->default(0);
@@ -43,6 +43,7 @@ class CreateComprobantesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('cliente_id');
             $table->unsignedBigInteger('empresa_id');
+            $table->unsignedBigInteger('proveedor_id');
 
             
             $table->foreign('iva_id')->references('id')->on('ivas');
@@ -51,6 +52,8 @@ class CreateComprobantesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('cliente_id')->references('id')->on('clientes');
             $table->foreign('empresa_id')->references('id')->on('empresas');
+            $table->foreign('proveedor_id')->references('id')->on('proveedors');
+            
 
             $table->timestamps();
         });

@@ -19,10 +19,11 @@ class EmpresaComponent extends Component
     {
         $userid=auth()->user()->id;
         //$empresas_usuario = EmpresaUsuario::where('user_id',$userid)->get('id');
-        //dd($empresas_usuario);
         //$this->empresas=Empresa::find($empresas_usuario);
         //$this->empresas=EmpresaUsuario::where('user_id',$userid)->get('id');
         $empresas_usuario = EmpresaUsuario::where('user_id',$userid)->get();
+        //dd($userid);
+        //dd($empresas_usuario);
         foreach($empresas_usuario as $empresa) {
             //dd($empresa->empresa_id);
             $this->empresas[] = Empresa::find($empresa->empresa_id);
