@@ -71,7 +71,6 @@ class CompraComponent extends Component
     {
         $this->validate([
             'gfecha'            => 'required|date',
-            'gcomprobante'      => 'required',
             'gbruto'            => 'numeric',
             'gpartiva'          => 'required',
             'giva2'             => 'numeric',
@@ -219,6 +218,28 @@ class CompraComponent extends Component
 
     public function gCargarRegistro($id) {
         $registro=Comprobante::find($id);
+
+        $this->validate([
+            'gfecha'            => 'required|date',
+            'gbruto'            => 'numeric',
+            'gpartiva'          => 'required',
+            'giva2'             => 'numeric',
+            'gexento'           => 'numeric',
+            'gimpinterno'       => 'numeric',
+            'gperciva'          => 'numeric',
+            'gperib'            => 'numeric',
+            'gretgan'           => 'numeric',
+            'gneto'             => 'numeric',
+            'gmontopagado'      => 'numeric', 
+            'gcantidad'         => 'numeric',
+            'ganio'             => 'required|integer',
+            'gmes'              => 'required',
+            'giva'              => 'required|integer',
+            'garea'             => 'required|integer',
+            'gcuenta'           => 'required|integer',
+            'gproveedor'        => 'required|integer',
+        ]);
+        
         $this->comprobante_id = $id;
         //$this->gfecha=strtotime($registro->fecha); //substr($registro->fecha,8,2) ."-". substr($registro->fecha,5,2) ."-". substr($registro->fecha,0,4);;
         //$this->gfecha= substr($registro->fecha,0,4) ."-". substr($registro->fecha,5,2) ."-". substr($registro->fecha,8,2);
