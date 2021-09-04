@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Empresa;
 use App\Models\EmpresaModulo;
 use App\Models\Modulo;
+use App\Models\EmpresaUsuario;
 
 class EmpresaModulosComponent extends Component
 {
@@ -25,7 +26,11 @@ class EmpresaModulosComponent extends Component
     public function render()
     {
         if(!isset($this->modulosglobales)) { $this->modulosglobales = Modulo::all(); }
-        $this->empresas = Empresa::all()->sortBy('id');
+        //$this->empresas = Empresa::all()->sortBy('id');
+
+        $userid=auth()->user()->id;
+            $empresas= EmpresaUsuario::where('user_id',$userid)->get();
+
         return view('livewire.empresa-modulos.empresa-modulos-component');
     }
     public function mostrarmodal()

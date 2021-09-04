@@ -19,20 +19,20 @@ class CreateComprobantesTable extends Migration
         Schema::create('comprobantes', function (Blueprint $table) {
             $table->id();
             $table->dateTime('fecha');
-            $table->string('comprobante');
-            $table->string('detalle');
+            $table->string('comprobante')->nullable();
+            $table->string('detalle')->nullable();
 
             $table->double('BrutoComp')->default(0);
-            $table->double('ParticIva')->default("No");
-            $table->double('MontoIva')->default(0);
-            $table->double('ExentoComp')->default(0);
-            $table->double('ImpInternoComp')->default(0);
-            $table->double('PercepcionIvaComp')->default(0);
-            $table->double('RetencionIB')->default(0);
-            $table->double('RetencionGan')->default(0);
-            $table->double('NetoComp')->default(0);
-            $table->double('MontoPagadoComp')->default(0);
-            $table->double('CantidadLitroComp')->default(0);
+            $table->double('ParticIva')->nullable()->default("No");
+            $table->double('MontoIva')->nullable()->default(0);
+            $table->double('ExentoComp')->nullable()->default(0);
+            $table->double('ImpInternoComp')->nullable()->default(0);
+            $table->double('PercepcionIvaComp')->nullable()->default(0);
+            $table->double('RetencionIB')->nullable()->default(0);
+            $table->double('RetencionGan')->nullable()->default(0);
+            $table->double('NetoComp')->nullable()->default(0);
+            $table->double('MontoPagadoComp')->nullable()->default(0);
+            $table->double('CantidadLitroComp')->nullable()->default(0);
             $table->boolean('Cerrado')->default(0);
             $table->double('Anio')->default(0);
             $table->integer('PasadoEnMes')->default(0);
@@ -41,7 +41,7 @@ class CreateComprobantesTable extends Migration
             $table->unsignedBigInteger('area_id');
             $table->unsignedBigInteger('cuenta_id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('cliente_id');
+            //$table->unsignedBigInteger('cliente_id');
             $table->unsignedBigInteger('empresa_id');
             $table->unsignedBigInteger('proveedor_id');
 
@@ -50,7 +50,7 @@ class CreateComprobantesTable extends Migration
             $table->foreign('area_id')->references('id')->on('areas');
             $table->foreign('cuenta_id')->references('id')->on('cuentas');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('cliente_id')->references('id')->on('clientes');
+            //$table->foreign('cliente_id')->references('id')->on('clientes');
             $table->foreign('empresa_id')->references('id')->on('empresas');
             $table->foreign('proveedor_id')->references('id')->on('proveedors');
             

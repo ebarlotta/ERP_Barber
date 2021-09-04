@@ -8,6 +8,7 @@ use App\Models\Proveedor;
 use App\Models\Area;
 use App\Models\Comprobante;
 use App\Models\Cuenta;
+use App\Models\EmpresaUsuario;
 use App\Models\Iva;
 use Illuminate\Support\Facades\DB;
 
@@ -20,7 +21,7 @@ class CompraComponent extends Component
     
     public $tabActivo=1;
 
-    public $gfecha,$gproveedor, $gcomprobante, $gcuenta, $gdetalle, $ganio, $gmes, $garea, $gpartiva, $gbruto, $giva, $giva2, $gexento, $gimpinterno, $gperciva, $gpergan, $gpergib, $gneto, $gmontopagado, $gcantidad, $comprobante_id;
+    public $gfecha,$gproveedor, $gcomprobante, $gcuenta, $gdetalle, $ganio, $gmes, $garea, $gpartiva, $gbruto, $giva, $giva2, $gexento, $gimpinterno, $gperciva, $gretgan, $gperib, $gneto, $gmontopagado, $gcantidad, $comprobante_id;
     //Variables del filtro
     public $gfmes, $gfproveedor, $gfparticipa, $gfiva, $gfdetalle, $gfarea, $gfcuenta, $gfanio, $fgascendente, $gfsaldo;
     
@@ -29,8 +30,13 @@ class CompraComponent extends Component
 
     public function render()
     {
-        $this->empresa_id = session('empresa_id');
         //dd($this->empresa_id);
+        if (session('empresa_id')) { $this->empresa_id = session('empresa_id'); } 
+        else { 
+            $userid=auth()->user()->id;
+            $empresas= EmpresaUsuario::where('user_id',$userid)->get();
+            return view('livewire.empresa.empresa-component',compact(['empresas'=>$empresas])); 
+        }
         $this->areas = Area::where('empresa_id', $this->empresa_id)->get();
         $this->cuentas = Cuenta::where('empresa_id', $this->empresa_id)->get();
         $this->proveedores = Proveedor::where('empresa_id', $this->empresa_id)->get();
@@ -66,17 +72,17 @@ class CompraComponent extends Component
         $this->validate([
             'gfecha'            => 'required|date',
             'gcomprobante'      => 'required',
-            'gbruto'            => 'double',
+            'gbruto'            => 'numeric',
             'gpartiva'          => 'required',
-            'giva2'             => 'double',
-            'gexento'           => 'double',
-            'gimpinterno'       => 'double',
-            'gperciva'          => 'double',
-            'gperib'            => 'double',
-            'gpergan'           => 'double',
-            'gneto'             => 'double',
-            'gmontopagado'      => 'double', 
-            'gcantidad'         => 'double',
+            'giva2'             => 'numeric',
+            'gexento'           => 'numeric',
+            'gimpinterno'       => 'numeric',
+            'gperciva'          => 'numeric',
+            'gperib'            => 'numeric',
+            'gretgan'           => 'numeric',
+            'gneto'             => 'numeric',
+            'gmontopagado'      => 'numeric', 
+            'gcantidad'         => 'numeric',
             'ganio'             => 'required|integer',
             'gmes'              => 'required',
             'giva'              => 'required|integer',
@@ -84,8 +90,8 @@ class CompraComponent extends Component
             'gcuenta'           => 'required|integer',
             'gproveedor'        => 'required|integer',
         ]);
-        Cliente::updateOrCreate(['id' => $this->comprobante_id], [
-
+        // dd( $this->gcomprobante);
+        Comprobante::create([
             'fecha'             => $this->gfecha,
             'comprobante'       => $this->gcomprobante,
             'detalle'           => $this->gdetalle,
@@ -109,8 +115,8 @@ class CompraComponent extends Component
             'empresa_id'        => session('empresa_id'),
             'proveedor_id'      => $this->gproveedor,
         ]);
-
-        session()->flash('message', $this->cliente_id ? 'Cliente Actualizado.' : 'Cliente Creado.');
+//updateOrCreate
+        session()->flash('message', $this->comprobante_id ? 'Comprobante Actualizado.' : 'Comprobante Creado.');
 
         $this->closeModalPopover();
         $this->resetCreateForm();
@@ -216,7 +222,7 @@ class CompraComponent extends Component
         $this->comprobante_id = $id;
         //$this->gfecha=strtotime($registro->fecha); //substr($registro->fecha,8,2) ."-". substr($registro->fecha,5,2) ."-". substr($registro->fecha,0,4);;
         //$this->gfecha= substr($registro->fecha,0,4) ."-". substr($registro->fecha,5,2) ."-". substr($registro->fecha,8,2);
-        $this->gfecha= $registro->created_at;
+        $this->gfecha= substr($registro->fecha,0,10);
         //dd($this->gfecha);
         $this->gcomprobante=$registro->comprobante;
         $this->gdetalle=$registro->detalle;
@@ -226,7 +232,7 @@ class CompraComponent extends Component
         $this->gexento=$registro->ExentoComp;
         $this->gimpinterno=$registro->ImpInternoComp;
         $this->gperciva=$registro->PercepcionIvaComp;
-        $this->gpergan=$registro->RetencionIB;
+        $this->gperib=$registro->RetencionIB;
         $this->gretgan=$registro->RetencionGan;
         $this->gneto=$registro->NetoComp;
         $this->gmontopagado=$registro->MontoPagadoComp;
@@ -239,30 +245,30 @@ class CompraComponent extends Component
         $this->gproveedor=$registro->proveedor_id;
     }
 
-    public function gAgregarComprobante() {
-        $registro=Comprobante::find($id);
-        //$this->gfecha=strtotime($registro->fecha); //substr($registro->fecha,8,2) ."-". substr($registro->fecha,5,2) ."-". substr($registro->fecha,0,4);;
-        //$this->gfecha= substr($registro->fecha,0,4) ."-". substr($registro->fecha,5,2) ."-". substr($registro->fecha,8,2);
-        $this->gfecha= $registro->created_at;
-        //dd($this->gfecha);
-        $this->gcomprobante=$registro->comprobante;
-        $this->gdetalle=$registro->detalle;
-        $this->gbruto=$registro->BrutoComp;
-        $this->gpartiva=$registro->ParticIva;
-        $this->giva2=$registro->MontoIva;
-        $this->gexento=$registro->ExentoComp;
-        $this->gimpinterno=$registro->ImpInternoComp;
-        $this->gperciva=$registro->PercepcionIvaComp;
-        $this->gpergan=$registro->RetencionIB;
-        $this->gretgan=$registro->RetencionGan;
-        $this->gneto=$registro->NetoComp;
-        $this->gmontopagado=$registro->MontoPagadoComp;
-        $this->gcantidad=$registro->CantidadLitroComp;
-        $this->ganio=$registro->Anio;
-        $this->gmes=$registro->PasadoEnMes;
-        $this->garea=$registro->area_id;
-        $this->gcuenta=$registro->cuenta_id;
-        $this->giva=$registro->iva_id;
-        $this->gproveedor=$registro->proveedor_id;
-    }
+    // public function gAgregarComprobante() {
+    //     $registro=Comprobante::find($id);
+    //     //$this->gfecha=strtotime($registro->fecha); //substr($registro->fecha,8,2) ."-". substr($registro->fecha,5,2) ."-". substr($registro->fecha,0,4);;
+    //     //$this->gfecha= substr($registro->fecha,0,4) ."-". substr($registro->fecha,5,2) ."-". substr($registro->fecha,8,2);
+    //     $this->gfecha= $registro->created_at;
+    //     //dd($this->gfecha);
+    //     $this->gcomprobante=$registro->comprobante;
+    //     $this->gdetalle=$registro->detalle;
+    //     $this->gbruto=$registro->BrutoComp;
+    //     $this->gpartiva=$registro->ParticIva;
+    //     $this->giva2=$registro->MontoIva;
+    //     $this->gexento=$registro->ExentoComp;
+    //     $this->gimpinterno=$registro->ImpInternoComp;
+    //     $this->gperciva=$registro->PercepcionIvaComp;
+    //     $this->gpergan=$registro->RetencionIB;
+    //     $this->gretgan=$registro->RetencionGan;
+    //     $this->gneto=$registro->NetoComp;
+    //     $this->gmontopagado=$registro->MontoPagadoComp;
+    //     $this->gcantidad=$registro->CantidadLitroComp;
+    //     $this->ganio=$registro->Anio;
+    //     $this->gmes=$registro->PasadoEnMes;
+    //     $this->garea=$registro->area_id;
+    //     $this->gcuenta=$registro->cuenta_id;
+    //     $this->giva=$registro->iva_id;
+    //     $this->gproveedor=$registro->proveedor_id;
+    // }
 }
