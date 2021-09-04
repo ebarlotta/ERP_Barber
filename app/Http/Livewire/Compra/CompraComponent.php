@@ -20,7 +20,7 @@ class CompraComponent extends Component
     
     public $tabActivo=1;
 
-    public $gfecha,$gproveedor, $gcomprobante, $gcuenta, $gdetalle, $ganio, $gmes, $garea, $gpartiva, $gbruto, $giva, $giva2, $gexento, $gimpinterno, $gperciva, $gpergan, $gretgan, $gneto, $gmontopagado, $gcantidad;
+    public $gfecha,$gproveedor, $gcomprobante, $gcuenta, $gdetalle, $ganio, $gmes, $garea, $gpartiva, $gbruto, $giva, $giva2, $gexento, $gimpinterno, $gperciva, $gpergan, $gpergib, $gneto, $gmontopagado, $gcantidad, $comprobante_id;
     //Variables del filtro
     public $gfmes, $gfproveedor, $gfparticipa, $gfiva, $gfdetalle, $gfarea, $gfcuenta, $gfanio, $fgascendente, $gfsaldo;
     
@@ -30,6 +30,7 @@ class CompraComponent extends Component
     public function render()
     {
         $this->empresa_id = session('empresa_id');
+        //dd($this->empresa_id);
         $this->areas = Area::where('empresa_id', $this->empresa_id)->get();
         $this->cuentas = Cuenta::where('empresa_id', $this->empresa_id)->get();
         $this->proveedores = Proveedor::where('empresa_id', $this->empresa_id)->get();
@@ -46,18 +47,11 @@ class CompraComponent extends Component
         return view('livewire.cliente.createclientes')->with('isModalOpen', $this->isModalOpen)->with('name', $this->name);
     }
 
-    public function openModalPopover()
-    {
-        $this->isModalOpen = true;
-    }
+    public function openModalPopover() { $this->isModalOpen = true; }
 
-    public function closeModalPopover()
-    {
-        $this->isModalOpen = false;
-    }
+    public function closeModalPopover() { $this->isModalOpen = false; }
 
-    private function resetCreateForm()
-    {
+    private function resetCreateForm() {
         $this->cliente_id = '';
 
         $this->name = '';
@@ -70,19 +64,50 @@ class CompraComponent extends Component
     public function store()
     {
         $this->validate([
-            'name' => 'required',
-            'direccion' => 'required',
-            'cuil' => 'required|integer',
-            'telefono' => 'required|integer',
-            'email' => 'required|email',
+            'gfecha'            => 'required|date',
+            'gcomprobante'      => 'required',
+            'gbruto'            => 'double',
+            'gpartiva'          => 'required',
+            'giva2'             => 'double',
+            'gexento'           => 'double',
+            'gimpinterno'       => 'double',
+            'gperciva'          => 'double',
+            'gperib'            => 'double',
+            'gpergan'           => 'double',
+            'gneto'             => 'double',
+            'gmontopagado'      => 'double', 
+            'gcantidad'         => 'double',
+            'ganio'             => 'required|integer',
+            'gmes'              => 'required',
+            'giva'              => 'required|integer',
+            'garea'             => 'required|integer',
+            'gcuenta'           => 'required|integer',
+            'gproveedor'        => 'required|integer',
         ]);
-        Cliente::updateOrCreate(['id' => $this->cliente_id], [
-            'name' => $this->name,
-            'empresa_id' => $this->empresa_id,
-            'direccion' => $this->direccion,
-            'cuil' => $this->cuil,
-            'telefono' => $this->telefono,
-            'email' => $this->email,
+        Cliente::updateOrCreate(['id' => $this->comprobante_id], [
+
+            'fecha'             => $this->gfecha,
+            'comprobante'       => $this->gcomprobante,
+            'detalle'           => $this->gdetalle,
+            'BrutoComp'         => $this->gbruto,
+            'ParticIva'         => $this->gpartiva,
+            'MontoIva'          => $this->giva2,
+            'ExentoComp'        => $this->gexento,
+            'ImpInternoComp'    => $this->gimpinterno,
+            'PercepcionIvaComp' => $this->gperciva,
+            'RetencionIB'       => $this->gperib,
+            'RetencionGan'      => $this->gretgan,
+            'NetoComp'          => $this->gneto,
+            'MontoPagadoComp'   => $this->gmontopagado, 
+            'CantidadLitroComp' => $this->gcantidad,
+            'Anio'              => $this->ganio,
+            'PasadoEnMes'       => $this->gmes,
+            'iva_id'            => $this->giva,
+            'area_id'           => $this->garea,
+            'cuenta_id'         => $this->gcuenta,
+            'user_id'           => auth()->user()->id,
+            'empresa_id'        => session('empresa_id'),
+            'proveedor_id'      => $this->gproveedor,
         ]);
 
         session()->flash('message', $this->cliente_id ? 'Cliente Actualizado.' : 'Cliente Creado.');
@@ -141,17 +166,10 @@ class CompraComponent extends Component
             $Iva=Iva::find($registro->iva_id);
             $MontoIva=($registro->BrutoComp)*($Iva->monto/100);
             $Saldo=$Saldo+$registro->NetoComp-$registro->MontoPagadoComp;
-            $this->filtro=$this->filtro."<tr><td class=\"border border-green-600\">$Fecha</td><td class=\"border border-green-600\">$registro->comprobante</td><td class=\"border border-green-600\">Proveedor</td><td class=\"border border-green-600\">$registro->detalle</td><td class=\"border border-green-600\">".number_format($registro->BrutoComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($MontoIva, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->ExentoComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->ImpInternoComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->PercepcionIvaComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->RetencionIB, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->RetencionGan, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->NetoComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->MontoPagadoComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($Saldo, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->CantidadLitroComp, 2, ',')."</td><td class=\"border border-green-600\">$registro->ParticIva</td><td class=\"border border-green-600\">" . $this->ConvierteMesEnTexto($registro->PasadoEnMes) . "</td><td class=\"border border-green-600\">".$Area->name."</td><td class=\"border border-green-600\">".$Cuenta->name."</td></tr>
+            $this->filtro=$this->filtro."<tr class=\"hover:bg-yellow-100\" wire:click=\"gCargarRegistro(". $registro->id .")\"><td class=\"border border-green-600\">$Fecha</td><td class=\"border border-green-600\">$registro->comprobante</td><td class=\"border border-green-600\">Proveedor</td><td class=\"border border-green-600\">$registro->detalle</td><td class=\"border border-green-600\">".number_format($registro->BrutoComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($MontoIva, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->ExentoComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->ImpInternoComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->PercepcionIvaComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->RetencionIB, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->RetencionGan, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->NetoComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->MontoPagadoComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($Saldo, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->CantidadLitroComp, 2, ',')."</td><td class=\"border border-green-600\">$registro->ParticIva</td><td class=\"border border-green-600\">" . $this->ConvierteMesEnTexto($registro->PasadoEnMes) . "</td><td class=\"border border-green-600\">".$Area->name."</td><td class=\"border border-green-600\">".$Cuenta->name."</td></tr>
             </tr>";
         }
-        // foreach($registros as $registro) {
-        //     $Fecha = substr($registro->fecha,8,2) ."-". substr($registro->fecha,5,2) ."-". substr($registro->fecha,0,4);
-        //     $Area=$registro->area;
-        //     $Cuenta=$registro->cuenta;
-        //     $Saldo=$Saldo+$registro->NetoComp-$registro->MontoPagadoComp;
-        //     $this->filtro=$this->filtro."<tr><td class=\"border border-green-600\">$Fecha</td><td class=\"border border-green-600\">$registro->comprobante</td><td class=\"border border-green-600\">Proveedor</td><td class=\"border border-green-600\">$registro->detalle</td><td class=\"border border-green-600\">$registro->BrutoComp</td><td class=\"border border-green-600\">$registro->IvaComp</td><td class=\"border border-green-600\">$registro->ExentoComp</td><td class=\"border border-green-600\">$registro->ImpInternoComp</td><td class=\"border border-green-600\">$registro->PercepcionIvaComp</td><td class=\"border border-green-600\">$registro->RetencionIB</td><td class=\"border border-green-600\">$registro->RetencionGan</td><td class=\"border border-green-600\">$registro->NetoComp</td><td class=\"border border-green-600\">$registro->MontoPagadoComp</td><td class=\"border border-green-600\">$Saldo</td><td class=\"border border-green-600\">$registro->CantidadLitroComp</td><td class=\"border border-green-600\">$registro->ParticIva</td><td class=\"border border-green-600\">" . $this->ConvierteMesEnTexto($registro->PasadoEnMes) . "</td><td class=\"border border-green-600\">".$Area['name']."</td><td class=\"border border-green-600\">".$Cuenta['name']."</td></tr>
-        //     </tr>";
-        // }
+        
         $this->filtro=$this->filtro."</table>";
     }
 
@@ -191,5 +209,60 @@ class CompraComponent extends Component
         if ($this->fgascendente) $sql=$sql . " ASC";
         //dd($sql);
         return $sql;
+    }
+
+    public function gCargarRegistro($id) {
+        $registro=Comprobante::find($id);
+        $this->comprobante_id = $id;
+        //$this->gfecha=strtotime($registro->fecha); //substr($registro->fecha,8,2) ."-". substr($registro->fecha,5,2) ."-". substr($registro->fecha,0,4);;
+        //$this->gfecha= substr($registro->fecha,0,4) ."-". substr($registro->fecha,5,2) ."-". substr($registro->fecha,8,2);
+        $this->gfecha= $registro->created_at;
+        //dd($this->gfecha);
+        $this->gcomprobante=$registro->comprobante;
+        $this->gdetalle=$registro->detalle;
+        $this->gbruto=$registro->BrutoComp;
+        $this->gpartiva=$registro->ParticIva;
+        $this->giva2=$registro->MontoIva;
+        $this->gexento=$registro->ExentoComp;
+        $this->gimpinterno=$registro->ImpInternoComp;
+        $this->gperciva=$registro->PercepcionIvaComp;
+        $this->gpergan=$registro->RetencionIB;
+        $this->gretgan=$registro->RetencionGan;
+        $this->gneto=$registro->NetoComp;
+        $this->gmontopagado=$registro->MontoPagadoComp;
+        $this->gcantidad=$registro->CantidadLitroComp;
+        $this->ganio=$registro->Anio;
+        $this->gmes=$registro->PasadoEnMes;
+        $this->garea=$registro->area_id;
+        $this->gcuenta=$registro->cuenta_id;
+        $this->giva=$registro->iva_id;
+        $this->gproveedor=$registro->proveedor_id;
+    }
+
+    public function gAgregarComprobante() {
+        $registro=Comprobante::find($id);
+        //$this->gfecha=strtotime($registro->fecha); //substr($registro->fecha,8,2) ."-". substr($registro->fecha,5,2) ."-". substr($registro->fecha,0,4);;
+        //$this->gfecha= substr($registro->fecha,0,4) ."-". substr($registro->fecha,5,2) ."-". substr($registro->fecha,8,2);
+        $this->gfecha= $registro->created_at;
+        //dd($this->gfecha);
+        $this->gcomprobante=$registro->comprobante;
+        $this->gdetalle=$registro->detalle;
+        $this->gbruto=$registro->BrutoComp;
+        $this->gpartiva=$registro->ParticIva;
+        $this->giva2=$registro->MontoIva;
+        $this->gexento=$registro->ExentoComp;
+        $this->gimpinterno=$registro->ImpInternoComp;
+        $this->gperciva=$registro->PercepcionIvaComp;
+        $this->gpergan=$registro->RetencionIB;
+        $this->gretgan=$registro->RetencionGan;
+        $this->gneto=$registro->NetoComp;
+        $this->gmontopagado=$registro->MontoPagadoComp;
+        $this->gcantidad=$registro->CantidadLitroComp;
+        $this->ganio=$registro->Anio;
+        $this->gmes=$registro->PasadoEnMes;
+        $this->garea=$registro->area_id;
+        $this->gcuenta=$registro->cuenta_id;
+        $this->giva=$registro->iva_id;
+        $this->gproveedor=$registro->proveedor_id;
     }
 }

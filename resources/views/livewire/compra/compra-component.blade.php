@@ -54,7 +54,7 @@
 								<div style="background-color: #E3F6CE" class="block">
 									<!-- Botones -->
 									<div class="flex justify-center">
-										<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3">Agregar</button>
+										<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="store">Agregar</button>
 										<button class="rounded-md bg-yellow-300 px-8 py-1 mx-2 mt-3">Modificar</button>
 										<button class="rounded-md bg-red-300 px-8 py-1 mx-2 mt-3">Eliminar</button>
 									</div>
@@ -114,31 +114,31 @@
 											<label for="">Mes</label><br>
 											<select class="ml-2 w-full text-xs px-1 rounded-md h-7" wire:model="gmes">
 												<option value=" "> </option>
-												<option value="enero">enero
+												<option value="1">enero
 												</option>
-												<option value="febrero">febrero
+												<option value="2">febrero
 												</option>
-												<option value="marzo">marzo
+												<option value="3">marzo
 												</option>
-												<option value="abril">abril
+												<option value="4">abril
 												</option>
-												<option value="mayo">mayo
+												<option value="5">mayo
 												</option>
-												<option value="junio">junio
+												<option value="6">junio
 												</option>
-												<option value="julio">julio
+												<option value="7">julio
 												</option>
-												<option value="agosto">agosto
+												<option value="8">agosto
 												</option>
-												<option value="setiembre">
+												<option value="9">
 													setiembre
 												</option>
-												<option value="octubre">octubre
+												<option value="10">octubre
 												</option>
-												<option value="noviembre">
+												<option value="11">
 													noviembre
 												</option>
-												<option value="diciembre">
+												<option value="12">
 													diciembre
 												</option>
 											</select>
@@ -200,7 +200,7 @@
 										</div>
 										<div class="mr-1 w-28">
 											<label for="">Ret/Perc.IB</label><br>
-											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gpergan">
+											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gpergib">
 										</div>
 										<div class="mr-1 w-28">
 											<label for="">RetGan</label><br>
