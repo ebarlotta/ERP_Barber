@@ -3,16 +3,7 @@
 	<x-tituloslim>Comprobantes de Compras</x-tituloslim>
 	<div class="content-center flex">
 		<div class="bg-white p-2 text-center rounded-lg shadow-lg w-full">
-			@if (session()->has('message'))
-				<div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
-					role="alert">
-					<div class="flex">
-						<div>
-							<p class="text-xm bg-lightgreen">{{ session('message') }}</p>
-						</div>
-					</div>
-				</div>
-			@endif
+			
 			<!-- Tabs  -->
 			<div class="flex flex-wrap" id="tabs-id">
 				<div class="w-full">
@@ -55,9 +46,77 @@
 									<!-- Botones -->
 									<div class="flex justify-center">
 										<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="store">Agregar</button>
-										<button class="rounded-md bg-yellow-300 px-8 py-1 mx-2 mt-3">Modificar</button>
-										<button class="rounded-md bg-red-300 px-8 py-1 mx-2 mt-3">Eliminar</button>
+										<button class="rounded-md bg-yellow-300 px-8 py-1 mx-2 mt-3" wire:click="openModalModify">Modificar</button>
+										<button class="rounded-md bg-red-300 px-8 py-1 mx-2 mt-3" wire:click="openModalDelete">Eliminar</button>
+										<div class="absolute right-0">
+											@if (session()->has('message'))
+												<div class="bg-green-300 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-2 shadow-lg my-2"
+													role="alert">
+													<div class="flex">
+														<div>
+															<p class="text-xm bg-lightgreen">{{ session('message') }}</p>
+														</div>
+													</div>
+												</div>
+											@endif
+											@if (session()->has('message2'))
+												<div class="bg-yellow-300 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-2 shadow-lg my-2"
+													role="alert">
+													<div class="flex">
+														<div>
+															<p class="text-xm bg-lightgreen">{{ session('message2') }}</p>
+														</div>
+													</div>
+												</div>
+											@endif
+											@if (session()->has('message3'))
+												<div class="bg-red-300 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-2 shadow-lg my-2"
+													role="alert">
+													<div class="flex">
+														<div>
+															<p class="text-xm bg-lightgreen">{{ session('message3') }}</p>
+														</div>
+													</div>
+												</div>
+											@endif
+										</div>
 									</div>
+									<!-- Modals -->
+									@if ($this->ModalDelete)
+										<div class="inset-0 fixed">
+											<div class="absolute flex justify-center w-full mt-10 p-18">
+												<div class=" bg-gray-400 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-2 shadow-lg my-2" role="dialog">
+													<div class=" bg-gray-400 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+														Los datos van a ser eliminados, seguro que quiere continuar con la operación?
+												</div>
+													<div class="flex justify-end">
+														<!-- Botón de Eliminar-->
+														<button class="rounded-md border m-6 px-4 py-2 bg-red-300 text-base leading-6 font-bold text-gray-900 shadow-sm hover:bg-red-400 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5" wire:click="delete()">Eliminar</button>
+														<!-- Botón de Cerrar -->
+														<button class="rounded-md border m-6 px-4 py-2 bg-yellow-300 text-base leading-6 font-bold text-gray-900 shadow-sm hover:bg-yellow-400 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5" wire:click="closeModalDelete()">Cerrar</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									@endif
+
+									@if ($this->ModalModify)
+										<div class="inset-0 fixed">
+											<div class="absolute flex justify-center w-full mt-10 p-18">
+												<div class=" bg-gray-400 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-2 shadow-lg my-2" role="dialog">
+													<div class=" bg-gray-400 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+														Los datos van a ser modificados, seguro que quiere continuar con la operación?
+												</div>
+													<div class="flex justify-end">
+														<!-- Botón de Eliminar-->
+														<button class="rounded-md border m-6 px-4 py-2 bg-red-300 text-base leading-6 font-bold text-gray-900 shadow-sm hover:bg-red-400 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5" wire:click="edit()">Modificar</button>
+														<!-- Botón de Cerrar -->
+														<button class="rounded-md border m-6 px-4 py-2 bg-yellow-300 text-base leading-6 font-bold text-gray-900 shadow-sm hover:bg-yellow-400 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5" wire:click="closeModalModify()">Cerrar</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									@endif
 									<!-- Gestionar Comprobantes -->
 									<div class="flex flex-wrap mt-3 text-xs justify-around">
 										<div class="w-32 mr-1">
@@ -84,7 +143,7 @@
 										<div class="w-32 mr-1">
 											<label for="">Participa Iva</label><br>
 											<select class="ml-2 w-full text-xs px-1 rounded-md h-7 leading-none" wire:model="gpartiva">
-												<option value=""> </option>
+												<option value=""></option>
 												<option value="Si">Si</option>
 												<option value="No">No</option>
 												<option value="Ganancias">Ganancias</option>
@@ -100,6 +159,7 @@
 										<div class="w-24 mr-1">
 											<label for="">Año</label><br>
 											<select class="ml-2 w-full text-xs rounded-md h-7 leading-none" wire:model="ganio">
+												<option value=""></option>
 												<option value="2021">2021</option>
 												<option value="2020">2020</option>
 												<option value="2019">2019</option>
@@ -116,7 +176,7 @@
 										<div class="w-24 mr-1">
 											<label for="">Mes</label><br>
 											<select class="ml-2 w-full text-xs px-1 rounded-md h-7 leading-none" wire:model="gmes">
-												<option value=" "> </option>
+												<option value=""></option>
 												<option value="1">enero
 												</option>
 												<option value="2">febrero
@@ -175,13 +235,13 @@
 									<div class="flex flex-wrap text-xs justify-around">
 										<div class="mr-1 w-28">
 											<label for="">Bruto</label><br>
-											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gbruto">
+											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" id="Bruto" name="Bruto"onkeyup="return soloNumero(this.value,10,2);" wire:model="gbruto" wire:keyup="CalcularIva()">
 											@error('gbruto') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
-										<div class="w-20 mr-1">
+										<div class="w-28 mr-1">
 											<label for="">IVA</label><br>
-											<select class="ml-2 w-full text-xs rounded-md h-7 leading-none" wire:model="giva">
-												<option value=" "> </option>
+											<select class="ml-2 w-full text-xs rounded-md h-7 leading-none" wire:model="giva" wire:change="CalcularIva()">
+												<option value="1" selected>Iva 0%</option>
 												@foreach ($ivas as $iva)
 													<option value="{{ $iva->id }}">
 														{{ $iva->descripcion }}
@@ -190,9 +250,9 @@
 											</select>
 											@error('giva') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
-										<div class="mr-1 w-28">
+										<div class="mr-1 w-24">
 											<label for="">Iva</label><br>
-											<input class="ml-2 w-full text-xs text-right rounded-md h-7 leading-none" type="text" wire:model="giva2">
+											<input class="ml-2 w-full text-xs text-right rounded-md h-7 leading-none" disabled type="text" wire:model="giva2">
 											@error('giva2') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
 										<div class="mr-1 w-28">
@@ -200,7 +260,7 @@
 											<input class="ml-2 w-full text-xs text-right rounded-md h-7 leading-none" type="text" wire:model="gexento">
 											@error('gexento') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
-										<div class="mr-1 w-28">
+										<div class="mr-1 w-24">
 											<label for="">Imp.Interno</label><br>
 											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gimpinterno">
 											@error('gimpinterno') <span class="text-red-500">{{ $message }}</span>@enderror
@@ -229,7 +289,7 @@
 											<label for="">Monto Pagado</label><br>
 											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gmontopagado">
 										</div>
-										<div class="mr-1 w-28">
+										<div class="mr-1 w-20">
 											<label for="">Cantidad</label><br>
 											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gcantidad">
 										</div>

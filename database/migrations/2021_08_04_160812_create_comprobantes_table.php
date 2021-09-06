@@ -23,7 +23,7 @@ class CreateComprobantesTable extends Migration
             $table->string('detalle')->nullable();
 
             $table->double('BrutoComp')->default(0);
-            $table->double('ParticIva')->nullable()->default("No");
+            $table->string('ParticIva')->default("No");
             $table->double('MontoIva')->nullable()->default(0);
             $table->double('ExentoComp')->nullable()->default(0);
             $table->double('ImpInternoComp')->nullable()->default(0);
