@@ -8,33 +8,28 @@
 			<div class="flex flex-wrap" id="tabs-id">
 				<div class="w-full">
 					<ul class="flex mb-0 list-none flex-wrap pb-4 flex-row">
-						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center cursor-pointer">
-							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-white bg-pink-600"
-								wire:click="CambiarTab(1)">
+						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-white bg-pink-600"	wire:click="CambiarTab(1)">
 								<i class="fas fa-space-shuttle text-base mr-1"></i> Gestionar Comprobantes
 							</a>
 						</li>
-						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center cursor-pointer">
-							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white"
-								wire:click="CambiarTab(2)">
-								<i class="fas fa-cog text-base mr-1"></i> Cuentas Corrientes
-							</a>
-						</li>
-						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center cursor-pointer">
-							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white"
-								wire:click="CambiarTab(3)">
+						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white" wire:click="CambiarTab(2)">
 								<i class="fas fa-cog text-base mr-1"></i> Deuda a Proveedores
 							</a>
 						</li>
-						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center cursor-pointer">
-							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white"
-								wire:click="CambiarTab(4)">
+						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white"	wire:click="CambiarTab(3)">
 								<i class="fas fa-briefcase text-base mr-1"></i> Crédito de Proveedores
 							</a>
 						</li>
-						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center cursor-pointer">
-							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white"
-								wire:click="CambiarTab(5)">
+						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white"	wire:click="CambiarTab(4)">
+								<i class="fas fa-cog text-base mr-1"></i> Cuentas Corrientes
+							</a>
+						</li>
+						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white"	wire:click="CambiarTab(5)">
 								<i class="fas fa-briefcase text-base mr-1"></i> Libros de Iva
 							</a>
 						</li>
@@ -45,7 +40,7 @@
 								<div style="background-color: #E3F6CE" class="block">
 									<!-- Botones -->
 									<div class="flex justify-center">
-										<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3 " wire:click="store">Agregar</button>
+										<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="store">Agregar</button>
 										<button class="rounded-md bg-yellow-300 px-8 py-1 mx-2 mt-3" wire:click="openModalModify">Modificar</button>
 										<button class="rounded-md bg-red-300 px-8 py-1 mx-2 mt-3" wire:click="openModalDelete">Eliminar</button>
 										<div class="absolute right-0">
@@ -235,7 +230,7 @@
 									<div class="flex flex-wrap text-xs justify-around">
 										<div class="mr-1 w-28">
 											<label for="">Bruto</label><br>
-											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gbruto" wire:keyup="CalcularIva()">
+											<input class="num ml-2 w-full text-xs text-right rounded-md h-7" type="text" id="Bruto" name="Bruto" wire:model="gbruto" wire:keyup="CalcularIva()">
 											@error('gbruto') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
 										<div class="w-28 mr-1">
@@ -257,27 +252,27 @@
 										</div>
 										<div class="mr-1 w-28">
 											<label for="">Exento</label><br>
-											<input class="ml-2 w-full text-xs text-right rounded-md h-7 leading-none" type="text" wire:model="gexento" wire:keyup="CalcularNeto">
+											<input class="num ml-2 w-full text-xs text-right rounded-md h-7 leading-none" type="text" wire:model="gexento" wire:keyup="CalcularNeto()">
 											@error('gexento') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
 										<div class="mr-1 w-24">
 											<label for="">Imp.Interno</label><br>
-											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gimpinterno" wire:keyup="CalcularNeto">
+											<input class="num ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gimpinterno" wire:keyup="CalcularNeto()">
 											@error('gimpinterno') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
 										<div class="mr-1 w-28">
 											<label for="">Ret/Perc.Iva</label><br>
-											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gperciva" wire:keyup="CalcularNeto">
+											<input class="num ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gperciva" wire:keyup="CalcularNeto()">
 											@error('gperciva') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
 										<div class="mr-1 w-28">
 											<label for="">Ret/Perc.IB</label><br>
-											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gperib" wire:keyup="CalcularNeto">
+											<input class="num ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gperib" wire:keyup="CalcularNeto()">
 											@error('gperib') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
 										<div class="mr-1 w-28">
 											<label for="">RetGan</label><br>
-											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gretgan" wire:keyup="CalcularNeto">
+											<input class="num ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gretgan" wire:keyup="CalcularNeto()">
 											@error('gretgan') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
 										<div class="mr-1 w-28">
@@ -287,11 +282,11 @@
 										</div>
 										<div class="mr-1 w-28">
 											<label for="">Monto Pagado</label><br>
-											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gmontopagado">
+											<input class="num ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gmontopagado">
 										</div>
 										<div class="mr-1 w-20">
 											<label for="">Cantidad</label><br>
-											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gcantidad">
+											<input class="num ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gcantidad">
 										</div>
 									</div>
 									<div>
@@ -407,15 +402,24 @@
 								</div>
 							</div>
 							<div class="{{ $tabActivo != 2 ? 'hidden' : '' }}">
-								<p>
-									Completely synergize resource taxing relationships via
-									premier niche markets. Professionallaaaaaaay cultivate one-to-one
-									customer service with robust ideas.
-									<br />
-									<br />
-									Dynamically innovate resource-leveling customer service for
-									state of the art customer service.
-								</p>
+								<div>
+									Àreas a incluir 
+									<select class="ml-2 text-xs rounded-md h-7 leading-none">
+										<option value="0">Todas</option>
+										@foreach ($areas as $area)
+											<option value="{{ $area->id }}">{{ $area->name }}</option>
+										@endforeach
+									</select>
+								</div>
+								<div>
+									Desde <input class="ml-2 text-xs rounded-md h-7" type="date"> Hasta <input class="ml-2 text-xs rounded-md h-7" type="date">
+								</div>
+								<div>
+									<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularDeudaProveedores()">Solicitar Listado</button><button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3">Generar PDF</button>
+								</div>
+								@if ($MostrarDeudaProveedores)
+									{!! $DeudaProveedoresFiltro !!}
+								@endif
 							</div>
 							<div class="{{ $tabActivo != 3 ? 'hidden' : '' }}">
 								<p>
@@ -468,3 +472,7 @@
 		onclick="javascript: window.location.href='../../sistema/menu.php';">&nbsp;&nbsp;&nbsp;Volver&nbsp;&nbsp;&nbsp;</button>
 </footer>
 </div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="js/jquery.mask.js"></script>
+<script src="js/examples.js"></script>
