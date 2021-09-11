@@ -8,31 +8,31 @@
 			<div class="flex flex-wrap" id="tabs-id">
 				<div class="w-full">
 					<ul class="flex mb-0 list-none flex-wrap pb-4 flex-row">
-						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center cursor-pointer">
 							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-white bg-pink-600"
 								wire:click="CambiarTab(1)">
 								<i class="fas fa-space-shuttle text-base mr-1"></i> Gestionar Comprobantes
 							</a>
 						</li>
-						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center cursor-pointer">
 							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white"
 								wire:click="CambiarTab(2)">
 								<i class="fas fa-cog text-base mr-1"></i> Cuentas Corrientes
 							</a>
 						</li>
-						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center cursor-pointer">
 							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white"
 								wire:click="CambiarTab(3)">
 								<i class="fas fa-cog text-base mr-1"></i> Deuda a Proveedores
 							</a>
 						</li>
-						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center cursor-pointer">
 							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white"
 								wire:click="CambiarTab(4)">
 								<i class="fas fa-briefcase text-base mr-1"></i> Crédito de Proveedores
 							</a>
 						</li>
-						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center cursor-pointer">
 							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white"
 								wire:click="CambiarTab(5)">
 								<i class="fas fa-briefcase text-base mr-1"></i> Libros de Iva
@@ -45,7 +45,7 @@
 								<div style="background-color: #E3F6CE" class="block">
 									<!-- Botones -->
 									<div class="flex justify-center">
-										<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="store">Agregar</button>
+										<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3 " wire:click="store">Agregar</button>
 										<button class="rounded-md bg-yellow-300 px-8 py-1 mx-2 mt-3" wire:click="openModalModify">Modificar</button>
 										<button class="rounded-md bg-red-300 px-8 py-1 mx-2 mt-3" wire:click="openModalDelete">Eliminar</button>
 										<div class="absolute right-0">
@@ -235,7 +235,7 @@
 									<div class="flex flex-wrap text-xs justify-around">
 										<div class="mr-1 w-28">
 											<label for="">Bruto</label><br>
-											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" id="Bruto" name="Bruto"onkeyup="return soloNumero(this.value,10,2);" wire:model="gbruto" wire:keyup="CalcularIva()">
+											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gbruto" wire:keyup="CalcularIva()">
 											@error('gbruto') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
 										<div class="w-28 mr-1">
@@ -257,27 +257,27 @@
 										</div>
 										<div class="mr-1 w-28">
 											<label for="">Exento</label><br>
-											<input class="ml-2 w-full text-xs text-right rounded-md h-7 leading-none" type="text" wire:model="gexento">
+											<input class="ml-2 w-full text-xs text-right rounded-md h-7 leading-none" type="text" wire:model="gexento" wire:keyup="CalcularNeto">
 											@error('gexento') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
 										<div class="mr-1 w-24">
 											<label for="">Imp.Interno</label><br>
-											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gimpinterno">
+											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gimpinterno" wire:keyup="CalcularNeto">
 											@error('gimpinterno') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
 										<div class="mr-1 w-28">
 											<label for="">Ret/Perc.Iva</label><br>
-											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gperciva">
+											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gperciva" wire:keyup="CalcularNeto">
 											@error('gperciva') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
 										<div class="mr-1 w-28">
 											<label for="">Ret/Perc.IB</label><br>
-											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gperib">
+											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gperib" wire:keyup="CalcularNeto">
 											@error('gperib') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
 										<div class="mr-1 w-28">
 											<label for="">RetGan</label><br>
-											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gretgan">
+											<input class="ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gretgan" wire:keyup="CalcularNeto">
 											@error('gretgan') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
 										<div class="mr-1 w-28">

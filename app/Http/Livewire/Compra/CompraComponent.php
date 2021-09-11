@@ -11,8 +11,6 @@ use App\Models\EmpresaUsuario;
 use App\Models\Iva;
 use Illuminate\Support\Facades\DB;
 
-use function PHPUnit\Framework\isEmpty;
-
 class CompraComponent extends Component
 {
     public $isModalOpen = false;
@@ -56,19 +54,20 @@ class CompraComponent extends Component
     public function closeModalModify() { $this->ModalModify = false;  }
 
     public function RellenarCamposVacios() {
-        if(isEmpty($this->gfecha)) $this->gfecha=now();
-        if(isEmpty($this->gbruto)) $this->gbruto=0.00;
+        if(is_null($this->gfecha)) $this->gfecha=now();
+        if(is_null($this->gbruto)) $this->gbruto="0.00";
+        //dd($this->gbruto);
 
-        if(isEmpty($this->gexento)) $this->gexento=0.00;
-        if(isEmpty($this->gimpinterno)) $this->gimpinterno=0.00;
-        if(isEmpty($this->gperciva)) $this->gperciva=0.00;
-        if(isEmpty($this->gperib)) $this->gperib=0.00;
-        if(isEmpty($this->gretgan)) $this->gretgan=0.00;
-        if(isEmpty($this->gneto)) $this->gneto=0.00;
-        if(isEmpty($this->gbruto)) $this->gbruto=0.00;
-        if(isEmpty($this->gmontopagado)) $this->gmontopagado=0.00;
-        if(isEmpty($this->gcantidad)) $this->gcantidad=0.00;
-        if(isEmpty($this->giva2)) $this->giva2=0.00;
+        if(is_null($this->gexento)) $this->gexento=0.00;
+        if(is_null($this->gimpinterno)) $this->gimpinterno=0.00;
+        if(is_null($this->gperciva)) $this->gperciva=0.00;
+        if(is_null($this->gperib)) $this->gperib=0.00;
+        if(is_null($this->gretgan)) $this->gretgan=0.00;
+        if(is_null($this->gneto)) $this->gneto=0.00;
+        if(is_null($this->gbruto)) $this->gbruto=0.00;
+        if(is_null($this->gmontopagado)) $this->gmontopagado=0.00;
+        if(is_null($this->gcantidad)) $this->gcantidad=0.00;
+        if(is_null($this->giva2)) $this->giva2=0.00;
         
         
     }
@@ -126,6 +125,7 @@ class CompraComponent extends Component
     }
 
     public function edit() {
+        $this->RellenarCamposVacios();
         $comp = Comprobante::find($this->comprobante_id);
         $this->validate([
             'gfecha'            => 'required|date',
@@ -147,6 +147,7 @@ class CompraComponent extends Component
             'gcuenta'           => 'required|integer',
             'gproveedor'        => 'required|integer',
         ]);
+        //dd($this->gbruto. " " . $this->giva);
         $comp->update([
             'fecha'             => $this->gfecha,
             'comprobante'       => $this->gcomprobante,
@@ -198,9 +199,10 @@ class CompraComponent extends Component
         $Saldo=0;
         $this->filtro="
         <table class=\"table-auto w-full border border-green-800 border-collapse bg-gray-300 rounded-md text-xs\">
-            <tr>
+            <tr class=\"bg-gradient-to-r from-green-400 to-blue-500\">
                 <td class=\"border border-green-600\">Fecha</td><td class=\"border border-green-600\">Comprobante</td><td class=\"border border-green-600\">Proveedor</td><td class=\"border border-green-600\">Detalle</td><td class=\"border border-green-600\">Bruto</td><td class=\"border border-green-600\">Iva</td><td class=\"border border-green-600\">exento</td><td class=\"border border-green-600\">Imp.Interno</td><td class=\"border border-green-600\">Percec.Iva</td><td class=\"border border-green-600\">Retenc.IB</td><td class=\"border border-green-600\">Retenc.Gan</td><td class=\"border border-green-600\">Neto</td><td class=\"border border-green-600\">Pagado</td><td class=\"border border-green-600\">Saldo</td><td class=\"border border-green-600\">Cant.Litros</td><td class=\"border border-green-600\">Partic.Iva</td><td class=\"border border-green-600\">Pasado EnMes</td><td class=\"border border-green-600\">Area</td><td class=\"border border-green-600\">Cuenta</td>
             </tr>";
+            $Cantidad = 0; $MontoPagado = 0; $Neto = 0; $RetGan = 0; $RetIB = 0; $PerIva = 0; $Exento = 0 ;$ImpInterno = 0; $Bruto = 0; $MontoIvaT =0; $NetoT = 0;
         foreach($registros as $registro) {
             //dd($registro);
             $Fecha = substr($registro->fecha,8,2) ."-". substr($registro->fecha,5,2) ."-". substr($registro->fecha,0,4);
@@ -210,11 +212,24 @@ class CompraComponent extends Component
             $Proveedor=Proveedor::find($registro->proveedor_id);
             //dd($Iva->monto);
             $MontoIva=($registro->BrutoComp*$Iva->monto/100);
+            $Neto = $Neto + $registro->NetoComp;
+            //Sumatoria de los registros encontrados para subtotal
+            $Bruto = $Bruto + $registro->BrutoComp;
+            $MontoIvaT = $MontoIvaT + $registro->MontoIva;
+            $Exento = $Exento + $registro->ExentoComp;
+            $ImpInterno= $ImpInterno + $registro->ImpInternoComp;
+            $PerIva = $PerIva + $registro->PercepcionIvaComp;
+            $RetIB = $RetIB + $registro->RetencionIB;
+            $RetGan = $RetGan + $registro->RetencionGan;
+            $MontoPagado = $MontoPagado + $registro->MontoPagadoComp;
             $Saldo=$Saldo+$registro->NetoComp-$registro->MontoPagadoComp;
-            $this->filtro=$this->filtro."<tr class=\"hover:bg-yellow-100\" wire:click=\"gCargarRegistro(". $registro->id .")\"><td class=\"border border-green-600\">$Fecha</td><td class=\"border border-green-600\">$registro->comprobante</td><td class=\"border border-green-600\">$Proveedor->name</td><td class=\"border border-green-600\">$registro->detalle</td><td class=\"border border-green-600\">".number_format($registro->BrutoComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($MontoIva, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->ExentoComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->ImpInternoComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->PercepcionIvaComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->RetencionIB, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->RetencionGan, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->NetoComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->MontoPagadoComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($Saldo, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->CantidadLitroComp, 2, ',')."</td><td class=\"border border-green-600\">$registro->ParticIva</td><td class=\"border border-green-600\">" . $this->ConvierteMesEnTexto($registro->PasadoEnMes) . "</td><td class=\"border border-green-600\">".$Area->name."</td><td class=\"border border-green-600\">".$Cuenta->name."</td></tr>
+            $Cantidad=$Cantidad+$registro->CantidadLitroComp;
+            $NetoT = $NetoT + $registro->NetoComp;
+
+            $this->filtro=$this->filtro."<tr class=\"hover:bg-yellow-100\" wire:click=\"gCargarRegistro(". $registro->id .")\"><td class=\"border border-green-600\">$Fecha</td><td class=\"border border-green-600\">$registro->comprobante</td><td class=\"border border-green-600\">$Proveedor->name</td><td class=\"border border-green-600\">$registro->detalle</td><td class=\"border border-green-600\">".number_format($registro->BrutoComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($MontoIva, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->ExentoComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->ImpInternoComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->PercepcionIvaComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->RetencionIB, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->RetencionGan, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->NetoComp, 2, ',')."</td><td class=\"text-red-600 border border-green-600\">".number_format($registro->MontoPagadoComp, 2, ',')."</td><td class=\"border border-green-600\">".number_format($Saldo, 2, ',')."</td><td class=\"border border-green-600\">".number_format($registro->CantidadLitroComp, 2, ',')."</td><td class=\"border border-green-600\">$registro->ParticIva</td><td class=\"border border-green-600\">" . $this->ConvierteMesEnTexto($registro->PasadoEnMes) . "</td><td class=\"border border-green-600\">".$Area->name."</td><td class=\"border border-green-600\">".$Cuenta->name."</td></tr>
             </tr>";
         }
-        
+        $this->filtro = $this->filtro."<tr class=\"bg-gradient-to-r from-purple-400 via-pink-500 to-red-500\"><td></td><td></td><td></td><td>Totales</td><td>".number_format($Bruto, 2, ',')."</td><td>".number_format($MontoIvaT, 2, ',')."</td><td>".number_format($Exento, 2, ',')."</td><td>".number_format($ImpInterno, 2, ',')."</td><td>".number_format($PerIva, 2, ',')."</td><td>".number_format($RetIB, 2, ',')."</td><td>".number_format($RetGan, 2, ',')."</td><td>".number_format($NetoT, 2, ',')."</td><td>".number_format($MontoPagado, 2, ',')."</td><td><strong>".number_format($Saldo, 2, ',')."</strong></td><td>".number_format($Cantidad, 2, ',')."</td></tr>";
         $this->filtro=$this->filtro."</table>";
     }
 
@@ -312,6 +327,12 @@ class CompraComponent extends Component
         //dd($this->gbruto);
         if ($this->gbruto=="") $this->gbruto=0.00;
         $this->iva_value= $a->monto;
-        $this->giva2 = number_format($this->gbruto * $this->iva_value /100, 2, '.');
+        (float) $this->giva2 = number_format(((float)$this->gbruto * (float)$this->iva_value ) / 100, 2, '.');
+        $this->CalcularNeto();
+        $this->gfsaldo = $this->gneto-$this->gmontopagado;
+    }
+
+    public function CalcularNeto() {
+        $this->gneto = floatval($this->gbruto) + floatval($this->giva2) + floatval($this->gexento) + floatval($this->gimpinterno) + floatval($this->gperciva) + floatval($this->gperib) + floatval($this->gretgan);
     }
 }
