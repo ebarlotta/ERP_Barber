@@ -449,7 +449,8 @@
 										Desde <input class="ml-2 text-xs rounded-md h-7 ml-5" type="date" wire:model="ddesde"> Hasta <input class="ml-2 text-xs rounded-md h-7" type="date" wire:model="dhasta">
 									</div>
 									<div class="mt-4">
-										<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularDeudaProveedores()">Solicitar Listado</button><button class="rounded-md bg-green-300 px-8 	py-1 mx-2 mt-3">Generar PDF</button>
+										<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularDeudaProveedores(0)">Solicitar Listado</button><button class="rounded-md bg-green-300 px-8 	py-1 mx-2 mt-3" wire:click="DeudaPFD()">Generar PDF</button>
+										<a class="btn btn-primary" href="{{ URL::to('/pdf') }}">Export to PDF</a>
 									</div>
 									<div class="flex justify-center w-full">
 										@if ($MostrarDeudaProveedores)

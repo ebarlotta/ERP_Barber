@@ -10,6 +10,7 @@ use App\Models\Cuenta;
 use App\Models\EmpresaUsuario;
 use App\Models\Iva;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class CompraComponent extends Component
 {
@@ -380,7 +381,7 @@ class CompraComponent extends Component
         $this->gneto = number_format( floatval($this->gbruto) + floatval($this->giva2) + floatval($this->gexento) + floatval($this->gimpinterno) + floatval($this->gperciva) + floatval($this->gperib) + floatval($this->gretgan),2 ,'.','' ) ;
     }
 
-    public function CalcularDeudaProveedores() {
+    public function CalcularDeudaProveedores($ret) {
         $sql = $this->ProcesaSQLFiltro('deuda'); // Procesa los campos a mostrar
         $registros = DB::select(DB::raw($sql));       // Busca el recordset
         //Dibuja el filtro
@@ -405,7 +406,7 @@ class CompraComponent extends Component
                 <td>".number_format($Saldo,2,',','.')."</td>
             </tr>
             </table>";
-
+        if($ret) return $this->DeudaProveedoresFiltro;
         //SELECT proveedors.name, Saldos.Saldo FROM proveedors, (SELECT sum(NetoComp-MontoPagadoComp) as Saldo, comprobantes.proveedor_id as idproveedor FROM comprobantes WHERE empresa_id=1 GROUP BY comprobantes.proveedor_id ) as Saldos WHERE proveedors.id = Saldos.idproveedor and Saldos.Saldo>1
     }
 
@@ -417,7 +418,7 @@ class CompraComponent extends Component
         $this->CreditoProveedoresFiltro = "<table class=\"mt-6\">
             <tr class=\"bg-blue-200 border border-blue-500\">
                 <td class=\"center\">Nombre</td>
-                <td class=\"center\">Deuda</td>
+                <td class=\"center\">Crédito</td>
             </tr>";
         foreach($registros as $registro) {
             $this->CreditoProveedoresFiltro = $this->CreditoProveedoresFiltro .
@@ -429,7 +430,7 @@ class CompraComponent extends Component
         }
         $this->CreditoProveedoresFiltro = $this->CreditoProveedoresFiltro .
             "<tr class=\"bg-green-500\">
-                <td class=\"colspan-2\">Total Deuda a Proveedores</td>
+                <td class=\"colspan-2\">Total Crédito a Proveedores</td>
                 <td>".number_format($Saldo,2,',','.')."</td>
             </tr>
             </table>";
@@ -448,8 +449,14 @@ class CompraComponent extends Component
             $this->LibroFiltro = $this->LibroFiltro . "<tr><td class=\"bg-gray-100 border border-green-400\">". $NombreMes . "</td><td class=\"bg-gray-100 border border-green-400\">" . $AbiertoCerrado . "</td>";
         }
         $this->LibroFiltro = $this->LibroFiltro . "</tr></table>";
-        //dd($this->LibroFiltro);
-        
+    }
 
+    public function DeudaPFD() {
+        $a = $this->dhasta . $this->ddesde . $this->CalcularDeudaProveedores(1);
+        view()->share('data',$this->DeudaProveedoresFiltro);
+        //dd($this->DeudaProveedoresFiltro);
+        $pdf = PDF::loadView('livewire.compra.pdf_view',['data'=>$a]);
+        // download PDF file with download method
+        return $pdf->download('pdf_file.pdf');
     }
 }

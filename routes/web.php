@@ -51,4 +51,4 @@ Route::get('ventas',VentaComponent::class)->name('ventas');
 Route::get('empresas',EmpresaComponent::class)->name('empresas');
 Route::get('modulos',ModuloComponent::class)->name('modulos');
 
-
+Route::get('pdf', [CompraComponent::class, 'DeudaPFD']);
