@@ -27,10 +27,16 @@ class CompraComponent extends Component
     public $gfmes, $gfproveedor, $gfparticipa, $gfiva, $gfdetalle, $gfarea, $gfcuenta, $gfanio, $fgascendente, $gfsaldo; //Comprobantes
     
     // Deuda Proveedores
-    public $darea, $ddesde, $dhasta;
+    public $darea, $ddesde, $dhasta, $danio;
     public $DeudaProveedoresFiltro, $MostrarDeudaProveedores; 
 
+    // Crédito Proveedores
+    public $carea, $cdesde, $chasta, $canio;
+    public $CreditoProveedoresFiltro, $MostrarCreditoProveedores;
 
+    // Libros de Iva
+    public $lmes,$lanio;
+    public $MostrarLibros, $LibroFiltro;
 
     //Listado de filtros
     public $filtro;                 // Comprobantes
@@ -273,10 +279,31 @@ class CompraComponent extends Component
                 //Fecha	Comprobante	Proveedor	Detalle	Bruto	Iva	exento	Imp.Interno	Percec.Iva	Retenc.IB	Retenc.Gan	Neto	Pagado	Saldo	Cant.Litros	Partic.Iva	Pasado EnMes	Area	Cuenta
                 $sql = "SELECT * FROM comprobantes WHERE" . $sql . " ORDER BY fecha, comprobante";
                 if ($this->fgascendente) $sql=$sql . " ASC";
+                break;
             }
             case "deuda" : {
-                $sql="SELECT * FROM comprobantes"; 
-                $this->MostrarDeudaProveedores=true;
+                
+                //"SELECT proveedors.name as Name, Saldos.Saldo as Saldo FROM proveedors, (SELECT sum(NetoComp-MontoPagadoComp) as Saldo, comprobantes.proveedor_id as idproveedor FROM comprobantes WHERE fecha>='2021-09-01' and fecha<='2021-09-30' and empresa_id=1     GROUP BY comprobantes.proveedor_id ) as Saldos WHERE proveedors.id = Saldos.idproveedor and Saldos.Saldo>1
+                
+                if ($this->darea==0) { $darea=''; } else { $darea=' and comprobantes.area_id='.$this->darea; }  //Comprueba si se ha seleccionado un area en especìfico
+                if ($this->danio==0) { $danio=''; } else { $danio=' and comprobantes.Anio='.$this->danio; }  //Comprueba si se ha seleccionado un año en especìfico
+
+                $sql="SELECT proveedors.name as Name, Saldos.Saldo as Saldo FROM proveedors, (SELECT sum(NetoComp-MontoPagadoComp) as Saldo, comprobantes.proveedor_id as idproveedor FROM comprobantes WHERE fecha>='". $this->ddesde."' and fecha<='". $this->dhasta."' and empresa_id=". session('empresa_id')." $darea  $danio  GROUP BY comprobantes.proveedor_id ) as Saldos WHERE proveedors.id = Saldos.idproveedor and Saldos.Saldo>1"; 
+                
+                $this->MostrarDeudaProveedores=true;break;
+            };
+            case "credito" : {
+                //"SELECT proveedors.name as Name, Saldos.Saldo as Saldo FROM proveedors, (SELECT sum(NetoComp-MontoPagadoComp) as Saldo, comprobantes.proveedor_id as idproveedor FROM comprobantes WHERE fecha>='2021-09-01' and fecha<='2021-09-30' and empresa_id=1     GROUP BY comprobantes.proveedor_id ) as Saldos WHERE proveedors.id = Saldos.idproveedor and Saldos.Saldo<1
+                
+                if ($this->carea==0) { $carea=''; } else { $carea=' and comprobantes.area_id='.$this->carea; }  //Comprueba si se ha seleccionado un area en especìfico
+                if ($this->canio==0) { $canio=''; } else { $canio=' and comprobantes.Anio='.$this->canio; }  //Comprueba si se ha seleccionado un año en especìfico
+
+                $sql="SELECT proveedors.name as Name, Saldos.Saldo as Saldo FROM proveedors, (SELECT sum(NetoComp-MontoPagadoComp) as Saldo, comprobantes.proveedor_id as idproveedor FROM comprobantes WHERE fecha>='". $this->cdesde."' and fecha<='". $this->chasta."' and empresa_id=". session('empresa_id')." $carea  $canio  GROUP BY comprobantes.proveedor_id ) as Saldos WHERE proveedors.id = Saldos.idproveedor and Saldos.Saldo<1";
+                $this->MostrarCreditoProveedores=true;break;
+            };
+            case "libro" : {
+                $sql="SELECT PasadoEnMes, Max(Cerrado) as Cerrado FROM comprobantes WHERE ParticIva='Si' and Anio=" . $this->lanio . " and empresa_id='".session('empresa_id')."' GROUP BY Anio,PasadoEnMes ORDER BY fecha";
+                $this->MostrarLibros=true;break;
             };
         }
         //dd($sql);
@@ -358,7 +385,71 @@ class CompraComponent extends Component
         $registros = DB::select(DB::raw($sql));       // Busca el recordset
         //Dibuja el filtro
         $Saldo=0;
-        $this->DeudaProveedoresFiltro ="<table border=\"1\"><tbody><tr bgcolor=\"#b0e3ff\"><td align=\"center\">Nombre</td><td align=\"center\">Cuit</td><td align=\"center\">Deuda</td></tr><tr><td>AFIP-931-APORTES OS</td><td>20-15268043-1</td><td align=\"right\">1842.26</td></tr><tr><td>AFIP-931-APORTES SS</td><td>20-15268043-1</td><td align=\"right\">10439.45</td></tr><tr><td>AFIP-931-CONTRIBUCIONES OS</td><td>20-15268043-1</td><td align=\"right\">3684.52</td></tr><tr><td>AFIP-931-CONTRIBUCIONES SS</td><td>20-15268043-1</td><td align=\"right\">9496.41</td></tr><tr><td>AFIP-931-LRT</td><td>20-15268043-1</td><td align=\"right\">7405.58</td></tr><tr><td>AFIP-931-SEGURO</td><td>20-15268043-1</td><td align=\"right\">48.70</td></tr><tr bgcolor=\"#A4FF9C\"><td colspan=\"2\" align=\"right\">Total Deuda a Proveedores</td><td>32916.92</td></tr></tbody></table>";
+
+        $this->DeudaProveedoresFiltro = "<table class=\"mt-6\">
+            <tr class=\"bg-blue-200 border border-blue-500\">
+                <td class=\"center\">Nombre</td>
+                <td class=\"center\">Deuda</td>
+            </tr>";
+        foreach($registros as $registro) {
+            $this->DeudaProveedoresFiltro = $this->DeudaProveedoresFiltro .
+            "<tr>
+                <td class=\"bg-gray-100 border border-blue-500\">" . $registro->Name . "</td>
+                <td class=\"bg-gray-100 border border-blue-500 text-right\">" . number_format($registro->Saldo,2,',','.') . "</td>
+            </tr>";
+            $Saldo = $Saldo + $registro->Saldo;
+        }
+        $this->DeudaProveedoresFiltro = $this->DeudaProveedoresFiltro .
+            "<tr class=\"bg-green-500\">
+                <td class=\"colspan-2\">Total Deuda a Proveedores</td>
+                <td>".number_format($Saldo,2,',','.')."</td>
+            </tr>
+            </table>";
+
+        //SELECT proveedors.name, Saldos.Saldo FROM proveedors, (SELECT sum(NetoComp-MontoPagadoComp) as Saldo, comprobantes.proveedor_id as idproveedor FROM comprobantes WHERE empresa_id=1 GROUP BY comprobantes.proveedor_id ) as Saldos WHERE proveedors.id = Saldos.idproveedor and Saldos.Saldo>1
+    }
+
+    public function CalcularCreditoProveedores() {
+        $sql = $this->ProcesaSQLFiltro('credito'); // Procesa los campos a mostrar
+        $registros = DB::select(DB::raw($sql));       // Busca el recordset
+        //Dibuja el filtro
+        $Saldo=0;
+        $this->CreditoProveedoresFiltro = "<table class=\"mt-6\">
+            <tr class=\"bg-blue-200 border border-blue-500\">
+                <td class=\"center\">Nombre</td>
+                <td class=\"center\">Deuda</td>
+            </tr>";
+        foreach($registros as $registro) {
+            $this->CreditoProveedoresFiltro = $this->CreditoProveedoresFiltro .
+            "<tr>
+                <td class=\"bg-gray-100 border border-blue-500\">" . $registro->Name . "</td>
+                <td class=\"bg-gray-100 border border-blue-500 text-right\">" . number_format($registro->Saldo * -1 ,2,',','.') . "</td>
+            </tr>";
+            $Saldo = $Saldo + $registro->Saldo * -1;
+        }
+        $this->CreditoProveedoresFiltro = $this->CreditoProveedoresFiltro .
+            "<tr class=\"bg-green-500\">
+                <td class=\"colspan-2\">Total Deuda a Proveedores</td>
+                <td>".number_format($Saldo,2,',','.')."</td>
+            </tr>
+            </table>";
+    }
+
+    public function MostrarLibros() {
+        $sql = $this->ProcesaSQLFiltro('libro'); // Procesa los campos a mostrar
+        $registros = DB::select(DB::raw($sql));       // Busca el recordset
+        //Dibuja el filtro
+        $Saldo=0;
+        $this->LibroFiltro ="<table class=\"w-full mt-8  shadow-lg\" ><tr><td class=\"bg-gray-300 border border-green-400\">Mes</td><td class=\"bg-gray-300 border border-green-400\">Estado</td>";
+        //dd($registros);
+        foreach ($registros as $libro) {
+            $NombreMes = $this->ConvierteMesEnTexto($libro->PasadoEnMes);
+            if($libro->Cerrado>0) { $AbiertoCerrado = 'Cerrado'; } else { $AbiertoCerrado = 'Abierto'; }
+            $this->LibroFiltro = $this->LibroFiltro . "<tr><td class=\"bg-gray-100 border border-green-400\">". $NombreMes . "</td><td class=\"bg-gray-100 border border-green-400\">" . $AbiertoCerrado . "</td>";
+        }
+        $this->LibroFiltro = $this->LibroFiltro . "</tr></table>";
+        //dd($this->LibroFiltro);
+        
 
     }
 }

@@ -9,27 +9,47 @@
 				<div class="w-full">
 					<ul class="flex mb-0 list-none flex-wrap pb-4 flex-row">
 						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-white bg-pink-600"	wire:click="CambiarTab(1)">
+							@if($tabActivo==1)
+								<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-white bg-pink-600" wire:click="CambiarTab(1)">
+							@else 
+								<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white" wire:click="CambiarTab(1)">
+							@endif
 								<i class="fas fa-space-shuttle text-base mr-1"></i> Gestionar Comprobantes
 							</a>
 						</li>
 						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white" wire:click="CambiarTab(2)">
+							@if($tabActivo==2)
+								<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-white bg-pink-600" wire:click="CambiarTab(2)">
+							@else 
+								<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white" wire:click="CambiarTab(2)">
+							@endif
 								<i class="fas fa-cog text-base mr-1"></i> Deuda a Proveedores
 							</a>
 						</li>
 						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white"	wire:click="CambiarTab(3)">
+							@if($tabActivo==3)
+								<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-white bg-pink-600" wire:click="CambiarTab(3)">
+							@else 
+								<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white" wire:click="CambiarTab(3)">
+							@endif
 								<i class="fas fa-briefcase text-base mr-1"></i> Crédito de Proveedores
 							</a>
 						</li>
 						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white"	wire:click="CambiarTab(4)">
+							@if($tabActivo==4)
+								<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-white bg-pink-600" wire:click="CambiarTab(4)">
+							@else 
+								<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white" wire:click="CambiarTab(4)">
+							@endif
 								<i class="fas fa-cog text-base mr-1"></i> Cuentas Corrientes
 							</a>
 						</li>
 						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-							<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white"	wire:click="CambiarTab(5)">
+							@if($tabActivo==5)
+								<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-white bg-pink-600" wire:click="CambiarTab(5)">
+							@else 
+								<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white" wire:click="CambiarTab(5)">
+							@endif
 								<i class="fas fa-briefcase text-base mr-1"></i> Libros de Iva
 							</a>
 						</li>
@@ -402,57 +422,149 @@
 								</div>
 							</div>
 							<div class="{{ $tabActivo != 2 ? 'hidden' : '' }}">
-								<div>
-									Àreas a incluir 
-									<select class="ml-2 text-xs rounded-md h-7 leading-none">
+								<div class="block justify-center">
+									<div class="mb-4">
+									Áreas a incluir 
+									<select class="ml-2 text-xs rounded-md h-7 leading-none mr-5" wire:model="darea">
 										<option value="0">Todas</option>
 										@foreach ($areas as $area)
 											<option value="{{ $area->id }}">{{ $area->name }}</option>
 										@endforeach
 									</select>
+									Años a incluir 
+									<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="danio">
+										<option value="0">Todos</option>
+										<option value="2021">2021</option>
+										<option value="2020">2020</option>
+										<option value="2019">2019</option>
+										<option value="2018">2018</option>
+										<option value="2017">2017</option>
+										<option value="2016">2016</option>
+										<option value="2015">2015</option>
+										<option value="2014">2014</option>
+										<option value="2013">2013</option>
+									</select>
+									</div>
+									<div>
+										Desde <input class="ml-2 text-xs rounded-md h-7 ml-5" type="date" wire:model="ddesde"> Hasta <input class="ml-2 text-xs rounded-md h-7" type="date" wire:model="dhasta">
+									</div>
+									<div class="mt-4">
+										<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularDeudaProveedores()">Solicitar Listado</button><button class="rounded-md bg-green-300 px-8 	py-1 mx-2 mt-3">Generar PDF</button>
+									</div>
+									<div class="flex justify-center w-full">
+										@if ($MostrarDeudaProveedores)
+											{!! $DeudaProveedoresFiltro !!}
+										@endif
+									</div>
 								</div>
-								<div>
-									Desde <input class="ml-2 text-xs rounded-md h-7" type="date"> Hasta <input class="ml-2 text-xs rounded-md h-7" type="date">
-								</div>
-								<div>
-									<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularDeudaProveedores()">Solicitar Listado</button><button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3">Generar PDF</button>
-								</div>
-								@if ($MostrarDeudaProveedores)
-									{!! $DeudaProveedoresFiltro !!}
-								@endif
 							</div>
 							<div class="{{ $tabActivo != 3 ? 'hidden' : '' }}">
-								<p>
-									Completely synergize resource taxing relationships via
-									premier nichdsadsade markets. Professionally cultivate one-to-one
-									customer service with robust ideas.
-									<br />
-									<br />
-									Dynamically innovate resource-leveling dsacustomer service for
-									state of the art customer service.
-								</p>
+								<div class="block justify-center">
+									<div class="mb-4">
+										Àreas a incluir 
+										<select class="ml-2 text-xs rounded-md h-7 leading-none mr-5" wire:model="carea">
+											<option value="0">Todas</option>
+											@foreach ($areas as $area)
+												<option value="{{ $area->id }}">{{ $area->name }}</option>
+											@endforeach
+										</select>
+										Años a incluir 
+										<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="canio">
+											<option value="0">Todos</option>
+											<option value="2021">2021</option>
+											<option value="2020">2020</option>
+											<option value="2019">2019</option>
+											<option value="2018">2018</option>
+											<option value="2017">2017</option>
+											<option value="2016">2016</option>
+											<option value="2015">2015</option>
+											<option value="2014">2014</option>
+											<option value="2013">2013</option>
+										</select>
+									</div>
+									<div>
+										Desde <input class="ml-2 text-xs rounded-md h-7 ml-5" type="date" wire:model="cdesde"> Hasta <input class="ml-2 text-xs rounded-md h-7" type="date" wire:model="chasta">
+									</div>
+									<div>
+										<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularCreditoProveedores()">Solicitar Listado</button><button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3">Generar PDF</button>
+									</div>
+									<div class="flex justify-center w-full">
+										@if ($MostrarCreditoProveedores)
+											{!! $CreditoProveedoresFiltro !!}
+										@endif
+									</div>
+								</div>
 							</div>
 							<div class="{{ $tabActivo != 4 ? 'hidden' : '' }}">
-								<p>
-									Efficiently unleash cross-media information without
-									cross-media value. dsadsadsaQuickly maximize timely deliverables for
-									real-time schemas.
-									<br />
-									<br />
-									Dramatically maintain clicks-and-mortar solutions
-									without functional solutions.
-								</p>
+								<div class="flex flex-auto justify-center">
+									<img src="{{ asset('images/under-construction.jpg') }}" alt="" class="w-36">
+								</div>
 							</div>
 							<div class="{{ $tabActivo != 5 ? 'hidden' : '' }}">
-								<p>
-									Efficiently unleash cross-media information without
-									cross-me. dsadsadsaQuickly maximize timely deliverables for
-									real-time schemas.
-									<br />
-									<br />
-									Dramatically maintain clicks-and-mortar solutions
-									without functional solutions.
-								</p>
+								<div class="flex flex-auto justify-center">
+									<div>
+										<table>
+											<tr>
+												<td>
+													<label for="">Mes</label><br>
+													<select class="mr-4 w-full text-xs px-1 rounded-md h-7 leading-none" wire:model="lmes" wire:change="MostrarLibros()">
+														<option value=""></option>
+														<option value="1">enero
+														</option>
+														<option value="2">febrero
+														</option>
+														<option value="3">marzo
+														</option>
+														<option value="4">abril
+														</option>
+														<option value="5">mayo
+														</option>
+														<option value="6">junio
+														</option>
+														<option value="7">julio
+														</option>
+														<option value="8">agosto
+														</option>
+														<option value="9">
+															setiembre
+														</option>
+														<option value="10">octubre
+														</option>
+														<option value="11">
+															noviembre
+														</option>
+														<option value="12">
+															diciembre
+														</option>
+													</select>
+													<label for="">Año</label><br>
+													<select class="mr-4 w-full text-xs rounded-md h-7 leading-none" wire:model="lanio" wire:change="MostrarLibros()">
+														<option value=""></option>
+														<option value="2021">2021</option>
+														<option value="2020">2020</option>
+														<option value="2019">2019</option>
+														<option value="2018">2018</option>
+														<option value="2017">2017</option>
+														<option value="2016">2016</option>
+														<option value="2015">2015</option>
+														<option value="2014">2014</option>
+														<option value="2013">2013</option>
+														<option value="2012">2012</option>
+													</select>
+												</td>
+												<td>
+													<button class="rounded-md bg-green-300 px-8 py-1 ml-4 mt-6" wire:click="ImprimirLibro">Imprimir Libro</button> <br>
+													<button class="rounded-md bg-yellow-300 px-8 py-1 ml-4 mt-6" wire:click="CerrarLibro">Cerrar Libro</button>
+												</td>
+											</tr>
+										</table>
+										<div class="w-full">
+											@if ($MostrarLibros)
+												{!! $LibroFiltro !!}
+											@endif
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
