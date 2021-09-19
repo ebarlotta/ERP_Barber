@@ -52,4 +52,6 @@ Route::get('ventas',VentaComponent::class)->name('ventas');
 Route::get('empresas',EmpresaComponent::class)->name('empresas');
 Route::get('modulos',ModuloComponent::class)->name('modulos');
 
-Route::get('pdf/{ddesde}/{dhasta}', [ImprimirPDF::class, 'DeudaPFD']);
+Route::get('pdf/deuda/{ddesde}/{dhasta}', [ImprimirPDF::class, 'DeudaPFD'])->name('DeudaPFD');
+Route::get('pdf/credito/{cdesde}/{chasta}', [ImprimirPDF::class, 'CreditoPFD'])->name('CreditoPFD');
+Route::get('pdf/ivacompras/{anio}/{mes}', [ImprimirPDF::class, 'IvaCompras'])->name('IvaCompras');

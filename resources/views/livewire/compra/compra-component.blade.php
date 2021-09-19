@@ -450,7 +450,7 @@
 									</div>
 									<div class="mt-4">
 										<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularDeudaProveedores(0)">Solicitar Listado</button>
-										<a class="btn btn-primary" href="{{ URL::to('/pdf'.'/'.$ddesde.'/'.$dhasta) }}" target="_blank">
+										<a class="btn btn-primary" href="{{ URL::to('/pdf/deuda'.'/'.$ddesde.'/'.$dhasta) }}" target="_blank">
 											<button class="rounded-md bg-yellow-500 px-8 	py-1 mx-2 mt-3">Generar PDF</button>
 										</a>
 									</div>
@@ -489,7 +489,10 @@
 										Desde <input class="ml-2 text-xs rounded-md h-7 ml-5" type="date" wire:model="cdesde"> Hasta <input class="ml-2 text-xs rounded-md h-7" type="date" wire:model="chasta">
 									</div>
 									<div>
-										<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularCreditoProveedores()">Solicitar Listado</button><button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3">Generar PDF</button>
+										<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularCreditoProveedores()">Solicitar Listado</button>
+										<a class="btn btn-primary" href="{{ URL::to('/pdf/credito'.'/'.$cdesde.'/'.$chasta) }}" target="_blank">
+											<button class="rounded-md bg-yellow-500 px-8 	py-1 mx-2 mt-3">Generar PDF</button>
+										</a>
 									</div>
 									<div class="flex justify-center w-full">
 										@if ($MostrarCreditoProveedores)
@@ -556,7 +559,10 @@
 													</select>
 												</td>
 												<td>
-													<button class="rounded-md bg-green-300 px-8 py-1 ml-4 mt-6" wire:click="ImprimirLibro">Imprimir Libro</button> <br>
+													<a class="btn btn-primary" href="{{ URL::to('/pdf/ivacompras'.'/'.$lanio.'/'.$lmes) }}" target="_blank">
+														<button class="rounded-md bg-green-300 px-8 py-1 ml-4 mt-6">Imprimir Libro</button>
+													</a>
+													
 													<button class="rounded-md bg-yellow-300 px-8 py-1 ml-4 mt-6" wire:click="CerrarLibro">Cerrar Libro</button>
 												</td>
 											</tr>

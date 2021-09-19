@@ -1,24 +1,51 @@
-<h1>
-   esta es una prueba
-</h1>
+<!DOCTYPE html>
+<html lang="en">
 
-        <table class="mt-6">
-            <tr class="bg-blue-200 border border-blue-500">
-                <td class="center">Nombre</td>
-                <td class="center">Deuda</td>
-            </tr>
-        @foreach($registros as $registro) {
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-            <tr>
-                <td class="bg-gray-100 border border-blue-500">{{ $registro->name }}</td>
-                <td class="bg-gray-100 border border-blue-500 text-right">{{ $registro->Saldo }}</td>
-            </tr>
-            
+</head>
+
+<body style="font-family: Arial, Helvetica, sans-serif">
+    <table class="container col-8">
+        <tr class="bg-secondary text-white fw-bold border">
+            <td class="border text-center">Nombre</td>
+            @if ($operacion == 'deuda') {
+                <td class="border text-center">Deuda</td> }
+            @else {
+                <td class="border text-center">Crédito</td> }
+            @endif
+        </tr>
+        @foreach ($registros as $registro) {
+            @if ($operacion == 'deuda') {
+                @if ($registro->Saldo > 1) {
+                    <tr>
+                        <td class="border text-end  mr-3 pr-3">{{ $registro->name }}</td>
+                        <td class="border text-end mr-3 pr-3">{{ number_format($registro->Saldo, 2, ',', '.') }}</td> }
+                    </tr>
+                @endif }
+            @else {
+                @if ($registro->Saldo < 1) {
+                    <tr>
+                        <td class="border text-end mr-3 pr-3">{{ $registro->name }}</td>
+                        <td class="border text-end mr-3 pr-3">{{ number_format($registro->Saldo * -1, 2, ',', '.') }}</td> }
+                    </tr>
+                @endif
+            @endif }
         @endforeach
-            <tr class="bg-green-500">
-                <td class="colspan-2">Total Deuda a Proveedores</td>
-                <td>
-                    Total {{ $saldo }}
-                </td>
-            </tr>
-            </table>
+        <tr class="bg-secondary">
+            <td class="colspan-2 text-end border text-white fw-bold">Total {{ $operacion }} a Proveedores</td>
+            <td class="border text-end text-white fw-bold">
+                Total {{ number_format($saldo, 2, ',', '.') }}
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>
