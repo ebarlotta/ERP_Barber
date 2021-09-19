@@ -30,6 +30,7 @@ class CompraComponent extends Component
     // Deuda Proveedores
     public $darea, $ddesde, $dhasta, $danio;
     public $DeudaProveedoresFiltro, $MostrarDeudaProveedores; 
+    public $deudaPDF;
 
     // Crédito Proveedores
     public $carea, $cdesde, $chasta, $canio;
@@ -280,6 +281,7 @@ class CompraComponent extends Component
                 //Fecha	Comprobante	Proveedor	Detalle	Bruto	Iva	exento	Imp.Interno	Percec.Iva	Retenc.IB	Retenc.Gan	Neto	Pagado	Saldo	Cant.Litros	Partic.Iva	Pasado EnMes	Area	Cuenta
                 $sql = "SELECT * FROM comprobantes WHERE" . $sql . " ORDER BY fecha, comprobante";
                 if ($this->fgascendente) $sql=$sql . " ASC";
+                //dd($sql);
                 break;
             }
             case "deuda" : {
@@ -289,8 +291,30 @@ class CompraComponent extends Component
                 if ($this->darea==0) { $darea=''; } else { $darea=' and comprobantes.area_id='.$this->darea; }  //Comprueba si se ha seleccionado un area en especìfico
                 if ($this->danio==0) { $danio=''; } else { $danio=' and comprobantes.Anio='.$this->danio; }  //Comprueba si se ha seleccionado un año en especìfico
 
-                $sql="SELECT proveedors.name as Name, Saldos.Saldo as Saldo FROM proveedors, (SELECT sum(NetoComp-MontoPagadoComp) as Saldo, comprobantes.proveedor_id as idproveedor FROM comprobantes WHERE fecha>='". $this->ddesde."' and fecha<='". $this->dhasta."' and empresa_id=". session('empresa_id')." $darea  $danio  GROUP BY comprobantes.proveedor_id ) as Saldos WHERE proveedors.id = Saldos.idproveedor and Saldos.Saldo>1"; 
+                $sql="SELECT proveedors.name as Name, Saldos.Saldo as Saldo FROM proveedors, (SELECT sum(NetoComp-MontoPagadoComp) as Saldo, comprobantes.proveedor_id as idproveedor FROM comprobantes WHERE fecha>='". $this->ddesde."' and fecha<='". $this->dhasta."' and empresa_id=". session('empresa_id')." $darea $danio GROUP BY comprobantes.proveedor_id ) as Saldos WHERE proveedors.id = Saldos.idproveedor and Saldos.Saldo>1"; 
                 
+                /*$sql = DB::table('comprobantes')
+                    //->select(DB::raw('SUM(NetoComp-MontoPagadoComp) as Saldo'))
+                    //->select('NetoComp')
+                    ->where('empresa_id','=',session('empresa_id'))
+                    //->where(DB::raw('SUM(NetoComp-MontoPagadoComp),'>',1)
+                    //->havingRaw('SUM(NetoComp-MontoPagadoComp) > ?', [1])
+                    // ->whereBetween('fecha',["'".$this->ddesde."'","'".$this->dhasta."'"])
+                    ->groupBy('proveedor_id')
+                    ->get();*/
+
+                    $sql = DB::table('comprobantes')
+                    ->selectRaw('sum(NetoComp-MontoPagadoComp) as Saldo, proveedors.id')
+                    ->join('proveedors', 'comprobantes.proveedor_id', '=', 'proveedors.id')
+                    ->groupBy('proveedors.id')
+                    //->whereBetween('comprobantes.fecha',["'".$this->ddesde."'","'".$this->dhasta."'"])
+                    ->where('comprobantes.fecha','>=',$this->ddesde)
+                    ->where('comprobantes.fecha','<=',$this->dhasta)
+                    //->orderByDesc('avg_salary')
+                    ->get();
+                    
+                    //dd($sql);
+
                 $this->MostrarDeudaProveedores=true;break;
             };
             case "credito" : {
@@ -382,20 +406,34 @@ class CompraComponent extends Component
     }
 
     public function CalcularDeudaProveedores($ret) {
-        $sql = $this->ProcesaSQLFiltro('deuda'); // Procesa los campos a mostrar
-        $registros = DB::select(DB::raw($sql));       // Busca el recordset
+        $registros = $this->ProcesaSQLFiltro('deuda'); // Procesa los campos a mostrar
+        //dd($sql);
+        //$registros = DB::select(DB::raw($sql));       // Busca el recordset
+
+        // $registros = DB::table('comprobantes')
+        //             ->selectRaw('sum(NetoComp-MontoPagadoComp) as Saldo, proveedors.id')
+        //             ->join('proveedors', 'comprobantes.proveedor_id', '=', 'proveedors.id')
+        //             ->groupBy('proveedors.id')
+        //             //->whereBetween('comprobantes.fecha',["'".$this->ddesde."'","'".$this->dhasta."'"])
+        //             ->where('comprobantes.fecha','>=',$this->ddesde)
+        //             ->where('comprobantes.fecha','<=',$this->dhasta)
+        //             //->orderByDesc('avg_salary')
+        //             ->get();
+
+        $this->deudaPDF = $registros;
+        //dd($this->deudaPDF);
         //Dibuja el filtro
         $Saldo=0;
-
         $this->DeudaProveedoresFiltro = "<table class=\"mt-6\">
             <tr class=\"bg-blue-200 border border-blue-500\">
                 <td class=\"center\">Nombre</td>
                 <td class=\"center\">Deuda</td>
             </tr>";
         foreach($registros as $registro) {
+            $proveedor = Proveedor::find($registro->id);
             $this->DeudaProveedoresFiltro = $this->DeudaProveedoresFiltro .
             "<tr>
-                <td class=\"bg-gray-100 border border-blue-500\">" . $registro->Name . "</td>
+                <td class=\"bg-gray-100 border border-blue-500\">" . $proveedor->name . "</td>
                 <td class=\"bg-gray-100 border border-blue-500 text-right\">" . number_format($registro->Saldo,2,',','.') . "</td>
             </tr>";
             $Saldo = $Saldo + $registro->Saldo;
@@ -406,6 +444,8 @@ class CompraComponent extends Component
                 <td>".number_format($Saldo,2,',','.')."</td>
             </tr>
             </table>";
+            //dd("filtro" . $this->DeudaProveedoresFiltro);
+            //$this->deudaPDF = $this->DeudaProveedoresFiltro;
         if($ret) return $this->DeudaProveedoresFiltro;
         //SELECT proveedors.name, Saldos.Saldo FROM proveedors, (SELECT sum(NetoComp-MontoPagadoComp) as Saldo, comprobantes.proveedor_id as idproveedor FROM comprobantes WHERE empresa_id=1 GROUP BY comprobantes.proveedor_id ) as Saldos WHERE proveedors.id = Saldos.idproveedor and Saldos.Saldo>1
     }
@@ -449,14 +489,5 @@ class CompraComponent extends Component
             $this->LibroFiltro = $this->LibroFiltro . "<tr><td class=\"bg-gray-100 border border-green-400\">". $NombreMes . "</td><td class=\"bg-gray-100 border border-green-400\">" . $AbiertoCerrado . "</td>";
         }
         $this->LibroFiltro = $this->LibroFiltro . "</tr></table>";
-    }
-
-    public function DeudaPFD() {
-        $a = $this->dhasta . $this->ddesde . $this->CalcularDeudaProveedores(1);
-        view()->share('data',$this->DeudaProveedoresFiltro);
-        //dd($this->DeudaProveedoresFiltro);
-        $pdf = PDF::loadView('livewire.compra.pdf_view',['data'=>$a]);
-        // download PDF file with download method
-        return $pdf->download('pdf_file.pdf');
     }
 }

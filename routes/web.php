@@ -2,6 +2,7 @@
 
 //use App\Http\Controllers\ClienteController;
 
+use App\Http\Controllers\ImprimirPDF;
 use App\Http\Livewire\Area\AreaComponent;
 use App\Http\Livewire\Empresa\EmpresaComponent;
 use App\Http\Livewire\Modulo\ModuloComponent;
@@ -51,4 +52,4 @@ Route::get('ventas',VentaComponent::class)->name('ventas');
 Route::get('empresas',EmpresaComponent::class)->name('empresas');
 Route::get('modulos',ModuloComponent::class)->name('modulos');
 
-Route::get('pdf', [CompraComponent::class, 'DeudaPFD']);
+Route::get('pdf/{ddesde}/{dhasta}', [ImprimirPDF::class, 'DeudaPFD']);
