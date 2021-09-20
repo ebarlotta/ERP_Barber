@@ -45,6 +45,8 @@
         <tr class="bg-secondary text-white fw-bold border">
             <td class="border text-center">Fecha</td>
             <td class="border text-center">Comprobante</td>
+            <td class="border text-center">Vendedor</td>
+            <td class="border text-center">Cuit</td>
             <td class="border text-center">Bruto</td>
             <td class="border text-center">Iva</td>
             <td class="border text-center">Exento</td>
@@ -58,6 +60,8 @@
             <tr>
                 <td class="border text-center mr-3 pr-3">{{ substr($registro->fecha,8,2) ."-". substr($registro->fecha,5,2) ."-". substr($registro->fecha,0,4) }}</td>
                 <td class="border text-end mr-3 pr-3">{{ $registro->comprobante }}</td>
+                <td class="border text-end mr-3 pr-3">{{ $registro->name }}</td>
+                <td class="border text-center mr-3 pr-3">{{ substr($registro->cuit,0,2) ."-" . substr($registro->cuit,2,8) . "-" . substr($registro->cuit,10,1)}}</td>
                 <td class="border text-end mr-3 pr-3">{{ number_format($registro->BrutoComp, 2, ',', '.') }}</td>
                 <td class="border text-end mr-3 pr-3">{{ number_format($registro->MontoIva, 2, ',', '.') }}</td>
                 <td class="border text-end mr-3 pr-3">{{ number_format($registro->ExentoComp, 2, ',', '.') }}</td>
@@ -70,6 +74,8 @@
             </tr>
         @endforeach
         <tr class="bg-secondary">
+            <td class="border text-end text-white fw-bold"></td>
+            <td class="border text-end text-white fw-bold"></td>
             <td class="border text-end text-white fw-bold"></td>
             <td class="border text-end text-white fw-bold">Total  a Proveedores</td>
             <td class="border text-end text-white fw-bold">{{ number_format($BrutoComp, 2, ',', '.')}}</td>

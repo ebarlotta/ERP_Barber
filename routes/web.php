@@ -55,3 +55,4 @@ Route::get('modulos',ModuloComponent::class)->name('modulos');
 Route::get('pdf/deuda/{ddesde}/{dhasta}', [ImprimirPDF::class, 'DeudaPFD'])->name('DeudaPFD');
 Route::get('pdf/credito/{cdesde}/{chasta}', [ImprimirPDF::class, 'CreditoPFD'])->name('CreditoPFD');
 Route::get('pdf/ivacompras/{anio}/{mes}', [ImprimirPDF::class, 'IvaCompras'])->name('IvaCompras');
+Route::get('pdf/ejemplo/{anio}/{mes}', [ImprimirPDF::class, 'ejemplo'])->name('ejemplo');

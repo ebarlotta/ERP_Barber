@@ -79,8 +79,11 @@ class ImprimirPDF extends Controller
         ->where('comprobantes.PasadoEnMes','<=',$request->mes)
         ->where('comprobantes.empresa_id','=',session('empresa_id'))
         ->where('ParticIva','=','Si')
+        ->join('proveedors', 'comprobantes.proveedor_id', '=', 'proveedors.id')
         ->get();
+        // dd($registros);
         $BrutoComp=0; $MontoIva=0; $ExentoComp=0; $ImpInternoComp=0; $PercepcionIvaComp=0; $RetencionIB=0; $RetencionGan=0; $NetoComp=0;$MontoPagadoComp = 0; $CantidadLitroComp=0;
+        
         foreach($registros as $registro) { 
             $BrutoComp=$BrutoComp + $registro->BrutoComp; 
             $MontoIva=$MontoIva + $registro->MontoIva; 
@@ -98,5 +101,132 @@ class ImprimirPDF extends Controller
         $pdf = PDF::loadView('livewire.compra.pdf_iva_view',compact('registros','BrutoComp', 'MontoIva', 'ExentoComp', 'ImpInternoComp', 'PercepcionIvaComp', 'RetencionIB', 'RetencionGan', 'NetoComp', 'empresa','mes','anio'))->setPaper('a4', 'landscape');
         return $pdf->stream('pdf_file.pdf');
         
+    }
+
+    public function ejemplo(Request $request) {
+
+        $registros = DB::table('comprobantes')
+        // ->selectRaw('sum(NetoComp-MontoPagadoComp) as Saldo'       
+        ->where('comprobantes.Anio','>=',$request->anio)
+        ->where('comprobantes.PasadoEnMes','<=',$request->mes)
+        ->where('comprobantes.empresa_id','=',session('empresa_id'))
+        ->where('ParticIva','=','Si')
+        ->join('proveedors', 'comprobantes.proveedor_id', '=', 'proveedors.id')
+        ->orderByRaw('fecha, comprobante')
+        ->get();
+        // dd($registros);
+        $BrutoComp=0; $MontoIva=0; $ExentoComp=0; $ImpInternoComp=0; $PercepcionIvaComp=0; $RetencionIB=0; $RetencionGan=0; $NetoComp=0;$MontoPagadoComp = 0; $CantidadLitroComp=0;
+        // // <div style="page-break-after:always;"></div>
+
+        
+        // <body style="font-family: Arial, Helvetica, sans-serif">';
+        $empresa = Empresa::find(session('empresa_id'));
+        $pagina='0'; $libro='0';
+        $mes = $this->ConvierteMesEnTexto($request->mes);
+        $anio = $request->anio;
+        $encabezado = '<table style="font-size: 14px; line-height: 16px; width:100%; border: 1px solid #ddd; font-family: Arial, Helvetica, sans-serif">
+        <tr>
+            <td style="width:33%; text-align:left;">Empresa: ' . $empresa->name.'</td>
+            <td style="width:33%; text-align:center;"></td>
+            <td style="width:33%; text-align:right;">Mes: '. $mes.'</td>
+        </tr>
+        <tr>
+            <td style="width:33%; text-align:left;">' . $empresa->direccion.'</td>
+            <td style="width:33%; text-align:center;"><u>REGISTRO IVA COMPRAS</u></td>
+            <td style="width:33%; text-align:right;">Libro Nro: ' . $libro.'</td>
+        </tr>
+        <tr>
+            <td style="width:33%; text-align:left;">Cuit:' . $empresa->cuit.' - IB: ' . $empresa->ib.'</td>
+            <td style="width:33%; text-align:center;"></td>
+            <td style="width:33%; text-align:right;">Página Nro: ' . $pagina.'</td>
+        </tr>
+        <tr>
+            <td style="width:33%; text-align:left;">Nro Establecimiento: ' . $empresa->establecimiento.'</td>
+            <td style="width:33%; text-align:center;"></td>
+            <td style="width:33%; text-align:right;">'. $mes.' - '.$anio.'</td>
+        </tr>
+        <tr>
+            <td style="width:33%; text-align:left;">Condición IVA: ' . $empresa->actividad1.'</td>
+            <td style="width:33%; text-align:center;"></td>
+            <td style="width:33%; text-align:right;"></td>
+        </tr>
+    </table>
+    <table style=" margin-top:3px; font-size: 12px; line-height: 12px; border-collapse: collapse; width:100%;">
+        <tr style="color:black; background-color:#ddd; border: 1px solid #ddd;">
+            <td style="border: 1px solid #ddd; text-align:center;">Fecha</td>
+            <td style="border: 1px solid #ddd; text-align:center;">Comprobante</td>
+            <td style="border: 1px solid #ddd; text-align:center;">Vendedor</td>
+            <td style="border: 1px solid #ddd; text-align:center;">Cuit</td>
+            <td style="border: 1px solid #ddd; text-align:center;">Bruto</td>
+            <td style="border: 1px solid #ddd; text-align:center;">Iva</td>
+            <td style="border: 1px solid #ddd; text-align:center;">Exento</td>
+            <td style="border: 1px solid #ddd; text-align:center;">Imp.Interno</td>
+            <td style="border: 1px solid #ddd; text-align:center;">Perc.Iva</td>
+            <td style="border: 1px solid #ddd; text-align:center;">Ret.IB</td>
+            <td style="border: 1px solid #ddd; text-align:center;">Ret.GAN</td>
+            <td style="border: 1px solid #ddd; text-align:center;">Total</td>
+        </tr>';
+
+            $row=''; $i = 0;
+            foreach($registros as $registro) {
+                $row = $row . '<tr>
+                    <td style="text-align:center; border: 1px solid #ddd; mr-3 pr-3">'. substr($registro->fecha,8,2) ."-". substr($registro->fecha,5,2) ."-". substr($registro->fecha,0,4) .'</td>
+                    <td style="text-align:right; border: 1px solid #ddd; mr-3 pr-3">'. $registro->comprobante .'</td>
+                    <td style="text-align:right; border: 1px solid #ddd; mr-3 pr-3" style="color:red">'. $registro->name .'</td>
+                    <td style="text-align:center; border: 1px solid #ddd; mr-3 pr-3">'. substr($registro->cuit,0,2) ."-" . substr($registro->cuit,2,8) . "-" . substr($registro->cuit,10,1).'</td>
+                    <td style="text-align:right; border: 1px solid #ddd; mr-3 pr-3">'. number_format($registro->BrutoComp, 2, ',', '.') .'</td>
+                    <td style="text-align:right; border: 1px solid #ddd; mr-3 pr-3">'. number_format($registro->MontoIva, 2, ',', '.') .'</td>
+                    <td style="text-align:right; border: 1px solid #ddd; mr-3 pr-3">'. number_format($registro->ExentoComp, 2, ',', '.') .'</td>
+                    <td style="text-align:right; border: 1px solid #ddd; mr-3 pr-3">'. number_format($registro->ImpInternoComp, 2, ',', '.') .'</td>
+                    <td style="text-align:right; border: 1px solid #ddd; mr-3 pr-3">'. number_format($registro->PercepcionIvaComp, 2, ',', '.') .'</td>
+                    <td style="text-align:right; border: 1px solid #ddd; mr-3 pr-3">'. number_format($registro->RetencionIB, 2, ',', '.') .'</td>
+                    <td style="text-align:right; border: 1px solid #ddd; mr-3 pr-3">'. number_format($registro->RetencionGan, 2, ',', '.') .'</td>
+                    <td style="text-align:right; border: 1px solid #ddd; mr-3 pr-3">'. number_format($registro->NetoComp, 2, ',', '.') .'
+                    </td>
+                </tr>';
+        
+                $BrutoComp=$BrutoComp + $registro->BrutoComp; 
+                $MontoIva=$MontoIva + $registro->MontoIva; 
+                $ExentoComp=$ExentoComp + $registro->ExentoComp; 
+                $ImpInternoComp=$ImpInternoComp + $registro->ImpInternoComp; 
+                $PercepcionIvaComp=$PercepcionIvaComp + $registro->PercepcionIvaComp; 
+                $RetencionIB=$RetencionIB + $registro->RetencionIB; 
+                $RetencionGan=$RetencionGan + $registro->RetencionGan; 
+                $NetoComp=$NetoComp + $registro->NetoComp;
+
+                $pie = '<tr style="background-color:#ddd;">
+                <td style="text-align:right; border: 1px solid #ddd;"></td>
+                <td style="text-align:right; border: 1px solid #ddd;"></td>
+                <td style="text-align:right; border: 1px solid #ddd;"></td>
+                <td style="text-align:right; border: 1px solid #ddd;">Totales</td>
+                <td style="text-align:right; border: 1px solid #ddd;">'.  number_format($BrutoComp, 2, ',', '.').'</td>
+                <td style="text-align:right; border: 1px solid #ddd;">'.  number_format($MontoIva, 2, ',', '.').'</td>
+                <td style="text-align:right; border: 1px solid #ddd;">'.  number_format($ExentoComp, 2, ',', '.').'</td>
+                <td style="text-align:right; border: 1px solid #ddd;">'.  number_format($ImpInternoComp, 2, ',', '.').'</td>
+                <td style="text-align:right; border: 1px solid #ddd;">'.  number_format($PercepcionIvaComp, 2, ',', '.').'</td>
+                <td style="text-align:right; border: 1px solid #ddd;">'.  number_format($RetencionIB, 2, ',', '.').'</td>
+                <td style="text-align:right; border: 1px solid #ddd;">'.  number_format($RetencionGan, 2, ',', '.').'</td>
+                <td style="text-align:right; border: 1px solid #ddd;">'.  number_format($NetoComp, 2, ',', '.').'</td>
+                </tr>
+                </table>';
+                
+                $i++;
+                if($i>35) {
+                    $row = $row . $pie;
+                    $row = $row . '<div style="page-break-after:always;"></div>';
+                    $row = $row . $encabezado;
+                    $i=0;
+                }
+        }        
+        $html =  $encabezado. $row .$pie ;
+        
+        //set_time_limit(300);
+        //ini_set('memory_limit', '-1');
+        
+        
+        $pdf = PDF::loadHtml($html);
+        $pdf->setPaper('A4', 'landscape');
+        //$pdf->render();
+        return $pdf->stream('ejemplo.pdf');
     }
 }
