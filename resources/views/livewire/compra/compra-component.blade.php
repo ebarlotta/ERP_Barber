@@ -561,10 +561,7 @@
 												<td>
 													<a class="btn btn-primary" href="{{ URL::to('/pdf/ivacompras'.'/'.$lanio.'/'.$lmes) }}" target="_blank">
 														<button class="rounded-md bg-green-300 px-8 py-1 ml-4 mt-6">Imprimir Libro</button>
-													</a>
-													<a class="btn btn-primary" href="{{ URL::to('/pdf/ejemplo'.'/'.$lanio.'/'.$lmes)  }}" target="_blank">
-														<button class="rounded-md bg-green-300 px-8 py-1 ml-4 mt-6">Imprimir Libro 2</button>
-													</a>
+													</a><br>
 													<button class="rounded-md bg-yellow-300 px-8 py-1 ml-4 mt-6" wire:click="CerrarLibro">Cerrar Libro</button>
 												</td>
 											</tr>

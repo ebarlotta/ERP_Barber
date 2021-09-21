@@ -12,6 +12,9 @@
 </head>
 
 <body style="font-family: Arial, Helvetica, sans-serif">
+    @if ($operacion == 'deuda') <div class="text-center"><label>Resumen de Deudas</label></div>
+    @else <div class="text-center"><label>Resúmen de Créditos</label></div>
+    @endif
     <table class="container col-8">
         <tr class="bg-secondary text-white fw-bold border">
             <td class="border text-center">Nombre</td>
@@ -39,7 +42,7 @@
             @endif }
         @endforeach
         <tr class="bg-secondary">
-            <td class="colspan-2 text-end border text-white fw-bold">Total {{ $operacion }} a Proveedores</td>
+            <td class="colspan-2 text-end border text-white fw-bold">Total {{ $operacion }} a Vendedores</td>
             <td class="border text-end text-white fw-bold">
                 Total {{ number_format($saldo, 2, ',', '.') }}
             </td>

@@ -72,7 +72,7 @@ class ImprimirPDF extends Controller
         return $caso;
     }
 
-    public function IvaCompras(Request $request) {
+    public function ejemplo(Request $request) {
         $registros = DB::table('comprobantes')
         // ->selectRaw('sum(NetoComp-MontoPagadoComp) as Saldo'       
         ->where('comprobantes.Anio','>=',$request->anio)
@@ -103,7 +103,7 @@ class ImprimirPDF extends Controller
         
     }
 
-    public function ejemplo(Request $request) {
+    public function IvaCompras(Request $request) {
 
         $registros = DB::table('comprobantes')
         // ->selectRaw('sum(NetoComp-MontoPagadoComp) as Saldo'       
@@ -227,6 +227,6 @@ class ImprimirPDF extends Controller
         $pdf = PDF::loadHtml($html);
         $pdf->setPaper('A4', 'landscape');
         //$pdf->render();
-        return $pdf->stream('ejemplo.pdf');
+        return $pdf->stream('pdf_iva_view.pdf');
     }
 }
