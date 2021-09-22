@@ -12,28 +12,30 @@
 					<div class="">
 						<div class="mb-4">
 							<div style="width: 100%;background-color: bisque;border-radius: 20px;height: 5rem;justify-content: center;display: flex; margin: 4px;	align-items: center; text-align: center; padding-top:1px; font-size: 2rem;">
-								{{ $empresaseleccionada['name'] }}
+								{{ $empresaseleccionada->name }}
 							</div>
 							<div style="display: flex; flex-wrap: wrap; justify-content: center;">
 								@foreach ($modulosNOempresa as $modulo)
 									<div style="width: max-content;background-color: bisque;border-radius: 20px;height: 5rem;justify-content: center;display: block; margin: 4px; align-items: center; text-align: center; padding-top:1px; padding-left:2rem; padding-right:2rem;">
-										<div style="position: inherit; justify-content: end; display: flex; margin-right: -21px; margin-top: 5px;" placeholder="Agregar" wire:click="AgregarModulo({{ $modulo["id"] }})">
+										<div style="position: inherit; justify-content: end; display: flex; margin-right: -21px; margin-top: 5px;" placeholder="Agregar" wire:click="AgregarModulo({{ $modulo->id }})">
 											<img src="{{ asset('images/activo.jpg') }}" width="20" height="20">
 										</div>
-										<p style="margin-top: -10px;">{{ $modulo['name'] }}</p>
-										<p style="margin-top: -14px;">{{ $modulo['email'] }}</p>
+										<p style="margin-top: -10px;">{{ $modulo->name }}</p>
+										<p style="margin-top: -14px;">{{ $modulo->email }}</p>
 									</div>
 								@endforeach
 							</div>
 							<div style="display: flex; flex-wrap: wrap; justify-content: center;">
-								@foreach ($modulosdelaempresa as $modx)
-									<div style="width: max-content; background-color: rgb(160, 233, 100);border-radius: 20px;height: 5rem;justify-content: center;display: block; margin: 4px; align-items: center; text-align: center; padding-top:1px; padding-left:2rem; padding-right:2rem;">
-										<div style="position: inherit; justify-content: end; display: flex; margin-right: -21px; margin-top: 5px;" placeholder="Eliminar" wire:click="EliminarModulo({{ $modx->id }})">
-											<img src="{{ asset('images/pasivo.jpg') }}" width="20" height="20">
+								@if ($modulosdelaempresa)
+									@foreach ($modulosdelaempresa as $modx)
+										<div style="width: max-content; background-color: rgb(160, 233, 100);border-radius: 20px;height: 5rem;justify-content: center;display: block; margin: 4px; align-items: center; text-align: center; padding-top:1px; padding-left:2rem; padding-right:2rem;">
+											<div style="position: inherit; justify-content: end; display: flex; margin-right: -21px; margin-top: 5px;" placeholder="Eliminar" wire:click="EliminarModulo({{ $modx['id'] }})">
+												<img src="{{ asset('images/pasivo.jpg') }}" width="20" height="20">
+											</div>
+											<b>{{ $modx['name'] }}</b>
 										</div>
-										<b>{{ $modx->name }}</b>
-									</div>
-								@endforeach
+									@endforeach
+								@endif
 							</div>
 						</div>
 

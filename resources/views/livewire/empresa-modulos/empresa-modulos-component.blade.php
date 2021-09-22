@@ -80,7 +80,7 @@
 															<div class="flex rounded overflow-hidden border">
 																<img class="block w-15 h-15 flex-none bg-cover" src="https://picsum.photos/seed/picsum/80/80">
 																<div class="bg-white rounded-b p-4 flex flex-col justify-between leading-normal">
-																	<div class="text-black font-bold text-xl mb-2 leading-tight"> {{ $modulo->name }}</div>
+																	<div class="text-black font-bold text-xl mb-2 leading-tight"> {{ $modulo['name'] }}</div>
 																	<p class="text-grey-darker text-base">Read more and	more</p>
 																</div>
 																<div class="bg-white rounded-b p-4 flex flex-col justify-between leading-normal">

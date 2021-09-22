@@ -246,8 +246,8 @@
 											</select>
 											@error('gcuenta') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
-									</div>
-									<div class="flex flex-wrap text-xs justify-around">
+									{{-- </div>
+									<div class="flex flex-wrap text-xs justify-around"> --}}
 										<div class="mr-1 w-28">
 											<label for="">Bruto</label><br>
 											<input class="num ml-2 w-full text-xs text-right rounded-md h-7" type="text" id="Bruto" name="Bruto" wire:model="gbruto" wire:keyup="CalcularIva()">
