@@ -105,96 +105,118 @@ class CompraComponent extends Component
             'gcuenta'           => 'required|integer',
             'gproveedor'        => 'required|integer',
         ]);
-        Comprobante::create([
-            'fecha'             => $this->gfecha,
-            'comprobante'       => $this->gcomprobante,
-            'detalle'           => $this->gdetalle,
-            'BrutoComp'         => $this->gbruto,
-            'ParticIva'         => $this->gpartiva,
-            'MontoIva'          => $this->giva2,
-            'ExentoComp'        => $this->gexento,
-            'ImpInternoComp'    => $this->gimpinterno,
-            'PercepcionIvaComp' => $this->gperciva,
-            'RetencionIB'       => $this->gperib,
-            'RetencionGan'      => $this->gretgan,
-            'NetoComp'          => $this->gneto,
-            'MontoPagadoComp'   => $this->gmontopagado, 
-            'CantidadLitroComp' => $this->gcantidad,
-            'Anio'              => $this->ganio,
-            'PasadoEnMes'       => $this->gmes,
-            'iva_id'            => $this->giva,
-            'area_id'           => $this->garea,
-            'cuenta_id'         => $this->gcuenta,
-            'user_id'           => auth()->user()->id,
-            'empresa_id'        => session('empresa_id'),
-            'proveedor_id'      => $this->gproveedor,
-        ]);
-        //updateOrCreate
-        $this->gfiltro();
-        session()->flash('message', 'Comprobante Creado.');
+        $cerrado = Comprobante::where('PasadoEnMes','=',$this->gmes)
+            ->where('Anio','=',$this->ganio)
+            ->where('empresa_id','=',session('empresa_id'))
+            ->where('Cerrado','>',0)
+            ->get();
+            // dd(count($cerrado));
+        if(!count($cerrado) || (count($cerrado) && $this->gpartiva<>'Si')) {
+            Comprobante::create([
+                'fecha'             => $this->gfecha,
+                'comprobante'       => $this->gcomprobante,
+                'detalle'           => $this->gdetalle,
+                'BrutoComp'         => $this->gbruto,
+                'ParticIva'         => $this->gpartiva,
+                'MontoIva'          => $this->giva2,
+                'ExentoComp'        => $this->gexento,
+                'ImpInternoComp'    => $this->gimpinterno,
+                'PercepcionIvaComp' => $this->gperciva,
+                'RetencionIB'       => $this->gperib,
+                'RetencionGan'      => $this->gretgan,
+                'NetoComp'          => $this->gneto,
+                'MontoPagadoComp'   => $this->gmontopagado, 
+                'CantidadLitroComp' => $this->gcantidad,
+                'Anio'              => $this->ganio,
+                'PasadoEnMes'       => $this->gmes,
+                'iva_id'            => $this->giva,
+                'area_id'           => $this->garea,
+                'cuenta_id'         => $this->gcuenta,
+                'user_id'           => auth()->user()->id,
+                'empresa_id'        => session('empresa_id'),
+                'proveedor_id'      => $this->gproveedor,
+            ]);
+            //updateOrCreate
+            $this->gfiltro();
+            session()->flash('message', 'Comprobante Creado.');    
+        } else {
+            session()->flash('message3', 'No se puede agragar un comprobante a un libro ya Cerrado.');
+            }
+        {
+        }
     }
 
     public function edit() {
         $this->RellenarCamposVacios();
         $comp = Comprobante::find($this->comprobante_id);
-        $this->validate([
-            'gfecha'            => 'required|date',
-            'gbruto'            => 'numeric',
-            'gpartiva'          => 'required',
-            'giva2'             => 'numeric',
-            'gexento'           => 'numeric',
-            'gimpinterno'       => 'numeric',
-            'gperciva'          => 'numeric',
-            'gperib'            => 'numeric',
-            'gretgan'           => 'numeric',
-            'gneto'             => 'numeric',
-            'gmontopagado'      => 'numeric', 
-            'gcantidad'         => 'numeric',
-            'ganio'             => 'required|integer',
-            'gmes'              => 'required',
-            'giva'              => 'required|integer',
-            'garea'             => 'required|integer',
-            'gcuenta'           => 'required|integer',
-            'gproveedor'        => 'required|integer',
-        ]);
-        //dd($this->gbruto. " " . $this->giva);
-        $comp->update([
-            'fecha'             => $this->gfecha,
-            'comprobante'       => $this->gcomprobante,
-            'detalle'           => $this->gdetalle,
-            'BrutoComp'         => $this->gbruto,
-            'ParticIva'         => $this->gpartiva,
-            'MontoIva'          => $this->giva2,
-            'ExentoComp'        => $this->gexento,
-            'ImpInternoComp'    => $this->gimpinterno,
-            'PercepcionIvaComp' => $this->gperciva,
-            'RetencionIB'       => $this->gperib,
-            'RetencionGan'      => $this->gretgan,
-            'NetoComp'          => $this->gneto,
-            'MontoPagadoComp'   => $this->gmontopagado, 
-            'CantidadLitroComp' => $this->gcantidad,
-            'Anio'              => $this->ganio,
-            'PasadoEnMes'       => $this->gmes,
-            'iva_id'            => $this->giva,
-            'area_id'           => $this->garea,
-            'cuenta_id'         => $this->gcuenta,
-            'user_id'           => auth()->user()->id,
-            'empresa_id'        => session('empresa_id'),
-            'proveedor_id'      => $this->gproveedor,
-        ]);
-        //updateOrCreate
-        $this->gfiltro();
-        $this->closeModalModify();
-        session()->flash('message2', $this->comprobante_id ? 'Comprobante Actualizado.' : 'No se pudo modificar.');
+        if ($comp->Cerrado) { 
+            $this->closeModalModify();
+            session()->flash('message3', 'No se puede modificar un comprobante que se encuentra en un libro cerrado.'); 
+        } else {
+            $this->validate([
+                'gfecha'            => 'required|date',
+                'gbruto'            => 'numeric',
+                'gpartiva'          => 'required',
+                'giva2'             => 'numeric',
+                'gexento'           => 'numeric',
+                'gimpinterno'       => 'numeric',
+                'gperciva'          => 'numeric',
+                'gperib'            => 'numeric',
+                'gretgan'           => 'numeric',
+                'gneto'             => 'numeric',
+                'gmontopagado'      => 'numeric', 
+                'gcantidad'         => 'numeric',
+                'ganio'             => 'required|integer',
+                'gmes'              => 'required',
+                'giva'              => 'required|integer',
+                'garea'             => 'required|integer',
+                'gcuenta'           => 'required|integer',
+                'gproveedor'        => 'required|integer',
+            ]);
+            //dd($this->gbruto. " " . $this->giva);
+            $comp->update([
+                'fecha'             => $this->gfecha,
+                'comprobante'       => $this->gcomprobante,
+                'detalle'           => $this->gdetalle,
+                'BrutoComp'         => $this->gbruto,
+                'ParticIva'         => $this->gpartiva,
+                'MontoIva'          => $this->giva2,
+                'ExentoComp'        => $this->gexento,
+                'ImpInternoComp'    => $this->gimpinterno,
+                'PercepcionIvaComp' => $this->gperciva,
+                'RetencionIB'       => $this->gperib,
+                'RetencionGan'      => $this->gretgan,
+                'NetoComp'          => $this->gneto,
+                'MontoPagadoComp'   => $this->gmontopagado, 
+                'CantidadLitroComp' => $this->gcantidad,
+                'Anio'              => $this->ganio,
+                'PasadoEnMes'       => $this->gmes,
+                'iva_id'            => $this->giva,
+                'area_id'           => $this->garea,
+                'cuenta_id'         => $this->gcuenta,
+                'user_id'           => auth()->user()->id,
+                'empresa_id'        => session('empresa_id'),
+                'proveedor_id'      => $this->gproveedor,
+            ]);
+            //updateOrCreate
+            $this->gfiltro();
+            $this->closeModalModify();
+            session()->flash('message2', $this->comprobante_id ? 'Comprobante Actualizado.' : 'No se pudo modificar.');
+        }
     }
 
     public function delete() {
         //$this->comprobante_id = $id;
-        Comprobante::find($this->comprobante_id)->delete();
-        $this->gfiltro();
-        $this->comprobante_id=null;
+        $a = Comprobante::find($this->comprobante_id);
+        if($a->Cerrado==0) { 
+            $a->delete(); 
+            $this->comprobante_id=null;
+            $this->gfiltro();
+            session()->flash('message3', 'Comprobante Eliminado.');
+        } else {
+            session()->flash('message3', 'No se puede eliminar un comprobante que se encuentra en un libro Cerrado.');
+        }
         $this->closeModalDelete();
-        session()->flash('message3', 'Comprobante Eliminado.');
     }
 
     public function CambiarTab($id) {
@@ -324,6 +346,7 @@ class CompraComponent extends Component
                     //->whereBetween('comprobantes.fecha',["'".$this->ddesde."'","'".$this->dhasta."'"])
                     ->where('comprobantes.fecha','>=',$this->ddesde)
                     ->where('comprobantes.fecha','<=',$this->dhasta)
+                    ->where('comprobantes.empresa_id','=',session('empresa_id'))
                     //->orderByDesc('avg_salary')
                     ->get();
                     
@@ -351,7 +374,7 @@ class CompraComponent extends Component
                 $this->MostrarCreditoProveedores=true;break;
             };
             case "libro" : {
-                $sql="SELECT PasadoEnMes, Max(Cerrado) as Cerrado FROM comprobantes WHERE ParticIva='Si' and Anio=" . $this->lanio . " and empresa_id='".session('empresa_id')."' GROUP BY Anio,PasadoEnMes ORDER BY fecha";
+                $sql="SELECT PasadoEnMes, Max(Cerrado) as Cerrado FROM comprobantes WHERE ParticIva='Si' and Anio=" . $this->lanio . " and empresa_id='".session('empresa_id')."' GROUP BY PasadoEnMes, Anio";
                 $this->MostrarLibros=true;break;
             };
         }
@@ -448,10 +471,10 @@ class CompraComponent extends Component
         //dd($this->deudaPDF);
         //Dibuja el filtro
         $Saldo=0;
-        $this->DeudaProveedoresFiltro = "<table class=\"mt-6\">
+        $this->DeudaProveedoresFiltro = "<table class=\"mt-6\" style=\"width:300px\">
             <tr class=\"bg-blue-200 border border-blue-500\">
-                <td class=\"center\">Nombre</td>
-                <td class=\"center\">Deuda</td>
+                <td class=\"center bg-gray-300\">Nombre</td>
+                <td class=\"center bg-gray-300\">Deuda</td>
             </tr>";
         foreach($registros as $registro) {
             if ($registro->Saldo>1) {
@@ -465,9 +488,9 @@ class CompraComponent extends Component
             }
         }
         $this->DeudaProveedoresFiltro = $this->DeudaProveedoresFiltro .
-            "<tr class=\"bg-green-500\">
-                <td class=\"colspan-2\">Total Deuda a Proveedores</td>
-                <td>".number_format($Saldo,2,',','.')."</td>
+            "<tr class=\"bg-green-500 w-36\">
+                <td class=\"colspan-2 bg-gray-300\">Total Deuda</td>
+                <td class=\"text-right bg-gray-300\"><b>".number_format($Saldo,2,',','.')."</b></td>
             </tr>
             </table>";
             //dd("filtro" . $this->DeudaProveedoresFiltro);
@@ -483,10 +506,10 @@ class CompraComponent extends Component
 
         //Dibuja el filtro
         $Saldo=0;
-        $this->CreditoProveedoresFiltro = "<table class=\"mt-6\">
+        $this->CreditoProveedoresFiltro = "<table class=\"mt-6\" style=\"width:300px\">
             <tr class=\"bg-blue-200 border border-blue-500\">
-                <td class=\"center\">Nombre</td>
-                <td class=\"center\">Crédito</td>
+                <td class=\"center bg-gray-400\">Nombre</td>
+                <td class=\"center bg-gray-400\">Crédito</td>
             </tr>";
         foreach($registros as $registro) {
             if($registro->Saldo<1) {
@@ -501,26 +524,54 @@ class CompraComponent extends Component
         }
         $this->CreditoProveedoresFiltro = $this->CreditoProveedoresFiltro .
             "<tr class=\"bg-green-500\">
-                <td class=\"colspan-2\">Total Crédito a Proveedores</td>
-                <td>".number_format($Saldo,2,',','.')."</td>
+                <td class=\"colspan-2 bg-gray-400\">Total Crédito</td>
+                <td class=\"bg-gray-400 text-right\"><b>".number_format($Saldo,2,',','.')."</b></td>
             </tr>
             </table>";
     }
 
     public function MostrarLibros() {
         if($this->lmes && $this->lanio) {
-        $sql = $this->ProcesaSQLFiltro('libro'); // Procesa los campos a mostrar
-        $registros = DB::select(DB::raw($sql));       // Busca el recordset
-        //Dibuja el filtro
-        $Saldo=0;
-        $this->LibroFiltro ="<table class=\"w-full mt-8  shadow-lg\" ><tr><td class=\"bg-gray-300 border border-green-400\">Mes</td><td class=\"bg-gray-300 border border-green-400\">Estado</td>";
-        //dd($registros);
-        foreach ($registros as $libro) {
-            $NombreMes = $this->ConvierteMesEnTexto($libro->PasadoEnMes);
-            if($libro->Cerrado>0) { $AbiertoCerrado = 'Cerrado'; } else { $AbiertoCerrado = 'Abierto'; }
-            $this->LibroFiltro = $this->LibroFiltro . "<tr><td class=\"bg-gray-100 border border-green-400\">". $NombreMes . "</td><td class=\"bg-gray-100 border border-green-400\">" . $AbiertoCerrado . "</td>";
+            $sql = $this->ProcesaSQLFiltro('libro'); // Procesa los campos a mostrar
+            $registros = DB::select(DB::raw($sql));       // Busca el recordset
+            //Dibuja el filtro
+            $Saldo=0;
+            $this->LibroFiltro ="<table class=\"w-full mt-8  shadow-lg\" ><tr><td class=\"bg-gray-300 border border-green-400\">Mes</td><td class=\"bg-gray-300 border border-green-400\">Estado</td>";
+            //dd($registros);
+            foreach ($registros as $libro) {
+                $NombreMes = $this->ConvierteMesEnTexto($libro->PasadoEnMes);
+                if($libro->Cerrado>0) { $AbiertoCerrado = 'Cerrado'; } else { $AbiertoCerrado = 'Abierto'; }
+                $this->LibroFiltro = $this->LibroFiltro . "<tr><td class=\"bg-gray-100 border border-green-400\">". $NombreMes . "</td><td class=\"bg-gray-100 border border-green-400\">" . $AbiertoCerrado . "</td>";
+            }
+            $this->LibroFiltro = $this->LibroFiltro . "</tr></table>";
         }
-        $this->LibroFiltro = $this->LibroFiltro . "</tr></table>";
     }
+
+    public function CerrarLibro() {
+        //$sSql="SELECT * FROM tblComprobantes WHERE Anio=$LibroAnio and Empresa='".$_SESSION['CuitEmpresa']."' and PasadoEnMes='$LibroMes' and ParticipaEnIva='Si'";
+        $i=0;
+        $registros = DB::table('comprobantes')              // Busca la última página utilizada para la empresa seleccionada
+            ->where('empresa_id','=',session('empresa_id'))
+            ->where('ParticIva','=','Si')
+            ->groupByRaw('Anio,PasadoEnMes,Cerrado')
+            ->orderBy('Cerrado')
+            ->get();
+        $UltimaPaginaCerrada = $registros->last()->Cerrado; // Asigna el valor en $UltimaPaginaCerrada
+        $registros = DB::table('comprobantes')        // Carga todos los registros que van a ser modificados que corresponden al mes y año
+            ->where('Anio','=',$this->lanio)
+            ->where('PasadoEnMes','=',$this->lmes)
+            ->where('empresa_id','=',session('empresa_id'))
+            ->where('ParticIva','=','Si')
+            ->orderByRaw('fecha,comprobante,BrutoComp')
+            ->get();
+        $UltimaPaginaCerrada++;
+        foreach($registros as $registro) {
+            $reg = Comprobante::find($registro->id);
+            if ($i==35) { $UltimaPaginaCerrada++; $i=0; }
+            $reg->Cerrado = $UltimaPaginaCerrada;
+            $reg->save();
+            $i++;
+        }
+        $this->MostrarLibros();
     }
 }
