@@ -3,7 +3,19 @@
 	<x-tituloslim>Comprobantes de Compras</x-tituloslim>
 	<div class="content-center flex">
 		<div class="bg-white p-2 text-center rounded-lg shadow-lg w-full">
-			
+			@if (Route::has('login'))
+					<div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+						@auth
+							<a href="{{ url('/empresas') }}" class="text-sm text-gray-700 underline">Dashboard</a>
+						@else
+							<a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
+
+							@if (Route::has('register'))
+									<a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
+							@endif
+						@endauth
+					</div>
+			@endif
 			<!-- Tabs  -->
 			<div class="flex flex-wrap" id="tabs-id">
 				<div class="w-full">
@@ -246,8 +258,8 @@
 											</select>
 											@error('gcuenta') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
-									{{-- </div>
-									<div class="flex flex-wrap text-xs justify-around"> --}}
+										{{-- </div>
+										<div class="flex flex-wrap text-xs justify-around"> --}}
 										<div class="mr-1 w-28">
 											<label for="">Bruto</label><br>
 											<input class="num ml-2 w-full text-xs text-right rounded-md h-7" type="text" id="Bruto" name="Bruto" wire:model="gbruto" wire:keyup="CalcularIva()">
@@ -309,11 +321,142 @@
 											<input class="num ml-2 w-full text-xs text-right rounded-md h-7" type="text" wire:model="gcantidad">
 										</div>
 									</div>
-									<div>
+
+
+
+
+
+
+										<div class="flex flex-wrap justify-center border border-green-800 border-collapse mt-3 bg-gray-300 rounded-md text-xs">
+											<div style="width: max-content">
+												<div class="border border-green-600 w-1/4">Mes</div>
+												<div class="border border-green-600">
+													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfmes" wire:change="gfiltro({{$pantalla}})">
+														<option value=""></option>
+														<option value="1">Enero</option>
+														<option value="2">Febrero</option>
+														<option value="3">Marzo</option>
+														<option value="4">Abril</option>
+														<option value="5">Mayo</option>
+														<option value="6">Junio</option>
+														<option value="7">Julio</option>
+														<option value="8">Agosto</option>
+														<option value="9">Setiembre</option>
+														<option value="10">Octubre</option>
+														<option value="11">Noviembre</option>
+														<option value="12">Diciembre</option>
+													</select>
+												</div>
+											</div>
+											<div style="width: max-content">
+												<div class="border border-green-600 w-1/4">Proveedor</div>
+												<div class="border border-green-600">
+													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfproveedor" wire:change="gfiltro({{$pantalla}})">
+														<option value=""></option>
+														@foreach ($proveedores as $proveedor)
+															<option value="{{ $proveedor->id }}">
+																{{ $proveedor->name }}</option>
+														@endforeach
+													</select>
+												</div>
+											</div>
+											<div style="width: max-content">
+												<div class="border border-green-600 w-1/4">ParticipaIva</div>
+												<div class="border border-green-600">
+													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfparticipa" wire:change="gfiltro({{$pantalla}})">
+														<option value=""></option>
+														<option value="Si">Si</option>
+														<option value="No">No</option>
+														<option value="Ganancias">Ganancias</option>
+														<option value="BsPers">Bs. Pers.</option>
+													</select>
+												</div>
+											</div>
+											<div style="width: max-content">
+												<div class="border border-green-600 w-1/4">Iva</div>
+												<div class="border border-green-600">
+													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfiva" wire:change="gfiltro({{$pantalla}})">
+														<option value=""></option>
+														@foreach ($ivas as $iva)
+															<option value="{{ $iva->id }}">
+																{{ $iva->descripcion }}</option>
+														@endforeach
+													</select>
+												</div>
+											</div>
+											<div style="width: max-content">
+												<div class="border border-green-600 w-1/4">Detalle</div>
+												<div class="border border-green-600">
+													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfdetalle" wire:change="gfiltro({{$pantalla}})">
+														<option value=""></option>
+													</select>
+												</div>
+											</div>
+											<div style="width: max-content">
+												<div class="border border-green-600 w-1/4">Area</div>
+												<div class="border border-green-600">
+													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfarea" wire:change="gfiltro({{$pantalla}})">
+														<option value=""></option>
+														@foreach ($areas as $area)
+															<option value="{{ $area->id }}">{{ $area->name }}
+															</option>
+														@endforeach
+													</select>
+												</div>
+											</div>
+											<div style="width: max-content">
+												<div class="border border-green-600 w-1/4">Cuenta</div>
+												<div class="border border-green-600">
+													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfcuenta" wire:change="gfiltro({{$pantalla}})">
+														<option value=""></option>
+														@foreach ($cuentas as $cuenta)
+															<option value="{{ $cuenta->id }}">{{ $cuenta->name }}
+															</option>
+														@endforeach
+													</select>
+												</div>
+											</div>
+											<div style="width: max-content">
+												<div class="border border-green-600 w-1/4">Año</div>
+												<div class="border border-green-600">
+													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfanio" wire:change="gfiltro({{$pantalla}})">
+														<option value="2021">2021</option>
+														<option value="2020">2020</option>
+														<option value="2019">2019</option>
+														<option value="2018">2018</option>
+														<option value="2017">2017</option>
+														<option value="2016">2016</option>
+														<option value="2015">2015</option>
+														<option value="2014">2014</option>
+														<option value="2013">2013</option>
+													</select>
+												</div>
+											</div>
+											<div style="width: max-content">
+												<div class="border border-green-600 w-1/4">Asc. C/Saldo</div>
+												<div class="border border-green-600">
+													<input class=" mr-2 rounded-sm py-0" type="checkbox" checked wire:model="fgascendente" wire:change="gfiltro({{$pantalla}})">
+												</div>
+												<div>
+													<input class=" mr-2 rounded-sm py-0" type="checkbox" wire:model="gfsaldo" wire:change="gfiltro({{$pantalla}})">
+												</div>
+											</div>
+										<div>
+
+											
+										
+										<div>
+											{!! $filtro !!}
+										</div>
+									</div>
+
+
+
+{{-- 
 										<table
 											class="table-auto w-full border border-green-800 border-collapse mt-3 bg-gray-300 rounded-md text-xs">
 											<tr>
-												<td colspan="9"><strong>Filtro</strong></td>
+												<td colspan="9"><strong>Fildivo</strong></td>
 											</tr>
 											<tr>
 												<td class="border border-green-600">Mes</td>
@@ -328,7 +471,7 @@
 											</tr>
 											<tr>
 												<td class="border border-green-600">
-													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfmes" wire:change="gfiltro()">
+													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfmes" wire:change="gfiltro({{$pantalla}})">
 														<option value=""></option>
 														<option value="1">Enero</option>
 														<option value="2">Febrero</option>
@@ -345,7 +488,7 @@
 													</select>
 												</td>
 												<td class="border border-green-600">
-													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfproveedor" wire:change="gfiltro()">
+													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfproveedor" wire:change="gfiltro({{$pantalla}})">
 														<option value=""></option>
 														@foreach ($proveedores as $proveedor)
 															<option value="{{ $proveedor->id }}">
@@ -355,7 +498,7 @@
 
 												</td>
 												<td class="border border-green-600">
-													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfparticipa" wire:change="gfiltro()">
+													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfparticipa" wire:change="gfiltro({{$pantalla}})">
 														<option value=""></option>
 														<option value="Si">Si</option>
 														<option value="No">No</option>
@@ -364,7 +507,7 @@
 													</select>
 												</td>
 												<td class="border border-green-600">
-													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfiva" wire:change="gfiltro()">
+													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfiva" wire:change="gfiltro({{$pantalla}})">
 														<option value=""></option>
 														@foreach ($ivas as $iva)
 															<option value="{{ $iva->id }}">
@@ -374,12 +517,12 @@
 													</select>
 												</td>
 												<td class="border border-green-600">
-													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfdetalle" wire:change="gfiltro()">
+													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfdetalle" wire:change="gfiltro({{$pantalla}})">
 														<option value=""></option>
 													</select>
 												</td>
 												<td class="border border-green-600">
-													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfarea" wire:change="gfiltro()">
+													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfarea" wire:change="gfiltro({{$pantalla}})">
 														<option value=""></option>
 														@foreach ($areas as $area)
 															<option value="{{ $area->id }}">{{ $area->name }}
@@ -388,7 +531,7 @@
 													</select>
 												</td>
 												<td class="border border-green-600">
-													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfcuenta" wire:change="gfiltro()">
+													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfcuenta" wire:change="gfiltro({{$pantalla}})">
 														<option value=""></option>
 														@foreach ($cuentas as $cuenta)
 															<option value="{{ $cuenta->id }}">{{ $cuenta->name }}
@@ -397,7 +540,7 @@
 													</select>
 												</td>
 												<td class="border border-green-600">
-													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfanio" wire:change="gfiltro()">
+													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfanio" wire:change="gfiltro({{$pantalla}})">
 														<option value="2021">2021</option>
 														<option value="2020">2020</option>
 														<option value="2019">2019</option>
@@ -410,14 +553,14 @@
 													</select>
 												</td>
 												<td class="border border-green-600">
-													<input class=" mr-2 rounded-sm py-0" type="checkbox" checked wire:model="fgascendente" wire:change="gfiltro()">
-													<input class=" mr-2 rounded-sm py-0" type="checkbox" wire:model="gfsaldo" wire:change="gfiltro()">
+													<input class=" mr-2 rounded-sm py-0" type="checkbox" checked wire:model="fgascendente" wire:change="gfiltro({{$pantalla}})">
+													<input class=" mr-2 rounded-sm py-0" type="checkbox" wire:model="gfsaldo" wire:change="gfiltro({{$pantalla}})">
 												</td>
 											</tr>
 											<tr>
 												{!! $filtro !!}
 											</tr>
-										</table>
+										</table> --}}
 									</div>
 								</div>
 							</div>

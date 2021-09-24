@@ -24,6 +24,10 @@ class EmpresaComponent extends Component
         $empresas_usuario = EmpresaUsuario::where('user_id',$userid)->get();
         //dd($userid);
         //dd($empresas_usuario);
+        $PHP_SELF=0;
+        //include('Pantalla.php');
+        
+        dd(session('ancho'));
         foreach($empresas_usuario as $empresa) {
             //dd($empresa->empresa_id);
             $this->empresas[] = Empresa::find($empresa->empresa_id);
