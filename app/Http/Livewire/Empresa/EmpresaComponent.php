@@ -34,12 +34,13 @@ class EmpresaComponent extends Component
 
     public function cargamodulos($id) {
         session(['empresa_id' => $id]);
-        sleep(2);
+        //sleep(2);
         $this->empresa_id=$id;
         //dd(session('empresa_id'));
         $empresa_modulos = EmpresaModulo::where('empresa_id',$this->empresa_id)->get('modulo_id');
         // $modulos=Modulo::find($empresa_modulos);
-        //return view('livewire.modulo.modulo-component',$modulos);
+        //return view('livewire.modulo.modulo-component',$empresa_modulos);
+        return redirect('modulos');
     }
     
 }

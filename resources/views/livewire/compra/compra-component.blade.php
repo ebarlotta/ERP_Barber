@@ -60,9 +60,9 @@
 								<div style="background-color: #E3F6CE" class="block">
 									<!-- Botones -->
 									<div class="flex justify-center">
-										<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="store">Agregar</button>
-										<button class="rounded-md bg-yellow-300 px-8 py-1 mx-2 mt-3" wire:click="openModalModify">Modificar</button>
-										<button class="rounded-md bg-red-300 px-8 py-1 mx-2 mt-3" wire:click="openModalDelete">Eliminar</button>
+										<button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" wire:click="store">Agregar</button>
+										<button class="rounded-md bg-yellow-300 px-6 py-1 mx-2 mt-3" wire:click="openModalModify">Modificar</button>
+										<button class="rounded-md bg-red-300 px-6 py-1 mx-2 mt-3" wire:click="openModalDelete">Eliminar</button>
 										<div class="absolute right-0">
 											@if (session()->has('message'))
 												<div class="bg-green-300 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-2 shadow-lg my-2"
