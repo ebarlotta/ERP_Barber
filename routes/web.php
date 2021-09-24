@@ -55,4 +55,13 @@ Route::get('modulos',ModuloComponent::class)->name('modulos');
 Route::get('pdf/deuda/{ddesde}/{dhasta}', [ImprimirPDF::class, 'DeudaPFD'])->name('DeudaPFD');
 Route::get('pdf/credito/{cdesde}/{chasta}', [ImprimirPDF::class, 'CreditoPFD'])->name('CreditoPFD');
 Route::get('pdf/ivacompras/{anio}/{mes}', [ImprimirPDF::class, 'IvaCompras'])->name('IvaCompras');
-//Route::get('pdf/ejemplo/{anio}/{mes}', [ImprimirPDF::class, 'ejemplo'])->name('ejemplo');
+
+Route::get('empresas/prueba',EmpresaComponent::class)->name('empresas.prueba');
+
+Route::get('prueba', function(){
+    return view('submenu');
+});
+Route::get('/prueba', function () {
+    return view('prueba');
+});
+// Route::get('prueba', [EmpresaComponent::class, 'prueba'])->name('prueba');

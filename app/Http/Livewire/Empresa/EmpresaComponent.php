@@ -42,5 +42,9 @@ class EmpresaComponent extends Component
         //return view('livewire.modulo.modulo-component',$empresa_modulos);
         return redirect('modulos');
     }
+
+    public function prueba() {
+        return view('livewire.empresa.prueba');
+    }
     
 }
