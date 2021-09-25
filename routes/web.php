@@ -38,7 +38,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('areas',AreaComponent::class)->name('areas');
+// Route::get('areas',AreaComponent::class)->name('areas');
 Route::get('cuentas',CuentaComponent::class)->name('cuentas');
 Route::get('proveedores',ProveedorComponent::class)->name('proveedores');
 Route::get('clientes',ClienteComponent::class)->name('clientes');
@@ -57,12 +57,6 @@ Route::get('pdf/deuda/{ddesde}/{dhasta}', [ImprimirPDF::class, 'DeudaPFD'])->nam
 Route::get('pdf/credito/{cdesde}/{chasta}', [ImprimirPDF::class, 'CreditoPFD'])->name('CreditoPFD');
 Route::get('pdf/ivacompras/{anio}/{mes}', [ImprimirPDF::class, 'IvaCompras'])->name('IvaCompras');
 
-Route::get('empresas/prueba',EmpresaComponent::class)->name('empresas.prueba');
-
-Route::get('prueba', function(){
-    return view('submenu');
+Route::get('empresas/config', function () {
+    return view('adminlte');
 });
-Route::get('/prueba', function () {
-    return view('prueba');
-});
-// Route::get('prueba', [EmpresaComponent::class, 'prueba'])->name('prueba');

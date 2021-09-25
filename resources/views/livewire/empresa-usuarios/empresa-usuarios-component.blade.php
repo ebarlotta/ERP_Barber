@@ -1,4 +1,6 @@
 <div>
+    @extends('adminlte::page')
+@section('content')
     <x-titulo>Relacionar Usuarios a Empresas</x-titulo>
     <x-slot name="header">
         <div class="flex">
@@ -116,4 +118,5 @@
         </div>
     </div>
 </div>
+@stop
 </div>

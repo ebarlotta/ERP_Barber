@@ -446,7 +446,7 @@
 									</select>
 									</div>
 									<div>
-										Desde <input class="ml-2 text-xs rounded-md h-7 ml-5" type="date" wire:model="ddesde"> Hasta <input class="ml-2 text-xs rounded-md h-7" type="date" wire:model="dhasta">
+										Desde <input class="text-xs rounded-md h-7 ml-5" type="date" wire:model="ddesde"> Hasta <input class="ml-2 text-xs rounded-md h-7" type="date" wire:model="dhasta">
 									</div>
 									<div class="mt-4">
 										<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularDeudaProveedores(0)">Solicitar Listado</button>
@@ -486,7 +486,7 @@
 										</select>
 									</div>
 									<div>
-										Desde <input class="ml-2 text-xs rounded-md h-7 ml-5" type="date" wire:model="cdesde"> Hasta <input class="ml-2 text-xs rounded-md h-7" type="date" wire:model="chasta">
+										Desde <input class="text-xs rounded-md h-7 ml-5" type="date" wire:model="cdesde"> Hasta <input class="ml-2 text-xs rounded-md h-7" type="date" wire:model="chasta">
 									</div>
 									<div>
 										<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularCreditoProveedores()">Solicitar Listado</button>

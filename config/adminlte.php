@@ -247,21 +247,26 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
+            'text'        => 'Las paginaspages',
+            'url'         => '#',
             'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
+            'label'       => 6,
             'label_color' => 'success',
         ],
         ['header' => 'account_settings'],
         [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'text' => 'Usuarios x Empresa',
+            'url'  => 'empresausuarios',
+            'icon' => 'fas fa-fw fa-lock',
         ],
         [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
+            'text' => 'Usuarios x Módulo',
+            'url'  => 'modulousuarios',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
+        [
+            'text' => 'Alta de empresas',
+            'url'  => 'modulousuarios',
             'icon' => 'fas fa-fw fa-lock',
         ],
         [
@@ -472,5 +477,5 @@ return [
     |
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];
