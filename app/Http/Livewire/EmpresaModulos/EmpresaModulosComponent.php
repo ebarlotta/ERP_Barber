@@ -34,7 +34,9 @@ class EmpresaModulosComponent extends Component
             ->get();
         // dd($this->empresas);
 
-        return view('livewire.empresa-modulos.empresa-modulos-component');
+        return view('livewire.empresa-modulos.empresa-modulos-component')
+        ->extends('layouts.adminlte')
+        ->section('content');
     }
     public function mostrarmodal()
     {

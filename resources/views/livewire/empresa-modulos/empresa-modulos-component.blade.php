@@ -1,4 +1,3 @@
-@extends('adminlte')
 <div>
 	<x-titulo>Relacionar Módulos a Empresas</x-titulo>
 	<x-slot name="header">
@@ -107,5 +106,5 @@
 		</div>
 	</div>
 </div>
-</div>
+
 

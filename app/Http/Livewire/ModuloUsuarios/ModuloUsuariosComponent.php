@@ -38,7 +38,8 @@ class ModuloUsuariosComponent extends Component
         //$modulos = Modulo::get()->sortBy('id')->paginate(4);
         //$this->modulos = Modulo::all();
         //$datos = Modulo::paginate(10);
-        return view('livewire.modulo-usuarios.modulo-usuarios-component',['datos'=> Modulo::paginate(3),]);
+        return view('livewire.modulo-usuarios.modulo-usuarios-component',['datos'=> Modulo::paginate(3),])->extends('layouts.adminlte')
+        ->section('content');
     }
 
     public function mostrarmodal()

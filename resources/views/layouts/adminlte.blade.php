@@ -26,17 +26,23 @@
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
     <script src="js/jquery.mask.js"></script>
+
+</head>
+@extends('adminlte::page')
+@section('content')
     
-    @section('content')
-    @extends('adminlte::page')
+    
         <div class="bg-gray-100 h-full">
 
             <!-- Page Content -->
             <main>
-                {{ $slot ?? '' }}
+                @yield('content')
+                prueba
             </main>
         </div>
-
+        @stop
         @stack('modals')
 
         @livewireScripts
+    </body>
+    </html>

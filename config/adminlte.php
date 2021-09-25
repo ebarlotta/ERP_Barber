@@ -265,6 +265,11 @@ return [
             'icon' => 'fas fa-fw fa-lock',
         ],
         [
+            'text' => 'Módulos x Empresa',
+            'url'  => 'empresamodulos',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
+        [
             'text' => 'Alta de empresas',
             'url'  => 'modulousuarios',
             'icon' => 'fas fa-fw fa-lock',

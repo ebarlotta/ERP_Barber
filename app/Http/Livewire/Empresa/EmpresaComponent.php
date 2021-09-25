@@ -43,8 +43,9 @@ class EmpresaComponent extends Component
         return redirect('modulos');
     }
 
-    public function prueba() {
-        return view('livewire.empresa.prueba');
+    public function configurarempresa($id) {
+        $this->empresa_id=$id;
+        return redirect('empresausuarios');
     }
     
 }
