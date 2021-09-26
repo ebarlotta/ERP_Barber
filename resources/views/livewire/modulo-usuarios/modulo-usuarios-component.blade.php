@@ -48,9 +48,9 @@
 											<td class="border px-4 py-2 text-left @if ($seleccionado==$modulo->id) bg-red-300 @endif" wire:click="CargarUsuarios({{ $modulo->id }})">
 												<div class="w-full p-3">
 													<div class="flex rounded overflow-hidden border">
-														<img class="block w-15 h-15 flex-none bg-cover"	src="https://picsum.photos/seed/picsum/100/100">
-														<div class="bg-white rounded-b p-4 flex flex-col justify-between leading-normal">
-															<div class="text-black font-bold text-xl mb-2 leading-tight">{{ $modulo->name }}</div>
+														<img class="block rounded-md flex-none bg-cover"	src="{{ asset('images/'. $modulo->imagen) }}" style="width:100px; height: 100px;">
+														<div class="bg-white rounded-b pt-4 pl-4 flex flex-col justify-between leading-normal">
+															<div class="text-black font-bold text-lg mb-2 leading-tight">{{ $modulo->name }}</div>
 															<p class="text-grey-darker text-base">Read more</p>
 														</div>
 													</div>
@@ -70,9 +70,9 @@
 													<td class="border px-4 py-2 text-left bg-red-300">
 														<div class="w-full p-3">
 															<div class="flex rounded overflow-hidden border">
-																<img class="block w-15 h-15 flex-none bg-cover"	src="https://picsum.photos/seed/picsum/80/80">
-																<div class="bg-white rounded-b p-4 flex flex-col justify-between leading-normal">
-																	<div class="text-black font-bold text-xl mb-2 leading-tight">{{ $usuario['name'] }}</div>
+																<img class="block rounded-md flex-none bg-cover" src="https://picsum.photos/seed/picsum/80/80" style="width:100px; height: 100px;">
+																<div class="bg-white rounded-b pt-4 pl-4 flex flex-col justify-between leading-normal">
+																	<div class="text-black font-bold text-lg mb-2 leading-tight">{{ $usuario['name'] }}</div>
 																	<p class="text-grey-darker text-base">Read more and	more</p>
 																</div>
 																<div class="bg-white rounded-b p-4 flex flex-col justify-between leading-normal">

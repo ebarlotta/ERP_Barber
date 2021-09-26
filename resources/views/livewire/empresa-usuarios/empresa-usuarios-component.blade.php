@@ -40,7 +40,7 @@
                 @if ($empresas)
                     <table>
                         <tr>
-                            <td>
+                            <td class="align-baseline">
                                 <table>
                                     <tr>
                                         <td class="table-cell">Empresas</td>
@@ -48,15 +48,15 @@
                                     </tr>
                                     @foreach ($empresas as $empresa)
                                         <tr>
-                                            <td class="border px-4 py-2 text-left @if ($seleccionado==$empresa->id) bg-red-300 @endif" wire:click="CargarUsuarios({{ $empresa->id }})">
+                                            <td class="align-bottom border px-4 py-2 text-left @if ($seleccionado==$empresa->id) bg-red-300 @endif" wire:click="CargarUsuarios({{ $empresa->id }})">
                                                 <div class="w-full p-3">
                                                     <div class="flex rounded overflow-hidden border">
-                                                        <img class="block w-15 h-15 flex-none bg-cover"
-                                                            src="https://picsum.photos/seed/picsum/100/100">
+                                                        <img class="block  flex-none bg-cover"
+                                                            src="https://picsum.photos/seed/picsum/100/100" style="width: 100px; height: 100px;">
                                                         <div
-                                                            class="bg-white rounded-b p-4 flex flex-col justify-between leading-normal">
+                                                            class="bg-white rounded-b pl-4 flex flex-col justify-between leading-normal">
                                                             <div
-                                                                class="text-black font-bold text-xl mb-2 leading-tight">
+                                                                class="text-black  pt-4 font-bold text-lg mb-2 leading-tight">
                                                                 {{ $empresa->name }}</div>
                                                             <p class="text-grey-darker text-base">Read more
                                                             </p>
@@ -69,7 +69,7 @@
                                     @endforeach
                                 </table>
                             </td>
-                            <td>
+                            <td class="align-baseline">
                                 <div class="overflow-y-auto h-1/2">
                                     <table>
                                         @if ($usuariosdelaempresa)
@@ -78,12 +78,12 @@
                                                     <td class="border px-4 py-2 text-left bg-red-300">
                                                         <div class="w-full p-3">
                                                             <div class="flex rounded overflow-hidden border">
-                                                                <img class="block w-15 h-15 flex-none bg-cover"
-                                                                    src="https://picsum.photos/seed/picsum/80/80">
+                                                                <img class="block flex-none bg-cover"
+                                                                    src="https://picsum.photos/seed/picsum/80/80" style="width: 100px; height: 100px;">
                                                                 <div
-                                                                    class="bg-white rounded-b p-4 flex flex-col justify-between leading-normal">
+                                                                    class="bg-white rounded-b pl-4 pt-4 flex flex-col justify-between leading-normal">
                                                                     <div
-                                                                        class="text-black font-bold text-xl mb-2 leading-tight">
+                                                                        class="text-black font-bold text-lg mb-2 leading-tight">
                                                                         {{ $usuario['name'] }}</div>
                                                                     <p class="text-grey-darker text-base">Read more and
                                                                         more</p>
