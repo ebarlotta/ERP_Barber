@@ -9,6 +9,16 @@ class Empresa extends Model
 {
     use HasFactory;
 
+    protected $fillable=[
+        'name',
+        'direccion',
+        'cuit',
+        'ib',
+        'establecimiento',
+        'telefono',
+        'actividad',
+        'actividad1',
+    ];
 
     //Relacion de uno a muchos 
       

@@ -25,12 +25,12 @@
                         </div>
                     @endif
                     @if ($seleccionado)
-                    <div class="text-left">
-                        <button wire:click="mostrarmodal()"
-                            class="bg-green-300 hover:bg-green-400 text-white-900 font-bold py-2 px-4 rounded">
-                            Relacionar nuevo Usuario
-                        </button>
-                    </div>
+                        <div class="text-left">
+                            <button wire:click="mostrarmodal()"
+                                class="bg-green-300 hover:bg-green-400 text-white-900 font-bold py-2 px-4 rounded">
+                                Relacionar nuevo Usuario
+                            </button>
+                        </div>
                     @endif
                 </div>
 
@@ -38,82 +38,72 @@
                     @include('livewire.empresa-usuarios.createempresausuarios')
                 @endif
                 @if ($empresas)
-                    <table>
-                        <tr>
-                            <td class="align-baseline">
-                                <table>
-                                    <tr>
-                                        <td class="table-cell">Empresas</td>
-                                        <td class="table-cell">Usuarios</td>
-                                    </tr>
-                                    @foreach ($empresas as $empresa)
-                                        <tr>
-                                            <td class="align-bottom border px-4 py-2 text-left @if ($seleccionado==$empresa->id) bg-red-300 @endif" wire:click="CargarUsuarios({{ $empresa->id }})">
-                                                <div class="w-full p-3">
-                                                    <div class="flex rounded overflow-hidden border">
-                                                        <img class="block  flex-none bg-cover"
-                                                            src="https://picsum.photos/seed/picsum/100/100" style="width: 100px; height: 100px;">
-                                                        <div
-                                                            class="bg-white rounded-b pl-4 flex flex-col justify-between leading-normal">
-                                                            <div
-                                                                class="text-black  pt-4 font-bold text-lg mb-2 leading-tight">
-                                                                {{ $empresa->name }}</div>
-                                                            <p class="text-grey-darker text-base">Read more
-                                                            </p>
+                    <div class="flex">
+                        <div class="h-full" style="width: 40%">
+                            Empresas
+                            @foreach ($empresas as $empresa)
+                                <ul>
+                                    <li class="align-bottom border px-4 py-2 text-left @if ($seleccionado == $empresa->id) bg-red-300 @endif"
+                                        wire:click="CargarUsuarios({{ $empresa->id }})">
+                                        <div class="w-full p-3">
+                                            <div class="flex rounded overflow-hidden border">
+                                                <img class="block  flex-none bg-cover"
+                                                    src="https://picsum.photos/seed/picsum/100/100"
+                                                    style="width: 100px; height: 100px;">
+                                                <div
+                                                    class="bg-white rounded-b pl-4 flex flex-col justify-between leading-normal">
+                                                    <div class="text-black  pt-4 font-bold text-lg mb-2 leading-tight">
+                                                        {{ $empresa->name }}</div>
+                                                    <p class="text-grey-darker text-base">Read more
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            @endforeach
+                            <div class="w-full">{{ $empresas->links() }}</div>
+                        </div>
+                        <div style="width: 40%">
+                            <div class="bg-transparent">Usuarios</div>
+                            @if ($usuariosdelaempresa)
+                                @foreach ($usuariosdelaempresa as $usuario)
+                                    <ul>
+                                        <li class="border px-4 py-2 text-left bg-red-300">
+                                            <div class="w-full p-3">
+                                                <div class="flex rounded overflow-hidden border">
+                                                    <img class="block flex-none bg-cover"
+                                                        src="https://picsum.photos/seed/picsum/80/80"
+                                                        style="width: 100px; height: 100px;">
+                                                    <div
+                                                        class="bg-white rounded-b pl-4 pt-4 flex flex-col justify-between leading-normal">
+                                                        <div class="text-black font-bold text-lg mb-2 leading-tight">
+                                                            {{ $usuario['name'] }}</div>
+                                                        <p class="text-grey-darker text-base">Read more and
+                                                            more</p>
+                                                    </div>
+                                                    {{-- @if ($usuario->activo) --}}
+                                                    <div
+                                                        class="bg-white rounded-b p-4 flex flex-col justify-between leading-normal">
+                                                        <div class="text-black font-bold text-xl mb-2 leading-tight">
+                                                            <img class="block w-15 h-15 flex-none bg-cover"
+                                                                src="{{ asset('images/activo.jpg') }}" width="40"
+                                                                height="40">
                                                         </div>
                                                     </div>
+                                                    {{-- @endif --}}
                                                 </div>
-
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </table>
-                            </td>
-                            <td class="align-baseline">
-                                <div class="overflow-y-auto h-1/2">
-                                    <table>
-                                        @if ($usuariosdelaempresa)
-                                            @foreach ($usuariosdelaempresa as $usuario)
-                                                <tr>
-                                                    <td class="border px-4 py-2 text-left bg-red-300">
-                                                        <div class="w-full p-3">
-                                                            <div class="flex rounded overflow-hidden border">
-                                                                <img class="block flex-none bg-cover"
-                                                                    src="https://picsum.photos/seed/picsum/80/80" style="width: 100px; height: 100px;">
-                                                                <div
-                                                                    class="bg-white rounded-b pl-4 pt-4 flex flex-col justify-between leading-normal">
-                                                                    <div
-                                                                        class="text-black font-bold text-lg mb-2 leading-tight">
-                                                                        {{ $usuario['name'] }}</div>
-                                                                    <p class="text-grey-darker text-base">Read more and
-                                                                        more</p>
-                                                                </div>
-                                                                {{-- @if ($usuario->activo) --}}
-                                                                <div
-                                                                    class="bg-white rounded-b p-4 flex flex-col justify-between leading-normal">
-                                                                    <div
-                                                                        class="text-black font-bold text-xl mb-2 leading-tight">
-                                                                        <img class="block w-15 h-15 flex-none bg-cover"
-                                                                            src="{{  asset('images/activo.jpg') }}" width="40" height="40">
-                                                                    </div>
-                                                                </div>
-                                                                {{-- @endif --}}
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endif
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
                 @else
                     <h1>No hay datos</h1>
                 @endif
             </div>
         </div>
     </div>
-</div>
 </div>

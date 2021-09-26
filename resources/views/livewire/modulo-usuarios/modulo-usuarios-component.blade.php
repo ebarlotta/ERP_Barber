@@ -35,67 +35,56 @@
 					@include('livewire.modulo-usuarios.createmodulousuarios')
 				@endif	
 				@if ($datos)
-					<table>
-						<tr>
-							<td>
-								<table>
-									<tr>
-										<td class="table-cell">Módulos</td>
-										<td class="table-cell">Usuarios</td>
-									</tr>
-									@foreach ($datos as $modulo)
-										<tr>
-											<td class="border px-4 py-2 text-left @if ($seleccionado==$modulo->id) bg-red-300 @endif" wire:click="CargarUsuarios({{ $modulo->id }})">
-												<div class="w-full p-3">
-													<div class="flex rounded overflow-hidden border">
-														<img class="block rounded-md flex-none bg-cover"	src="{{ asset('images/'. $modulo->imagen) }}" style="width:100px; height: 100px;">
-														<div class="bg-white rounded-b pt-4 pl-4 flex flex-col justify-between leading-normal">
-															<div class="text-black font-bold text-lg mb-2 leading-tight">{{ $modulo->name }}</div>
-															<p class="text-grey-darker text-base">Read more</p>
-														</div>
-													</div>
+				<div class="flex">
+					<div class="h-full" style="width: 40%">
+						Módulos <br>
+						@foreach ($datos as $modulo)
+							<ul>
+								<li class="border text-left @if ($seleccionado==$modulo->id) bg-red-100 @endif" wire:click="CargarUsuarios({{ $modulo->id }})">
+									<div class="w-full p-3">
+										<div class="flex rounded overflow-hidden border">
+											<img class="block rounded-md flex-none bg-cover"	src="{{ asset('images/'. $modulo->imagen) }}" style="width:100px; height: 100px;">
+											<div class="bg-white rounded-b pt-4 pl-4 flex flex-col justify-between leading-normal">
+												<div class="text-black font-bold text-lg mb-2 leading-tight">{{ $modulo->name }}</div>
+												<p class="text-grey-darker text-base">Read more</p>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						@endforeach
+						<div class="w-full">{{ $datos->links() }}</div>
+					</div>
+					<div style="width: 40%">
+						<div class="bg-transparent">Usuarios</divbg-white>
+						@if ($usuariosdelmodulo)
+						@foreach ($usuariosdelmodulo as $usuario)
+							<ul>
+								<li class="border text-left bg-red-100 min-h-full">
+									<div class="w-full p-3">
+										<div class="flex rounded overflow-hidden border">
+											<img class="block rounded-md flex-none bg-cover" src="https://picsum.photos/seed/picsum/80/80" style="width:100px; height: 100px;">
+											<div class="bg-white rounded-b pt-4 pl-4 flex flex-col justify-between leading-normal">
+												<div class="text-black font-bold text-lg mb-2 leading-tight">{{ $usuario['name'] }}</div>
+												<p class="text-grey-darker text-base">Read more and	more</p>
+											</div>
+											<div class="bg-white rounded-b p-4 flex flex-col justify-between leading-normal">
+												<div class="text-black font-bold text-xl mb-2 leading-tight">
+													<img class="block w-15 h-15 flex-none bg-cover"	src="{{  asset('images/activo.jpg') }}" width="40" height="40">
 												</div>
-											</td>
-										</tr>
-									@endforeach
-								</table>
-								{{ $datos->links() }}
-							</td>
-							<td>
-								<div class="overflow-y-auto h-1/2">
-									<table>
-										@if ($usuariosdelmodulo)
-											@foreach ($usuariosdelmodulo as $usuario)
-												<tr>
-													<td class="border px-4 py-2 text-left bg-red-300">
-														<div class="w-full p-3">
-															<div class="flex rounded overflow-hidden border">
-																<img class="block rounded-md flex-none bg-cover" src="https://picsum.photos/seed/picsum/80/80" style="width:100px; height: 100px;">
-																<div class="bg-white rounded-b pt-4 pl-4 flex flex-col justify-between leading-normal">
-																	<div class="text-black font-bold text-lg mb-2 leading-tight">{{ $usuario['name'] }}</div>
-																	<p class="text-grey-darker text-base">Read more and	more</p>
-																</div>
-																<div class="bg-white rounded-b p-4 flex flex-col justify-between leading-normal">
-																	<div class="text-black font-bold text-xl mb-2 leading-tight">
-																		<img class="block w-15 h-15 flex-none bg-cover"	src="{{  asset('images/activo.jpg') }}" width="40" height="40">
-																	</div>
-																</div>
-															</div>
-														</div>
-													</td>
-												</tr>
-											@endforeach
-										@endif
-									</table>
-								</div>
-							</td>
-						</tr>
-					</table>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						@endforeach
+						@endif
+					</div>
+				</div>
 				@else
 					<h1>No hay datos</h1>
 				@endif
 			</div>
 		</div>
 	</div>
-</div>
 </div>

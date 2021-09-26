@@ -38,8 +38,8 @@ class ModuloUsuariosComponent extends Component
         //$modulos = Modulo::get()->sortBy('id')->paginate(4);
         //$this->modulos = Modulo::all();
         //$datos = Modulo::paginate(10);
-        return view('livewire.modulo-usuarios.modulo-usuarios-component',['datos'=> Modulo::paginate(3),])->extends('layouts.adminlte')
-        ->section('content');
+        return view('livewire.modulo-usuarios.modulo-usuarios-component',['datos'=> Modulo::orderby('name')->paginate(3),])->extends('layouts.adminlte')
+        ->section('content'); //Enzo
     }
 
     public function mostrarmodal()
@@ -59,17 +59,27 @@ class ModuloUsuariosComponent extends Component
     public function CargarUsuarios($id)
     {
         $this->moduloseleccionado = Modulo::find($id);
+        $this->seleccionado=$id;
         $this->usuariosdelmodulo = DB::table('users')->distinct()
             ->join('modulo_usuarios', 'users.id', '=', 'modulo_usuarios.user_id')
             ->join('modulos',  'modulos.id', '=', 'modulo_usuarios.modulo_id',)
             ->where('modulos.id', $this->moduloseleccionado->id)
             ->select('users.*', 'modulos.name as modulo')
+            ->orderby('users.name')
             ->get();
             //$this->usuariosdelaemp = $this->usuariosdelmodulo;
         $array = json_decode($this->usuariosdelmodulo, true);
         //dd($array);
         $this->usuariosdelmodulo=$array;
         $this->usuariosNOmodulo=User::all();
+        // $this->usuariosNOmodulo = DB::table('users')->distinct()
+        //     ->join('modulo_usuarios', 'users.id', '=', 'modulo_usuarios.user_id')
+        //     ->join('modulos',  'modulos.id', '=', 'modulo_usuarios.modulo_id',)
+        //     ->where('modulos.id', '<>',$this->moduloseleccionado->id)
+        //     ->where('modulos.name','=',$this->moduloseleccionado->name)
+        //     ->select('users.*','modulos.name as modulo')
+        //     ->orderby('users.name')
+        //     ->get();
     }
 
     public function AgregarUsuario($user_id)

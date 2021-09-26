@@ -29,7 +29,8 @@ class EmpresaComponent extends Component
             $this->empresas[] = Empresa::find($empresa->empresa_id);
         }
         
-        return view('livewire.empresa.empresa-component');
+        return view('livewire.empresa.empresa-component')->extends('layouts.adminlte')
+        ->section('content');
     }
 
     public function cargamodulos($id) {

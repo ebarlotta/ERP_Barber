@@ -46,8 +46,9 @@ return [
     */
 
     'logo' => '<div style="display:inline-block"><b>BarBer</b><br><p style="font-size: 8px;">DESARROLLOS</p></div>',
+    // 'logo' => '<div style="display:inline-block"><b>BarBer</b><br><p style="font-size: 8px;">DESARROLLOS</p></div>',
     // 'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img' => asset('images/BarBer.png'),
+    'logo_img' => 'images/BarBer.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -272,7 +273,7 @@ return [
         ],
         [
             'text' => 'Gestión de empresas',
-            'url'  => 'modulousuarios',
+            'url'  => 'empresagestion',
             'icon' => 'fas fa-fw fa-building',
         ],
         // [
