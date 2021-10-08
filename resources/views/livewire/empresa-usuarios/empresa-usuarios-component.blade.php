@@ -62,7 +62,7 @@
                                     </li>
                                 </ul>
                             @endforeach
-                            <div class="w-full">{{ $empresas->links() }}</div>
+                            <div class="w-full">{{ $datos->links() }}</div>
                         </div>
                         <div style="width: 40%">
                             <div class="bg-transparent">Usuarios</div>

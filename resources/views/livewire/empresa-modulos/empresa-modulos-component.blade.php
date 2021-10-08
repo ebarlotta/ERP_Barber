@@ -66,6 +66,7 @@
 											</td>
 										</tr>
 									@endforeach
+									<div class="w-full">{{ $datos->links() }}</div>
 								</table>
 							</td>
 							<td>

@@ -8,9 +8,13 @@ use App\Models\Empresa;
 use App\Models\EmpresaModulo;
 use App\Models\Modulo;
 use App\Models\EmpresaUsuario;
+use Livewire\WithPagination;
 
 class EmpresaModulosComponent extends Component
 {
+
+    use WithPagination;
+
     public $isModalOpen = false;
 
     public $name;
@@ -34,7 +38,7 @@ class EmpresaModulosComponent extends Component
             ->get();
         // dd($this->empresas);
 
-        return view('livewire.empresa-modulos.empresa-modulos-component')->extends('layouts.adminlte')
+        return view('livewire.empresa-modulos.empresa-modulos-component',['datos'=>EmpresaUsuario::where('user_id',$userid)->join('empresas','empresas.id','=','empresa_usuarios.empresa_id')->paginate(5)])->extends('layouts.adminlte')
         ->section('content'); //enzo
     }
     public function mostrarmodal()

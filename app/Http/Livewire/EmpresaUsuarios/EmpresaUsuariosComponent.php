@@ -7,6 +7,7 @@ use App\Models\EmpresaUsuario;
 use App\Models\Empresa;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\User;
+use Livewire\WithPagination;
 
 class EmpresaUsuariosComponent extends Component
 {
@@ -22,11 +23,13 @@ class EmpresaUsuariosComponent extends Component
     public $empresaseleccionada;
     public $seleccionado=1;
 
+    use WithPagination;
+
     public function render()
     {
         $this->usuariosglobales= User::all();
         $this->empresas = Empresa::all()->sortBy('id');
-        return view('livewire.empresa-usuarios.empresa-usuarios-component')->extends('layouts.adminlte')
+        return view('livewire.empresa-usuarios.empresa-usuarios-component',['datos'=>Empresa::OrderBy('id')->paginate(3)])->extends('layouts.adminlte')
         ->section('content'); //Enzo
     }
 
