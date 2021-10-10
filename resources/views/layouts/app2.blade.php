@@ -10,6 +10,9 @@
     <!-- Tailwind -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 
+    <!-- Tooltips -->
+    <link rel="stylesheet" href="{{asset('css/tooltips.css')}}">
+
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 

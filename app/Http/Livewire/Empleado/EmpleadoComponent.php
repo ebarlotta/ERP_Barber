@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Empleado;
 
 use Livewire\Component;
 use App\Models\Empleado;
+use Carbon\Carbon;
 
 class EmpleadoComponent extends Component
 {
@@ -63,7 +64,7 @@ class EmpleadoComponent extends Component
         $this->unidad = '';
         $this->seccion = '';
         $this->activo = '';
-        $this->baja = '';
+        $this->baja = null;
     }
 
     public function store()
@@ -75,8 +76,8 @@ class EmpleadoComponent extends Component
             'telefono' => 'required|integer',
             'legajo' => 'required|integer',
             'dni' => 'required|integer',
-            'nacimiento' => 'required|datetime',
-            'ingreso' => 'required|datetime',
+            'nacimiento' => 'required|date',
+            'ingreso' => 'required|date',
             'estadocivil' => 'required',
             'tipocontratacion' => 'required',
             'regimen' => 'required',
@@ -88,8 +89,9 @@ class EmpleadoComponent extends Component
             'unidad' => 'required|bool',
             'seccion' => 'required',
             'activo' => 'required|bool',
-            'baja' => 'required|datetime',
+            
         ]);
+        
         Empleado::updateOrCreate(['id' => $this->empleado_id], [
             'name' => $this->name,
             'empresa_id' => $this->empresa_id,
@@ -130,8 +132,8 @@ class EmpleadoComponent extends Component
         $this->domicilio = $empleado->domicilio;
         $this->dni = $empleado->dni;
         $this->cuil = $empleado->cuil;
-        $this->nacimiento = date('d-m-Y', strtotime($empleado->nacimiento));
-        $this->ingreso = date('d-m-Y', strtotime($empleado->ingreso));
+        $this->nacimiento = Carbon::parse($empleado->nacimiento)->format('Y-m-d');
+        $this->ingreso = Carbon::parse($empleado->ingreso)->format('Y-m-d');
         $this->estadocivil = $empleado->estadocivil;
         $this->tipocontratacion = $empleado->tipocontratacion;
         $this->regimen = $empleado->regimen;
@@ -145,7 +147,7 @@ class EmpleadoComponent extends Component
         $this->unidad = $empleado->unidad;
         $this->seccion = $empleado->seccion;
         $this->activo = $empleado->activo;
-        $this->baja = $empleado->baja;
+        $this->baja = Carbon::parse($empleado->baja)->format('Y-m-d');
 
         $this->openModalPopover();
     }

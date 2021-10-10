@@ -23,6 +23,7 @@ class CompraComponent extends Component
     public $giva=1;
     public $ModalDelete, $openModalDelete;
     public $ModalModify, $openModalModify;
+    public $ModalCerrarLibro;
     public $gfecha,$gproveedor, $gcomprobante, $gcuenta, $gdetalle, $ganio, $gmes, $garea, $gpartiva, $gbruto, $giva2, $gexento, $gimpinterno, $gperciva, $gretgan, $gperib, $gneto, $gmontopagado, $gcantidad;
     //Variables del filtro
     public $gfmes, $gfproveedor, $gfparticipa, $gfiva, $gfdetalle, $gfarea, $gfcuenta, $gfanio, $fgascendente, $gfsaldo; //Comprobantes
@@ -61,6 +62,9 @@ class CompraComponent extends Component
 
     public function openModalDelete() { $this->ModalDelete = true;  }
     public function closeModalDelete() { $this->ModalDelete = false;  }
+
+    public function openModalCerrarLibro() { $this->ModalCerrarLibro = true;  }
+    public function BackModalPopover() { $this->ModalCerrarLibro = false;  }
 
     public function openModalModify() { $this->ModalModify = true;  }
     public function closeModalModify() { $this->ModalModify = false;  }
@@ -481,7 +485,8 @@ class CompraComponent extends Component
                 $proveedor = Proveedor::find($registro->id);
                 $this->DeudaProveedoresFiltro = $this->DeudaProveedoresFiltro .
                 "<tr>
-                    <td class=\"bg-gray-100 border border-blue-500\">" . $proveedor->name . "</td>
+                    <td class=\"bg-gray-100 border border-blue-500 text-left tooltip\"><span class=\"tooltiptext\">
+                    Teléfono: ".$proveedor->telefono."<br>Email: ".$proveedor->email."</span>" . $proveedor->name . "</td>
                     <td class=\"bg-gray-100 border border-blue-500 text-right\">" . number_format($registro->Saldo,2,',','.') . "</td>
                 </tr>";
                 $Saldo = $Saldo + $registro->Saldo;
@@ -516,7 +521,8 @@ class CompraComponent extends Component
                 $proveedor = Proveedor::find($registro->id);
                 $this->CreditoProveedoresFiltro = $this->CreditoProveedoresFiltro .
                 "<tr>
-                    <td class=\"bg-gray-100 border border-blue-500\">" . $proveedor->name . "</td>
+                    <td class=\"bg-gray-100 border border-blue-500 text-left tooltip\" wire:click=\"copy(".$proveedor->id.")\"><span class=\"tooltiptext\">
+                    Teléfono: ".$proveedor->telefono."<br>Email: ".$proveedor->email."</span>" . $proveedor->name . "</td>
                     <td class=\"bg-gray-100 border border-blue-500 text-right\">" . number_format($registro->Saldo * -1 ,2,',','.') . "</td>
                 </tr>";
                 $Saldo = $Saldo + $registro->Saldo * -1;

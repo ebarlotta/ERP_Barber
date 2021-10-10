@@ -421,78 +421,111 @@
 									</div>
 								</div>
 							</div>
+
+{{-- Deuda a Proveedores --}}
+{{-- =================== --}}
 							<div class="{{ $tabActivo != 2 ? 'hidden' : '' }}">
-								<div class="block justify-center">
-									<div class="mb-4">
-									Áreas a incluir 
-									<select class="ml-2 text-xs rounded-md h-7 leading-none mr-5" wire:model="darea">
-										<option value="0">Todas</option>
-										@foreach ($areas as $area)
-											<option value="{{ $area->id }}">{{ $area->name }}</option>
-										@endforeach
-									</select>
-									Años a incluir 
-									<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="danio">
-										<option value="0">Todos</option>
-										<option value="2021">2021</option>
-										<option value="2020">2020</option>
-										<option value="2019">2019</option>
-										<option value="2018">2018</option>
-										<option value="2017">2017</option>
-										<option value="2016">2016</option>
-										<option value="2015">2015</option>
-										<option value="2014">2014</option>
-										<option value="2013">2013</option>
-									</select>
+								<div class="flex justify-center">
+									<div class="flex">
+										<div class="block mb-4 justify-start">
+											<label for="">Áreas a incluir</label><br>
+											<select class="ml-2 text-xs rounded-md h-7 leading-none mr-5" wire:model="darea">
+												<option value="0">Todas</option>
+												@foreach ($areas as $area)
+													<option value="{{ $area->id }}">{{ $area->name }}</option>
+												@endforeach
+											</select>
+										</div>
+										<div class="block mb-4">
+											<label for="">Años a incluir </label><br>
+											<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="danio">
+												<option value="0">Todos</option>
+												<option value="2021">2021</option>
+												<option value="2020">2020</option>
+												<option value="2019">2019</option>
+												<option value="2018">2018</option>
+												<option value="2017">2017</option>
+												<option value="2016">2016</option>
+												<option value="2015">2015</option>
+												<option value="2014">2014</option>
+												<option value="2013">2013</option>
+											</select>
+										</div>
 									</div>
-									<div>
-										Desde <input class="text-xs rounded-md h-7 ml-5" type="date" wire:model="ddesde"> Hasta <input class="ml-2 text-xs rounded-md h-7" type="date" wire:model="dhasta">
+								</div>
+								<div class="flex justify-center">
+									<div class="flex">
+										<div class="block mb-4 justify-start">
+											Desde <br>
+											<input class="text-xs rounded-md h-7 ml-5" type="date" wire:model="ddesde">
+										</div>
 									</div>
-									<div class="mt-4">
-										<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularDeudaProveedores(0)">Solicitar Listado</button>
-										<a class="btn btn-primary" href="{{ URL::to('/pdf/deuda'.'/'.$ddesde.'/'.$dhasta) }}" target="_blank">
-											<button class="rounded-md bg-yellow-500 px-8 	py-1 mx-2 mt-3">Generar PDF</button>
-										</a>
+									<div class="flex">
+										<div class="block mb-4 justify-start">
+											Hasta <br>
+											<input class="ml-2 text-xs rounded-md h-7" type="date" wire:model="dhasta"><br>
+										</div>
+									</div>
+									<div class="flex mt-4 justify-center">
+										<div class="block mb-4 justify-start">
+											<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularDeudaProveedores(0)">Solicitar Listado</button>
+											<a class="btn btn-primary" href="{{ URL::to('/pdf/deuda'.'/'.$ddesde.'/'.$dhasta) }}" target="_blank">
+												<button class="rounded-md bg-yellow-500 px-8 	py-1 mx-2 mt-3">Generar PDF</button>
+											</a>
+										</div>
 									</div>
 									<div class="flex justify-center w-full">
 										@if ($MostrarDeudaProveedores)
 											{!! $DeudaProveedoresFiltro !!}
 										@endif
 									</div>
-								</div>
+								</div>								
 							</div>
+{{-- Crédito de Proveedores --}}
+{{-- ======================= --}}							
 							<div class="{{ $tabActivo != 3 ? 'hidden' : '' }}">
-								<div class="block justify-center">
-									<div class="mb-4">
-										Àreas a incluir 
-										<select class="ml-2 text-xs rounded-md h-7 leading-none mr-5" wire:model="carea">
-											<option value="0">Todas</option>
-											@foreach ($areas as $area)
+								<div class="flex justify-center">
+									<div class="flex">
+										<div class="block mb-4 justify-start">
+											<label for="">Àreas a incluir</label><br>
+											<select class="ml-2 text-xs rounded-md h-7 leading-none mr-5" wire:model="carea">
+												<option value="0">Todas</option>
+												@foreach ($areas as $area)
 												<option value="{{ $area->id }}">{{ $area->name }}</option>
-											@endforeach
-										</select>
-										Años a incluir 
-										<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="canio">
-											<option value="0">Todos</option>
-											<option value="2021">2021</option>
-											<option value="2020">2020</option>
-											<option value="2019">2019</option>
-											<option value="2018">2018</option>
-											<option value="2017">2017</option>
-											<option value="2016">2016</option>
-											<option value="2015">2015</option>
-											<option value="2014">2014</option>
-											<option value="2013">2013</option>
-										</select>
-									</div>
+												@endforeach
+											</select>
+										</div>
+										<div class="block mb-4">
+											<label for="">Años a incluir</label><br>
+											<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="canio">
+												<option value="0">Todos</option>
+												<option value="2021">2021</option>
+												<option value="2020">2020</option>
+												<option value="2019">2019</option>
+												<option value="2018">2018</option>
+												<option value="2017">2017</option>
+												<option value="2016">2016</option>
+												<option value="2015">2015</option>
+												<option value="2014">2014</option>
+												<option value="2013">2013</option>
+											</select>
+										</div>
 									<div>
-										Desde <input class="text-xs rounded-md h-7 ml-5" type="date" wire:model="cdesde"> Hasta <input class="ml-2 text-xs rounded-md h-7" type="date" wire:model="chasta">
+								</div>
+								<div class="flex justify-center">
+									<div class="flex">
+										<div class="block mb-4 justify-start">
+											Desde <br>
+											<input class="text-xs rounded-md h-7 ml-5" type="date" wire:model="cdesde"> Hasta <input class="ml-2 text-xs rounded-md h-7" type="date" wire:model="chasta">
+										</div>
 									</div>
-									<div>
-										<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularCreditoProveedores()">Solicitar Listado</button>
-										<a class="btn btn-primary" href="{{ URL::to('/pdf/credito'.'/'.$cdesde.'/'.$chasta) }}" target="_blank">
-											<button class="rounded-md bg-yellow-500 px-8 	py-1 mx-2 mt-3">Generar PDF</button>
-										</a>
+									<div class="flex mt-4 justify-center">
+										<div class="block mb-4 justify-start">
+											<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularCreditoProveedores()">Solicitar Listado</button>
+											<a class="btn btn-primary" href="{{ URL::to('/pdf/credito'.'/'.$cdesde.'/'.$chasta) }}" target="_blank">
+												<button class="rounded-md bg-yellow-500 px-8 	py-1 mx-2 mt-3">Generar PDF</button>
+											</a>
+										</div>
 									</div>
 									<div class="flex justify-center w-full">
 										@if ($MostrarCreditoProveedores)
@@ -500,12 +533,15 @@
 										@endif
 									</div>
 								</div>
-							</div>
+{{-- Cuentas Corrientes  --}}
+{{-- =================== --}}
 							<div class="{{ $tabActivo != 4 ? 'hidden' : '' }}">
 								<div class="flex flex-auto justify-center">
 									<img src="{{ asset('images/under-construction.jpg') }}" alt="" class="w-36">
 								</div>
 							</div>
+{{-- Libros de IVA  --}}
+{{-- ============== --}}
 							<div class="{{ $tabActivo != 5 ? 'hidden' : '' }}">
 								<div class="flex flex-auto justify-center">
 									<div>
@@ -562,10 +598,13 @@
 													<a class="btn btn-primary" href="{{ URL::to('/pdf/ivacompras'.'/'.$lanio.'/'.$lmes) }}" target="_blank">
 														<button class="rounded-md bg-green-300 px-8 py-1 ml-4 mt-6">Imprimir Libro</button>
 													</a><br>
-													<button class="rounded-md bg-yellow-300 px-8 py-1 ml-4 mt-6" wire:click="CerrarLibro">Cerrar Libro</button>
+													<button class="rounded-md bg-yellow-300 px-8 py-1 ml-4 mt-6" wire:click="openModalCerrarLibro()">Cerrar Libro</button>
 												</td>
 											</tr>
 										</table>
+										@if($ModalCerrarLibro)
+											@include('livewire.compra.modalcerrarlibrocompras')
+										@endif
 										<div class="w-full">
 											@if ($MostrarLibros)
 												{!! $LibroFiltro !!}

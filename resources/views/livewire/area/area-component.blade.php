@@ -1,5 +1,5 @@
 <div>
-    <x-titulo>Areas</x-titulo>
+    <x-titulo>Áreas</x-titulo>
     <x-slot name="header">
         <div class="flex">
             <!-- //Comienza en submenu de encabezado -->

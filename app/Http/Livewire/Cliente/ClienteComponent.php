@@ -61,7 +61,7 @@ class ClienteComponent extends Component
             'direccion' => 'required',
             'cuil' => 'required|integer',
             'telefono' => 'required|integer',
-            'email' => 'required|email',
+            'email' => 'email',
         ]);
         Cliente::updateOrCreate(['id' => $this->cliente_id], [
             'name' => $this->name,

@@ -19,6 +19,7 @@ class CreateClientesTable extends Migration
             $table->string('name');
             $table->string('cuil')->default('');
             $table->string('direccion');
+            $table->string('email')->nullable();
             $table->bigInteger('telefono');
             
 

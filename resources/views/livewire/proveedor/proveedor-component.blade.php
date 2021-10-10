@@ -32,8 +32,8 @@
                         <thead>
                             <tr class="bg-gray-100">
                                 <th class="px-4 py-2">Nombre del Proveedor</th>
-                                <th class="px-4 py-2">Dirección</th>
-                                <th class="px-4 py-2">Cuit</th>
+                                {{-- <th class="px-4 py-2">Dirección</th>
+                                <th class="px-4 py-2">Cuit</th> --}}
                                 <th class="px-4 py-2">Teléfono</th>
                                 <th class="px-4 py-2">Email</th>
                                 <th class="px-4 py-2">Opciones</th>
@@ -44,8 +44,8 @@
                                 @foreach ($proveedores as $proveedor)
                                     <tr>
                                         <td class="border px-4 py-2 text-left">{{ $proveedor->name }}</td>
-                                        <td class="border px-4 py-2 text-left">{{ $proveedor->direccion }}</td>
-                                        <td class="border px-4 py-2 text-left">{{ $proveedor->cuit }}</td>
+                                        {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->direccion }}</td>
+                                        <td class="border px-4 py-2 text-left">{{ $proveedor->cuit }}</td> --}}
                                         <td class="border px-4 py-2 text-left">{{ $proveedor->telefono }}</td>
                                         <td class="border px-4 py-2 text-left">{{ $proveedor->email }}</td>
                                         <td class="border px-4 py-2">

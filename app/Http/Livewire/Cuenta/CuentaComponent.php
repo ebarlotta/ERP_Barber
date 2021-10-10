@@ -17,7 +17,7 @@ class CuentaComponent extends Component
     public function render()
     {
         $this->empresa_id=session('empresa_id');
-        $this->cuentas = Cuenta::where('empresa_id', $this->empresa_id)->get();
+        $this->cuentas = Cuenta::where('empresa_id', $this->empresa_id)->orderby('name')->get();
         return view('livewire.cuenta.cuenta-component');
     }
 

@@ -45,20 +45,20 @@
                     <div class="mb-4 w-5/12 mr-3">
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Fecha
                             Nacimiento</label>
-                        <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="exampleFormControlInput1" placeholder="Fecha de Nacimiento" wire:model="nacimiento">
+                        <input type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="exampleFormControlInput1" placeholder="Fecha de Nacimiento" wire:model="nacimiento" value="{{ $nacimiento}}">
                         @error('nacimiento') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
                     <div class="mb-4 w-5/12 mr-3">
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Fecha
                             de Ingreso</label>
-                        <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        <input type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="exampleFormControlInput1" placeholder="Ingrese Fecha de Ingreso" wire:model="ingreso">
                         @error('ingreso') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
                     <div class="mb-4 w-5/12 mr-3">
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Estado Civil</label>
-                        <select wire:model="estadocivil">
+                        <select class="rounded text-gray-700" wire:model="estadocivil">
                             <option value="">-</option>
                             <option value="Separado/a">Separado/a</option>
                             <option value="Soltero/a">Soltero/a</option>
@@ -70,7 +70,7 @@
                     <div class="mb-4 w-5/12 mr-3">
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Tipo de
                             Contratación</label>
-                        <select wire:model="tipocontratacion">
+                        <select class="rounded text-gray-700" wire:model="tipocontratacion">
                             <option value="">-</option>
                             <option value="Por Contrato">Por Contrato</option>
                             <option value="A tiempo parcial">A tiempo parcial</option>
@@ -101,10 +101,7 @@
                     <div class="mb-4 w-5/12 mr-3">
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Número
                             de Cuenta</label>
-                        <input type="text"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="exampleFormControlInput1" placeholder="Ingrese Número de cuenta"
-                            wire:model="nrocuentabanco">
+                        <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput1" placeholder="Ingrese Número de cuenta" wire:model="nrocuentabanco">
                         @error('nrocuentabanco') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
                     <div class="mb-4 w-5/12 mr-3">
@@ -117,7 +114,7 @@
                     </div>
                     <div class="mb-4 w-5/12 mr-3">
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Mensualizado</label>
-                        <select name="mensualizado" id="" wire:model="mensualizado">
+                        <select class="rounded text-gray-700" name="mensualizado" id="" wire:model="mensualizado">
                             <option value="1">Mensualizado</option>
                             <option value="0">No Mensualizado</option>
                         </select>
@@ -125,7 +122,7 @@
                     </div>
                     <div class="mb-4 w-5/12 mr-3">
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Jornalizado</label>
-                        <select name="jornalizado" id="" wire:model="jornalizado">
+                        <select class="rounded text-gray-700" name="jornalizado" id="" wire:model="jornalizado">
                             <option value="1">Jornalizado</option>
                             <option value="0">No Jornalizado</option>
                         </select>
@@ -133,7 +130,7 @@
                     </div>
                     <div class="mb-4 w-5/12 mr-3">
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Por Hora</label>
-                        <select name="hora" id="" wire:model="hora">
+                        <select class="rounded text-gray-700" name="hora" id="" wire:model="hora">
                             <option value="1">Por Hora</option>
                             <option value="0">No por hora</option>
                         </select>
@@ -142,7 +139,7 @@
                     <div class="mb-4 w-5/12 mr-3">
                         <label for="exampleFormControlInput1"
                             class="block text-gray-700 text-sm font-bold mb-2">Unidad/</label>
-                            <select name="unidad" id="" wire:model="unidad">
+                            <select class="rounded text-gray-700" name="unidad" id="" wire:model="unidad">
                                 <option value="1">Por Unidad</option>
                                 <option value="0">No por Unidad</option>
                             </select>
@@ -150,7 +147,7 @@
                     </div>
                     <div class="mb-4 w-5/12 mr-3">
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Activo</label>
-                        <select name="activo" id="" wire:model="activo">
+                        <select class="rounded text-gray-700" name="activo" id="" wire:model="activo">
                             <option value="1">Activo</option>
                             <option value="0">Pasivo</option>
                         </select>
@@ -159,8 +156,7 @@
                     <div class="mb-4 w-5/12 mr-3">
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Fecha
                             de Baja</label>
-                        <input type="text"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        <input type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="exampleFormControlInput1" placeholder="Fecha de Baja" wire:model="baja">
                         @error('baja') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>

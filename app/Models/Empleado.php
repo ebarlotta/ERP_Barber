@@ -9,6 +9,28 @@ class Empleado extends Model
 {
     use HasFactory;
 
+    protected $fillable=[
+        'name',
+        'domicilio',
+        'cuil',
+        'telefono',
+        'legajo',
+        'dni',
+        'nacimiento',
+        'ingreso',
+        'estadocivil',
+        'tipocontratacion',
+        'regimen',
+        'banco',
+        'nrocuentabanco',
+        'jornalizado',
+        'mensualizado',
+        'hora',
+        'unidad',
+        'seccion',
+        'activo',
+        'baja',
+    ];
     //Relacion uno a muchos inversa
 
     public function empresa()

@@ -47,11 +47,15 @@
                                         <td class="border px-4 py-2 text-left">{{ $cliente->cuil }}</td>
                                         <td class="border px-4 py-2 text-left">{{ $cliente->telefono }}</td>
                                         <td class="border px-4 py-2">
-                                            <div class="flex justify-center">
-                                                <!-- Editar  -->
-                                                <x-editar id="{{ $cliente->id }}"></x-editar>
-                                                <!-- Eliminar -->
-                                                <x-eliminar id="{{ $cliente->id }}"></x-eliminar>
+                                            <div class="sm:flex justify-center">
+                                                <div class="sm:flex justify-center">
+                                                    <!-- Editar  -->
+                                                    <x-editar id="{{ $cliente->id }}"></x-editar>
+                                                </div>
+                                                <div class="sm:flex justify-center">
+                                                    <!-- Eliminar -->
+                                                    <x-eliminar id="{{ $cliente->id }}"></x-eliminar>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>

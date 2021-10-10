@@ -14,6 +14,7 @@ class Cliente extends Model
         'direccion',
         'cuil',
         'telefono',
+        'email',
         'empresa_id',
     ];
     //Relacion uno a muchos inversa
