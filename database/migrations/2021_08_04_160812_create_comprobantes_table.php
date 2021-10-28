@@ -41,19 +41,29 @@ class CreateComprobantesTable extends Migration
             $table->unsignedBigInteger('area_id');
             $table->unsignedBigInteger('cuenta_id');
             $table->unsignedBigInteger('user_id');
+<<<<<<< HEAD
             //$table->unsignedBigInteger('cliente_id');
             $table->unsignedBigInteger('empresa_id');
             $table->unsignedBigInteger('proveedor_id');
+=======
+            $table->unsignedBigInteger('cliente_id');
+            $table->unsignedBigInteger('empresa_id');
+>>>>>>> 71cf9addfa7dc992098f5a94d8517b79fe83507c
 
             
             $table->foreign('iva_id')->references('id')->on('ivas');
             $table->foreign('area_id')->references('id')->on('areas');
             $table->foreign('cuenta_id')->references('id')->on('cuentas');
             $table->foreign('user_id')->references('id')->on('users');
+<<<<<<< HEAD
             //$table->foreign('cliente_id')->references('id')->on('clientes');
             $table->foreign('empresa_id')->references('id')->on('empresas');
             $table->foreign('proveedor_id')->references('id')->on('proveedors');
             
+=======
+            $table->foreign('cliente_id')->references('id')->on('clientes');
+            $table->foreign('empresa_id')->references('id')->on('empresas');
+>>>>>>> 71cf9addfa7dc992098f5a94d8517b79fe83507c
 
             $table->timestamps();
         });
