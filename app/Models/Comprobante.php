@@ -48,14 +48,11 @@ class Comprobante extends Model
         return $this->belongsTo(Empresa::class);
     }
 
-<<<<<<< HEAD
-=======
     public function cliente()
     {
         return $this->belongsTo(Cliente::class);
     }
 
->>>>>>> 71cf9addfa7dc992098f5a94d8517b79fe83507c
     public function cuenta()
     {
         return $this->belongsTo(Cuenta::class);
@@ -66,19 +63,7 @@ class Comprobante extends Model
         return $this->belongsTo(Area::class);
     }
 
-<<<<<<< HEAD
-    public function usuario()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function proveedor()
-    {
-        return $this->belongsTo(Proveedor::class);
-    }
-=======
     public function usuario(){
         return $this->belongsTo(User::class);
     }
->>>>>>> 71cf9addfa7dc992098f5a94d8517b79fe83507c
 }

@@ -26,23 +26,11 @@ class DatabaseSeeder extends Seeder
         \App\Models\Categoriaprofesional::factory(10)->create();
         \App\Models\Concepto::factory(10)->create();
         \App\Models\EmpresaUsuario::factory(10)->create();
-<<<<<<< HEAD
-        $this->call(ModuloSeeder::class);
-        \App\Models\Empleado::factory(10)->create();
-        \App\Models\EmpresaModulo::factory(10)->create();
-        \App\Models\ModuloUsuario::factory(10)->create();
-        
-        //\App\Models\Modulo::factory(10)->create();
-        //\App\Models\Tabla::factory(10)->create();
-
-        $this->call(ComprobanteSeeder::class);
-=======
         \App\Models\Modulo::factory(10)->create();
         \App\Models\Empleado::factory(10)->create();
         \App\Models\EmpresaModulo::factory(10)->create();
         \App\Models\ModuloUsuario::factory(10)->create();
 //        \App\Models\Tabla::factory(10)->create();
->>>>>>> 71cf9addfa7dc992098f5a94d8517b79fe83507c
         
     }
 }
