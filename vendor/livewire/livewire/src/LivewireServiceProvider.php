@@ -319,7 +319,7 @@ class LivewireServiceProvider extends ServiceProvider
     protected function registerFeatures()
     {
         Features\SupportEvents::init();
-        Features\SupportStacks::init();
+//        Features\SupportStacks::init();
         Features\SupportLocales::init();
         Features\SupportChildren::init();
         Features\SupportRedirects::init();
