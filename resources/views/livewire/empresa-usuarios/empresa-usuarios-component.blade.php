@@ -1,5 +1,5 @@
 <div>
-<<<<<<< HEAD
+
     <x-titulo>Relacionar Usuarios a Empresas</x-titulo>
     <x-slot name="header">
         <div class="flex">

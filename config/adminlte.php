@@ -276,6 +276,26 @@ return [
             'url'  => 'empresagestion',
             'icon' => 'fas fa-fw fa-building',
         ],
+        [
+            'text' => 'Etiquetas',
+            'url'  => 'tags',
+            'icon' => 'fas fa-fw fa-building',
+        ],
+        [
+            'text' => 'Unidades',
+            'url'  => 'unidades',
+            'icon' => 'fas fa-fw fa-building',
+        ],
+        [
+            'text' => 'Categorías de Productos',
+            'url'  => 'categoriaproducto',
+            'icon' => 'fas fa-fw fa-building',
+        ],
+        [
+            'text' => 'Estados',
+            'url'  => 'estados',
+            'icon' => 'fas fa-fw fa-building',
+        ],
         // [
         //     'text'    => 'multilevel',
         //     'icon'    => 'fas fa-fw fa-share',
