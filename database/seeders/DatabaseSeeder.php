@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Tag::factory(10)->create();
         \App\Models\Unidad::factory(10)->create();
         \App\Models\CategoriaProducto::factory(10)->create();
+        \App\Models\Producto::factory(10)->create();
 //        \App\Models\Tabla::factory(10)->create();
         
     }
