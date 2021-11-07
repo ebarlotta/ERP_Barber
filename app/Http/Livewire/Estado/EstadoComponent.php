@@ -18,7 +18,7 @@ class EstadoComponent extends Component
         $this->empresa_id=session('empresa_id');
         $this->estados = Estado::where('empresa_id', $this->empresa_id)->get();
 
-        return view('livewire.estado.estado-component')->extends('layouts.adminlte');;
+        return view('livewire.estado.estado-component')->extends('layouts.adminlte');
     }
     public function create()
     {
