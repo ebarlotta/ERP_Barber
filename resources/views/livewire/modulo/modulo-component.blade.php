@@ -8,7 +8,7 @@
                         <p class="relative -bottom-11 left-0">
                             {{ $modulo->leyenda }}
                         </p>
-                        <img class="rounded-md w-full h-40 mt-3" src="{{ asset('images/'. $modulo->imagen) }}" width="200px" height="155px">
+                        <img class="rounded-md w-full h-38 mt-3" src="{{ asset('images/'. $modulo->imagen) }}" >
                     </div>
                 </a>
             @endforeach

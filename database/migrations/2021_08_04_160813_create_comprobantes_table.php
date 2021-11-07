@@ -41,7 +41,8 @@ class CreateComprobantesTable extends Migration
             $table->unsignedBigInteger('area_id');
             $table->unsignedBigInteger('cuenta_id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('cliente_id');
+            //$table->unsignedBigInteger('cliente_id');
+            $table->unsignedBigInteger('proveedor_id');
             $table->unsignedBigInteger('empresa_id');
 
             
@@ -49,7 +50,8 @@ class CreateComprobantesTable extends Migration
             $table->foreign('area_id')->references('id')->on('areas');
             $table->foreign('cuenta_id')->references('id')->on('cuentas');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('cliente_id')->references('id')->on('clientes');
+            //$table->foreign('cliente_id')->references('id')->on('clientes');
+            $table->foreign('proveedor_id')->references('id')->on('proveedors');
             $table->foreign('empresa_id')->references('id')->on('empresas');
 
             $table->timestamps();

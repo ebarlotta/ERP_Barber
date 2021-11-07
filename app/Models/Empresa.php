@@ -14,6 +14,7 @@ class Empresa extends Model
         'direccion',
         'cuit',
         'ib',
+        'imagen',
         'establecimiento',
         'telefono',
         'actividad',

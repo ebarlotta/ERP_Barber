@@ -4,6 +4,7 @@ namespace App\Http\Livewire\EmpresaGestion;
 
 use Livewire\Component;
 use App\Models\Empresa;
+use Illuminate\Support\Facades\DB;
 
 class EmpresaGestion extends Component
 {
@@ -11,7 +12,7 @@ class EmpresaGestion extends Component
     public $isModalOpen;
     public $seleccionado;
     public $empresa;
-    public $empresa_id, $name, $direccion, $cuit, $ib, $establecimiento, $telefono, $actividad, $actividad1;
+    public $empresa_id, $name, $direccion, $cuit, $ib, $imagen, $establecimiento, $telefono, $actividad, $actividad1;
 
     public function render()
     {
@@ -35,6 +36,7 @@ class EmpresaGestion extends Component
         $this->direccion = $empresa->direccion; 
         $this->cuit = $empresa->cuit; 
         $this->ib = $empresa->ib; 
+        $this->imagen = $empresa->imagen; 
         $this->establecimiento = $empresa->establecimiento; 
         $this->telefono = $empresa->telefono; 
         $this->actividad = $empresa->actividad; 
@@ -49,6 +51,7 @@ class EmpresaGestion extends Component
         $this->direccion = ""; 
         $this->cuit = ""; 
         $this->ib = ""; 
+        $this->imagen = ""; 
         $this->establecimiento = ""; 
         $this->telefono = ""; 
         $this->actividad = ""; 
@@ -64,21 +67,37 @@ class EmpresaGestion extends Component
             'direccion' => 'required',
             'cuit' => 'required',
             'ib' => 'required',
-            'establecimiento' => 'required',
+            'establecimiento' => 'required|integer',
             'telefono' => 'required',
             'actividad' => 'required',
             'actividad1' => 'required',
         ]);
-        Empresa::updateOrCreate(['id' => $this->empresa_id],[
+        
+        $existe=false;  //Consulta si existe la empresa
+        $existe = Empresa::find($this->empresa_id);
+
+        $this->empresa_id = Empresa::updateOrCreate(['id' => $this->empresa_id],[
             'name' => $this->name,
             'direccion' => $this->direccion,
             'cuit' => $this->cuit,
             'establecimiento' => $this->establecimiento,
             'ib' => $this->ib,
+            'image' => $this->imagen,
             'telefono' => $this->telefono,
             'actividad' => $this->actividad,
             'actividad1' => $this->actividad1,
         ]);
+
+        if (!$existe) {     //Si no existe la empresa, inicializa los módulos básicos correspondientes
+            DB::table('empresa_modulos')->insert(['modulo_id' => '1','empresa_id' => $this->empresa_id,]);
+            DB::table('empresa_modulos')->insert(['modulo_id' => '2','empresa_id' => $this->empresa_id,]);
+            DB::table('empresa_modulos')->insert(['modulo_id' => '3','empresa_id' => $this->empresa_id,]);
+            DB::table('empresa_modulos')->insert(['modulo_id' => '4','empresa_id' => $this->empresa_id,]);
+            DB::table('empresa_modulos')->insert(['modulo_id' => '5','empresa_id' => $this->empresa_id,]);
+            DB::table('empresa_modulos')->insert(['modulo_id' => '6','empresa_id' => $this->empresa_id,]);
+            DB::table('empresa_modulos')->insert(['modulo_id' => '7','empresa_id' => $this->empresa_id,]);
+        }
+
         $this->closeModalPopover();
     }
 }
