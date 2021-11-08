@@ -296,6 +296,11 @@ return [
             'url'  => 'estados',
             'icon' => 'fas fa-fw fa-building',
         ],
+        [
+            'text' => 'Productos',
+            'url'  => 'productos',
+            'icon' => 'fas fa-fw fa-building',
+        ],
         // [
         //     'text'    => 'multilevel',
         //     'icon'    => 'fas fa-fw fa-share',

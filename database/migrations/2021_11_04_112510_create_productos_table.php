@@ -19,11 +19,14 @@ class CreateProductosTable extends Migration
             $table->text('descripcion')->nullable();
             $table->double('precio_compra');
             $table->double('existencia');
+            $table->double('stock_minimo');
+            $table->string('lote')->nullable();
 
             $table->unsignedBigInteger('unidads_id');
             $table->unsignedBigInteger('categoriaproductos_id');
             $table->unsignedBigInteger('estados_id');
-            $table->unsignedBigInteger('proveedor_id');
+            $table->unsignedBigInteger('proveedor_id')->default(1);
+            $table->unsignedBigInteger('empresa_id')->default(1);
 
             $table->string('ruta');
 
@@ -32,7 +35,8 @@ class CreateProductosTable extends Migration
             $table->foreign('unidads_id')->references('id')->on('unidads'); 
             $table->foreign('categoriaproductos_id')->references('id')->on('categoriaproductos'); 
             $table->foreign('estados_id')->references('id')->on('estados'); 
-            $table->foreign('proveedors_id')->references('id')->on('proveedors');        
+            $table->foreign('proveedor_id')->references('id')->on('proveedors');        
+            $table->foreign('empresa_id')->references('id')->on('empresas');        
         });
     }
 

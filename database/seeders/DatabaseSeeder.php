@@ -4,6 +4,10 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\Unidad;
+use App\Models\Estado;
+use App\Models\Categoriaproducto;
+use App\Models\Proveedor;
 
 class DatabaseSeeder extends Seeder
 {
@@ -47,6 +51,20 @@ class DatabaseSeeder extends Seeder
         \App\Models\Unidad::factory(10)->create();
         \App\Models\Categoriaproducto::factory(10)->create();
         \App\Models\Estado::factory(50)->create();
+
+        // Inserta un primer producto/servicio que será valor por defecto
+        // DB::table('productos')->insert(['name' => 'Propio',
+        //         'descripcion' => 'Producto/Servicio propio',
+        //         'precio_compra' => '0',
+        //         'existencia' => '0',
+        //         'stock_minimo' => '0',
+        //         'unidads_id' => Unidad::inRandomOrder()->value('id') ?: Unidad::factory(1)->create(),
+        //         'categoriaproductos_id' => Categoriaproducto::inRandomOrder()->value('id') ?: Categoriaproducto::factory(1)->create(),
+        //         'estados_id' => Estado::inRandomOrder()->value('id') ?: Estado::factory(1)->create(),
+        //         'proveedor_id' => Proveedor::inRandomOrder()->value('id') ?: Proveedor::factory(1)->create(),
+        //         'ruta' => 'sin_imagen.jpg',
+        // ]);
+        \App\Models\Producto::factory(50)->create();
 //        \App\Models\Tabla::factory(10)->create();
         
     }
