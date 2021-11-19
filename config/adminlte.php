@@ -303,7 +303,7 @@ return [
             'submenu' => [
                         [
                             'text' => 'Agregar',
-                            'url'  => '#',
+                            'url'  => 'producto/create',
                         ],
                         [
                             'text' => 'Modificar',

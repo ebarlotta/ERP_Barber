@@ -18,11 +18,11 @@ class Productos extends Controller
      */
     public function index()
     {
-        $unidades = Unidad::all();
-        $categoria_productos = Categoriaproducto::all();
-        $proveedores = Proveedor::all();
-        $estados = Estado::all();
-        $productos = Producto::where('empresa_id','=',session('empresa_id'));
+        // $unidades = Unidad::all();
+        // $categoria_productos = Categoriaproducto::all();
+        // $proveedores = Proveedor::all();
+        // $estados = Estado::all();
+        // $productos = Producto::where('empresa_id','=',session('empresa_id'));
 
         $ruta ='';
         return view('livewire.producto.productos-listado',compact('unidades','categoria_productos','proveedores','estados','productos'));
@@ -35,7 +35,14 @@ class Productos extends Controller
      */
     public function create()
     {
-        //
+        $unidades = Unidad::all();
+        $categoria_productos = Categoriaproducto::all();
+        $proveedores = Proveedor::all();
+        $estados = Estado::all();
+        $productos = Producto::where('empresa_id','=',session('empresa_id'));
+
+        // $producto = new Producto;
+        return view('producto.create', compact('unidades','categoria_productos','proveedores','estados','productos'));
     }
 
     /**
@@ -46,7 +53,26 @@ class Productos extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        dd($request->all());
+        dd($request->name);
+        $producto = new Producto;
+        $producto->name = $request->name;
+        // $producto = Producto::create($request->all());
+        // $producto->descripcion  = $request->descripcion;
+        // $producto->precio_compra = $request->precio_compra;
+        // $producto->existencia = $request->existencia;
+        // $producto->stock_minimo = $request->stock_minimo;
+        // $producto->lote = $request->lote;
+        // $producto->unidads_id = $request->unidads_id;
+        // $producto->categoriaproductos_id = $request->categoriaproductos_id;
+        // $producto->estados_id = $request->estados_id;
+        // $producto->ruta ='';
+        // $producto->save();
+        $request->save();
+        //$postres->imagen = $request->file('imagen')->store('postres');
+        // return redirect('producto');
+        return redirect()->route('producto.index');
     }
 
     /**

@@ -29,6 +29,10 @@ class ProductoComponent extends Component
     public $productoseleccionado;
     public $unidades;
     public $ruta;
+    public $categoria_productos;
+    public $proveedores;
+    public $estados;
+     
 
     public function render()
     {
