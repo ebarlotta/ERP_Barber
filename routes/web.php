@@ -3,6 +3,7 @@
 //use App\Http\Controllers\ClienteController;
 
 use App\Http\Controllers\ImprimirPDF;
+use App\Http\Controllers\Productos;
 use App\Http\Livewire\Area\AreaComponent;
 use App\Http\Livewire\Empresa\EmpresaComponent;
 use App\Http\Livewire\Modulo\ModuloComponent;
@@ -50,6 +51,8 @@ Route::get('modulos',ModuloComponent::class)->name('modulos');
 Route::get('pdf/deuda/{ddesde}/{dhasta}', [ImprimirPDF::class, 'DeudaPFD'])->name('DeudaPFD');
 Route::get('pdf/credito/{cdesde}/{chasta}', [ImprimirPDF::class, 'CreditoPFD'])->name('CreditoPFD');
 Route::get('pdf/ivacompras/{anio}/{mes}', [ImprimirPDF::class, 'IvaCompras'])->name('IvaCompras');
+
+Route::resource('producto',Productos::class);
 
 // Route::get('empresas/config', function () {
 //     return view('adminlte');

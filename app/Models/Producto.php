@@ -15,6 +15,7 @@ class Producto extends Model
         'precio_compra',
         'existencia',
         'stock_minimo',
+        'lote',
         'unidads_id',
         'categoriaproductos_id',
         'estados_id',

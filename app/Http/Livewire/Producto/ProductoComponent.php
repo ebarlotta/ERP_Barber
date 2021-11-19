@@ -9,6 +9,8 @@ use App\Models\Proveedor;
 use App\Models\Unidad;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
+use Exception;
 
 class ProductoComponent extends Component
 {
@@ -18,12 +20,15 @@ class ProductoComponent extends Component
 
     use WithPagination;
 
+    use WithFileUploads;
+
     //public $productos;
     public $productos_id, $producto;
     public $seleccionado=1;
     public $empresa_id;
     public $productoseleccionado;
     public $unidades;
+    public $ruta;
 
     public function render()
     {
@@ -88,7 +93,26 @@ class ProductoComponent extends Component
             'estados_id' => 'required|integer',
             'proveedor_id' => 'required',            
         ]);
+        //dd($this->store('ruta'));
+        //$infoPath = File::extension($this->ruta);
         
+        //dd($infoPath);
+        
+        if ($this->ruta) {
+            $nombreCompleto = basename($this->ruta) . time().'.jpg';       //$this->ruta->extension();
+            //dd($nombreCompleto);
+            try { 
+                $this->ruta->storeAs('images2', $nombreCompleto);
+                $this->ruta = $nombreCompleto;
+            }
+            catch(Exception $e) {
+                $this->ruta = $this->ruta;
+            }
+        }
+
+        //dd($this->ruta->file);
+        // dd(file($this->ruta));   /tmp/phpAFTkwl
+        //dd(basename($this->ruta));   //    phpQqaocm
         Producto::updateOrCreate(['id' => $this->producto_id], [
             'name' => $this->name,
             'descripcion' => $this->descripcion,
@@ -108,6 +132,15 @@ class ProductoComponent extends Component
         $this->closeModalPopover();
         $this->resetCreateForm();
     }
+
+    // public function save()
+    // {
+    //     $this->validate([
+    //         'ruta' => 'image|max:1024', // 1MB Max
+    //     ]);
+    //     dd($this->ruta);
+    // }
+
 
     public function edit($id)
     {

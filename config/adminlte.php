@@ -298,8 +298,31 @@ return [
         ],
         [
             'text' => 'Productos',
-            'url'  => 'productos',
+            // 'url'  => 'productos',
             'icon' => 'fas fa-fw fa-building',
+            'submenu' => [
+                        [
+                            'text' => 'Agregar',
+                            'url'  => '#',
+                        ],
+                        [
+                            'text' => 'Modificar',
+                            'url'  => '#',
+                        ],
+                        [
+                            'text' => 'Eliminar',
+                            'submenu' => [
+                                [
+                                    'text' => 'Eliminar Permanentemente',
+                                    'url'  => '#',
+                                ],
+                                [
+                                    'text' => 'Registrar Bajas',
+                                    'url'  => '#',
+                                ],    
+                            ],
+                        ],
+                    ],
         ],
         // [
         //     'text'    => 'multilevel',

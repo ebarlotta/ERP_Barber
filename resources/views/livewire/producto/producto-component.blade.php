@@ -36,8 +36,8 @@
 				@if ($isModalOpen)
 					{{-- @include('livewire.producto.createproductos') --}}
 					<x-producto>
-						<form>
-							<div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 flex flex-wrap">
+						<form method="POST" enctype="multipart/form-data" action="store()">
+							<div class="bg-white px-4 pt-2 pb-2 sm:p-6 sm:pb-4 flex flex-wrap">
 								<div class="mb-4 mr-2 text-left">
 									<label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Nombre del Producto</label>
 									<input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -50,6 +50,20 @@
 											id="exampleFormControlInput1" placeholder="Ingrese Descripción" wire:model="descripcion">
 									@error('descripcion') <span class="text-red-500">{{ $message }}</span>@enderror
 								</div>
+								<div class="mb-4 mr-2 text-left flex">
+									@if($this->ruta != 'sin_imagen.jpg')
+										<img src="{{ asset('images2/'. $this->ruta )}}" width="100px" height="100px">
+										{{-- <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"	id="exampleFormControlInput1" placeholder="Ingrese imágenoooo" wire:model="ruta" value="{{ $this->ruta }}">										 --}}
+										@error('ruta') <span class="text-red-500">{{ $message }}</span>@enderror
+									@else
+										<img src="{{ asset('images/sin_imagen.jpg' )}}" width="100px" height="100px">
+										<input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"	id="exampleFormControlInput1" placeholder="Ingrese imágendd" wire:model="ruta">										
+										@error('ruta') <span class="text-red-500">{{ $message }}</span>@enderror
+									@endif
+								</div>
+
+							</div>
+							<div class="bg-white px-4 pb-2 sm:p-2 sm:pb-4 flex flex-wrap">
 								<div class="mb-4 mr-2 text-left">
 									<label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Precio de compra</label>
 									<input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -119,18 +133,6 @@
 										@error('estados_id') <span class="text-red-500">{{ $message }}</span>@enderror
 									@endif
 								</div>
-								<div class="mb-4 mr-2 text-left flex">
-									<label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Imágen</label>
-									@if($this->ruta != 'sin_imagen.jpg')
-										<img src="{{ asset('images/'. $this->ruta )}}" width="100px" height="100px">
-										<input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"	id="exampleFormControlInput1" placeholder="Ingrese imágen" wire:model="ruta">										
-										@error('ruta') <span class="text-red-500">{{ $message }}</span>@enderror
-									@else
-										<img src="{{ asset('images/sin_imagen.jpg' )}}" width="100px" height="100px">
-										<input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"	id="exampleFormControlInput1" placeholder="Ingrese imágen" wire:model="ruta">										
-										@error('ruta') <span class="text-red-500">{{ $message }}</span>@enderror
-									@endif
-								</div>
 							</div>
 							<div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse mr-5">
 								<x-guardar></x-guardar>
@@ -142,12 +144,12 @@
 
 				@if ($productos)
 				<div class="flex">
-					<div class="h-full">
-						<div class="bg-white rounded-b pt-4 pl-4 flex justify-between leading-normal">
-							<div class="text-black font-bold text-lg mb-2 leading-tight w-36">Productos</div>
-							<div class="text-black font-bold text-lg mb-2 leading-tight w-36">Existencia</div>
-							<div class="text-black font-bold text-lg mb-2 leading-tight w-36">Stock Mínimo</div>
-							<div class="text-black font-bold text-lg mb-2 leading-tight w-36">Estado</div>
+					<div class="h-full w-full">
+						<div class="bg-white rounded-b pt-4 pl-4 flex justify-between leading-normal w-full">
+							<div class="text-black font-bold text-lg mb-2 leading-tight w-36" style="width:35%;">Productos</div>
+							<div class="text-black font-bold text-lg mb-2 leading-tight w-36 text-right">Existencia</div>
+							<div class="text-black font-bold text-lg mb-2 leading-tight w-36 text-right">Stock Mínimo</div>
+							<div class="text-black font-bold text-lg mb-2 leading-tight w-36 text-right">Estado</div>
 						</div>
 						@foreach ($productos as $producto)
 							<ul>
@@ -155,12 +157,12 @@
 									<div class="w-full">
 										<div class="flex rounded overflow-hidden border">
 											@if($producto->ruta != 'sin_imagen.jpg') 
-												<img class="block rounded-md flex-none bg-cover" src="{{ asset('images/'. $producto->ruta) }}" style="width:80px; height: 80px;">	
+												<img class="block rounded-md flex-none bg-cover" src="{{ asset('images2/'. $producto->ruta) }}" style="width:80px; height: 80px;">	
 											@else
 												<img class="block rounded-md flex-none bg-cover" src="{{ asset('images/sin_imagen.jpg') }}" style="width:80px; height: 80px;">
 											@endif
 											<div class="bg-white rounded-b pt-4 pl-4 flex justify-between leading-normal w-full">
-												<div class="text-black font-bold text-lg mb-2 leading-tight" style="width:50%;">{{ $producto->name }}</div>
+												<div class="text-black font-bold text-lg mb-2 leading-tight" style="width:25%;">{{ $producto->name }}</div>
 												<div class="text-black text-lg mb-2 leading-tight w-1/6 w-auto">{{ $producto->existencia }}</div>
 												<div class="text-black text-lg mb-2 leading-tight w-1/6">{{ $producto->stock_minimo }}</div>
 												<div class="text-black text-lg mb-2 leading-tight w-1/6">{{ $producto->estados_id}}</div>
