@@ -52,7 +52,7 @@
 								</div>
 								<div class="mb-4 mr-2 text-left flex">
 									@if($this->ruta != 'sin_imagen.jpg')
-										<img src="{{ asset('images2/'. $this->ruta )}}" width="100px" height="100px">
+										<img src="{{ asset( $this->ruta )}}" width="100px" height="100px">
 										{{-- <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"	id="exampleFormControlInput1" placeholder="Ingrese imágenoooo" wire:model="ruta" value="{{ $this->ruta }}">										 --}}
 										@error('ruta') <span class="text-red-500">{{ $message }}</span>@enderror
 									@else
@@ -141,7 +141,6 @@
 					</form>
 					</x-producto>
 				@endif	
-
 				@if ($productos)
 				<div class="flex">
 					<div class="h-full w-full">
@@ -157,7 +156,7 @@
 									<div class="w-full">
 										<div class="flex rounded overflow-hidden border">
 											@if($producto->ruta != 'sin_imagen.jpg') 
-												<img class="block rounded-md flex-none bg-cover" src="{{ asset('images2/'. $producto->ruta) }}" style="width:80px; height: 80px;">	
+												<img class="block rounded-md flex-none bg-cover" src="{{ asset($producto->ruta) }}" style="width:80px; height: 80px;">	
 											@else
 												<img class="block rounded-md flex-none bg-cover" src="{{ asset('images/sin_imagen.jpg') }}" style="width:80px; height: 80px;">
 											@endif

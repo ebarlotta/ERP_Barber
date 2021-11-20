@@ -298,7 +298,7 @@ return [
         ],
         [
             'text' => 'Productos',
-            // 'url'  => 'productos',
+            'url'  => 'productos',
             'icon' => 'fas fa-fw fa-building',
             'submenu' => [
                         [
@@ -307,7 +307,7 @@ return [
                         ],
                         [
                             'text' => 'Modificar',
-                            'url'  => '#',
+                            'url'  => 'productos',
                         ],
                         [
                             'text' => 'Eliminar',

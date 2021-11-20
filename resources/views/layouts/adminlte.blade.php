@@ -37,7 +37,6 @@
             <!-- Page Content -->
             <main>
                 @yield('content')
-                prueba
             </main>
         </div>
         @stop
