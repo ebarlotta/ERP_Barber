@@ -386,98 +386,13 @@
 										</div>
 									</div>
 									<div>
-
-										<div class="flex flex-wrap text-xs" style="background-color: darkcyan">
-											<div class="border px-2">Mes<br>
-												<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfmes" wire:change="gfiltro()">
-													<option value=""></option>
-													<option value="1">Enero</option>
-													<option value="2">Febrero</option>
-													<option value="3">Marzo</option>
-													<option value="4">Abril</option>
-													<option value="5">Mayo</option>
-													<option value="6">Junio</option>
-													<option value="7">Julio</option>
-													<option value="8">Agosto</option>
-													<option value="9">Setiembre</option>
-													<option value="10">Octubre</option>
-													<option value="11">Noviembre</option>
-													<option value="12">Diciembre</option>
-												</select></div>
-											<div class="border px-2">Proveedor<br>
-												<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfproveedor" wire:change="gfiltro()">
-													<option value=""></option>
-													@foreach ($proveedores as $proveedor)
-														<option value="{{ $proveedor->id }}">
-															{{ $proveedor->name }}</option>
-													@endforeach
-												</select>
-											</div>
-											<div class="border px-2">ParticipaIva<br>
-												<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfparticipa" wire:change="gfiltro()">
-													<option value=""></option>
-													<option value="Si">Si</option>
-													<option value="No">No</option>
-													<option value="Ganancias">Ganancias</option>
-													<option value="BsPers">Bs. Pers.</option>
-												</select>
-											</div>
-											<div class="border px-2">Iva<br>
-												<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfiva" wire:change="gfiltro()">
-													<option value=""></option>
-													@foreach ($ivas as $iva)
-														<option value="{{ $iva->id }}">
-															{{ $iva->descripcion }}</option>
-													@endforeach
-												</select>
-											</div>
-											<div class="border px-2">Detalle<br>
-											
-											</div>
-											<div class="border px-2">Area<br>
-												<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfarea" wire:change="gfiltro()">
-													<option value=""></option>
-													@foreach ($areas as $area)
-														<option value="{{ $area->id }}">{{ $area->name }}
-														</option>
-													@endforeach
-												</select>
-											</div>
-											<div class="border px-2">Cuenta<br>
-												<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfcuenta" wire:change="gfiltro()">
-													<option value=""></option>
-													@foreach ($cuentas as $cuenta)
-														<option value="{{ $cuenta->id }}">{{ $cuenta->name }}
-														</option>
-													@endforeach
-												</select>
-											</div>
-											<div class="border px-2">Año<br>
-												<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfanio" wire:change="gfiltro()">
-													<option value="2021">2021</option>
-													<option value="2020">2020</option>
-													<option value="2019">2019</option>
-													<option value="2018">2018</option>
-													<option value="2017">2017</option>
-													<option value="2016">2016</option>
-													<option value="2015">2015</option>
-													<option value="2014">2014</option>
-													<option value="2013">2013</option>
-												</select>
-											</div>
-											<div class="border px-2">Asc. C/Saldo<br>
-												<input class=" mr-2 rounded-sm py-0" type="checkbox" checked wire:model="fgascendente" wire:change="gfiltro()">
-												<input class=" mr-2 rounded-sm py-0" type="checkbox" wire:model="gfsaldo" wire:change="gfiltro()">
-											</div>
-										</div>
-
-										{{-- <table
+										<table
 											class="table-auto w-full border border-green-800 border-collapse mt-3 bg-gray-300 rounded-md text-xs">
 											<tr>
-												<td colspan="9"><strong>Filtro2</strong></td>
+												<td colspan="9"><strong>Filtro</strong></td>
 											</tr>
 											<tr>
-												<td class="border border-green-600">Mes</td>
+												{{-- <td class="border border-green-600">Mes</td>
 												<td class="border border-green-600">Proveedor</td>
 												<td class="border border-green-600">ParticipaIva</td>
 												<td class="border border-green-600">Iva</td>
@@ -485,8 +400,18 @@
 												<td class="border border-green-600">Area</td>
 												<td class="border border-green-600">Cuenta</td>
 												<td class="border border-green-600">Año</td>
-												<td class="border border-green-600">Asc. C/Saldo</td>
-												
+												<td class="border border-green-600">Asc. C/Saldo</td> --}}
+												<div class="flex flex-wrap">
+												<div class="border border-green-600 px-2">Mes</div>
+												<div class="border border-green-600 px-2">Proveedor</div>
+												<div class="border border-green-600 px-2">ParticipaIva</div>
+												<div class="border border-green-600 px-2">Iva</div>
+												<div class="border border-green-600 px-2">Detalle</div>
+												<div class="border border-green-600 px-2">Area</div>
+												<div class="border border-green-600 px-2">Cuenta</div>
+												<div class="border border-green-600 px-2">Año</div>
+												<div class="border border-green-600 px-2">Asc. C/Saldo</div>
+												</div>
 
 											</tr>
 											<tr>
@@ -580,8 +505,7 @@
 											<tr>
 												{!! $filtro !!}
 											</tr>
-										</table> --}}
-										{!! $filtro !!}
+										</table>
 									</div>
 								</div>
 							</div>
@@ -808,8 +732,8 @@
 <footer class="text-center text-xs bg-gray-400 mt-px3 pb-2">
 	Desarrollado por: Ing. Enzo Gabriel Barlotta - Información de Contacto<a href="mailto:ebarlotta@yahoo.com.ar">
 		ebarlotta@yahoo.com.ar</a>
-	{{-- &nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-info"
-		onclick="javascript: window.location.href='../../sistema/menu.php';">&nbsp;&nbsp;&nbsp;Volver&nbsp;&nbsp;&nbsp;</button> --}}
+	&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-info"
+		onclick="javascript: window.location.href='../../sistema/menu.php';">&nbsp;&nbsp;&nbsp;Volver&nbsp;&nbsp;&nbsp;</button>
 </footer>
 </div>
 

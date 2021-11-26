@@ -9,6 +9,8 @@ use App\Models\Comprobante;
 use App\Models\Cuenta;
 use App\Models\EmpresaUsuario;
 use App\Models\Iva;
+use App\Models\Producto;
+use App\Models\Compras_Productos;
 use Illuminate\Support\Facades\DB;
 
 
@@ -23,8 +25,10 @@ class CompraComponent extends Component
     public $giva=1;
     public $ModalDelete, $openModalDelete;
     public $ModalModify, $openModalModify;
+    public $ModalAgregarDetalle, $openModalAgregarDetalle;
     public $ModalCerrarLibro;
     public $gfecha,$gproveedor, $gcomprobante, $gcuenta, $gdetalle, $ganio, $gmes, $garea, $gpartiva, $gbruto, $giva2, $gexento, $gimpinterno, $gperciva, $gretgan, $gperib, $gneto, $gmontopagado, $gcantidad;
+    public $gselect_productos, $gprecio_prod, $gcantidad_prod, $glistado_prod;
     //Variables del filtro
     public $gfmes, $gfproveedor, $gfparticipa, $gfiva, $gfdetalle, $gfarea, $gfcuenta, $gfanio, $fgascendente, $gfsaldo; //Comprobantes
     
@@ -56,7 +60,8 @@ class CompraComponent extends Component
         $this->cuentas = Cuenta::where('empresa_id', $this->empresa_id)->get();
         $this->proveedores = Proveedor::where('empresa_id', $this->empresa_id)->get();
         $this->ivas = Iva::where('id','>',1)->get();
-        //return view('livewire.compra.index');
+        $this->productos = Producto::where('empresa_id', $this->empresa_id)->orderBy('name','asc')->get();
+        
         return view('livewire.compra.compra-component');
     }
 
@@ -68,6 +73,9 @@ class CompraComponent extends Component
 
     public function openModalModify() { $this->ModalModify = true;  }
     public function closeModalModify() { $this->ModalModify = false;  }
+
+    public function openModalAgregarDetalle() { $this->ModalAgregarDetalle = true; $this->listado_productos(); }
+    public function closeModalAgregarDetalle() { $this->ModalAgregarDetalle = false;  }
 
     public function RellenarCamposVacios() {
         if(is_null($this->gfecha)) $this->gfecha=now();
@@ -233,11 +241,59 @@ class CompraComponent extends Component
         $registros = DB::select(DB::raw($sql));       // Busca el recordset
         //Dibuja el filtro
         $Saldo=0;
+
         $this->filtro="
-        <table class=\"table-auto w-full border border-green-800 border-collapse bg-gray-300 rounded-md text-xs\">
-            <tr class=\"bg-gradient-to-r from-green-400 to-blue-500\">
-                <td class=\"border border-green-600\">Fecha</td><td class=\"border border-green-600\">Comprobante</td><td class=\"border border-green-600\">Proveedor</td><td class=\"border border-green-600\">Detalle</td><td class=\"border border-green-600\">Bruto</td><td class=\"border border-green-600\">Iva</td><td class=\"border border-green-600\">exento</td><td class=\"border border-green-600\">Imp.Interno</td><td class=\"border border-green-600\">Percec.Iva</td><td class=\"border border-green-600\">Retenc.IB</td><td class=\"border border-green-600\">Retenc.Gan</td><td class=\"border border-green-600\">Neto</td><td class=\"border border-green-600\">Pagado</td><td class=\"border border-green-600\">Saldo</td><td class=\"border border-green-600\">Cant.Litros</td><td class=\"border border-green-600\">Partic.Iva</td><td class=\"border border-green-600\">Pasado EnMes</td><td class=\"border border-green-600\">Area</td><td class=\"border border-green-600\">Cuenta</td>
-            </tr>";
+        <div class=\"col-12 flex border table-auto w-full border border-green-800 border-collapse bg-gray-300 rounded-md text-xs\">
+            
+                <div class=\"col-1 border\">Fecha</div>
+                <div class=\"col-1 border\">Comprobante</div>
+                <div class=\"col-2 border\">Proveedor</div>
+                <div class=\"col-1 text-center hidden sm:block md:block lg:block xl:block \">Detalle</div>
+                <div class=\"col-2 border\">Bruto</div>
+                <div class=\"col-1 border\">Iva</div>
+                <div class=\"col-2 border\">Exento</div>
+                <div class=\"hidden sm:block md:block lg:block xl:block\">Imp.Interno</div>
+                <div class=\"hidden sm:block md:block lg:block xl:block\">Percec.Iva</div>
+                <div class=\"hidden sm:block md:block lg:block xl:block\">Retenc.IB</div>
+                <div class=\"hidden sm:block md:block lg:block xl:block\">Retenc.Gan</div>
+                <div class=\"col-2 border\">Neto</div>
+                <div class=\"col-1 border\">Pagado</div>
+                <div class=\"hidden sm:block md:block lg:block xl:block\">Saldo</div>
+                <div class=\"hidden sm:block md:block lg:block xl:block\">Cant.Litros</div>
+                <div class=\"hidden sm:block md:block lg:block xl:block\">Partic.Iva</div>
+                <div class=\"hidden sm:block md:block lg:block xl:block\">Pasado EnMes</div>
+                <div class=\"hidden sm:block md:block lg:block xl:block\">Area</div>
+                <div class=\"hidden sm:block md:block lg:block xl:block\">Cuenta</div>
+        </div>    ";
+
+        // $this->filtro="
+        // <div class=\"table-auto w-full border border-green-800 border-collapse bg-gray-300 rounded-md text-xs\">
+        //     <div class=\"bg-gradient-to-r from-green-400 to-blue-500 flex flex-wrap justify-between\">
+        //         <div class=\"w-2\">Fecha</div>
+        //         <div >Comprobante</div>
+        //         <div >Proveedor</div>
+        //         <div class=\"text-center hidden sm:block md:block lg:block xl:block \">Detalle</div>
+        //         <div >Bruto</div>
+        //         <div >Iva</div>
+        //         <div >exento</div>
+        //         <div class=\"hidden sm:block md:block lg:block xl:block\">Imp.Interno</div>
+        //         <div class=\"hidden sm:block md:block lg:block xl:block\">Percec.Iva</div>
+        //         <div class=\"hidden sm:block md:block lg:block xl:block\">Retenc.IB</div>
+        //         <div class=\"hidden sm:block md:block lg:block xl:block\">Retenc.Gan</div>
+        //         <div >Neto</div>
+        //         <div >Pagado</div>
+        //         <div >Saldo</div>
+        //         <div class=\"hidden sm:block md:block lg:block xl:block\">Cant.Litros</div>
+        //         <div class=\"hidden sm:block md:block lg:block xl:block\">Partic.Iva</div>
+        //         <div class=\"hidden sm:block md:block lg:block xl:block\">Pasado EnMes</div>
+        //         <div >Area</div>
+        //         <div >Cuenta</div>
+        //     </div>";
+        // $this->filtro=$this->filtro."
+        // <table class=\"table-auto w-full border border-green-800 border-collapse bg-gray-300 rounded-md text-xs\">
+        //     <tr class=\"bg-gradient-to-r from-green-400 to-blue-500\">
+        //         <td class=\"border border-green-600\">Fecha</td><td class=\"border border-green-600\">Comprobante</td><td class=\"border border-green-600\">Proveedor</td><td class=\"border border-green-600\">Detalle</td><td class=\"border border-green-600\">Bruto</td><td class=\"border border-green-600\">Iva</td><td class=\"border border-green-600\">exento</td><td class=\"border border-green-600\">Imp.Interno</td><td class=\"border border-green-600\">Percec.Iva</td><td class=\"border border-green-600\">Retenc.IB</td><td class=\"border border-green-600\">Retenc.Gan</td><td class=\"border border-green-600\">Neto</td><td class=\"border border-green-600\">Pagado</td><td class=\"border border-green-600\">Saldo</td><td class=\"border border-green-600\">Cant.Litros</td><td class=\"border border-green-600\">Partic.Iva</td><td class=\"border border-green-600\">Pasado EnMes</td><td class=\"border border-green-600\">Area</td><td class=\"border border-green-600\">Cuenta</td>
+        //     </tr>";
             $Cantidad = 0; $MontoPagado = 0; $Neto = 0; $RetGan = 0; $RetIB = 0; $PerIva = 0; $Exento = 0 ;$ImpInterno = 0; $Bruto = 0; $MontoIvaT =0; $NetoT = 0;
         foreach($registros as $registro) {
             //dd($registro);
@@ -264,12 +320,60 @@ class CompraComponent extends Component
             $Saldo=$Saldo+$registro->NetoComp-$registro->MontoPagadoComp;
             $Cantidad=$Cantidad+$registro->CantidadLitroComp;
             $NetoT = $NetoT + $registro->NetoComp;
+            $this->filtro=$this->filtro."
+                <div class=\"flex col-12\" wire:click=\"gCargarRegistro(". $registro->id .")\">
+                <div class=\"col-1 border border-secondary\" style=\"font-size: 7px;\">$Fecha</div>
+                <div class=\"col-1 border border-secondary\" style=\"font-size: 7px;\">$registro->comprobante</div>
+                <div class=\"col-2 border border-secondary\" style=\"font-size: 7px;\">$Proveedor->name</div>
+                <div class=\"col-1 border border-secondary text-center hidden sm:block md:block lg:block xl:block \" style=\"font-size: 7px;\">$registro->detalle</div>
+                <div class=\"col-2 border border-secondary\" style=\"font-size: 7px;\">".number_format($registro->BrutoComp, 2,'.','')."</div>
+                <div class=\"col-1 border border-secondary\" style=\"font-size: 7px;\">".number_format($MontoIva, 2,'.','')."</div>
+                <div class=\"col-2 border border-secondary\" style=\"font-size: 7px;\">".number_format($registro->ExentoComp, 2,'.','')."</div>
+                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($registro->ImpInternoComp, 2,'.','')."</div>
+                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($registro->PercepcionIvaComp, 2,'.','')."</div>
+                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($registro->RetencionIB, 2,'.','')."</div>
+                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($registro->RetencionGan, 2,'.','')."</div>
+                <div class=\"col-2 border border-secondary\" style=\"font-size: 7px;\">".number_format($registro->NetoComp, 2,'.','')."</div>
+                <div class=\"col-1 border border-secondary\" style=\"font-size: 7px;\">".number_format($registro->MontoPagadoComp, 2,'.','')."</div>
+                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($Saldo, 2,'.','')."</div>
+                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($registro->CantidadLitroComp, 2,'.','')."</div>
+                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">$registro->ParticIva</div>
+                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">" . $this->ConvierteMesEnTexto($registro->PasadoEnMes) . "</div>
+                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">$Area->name</div>
+                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">$Cuenta->name</div>
+            </div>";
 
-            $this->filtro=$this->filtro."<tr class=\"bg-red-200 hover:bg-red-100\" wire:click=\"gCargarRegistro(". $registro->id .")\"><td class=\"border border-green-600\">$Fecha</td><td class=\"border border-green-600 text-right\">$registro->comprobante</td><td class=\"border border-green-600\">$Proveedor->name</td><td class=\"border border-green-600 text-right\">$registro->detalle</td><td class=\"border border-green-600 text-right\">".number_format($registro->BrutoComp, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($MontoIva, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($registro->ExentoComp, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($registro->ImpInternoComp, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($registro->PercepcionIvaComp, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($registro->RetencionIB, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($registro->RetencionGan, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($registro->NetoComp, 2,'.','')."</td><td class=\"text-red-600 border border-green-600 text-right\">".number_format($registro->MontoPagadoComp, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($Saldo, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($registro->CantidadLitroComp, 2,'.','')."</td><td class=\"border border-green-600\">$registro->ParticIva</td><td class=\"border border-green-600\">" . $this->ConvierteMesEnTexto($registro->PasadoEnMes) . "</td><td class=\"border border-green-600\">".$Area->name."</td><td class=\"border border-green-600\">".$Cuenta->name."</td></tr>
-            </tr>";
+
+            // $this->filtro=$this->filtro."<tr class=\"bg-red-200 hover:bg-red-100\" wire:click=\"gCargarRegistro(". $registro->id .")\"><td class=\"border border-green-600\">$Fecha</td><td class=\"border border-green-600 text-right\">$registro->comprobante</td><td class=\"border border-green-600\">$Proveedor->name</td><td class=\"border border-green-600 text-right\">$registro->detalle</td><td class=\"border border-green-600 text-right\">".number_format($registro->BrutoComp, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($MontoIva, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($registro->ExentoComp, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($registro->ImpInternoComp, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($registro->PercepcionIvaComp, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($registro->RetencionIB, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($registro->RetencionGan, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($registro->NetoComp, 2,'.','')."</td><td class=\"text-red-600 border border-green-600 text-right\">".number_format($registro->MontoPagadoComp, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($Saldo, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($registro->CantidadLitroComp, 2,'.','')."</td><td class=\"border border-green-600\">$registro->ParticIva</td><td class=\"border border-green-600\">" . $this->ConvierteMesEnTexto($registro->PasadoEnMes) . "</td><td class=\"border border-green-600\">".$Area->name."</td><td class=\"border border-green-600\">".$Cuenta->name."</td></tr>
+            // </tr>";
         }
-        $this->filtro = $this->filtro."<tr class=\"bg-gradient-to-r from-purple-400 via-pink-500 to-red-500\"><td></td><td></td><td></td><td>Totales</td><td class=\"text-right\">".number_format($Bruto, 2,'.','')."</td><td class=\"text-right\">".number_format($MontoIvaT, 2,'.','')."</td><td class=\"text-right\">".number_format($Exento, 2,'.','')."</td><td class=\"text-right\">".number_format($ImpInterno, 2,'.','')."</td><td class=\"text-right\">".number_format($PerIva, 2,'.','')."</td><td class=\"text-right\">".number_format($RetIB, 2,'.','')."</td><td class=\"text-right\">".number_format($RetGan, 2,'.','')."</td><td class=\"text-right\">".number_format($NetoT, 2,'.','')."</td><td class=\"text-right\">".number_format($MontoPagado, 2,'.','')."</td><td class=\"text-right\"><strong>".number_format($Saldo, 2,'.','')."</strong></td><td class=\"text-right\">".number_format($Cantidad, 2,'.','')."</td></tr>";
-        $this->filtro=$this->filtro."</table>";
+
+        $this->filtro=$this->filtro."
+        <div class=\"col-12 flex border table-auto w-full border border-green-800 border-collapse bg-gray-300 rounded-md text-xs\">
+            
+                <div class=\"col-1 border\"></div>
+                <div class=\"col-1 border\"></div>
+                <div class=\"col-2 border\"style=\"font-size: 7px;\">Totales</div>
+                <div class=\"col-1 text-center hidden sm:block md:block lg:block xl:block \"></div>
+                <div class=\"col-2 border\" style=\"font-size: 7px;\">".number_format($Bruto, 2,'.','')."</div>
+                <div class=\"col-1 border\" style=\"font-size: 7px;\">".number_format($MontoIvaT, 2,'.','')."</div>
+                <div class=\"col-2\" style=\"font-size: 7px;\">".number_format($Exento, 2,'.','')."</div>
+                <div class=\"hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($ImpInterno, 2,'.','')."</div>
+                <div class=\"hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($PerIva, 2,'.','')."</div>
+                <div class=\"hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($RetIB, 2,'.','')."</div>
+                <div class=\"hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($RetGan, 2,'.','')."</div>
+                <div class=\"col-2 border\" style=\"font-size: 7px;\">".number_format($NetoT, 2,'.','')."</div>
+                <div class=\"col-1 border\" style=\"font-size: 7px;\">".number_format($MontoPagado, 2,'.','')."</div>
+                <div class=\"hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($Saldo, 2,'.','')."</div>
+                <div class=\"hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($Cantidad, 2,'.','')."</div>
+                <div class=\"hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\"></div>
+                <div class=\"hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\"></div>
+                <div class=\"col-1\" style=\"font-size: 7px;\"></div>
+                <div class=\"col-1\" style=\"font-size: 7px;\"></div>
+        </div>    ";
+
+        // $this->filtro = $this->filtro."<tr class=\"bg-gradient-to-r from-purple-400 via-pink-500 to-red-500\"><td></td><td></td><td></td><td class=\"border border-green-600\">Totales</td><td class=\"border border-green-600 text-right\">".number_format($Bruto, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($MontoIvaT, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($Exento, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($ImpInterno, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($PerIva, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($RetIB, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($RetGan, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($NetoT, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($MontoPagado, 2,'.','')."</td><td class=\"border border-green-600 text-right\"><strong>".number_format($Saldo, 2,'.','')."</strong></td><td class=\"border border-green-600 text-right\">".number_format($Cantidad, 2,'.','')."</td></tr>";
+        // $this->filtro=$this->filtro."</table>";
     }
 
     public function ConvierteMesEnTexto($id) {
@@ -580,4 +684,64 @@ class CompraComponent extends Component
         }
         $this->MostrarLibros();
     }
+
+    public function agregar_detalle() {
+        
+        $this->validate([
+            'comprobante_id'    => 'required',
+            'gselect_productos' => 'required|numeric',
+            'gcantidad_prod'    => 'required|numeric',
+            'gprecio_prod'      => 'required|numeric',
+        ]);
+        $detalle = new Compras_Productos;
+        $detalle->comprobantes_id = $this->comprobante_id;
+        $detalle->productos_id = $this->gselect_productos;
+        $detalle->cantidad = $this->gcantidad_prod;
+        $detalle->precio = $this->gprecio_prod;
+        $detalle->user_id = $userid=auth()->user()->id;
+
+        $detalle->save();
+
+        // Incrementa la cantidad de stock del producto
+        $producto = Producto::find($this->gselect_productos);
+        $producto->existencia = $producto->existencia + abs($this->gcantidad_prod);
+        $producto->save();
+
+        $this->listado_productos();
+    }
+
+    public function eliminar_detalle($id_detalle) {
+        
+        //Encuentra el detalle a eliminar pasa buscar la cantidad que tiene que eliminar
+        $eliminar = Compras_Productos::find($id_detalle);
+        //dd($eliminar);
+        $cant_a_eliminar = $eliminar->cantidad*-1;
+
+
+        $detalle = new Compras_Productos;
+        $detalle->comprobantes_id = $this->comprobante_id;
+        $detalle->productos_id = $eliminar->productos_id;
+        $detalle->cantidad = $cant_a_eliminar;  //Actualiza el valor con la cantidad a eliminar
+        $detalle->precio = $eliminar->precio;
+        $detalle->user_id = $userid=auth()->user()->id;
+
+        $detalle->save();
+        
+        // Incrementa la cantidad de stock del producto
+        $producto = Producto::find($eliminar->productos_id);
+        $producto->existencia = $producto->existencia + $cant_a_eliminar;
+        $producto->save();
+
+        $this->listado_productos();
+    }
+    
+    public function listado_productos() {
+        
+        $this->glistado_prod = Compras_Productos::join('productos','compras__productos.productos_id','productos.id')
+        ->where('comprobantes_id',$this->comprobante_id)
+        ->get(['compras__productos.*','productos.name']);
+        //falta el where
+        //dd($this->glistado_prod);
+    }
+    
 }

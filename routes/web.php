@@ -52,7 +52,14 @@ Route::get('pdf/deuda/{ddesde}/{dhasta}', [ImprimirPDF::class, 'DeudaPFD'])->nam
 Route::get('pdf/credito/{cdesde}/{chasta}', [ImprimirPDF::class, 'CreditoPFD'])->name('CreditoPFD');
 Route::get('pdf/ivacompras/{anio}/{mes}', [ImprimirPDF::class, 'IvaCompras'])->name('IvaCompras');
 
+Route::get('producto/addtag/{product_id}/{tag_id}', [Productos::class, 'addtag'])->name('producto.addtag');
+Route::get('producto/deltag/{product_id}/{tag_id}', [Productos::class, 'deltag'])->name('producto.deltag');
+Route::get('producto/tag', [Productos::class, 'tag'])->name('producto.tag');
+Route::get('producto/{producto}/tagedit', [Productos::class, 'tagedit'])->name('producto.tagedit');
+
 Route::resource('producto',Productos::class);
+
+Route::get('producto/productobajas', [Productos::class, 'productobajas'])->name('producto.productobajas');
 
 // Route::get('empresas/config', function () {
 //     return view('adminlte');

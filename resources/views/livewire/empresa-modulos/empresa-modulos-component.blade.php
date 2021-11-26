@@ -51,7 +51,7 @@
 											<td class="border px-4 py-2 text-left @if ($seleccionado==$empresa->id) bg-red-300 @endif" wire:click="CargarModulos({{ $empresa->id }})">
 												<div class="w-full p-3">
 													<div class="flex rounded overflow-hidden border">
-														<img class="block flex-none bg-cover" style="width: 100px; height: 100px;"	src="https://picsum.photos/seed/picsum/100/100">
+														<img class="block flex-none bg-cover" style="width: 70px; height: 70px;"	src="https://picsum.photos/seed/picsum/100/100">
 														<div
 															class="bg-white rounded-b pl-3 flex flex-col justify-between leading-normal">
 															<div

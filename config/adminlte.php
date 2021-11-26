@@ -277,52 +277,58 @@ return [
             'icon' => 'fas fa-fw fa-building',
         ],
         [
-            'text' => 'Etiquetas',
+            'text' => 'Ajustes',
             'url'  => 'tags',
             'icon' => 'fas fa-fw fa-building',
-        ],
-        [
-            'text' => 'Unidades',
-            'url'  => 'unidades',
-            'icon' => 'fas fa-fw fa-building',
-        ],
-        [
-            'text' => 'Categorías de Productos',
-            'url'  => 'categoriaproducto',
-            'icon' => 'fas fa-fw fa-building',
-        ],
-        [
-            'text' => 'Estados',
-            'url'  => 'estados',
-            'icon' => 'fas fa-fw fa-building',
+            'submenu' => [
+                [
+                    'text' => 'Etiquetas',
+                    'url'  => 'tags',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Unidades',
+                    'url'  => 'unidades',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Categorías de Productos',
+                    'url'  => 'categoriaproducto',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Estados',
+                    'url'  => 'estados',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+            ],
         ],
         [
             'text' => 'Productos',
-            'url'  => 'productos',
             'icon' => 'fas fa-fw fa-building',
             'submenu' => [
                         [
-                            'text' => 'Agregar',
+                            'text' => 'Agregar Producto',
                             'url'  => 'producto/create',
                         ],
                         [
-                            'text' => 'Modificar',
-                            'url'  => 'productos',
+                            'text' => 'Agregar Etiqueta',
+                            'url'  => 'producto/tag',
                         ],
                         [
-                            'text' => 'Eliminar',
-                            'submenu' => [
-                                [
-                                    'text' => 'Eliminar Permanentemente',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'Registrar Bajas',
-                                    'url'  => '#',
-                                ],    
-                            ],
+                            'text' => 'Modificar / Eliminar',
+                            'url'  => 'producto',
                         ],
+                        [
+                            'text' => 'Registrar Bajas',
+                            'url'  => 'productobajas',
+                        ],    
                     ],
+        ],
+        [
+            'text' => 'VOLVER',
+            'url'  => '/',
+            'icon' => 'fas fa-fw fa-building',
         ],
         // [
         //     'text'    => 'multilevel',

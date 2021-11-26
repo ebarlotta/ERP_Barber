@@ -103,7 +103,11 @@
                         <span class="mt-3 flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
                         <input class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-red-300 text-base leading-6 font-bold text-white-900 shadow-sm hover:bg-red-400 focus:outline-none focus:border-green-700 focus:shadow-outline-green transition ease-in-out duration-150 sm:text-sm sm:leading-5" type="submit" value="Guardar">
                      </span>
-                     <x-cerrar></x-cerrar>
+                     <span class="mt-3 flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
+								<a href="{{url('producto')}}">
+                        <input class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-yellow-300 text-base leading-6 font-bold text-white-900 shadow-sm hover:bg-yellow-400 focus:outline-none focus:border-green-700 focus:shadow-outline-green transition ease-in-out duration-150 sm:text-sm sm:leading-5" type="button" value="Cerrar">
+							</a>
+                     </span>
                   </div>
             {{-- </form> --}}
             </x-producto>
