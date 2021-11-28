@@ -32,7 +32,7 @@
                         <thead>
                             <tr class="bg-gray-100">
                                 <th class="px-4 py-2 ">Legajo</th>
-                                <th class="px-4 py-2 ">Nombre del Empleado</th>
+                                <th class="px-4 py-2 ">Nombre</th>
                                 <th class="px-4 py-2 ">DNI</th>
                                 {{-- <th class="px-4 py-2  sm:hidden">Dirección</th>
                                 <th class="px-4 py-2  sm:hidden">Cuil</th>

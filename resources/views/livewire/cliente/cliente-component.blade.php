@@ -28,7 +28,7 @@
                     @if ($isModalOpen)
                         @include('livewire.cliente.createclientes')
                     @endif
-                    <table class="table-fixed table-striped w-full">
+                    <table class="table-fixed table-striped w-full" style="font-size: 1.8vw">
                         <thead>
                             <tr class="bg-gray-100">
                                 <th class="px-4 py-2">Nombre del Cliente</th>
@@ -47,7 +47,7 @@
                                         <td class="border px-4 py-2 text-left">{{ $cliente->cuil }}</td>
                                         <td class="border px-4 py-2 text-left">{{ $cliente->telefono }}</td>
                                         <td class="border px-4 py-2">
-                                            <div class="sm:flex justify-center">
+                                            <div class="flex justify-center">
                                                 <div class="sm:flex justify-center">
                                                     <!-- Editar  -->
                                                     <x-editar id="{{ $cliente->id }}"></x-editar>

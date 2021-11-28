@@ -243,27 +243,27 @@ class CompraComponent extends Component
         $Saldo=0;
 
         $this->filtro="
-        <div class=\"col-12 flex border table-auto w-full border border-green-800 border-collapse bg-gray-300 rounded-md text-xs\">
+        <div class=\"col-12 fse-1 flex border table-auto w-full border border-green-800 border-collapse bg-gray-300 rounded-md\">
             
                 <div class=\"col-1 border\">Fecha</div>
                 <div class=\"col-1 border\">Comprobante</div>
                 <div class=\"col-2 border\">Proveedor</div>
-                <div class=\"col-1 text-center hidden sm:block md:block lg:block xl:block \">Detalle</div>
+                <div class=\"col-1 text-center hidden sm:hidden md:hidden lg:block xl:block \">Detalle</div>
                 <div class=\"col-2 border\">Bruto</div>
                 <div class=\"col-1 border\">Iva</div>
                 <div class=\"col-2 border\">Exento</div>
-                <div class=\"hidden sm:block md:block lg:block xl:block\">Imp.Interno</div>
-                <div class=\"hidden sm:block md:block lg:block xl:block\">Percec.Iva</div>
-                <div class=\"hidden sm:block md:block lg:block xl:block\">Retenc.IB</div>
-                <div class=\"hidden sm:block md:block lg:block xl:block\">Retenc.Gan</div>
+                <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Imp.Interno</div>
+                <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Percec.Iva</div>
+                <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Retenc.IB</div>
+                <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Retenc.Gan</div>
                 <div class=\"col-2 border\">Neto</div>
                 <div class=\"col-1 border\">Pagado</div>
-                <div class=\"hidden sm:block md:block lg:block xl:block\">Saldo</div>
-                <div class=\"hidden sm:block md:block lg:block xl:block\">Cant.Litros</div>
-                <div class=\"hidden sm:block md:block lg:block xl:block\">Partic.Iva</div>
-                <div class=\"hidden sm:block md:block lg:block xl:block\">Pasado EnMes</div>
-                <div class=\"hidden sm:block md:block lg:block xl:block\">Area</div>
-                <div class=\"hidden sm:block md:block lg:block xl:block\">Cuenta</div>
+                <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Saldo</div>
+                <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Cant.Litros</div>
+                <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Partic.Iva</div>
+                <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Pasado EnMes</div>
+                <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Area</div>
+                <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Cuenta</div>
         </div>    ";
 
         // $this->filtro="
@@ -321,26 +321,26 @@ class CompraComponent extends Component
             $Cantidad=$Cantidad+$registro->CantidadLitroComp;
             $NetoT = $NetoT + $registro->NetoComp;
             $this->filtro=$this->filtro."
-                <div class=\"flex col-12\" wire:click=\"gCargarRegistro(". $registro->id .")\">
-                <div class=\"col-1 border border-secondary\" style=\"font-size: 7px;\">$Fecha</div>
-                <div class=\"col-1 border border-secondary\" style=\"font-size: 7px;\">$registro->comprobante</div>
-                <div class=\"col-2 border border-secondary\" style=\"font-size: 7px;\">$Proveedor->name</div>
-                <div class=\"col-1 border border-secondary text-center hidden sm:block md:block lg:block xl:block \" style=\"font-size: 7px;\">$registro->detalle</div>
-                <div class=\"col-2 border border-secondary\" style=\"font-size: 7px;\">".number_format($registro->BrutoComp, 2,'.','')."</div>
-                <div class=\"col-1 border border-secondary\" style=\"font-size: 7px;\">".number_format($MontoIva, 2,'.','')."</div>
-                <div class=\"col-2 border border-secondary\" style=\"font-size: 7px;\">".number_format($registro->ExentoComp, 2,'.','')."</div>
-                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($registro->ImpInternoComp, 2,'.','')."</div>
-                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($registro->PercepcionIvaComp, 2,'.','')."</div>
-                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($registro->RetencionIB, 2,'.','')."</div>
-                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($registro->RetencionGan, 2,'.','')."</div>
-                <div class=\"col-2 border border-secondary\" style=\"font-size: 7px;\">".number_format($registro->NetoComp, 2,'.','')."</div>
-                <div class=\"col-1 border border-secondary\" style=\"font-size: 7px;\">".number_format($registro->MontoPagadoComp, 2,'.','')."</div>
-                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($Saldo, 2,'.','')."</div>
-                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($registro->CantidadLitroComp, 2,'.','')."</div>
-                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">$registro->ParticIva</div>
-                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">" . $this->ConvierteMesEnTexto($registro->PasadoEnMes) . "</div>
-                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">$Area->name</div>
-                <div class=\"col-1 border border-secondary hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">$Cuenta->name</div>
+                <div class=\"flex col-12 fse-1 md:fse-2\" wire:click=\"gCargarRegistro(". $registro->id .")\">
+                <div class=\"col-1 border border-secondary\"\">$Fecha</div>
+                <div class=\"col-1 border border-secondary\"\">$registro->comprobante</div>
+                <div class=\"col-2 border border-secondary\"\">$Proveedor->name</div>
+                <div class=\"col-1 border border-secondary text-center hidden sm:hidden md:hidden lg:block xl:block \"\">$registro->detalle</div>
+                <div class=\"col-2 border border-secondary\"\">".number_format($registro->BrutoComp, 2,'.','')."</div>
+                <div class=\"col-1 border border-secondary\"\">".number_format($MontoIva, 2,'.','')."</div>
+                <div class=\"col-2 border border-secondary\"\">".number_format($registro->ExentoComp, 2,'.','')."</div>
+                <div class=\"col-1 border border-secondary hidden sm:hidden md:hidden lg:block xl:block \"\">".number_format($registro->ImpInternoComp, 2,'.','')."</div>
+                <div class=\"col-1 border border-secondary hidden sm:hidden md:hidden lg:block xl:block \"\">".number_format($registro->PercepcionIvaComp, 2,'.','')."</div>
+                <div class=\"col-1 border border-secondary hidden sm:hidden md:hidden lg:block xl:block \"\">".number_format($registro->RetencionIB, 2,'.','')."</div>
+                <div class=\"col-1 border border-secondary hidden sm:hidden md:hidden lg:block xl:block \"\">".number_format($registro->RetencionGan, 2,'.','')."</div>
+                <div class=\"col-2 border border-secondary\"\">".number_format($registro->NetoComp, 2,'.','')."</div>
+                <div class=\"col-1 border border-secondary\"\">".number_format($registro->MontoPagadoComp, 2,'.','')."</div>
+                <div class=\"col-1 border border-secondary hidden sm:hidden md:hidden lg:block xl:block \"\">".number_format($Saldo, 2,'.','')."</div>
+                <div class=\"col-1 border border-secondary hidden sm:hidden md:hidden lg:block xl:block \"\">".number_format($registro->CantidadLitroComp, 2,'.','')."</div>
+                <div class=\"col-1 border border-secondary hidden sm:hidden md:hidden lg:block xl:block \"\">$registro->ParticIva</div>
+                <div class=\"col-1 border border-secondary hidden sm:hidden md:hidden lg:block xl:block \"\">" . $this->ConvierteMesEnTexto($registro->PasadoEnMes) . "</div>
+                <div class=\"col-1 border border-secondary hidden sm:hidden md:hidden lg:block xl:block \"\">$Area->name</div>
+                <div class=\"col-1 border border-secondary hidden sm:hidden md:hidden lg:block xl:block \"\">$Cuenta->name</div>
             </div>";
 
 
@@ -349,27 +349,27 @@ class CompraComponent extends Component
         }
 
         $this->filtro=$this->filtro."
-        <div class=\"col-12 flex border table-auto w-full border border-green-800 border-collapse bg-gray-300 rounded-md text-xs\">
+        <div class=\"col-12 fse-1 flex border table-auto w-full border border-green-800 border-collapse bg-gray-300 rounded-md\">
             
                 <div class=\"col-1 border\"></div>
                 <div class=\"col-1 border\"></div>
-                <div class=\"col-2 border\"style=\"font-size: 7px;\">Totales</div>
-                <div class=\"col-1 text-center hidden sm:block md:block lg:block xl:block \"></div>
-                <div class=\"col-2 border\" style=\"font-size: 7px;\">".number_format($Bruto, 2,'.','')."</div>
-                <div class=\"col-1 border\" style=\"font-size: 7px;\">".number_format($MontoIvaT, 2,'.','')."</div>
-                <div class=\"col-2\" style=\"font-size: 7px;\">".number_format($Exento, 2,'.','')."</div>
-                <div class=\"hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($ImpInterno, 2,'.','')."</div>
-                <div class=\"hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($PerIva, 2,'.','')."</div>
-                <div class=\"hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($RetIB, 2,'.','')."</div>
-                <div class=\"hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($RetGan, 2,'.','')."</div>
-                <div class=\"col-2 border\" style=\"font-size: 7px;\">".number_format($NetoT, 2,'.','')."</div>
-                <div class=\"col-1 border\" style=\"font-size: 7px;\">".number_format($MontoPagado, 2,'.','')."</div>
-                <div class=\"hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($Saldo, 2,'.','')."</div>
-                <div class=\"hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\">".number_format($Cantidad, 2,'.','')."</div>
-                <div class=\"hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\"></div>
-                <div class=\"hidden sm:block md:block lg:block xl:block\" style=\"font-size: 7px;\"></div>
-                <div class=\"col-1\" style=\"font-size: 7px;\"></div>
-                <div class=\"col-1\" style=\"font-size: 7px;\"></div>
+                <div class=\"col-2 border\">Totales</div>
+                <div class=\"col-1 text-center hidden sm:hidden md:hidden lg:block xl:block \"></div>
+                <div class=\"col-2 border\"\">".number_format($Bruto, 2,'.','')."</div>
+                <div class=\"col-1 border\"\">".number_format($MontoIvaT, 2,'.','')."</div>
+                <div class=\"col-2\"\">".number_format($Exento, 2,'.','')."</div>
+                <div class=\"hidden sm:hidden md:hidden lg:block xl:block\"\">".number_format($ImpInterno, 2,'.','')."</div>
+                <div class=\"hidden sm:hidden md:hidden lg:block xl:block\"\">".number_format($PerIva, 2,'.','')."</div>
+                <div class=\"hidden sm:hidden md:hidden lg:block xl:block\"\">".number_format($RetIB, 2,'.','')."</div>
+                <div class=\"hidden sm:hidden md:hidden lg:block xl:block\"\">".number_format($RetGan, 2,'.','')."</div>
+                <div class=\"col-2 border\"\">".number_format($NetoT, 2,'.','')."</div>
+                <div class=\"col-1 border\"\">".number_format($MontoPagado, 2,'.','')."</div>
+                <div class=\"hidden sm:hidden md:hidden lg:block xl:block\"\">".number_format($Saldo, 2,'.','')."</div>
+                <div class=\"hidden sm:hidden md:hidden lg:block xl:block\"\">".number_format($Cantidad, 2,'.','')."</div>
+                <div class=\"hidden sm:hidden md:hidden lg:block xl:block\"\"></div>
+                <div class=\"hidden sm:hidden md:hidden lg:block xl:block\"\"></div>
+                <div class=\"col-1\"\"></div>
+                <div class=\"col-1\"\"></div>
         </div>    ";
 
         // $this->filtro = $this->filtro."<tr class=\"bg-gradient-to-r from-purple-400 via-pink-500 to-red-500\"><td></td><td></td><td></td><td class=\"border border-green-600\">Totales</td><td class=\"border border-green-600 text-right\">".number_format($Bruto, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($MontoIvaT, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($Exento, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($ImpInterno, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($PerIva, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($RetIB, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($RetGan, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($NetoT, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($MontoPagado, 2,'.','')."</td><td class=\"border border-green-600 text-right\"><strong>".number_format($Saldo, 2,'.','')."</strong></td><td class=\"border border-green-600 text-right\">".number_format($Cantidad, 2,'.','')."</td></tr>";

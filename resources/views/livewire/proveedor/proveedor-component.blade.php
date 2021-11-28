@@ -31,7 +31,7 @@
                     <table class="table-fixed table-striped w-full">
                         <thead>
                             <tr class="bg-gray-100">
-                                <th class="px-4 py-2">Nombre del Proveedor</th>
+                                <th class="px-4 py-2">Proveedor</th>
                                 {{-- <th class="px-4 py-2">Dirección</th>
                                 <th class="px-4 py-2">Cuit</th> --}}
                                 <th class="px-4 py-2">Dirección</th>
