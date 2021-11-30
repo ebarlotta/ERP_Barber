@@ -9,6 +9,76 @@
         </div>
 
     </x-slot>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div style="display: block">
+        @foreach ($proveedores as $proveedor)
+            {{-- <tr> --}}
+                {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->name }}</td> --}}
+                {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->direccion }}</td>
+                <td class="border px-4 py-2 text-left">{{ $proveedor->cuit }}</td> --}}
+                {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->direccion }}</td> --}}
+                {{-- <td class="border px-4 py-2 text-left hidden sm:hidden md:hidden lg:block xl:block">{{ $proveedor->cuit }}</td> --}}
+                {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->telefono }}</td> --}}
+                {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->email }}</td> --}}
+                
+                {{-- <td class="border px-4 py-2"> --}}
+                    {{-- <div class="flex mb-2 mt-2 transform transition duration-500 hover:scale-105 shadow  " style="width:40%; margin-right: 5px; margin-left: 5px"> --}}
+                        
+                
+                <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px; height: 100%;">
+                    <div style="width:90%;">
+                        <div style="width:100%; display: flex">
+                            <p class="shadow-md m-1" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;">{{ $proveedor->name }}</p>
+                            <p class="shadow-md m-1" style="background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;">{{ $proveedor->direccion }}</p>
+                        </div>
+                        <div style="width:100%; display: flex">
+                            <p class="shadow-md m-1" style="background-color: rgb(226, 230, 230);border-radius: 10px; padding: 3px;">{{ $proveedor->telefono }}</p>
+                            <p class="shadow-md m-1" style="background-color: rgb(226, 230, 230);border-radius: 10px; padding: 3px;">{{ $proveedor->email }}</p>
+                        </div>
+                    </div>
+                    <div style="width:10%;">
+                        <div class="block justify-center" style="width: 20%; margin: auto; justify-content: space-around;align-items: center;">
+                            <!-- Editar  -->
+                            <x-editar id="{{ $proveedor->id }}"></x-editar>
+                            <!-- Eliminar -->
+                            <x-eliminar id="{{ $proveedor->id }}"></x-eliminar>
+                        </div>
+                        {{-- </div><br> --}}
+                    </div>
+                    {{-- </td> --}}
+                    {{-- </tr> --}}
+                </div>
+        @endforeach
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <div class="content-center flex">
         <div class="bg-white p-2 text-center rounded-lg shadow-lg w-full">
@@ -35,7 +105,7 @@
                                 {{-- <th class="px-4 py-2">Dirección</th>
                                 <th class="px-4 py-2">Cuit</th> --}}
                                 <th class="px-4 py-2">Dirección</th>
-                                <th class="px-4 py-2">Cuit</th>
+                                <th class="px-4 py-2 hidden sm:hidden md:hidden lg:block xl:block">Cuit</th>
                                 <th class="px-4 py-2">Teléfono</th>
                                 <th class="px-4 py-2">Email</th>
                                 <th class="px-4 py-2">Opciones</th>
@@ -43,25 +113,45 @@
                         </thead>
                         <tbody>
                             @if ($proveedores)
+                            <div style="display: block">
                                 @foreach ($proveedores as $proveedor)
-                                    <tr>
-                                        <td class="border px-4 py-2 text-left">{{ $proveedor->name }}</td>
+                                    {{-- <tr> --}}
+                                        {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->name }}</td> --}}
                                         {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->direccion }}</td>
                                         <td class="border px-4 py-2 text-left">{{ $proveedor->cuit }}</td> --}}
-                                        <td class="border px-4 py-2 text-left">{{ $proveedor->direccion }}</td>
-                                        <td class="border px-4 py-2 text-left">{{ $proveedor->cuit }}</td>
-                                        <td class="border px-4 py-2 text-left">{{ $proveedor->telefono }}</td>
-                                        <td class="border px-4 py-2 text-left">{{ $proveedor->email }}</td>
-                                        <td class="border px-4 py-2">
-                                            <div class="flex justify-center">
-                                                <!-- Editar  -->
-                                                <x-editar id="{{ $proveedor->id }}"></x-editar>
-                                                <!-- Eliminar -->
-                                                <x-eliminar id="{{ $proveedor->id }}"></x-eliminar>
+                                        {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->direccion }}</td> --}}
+                                        {{-- <td class="border px-4 py-2 text-left hidden sm:hidden md:hidden lg:block xl:block">{{ $proveedor->cuit }}</td> --}}
+                                        {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->telefono }}</td> --}}
+                                        {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->email }}</td> --}}
+                                        
+                                        {{-- <td class="border px-4 py-2"> --}}
+                                            {{-- <div class="flex mb-2 mt-2 transform transition duration-500 hover:scale-105 shadow  " style="width:40%; margin-right: 5px; margin-left: 5px"> --}}
+                                                
+                                        
+                                        <div class="rounded-r-md" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:100%; height:100px; display:flex">
+                                            <div style="width:80%;">
+                                                <div style="width:100%; display: flex">
+                                                    <p>{{ $proveedor->name }}</p>
+                                                    <p>{{ $proveedor->direccion }}</p>
+                                                </div>
+                                                <div style="width:100%; display: flex">
+                                                    <p class="ml-3" style="font-size: 18px">{{ $proveedor->telefono }}</p>
+                                                    <p class="ml-3 mr-1" style="font-size: 12px">{{ $proveedor->email }}</p>
+                                                </div>
                                             </div>
-                                        </td>
-                                    </tr>
+                                            <div style="width:20%;">
+                                                <div class="block justify-center" style="width: 20%;">
+                                                    <!-- Editar  -->
+                                                    <x-editar id="{{ $proveedor->id }}"></x-editar>
+                                                    <!-- Eliminar -->
+                                                    <x-eliminar id="{{ $proveedor->id }}"></x-eliminar>
+                                                </div>
+                                                {{-- </div><br> --}}
+                                            </div>
+                                        {{-- </td> --}}
+                                    {{-- </tr> --}}
                                 @endforeach
+                            </div>
                             @endif
                         </tbody>
                     </table>

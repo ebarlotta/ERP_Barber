@@ -30,7 +30,7 @@ use App\Http\Livewire\Venta\VentaComponent;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', EmpresaComponent::class);
+Route::get('/', EmpresaComponent::class)->name('inicio');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

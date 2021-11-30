@@ -3150,6 +3150,24 @@ select {
     font-size: 1.5vw;
 }
 
-.fse-2 {
+.md\:fse-2 {
     font-size: 2.5vw;
+}
+
+.md\:fse-0 {
+    font-size: 0.9vw;
+}
+
+.md\:col-flex {
+    flex: 0 0 auto;
+}
+
+.xs\:col-flex1 {
+    flex: 0 0 auto;
+    width: 8.33333333%;
+}
+
+.xs\:col-flex2 {
+    flex: 0 0 auto;
+    width: 16.6666666%;
 }

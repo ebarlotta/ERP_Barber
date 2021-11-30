@@ -203,7 +203,7 @@
 									@endif
 
 									<!-- Gestionar Comprobantes -->
-									<div class="flex flex-wrap mt-3 justify-around fse-1">
+									<div class="flex flex-wrap mt-3 justify-around ">
 										<div class="w-32 mr-1">
 											<label for="">Fecha</label><br>
 											<input class="ml-2 w-full rounded-md h-7 fse-1" type="date" wire:model="gfecha">
