@@ -243,9 +243,9 @@ class CompraComponent extends Component
         //Dibuja el filtro
         $Saldo=0;
 
-        $this->filtro=$this->filtro."
+        $this->filtro="
             <div class=\"table-responsive-sm\">
-                <table class=\"table table-striped\" style=\"font-size:7px;\">
+                <table class=\"table table-striped\" style=\"font-size:13px;\">
                 <thead>
                   <tr>
                     <th scope=\"col\">Fecha</th>
@@ -394,7 +394,7 @@ class CompraComponent extends Component
             $NetoT = $NetoT + $registro->NetoComp;
 
             $this->filtro=$this->filtro."
-            <tr>
+            <tr wire:click=\"gCargarRegistro(". $registro->id .")\">
                 <td>$Fecha</td>
                 <td>$registro->comprobante</td>
                 <td>$Proveedor->name</td>

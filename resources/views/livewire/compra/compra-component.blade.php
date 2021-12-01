@@ -8,7 +8,7 @@
 			<div class="flex flex-wrap" id="tabs-id">
 				<div class="w-full">
 					<ul class="flex mb-0 list-none flex-wrap pb-4 flex-row">
-						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center" style="text-decoration: none;">
 							@if($tabActivo==1)
 								<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-white bg-pink-600" wire:click="CambiarTab(1)">
 							@else 
@@ -61,10 +61,10 @@
 									<!-- Botones -->
 									<div class="flex justify-center">
 										<div class="flex flex-wrap justify-center fse-1">
-											<button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" wire:click="store">Agregar</button>
-											<button class="rounded-md bg-yellow-300 px-6 py-1 mx-2 mt-3" wire:click="openModalModify">Modificar</button>
-											<button class="rounded-md bg-red-300 px-6 py-1 mx-2 mt-3" wire:click="openModalDelete">Eliminar</button>
-											<button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" wire:click="openModalAgregarDetalle">Agregar Productos</button>
+											<button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;" wire:click="store">Agregar</button>
+											<button class="rounded-md bg-yellow-300 px-6 py-1 mx-2 mt-3" style="box-shadow: 2px 2px 5px #999;" wire:click="openModalModify">Modificar</button>
+											<button class="rounded-md bg-red-300 px-6 py-1 mx-2 mt-3" style="box-shadow: 2px 2px 5px #999;" wire:click="openModalDelete">Eliminar</button>
+											<button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;" wire:click="openModalAgregarDetalle">Agregar Productos</button>
 										
 											<div class=" right-0">
 												@if (session()->has('message'))
@@ -203,10 +203,10 @@
 									@endif
 
 									<!-- Gestionar Comprobantes -->
-									<div class="flex flex-wrap mt-3 justify-around ">
+									<div class="flex flex-wrap mt-3 justify-around" style="font-size: 14px;">
 										<div class="w-32 mr-1">
 											<label for="">Fecha</label><br>
-											<input class="ml-2 w-full rounded-md h-7 fse-1" type="date" wire:model="gfecha">
+											<input class="ml-2 w-full rounded-md h-7" type="date" wire:model="gfecha">
 											@error('gfecha') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
 										<div class="w-44 mr-1">
@@ -380,7 +380,7 @@
 									</div>
 									<div>
 
-										<div class="flex flex-wrap fse-1" style="background-color: rgb(199, 233, 233);">
+										<div class="flex flex-wrap fse-1" style="background-color: rgb(199, 233, 233); font-size: 14px;">
 											<div class="border px-2">Mes<br>
 												<select class="rounded-md h-7 py-0 leading-none" wire:model="gfmes" wire:change="gfiltro()">
 													<option value=""></option>
@@ -632,8 +632,8 @@
 									<div class="flex mt-4 justify-center">
 										<div class="block mb-4 justify-start">
 											<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularDeudaProveedores(0)">Solicitar Listado</button>
-											<a class="btn btn-primary" href="{{ URL::to('/pdf/deuda'.'/'.$ddesde.'/'.$dhasta) }}" target="_blank">
-												<button class="rounded-md bg-yellow-500 px-8 	py-1 mx-2 mt-3">Generar PDF</button>
+											<a href="{{ URL::to('/pdf/deuda'.'/'.$ddesde.'/'.$dhasta) }}" target="_blank">
+												<button class="rounded-md bg-yellow-500 px-8 py-1 mx-2 mt-3" style="color: black;">Generar PDF</button>
 											</a>
 										</div>
 									</div>
@@ -697,8 +697,8 @@
 										<div class="flex mt-4 justify-center">
 											<div class="block mb-4 justify-start">
 												<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularCreditoProveedores()">Solicitar Listado</button>
-												<a class="btn btn-primary" href="{{ URL::to('/pdf/credito'.'/'.$cdesde.'/'.$chasta) }}" target="_blank">
-													<button class="rounded-md bg-yellow-500 px-8 	py-1 mx-2 mt-3">Generar PDF</button>
+												<a href="{{ URL::to('/pdf/credito'.'/'.$cdesde.'/'.$chasta) }}" target="_blank">
+													<button class="rounded-md bg-yellow-500 px-8 	py-1 mx-2 mt-3" style="color: black;">Generar PDF</button>
 												</a>
 											</div>
 										</div>
@@ -775,10 +775,10 @@
 													</select>
 												</td>
 												<td>
-													<a class="btn btn-primary" href="{{ URL::to('/pdf/ivacompras'.'/'.$lanio.'/'.$lmes) }}" target="_blank">
-														<button class="rounded-md bg-green-300 px-8 py-1 ml-4 mt-6">Imprimir Libro</button>
+													<a href="{{ URL::to('/pdf/ivacompras'.'/'.$lanio.'/'.$lmes) }}" target="_blank">
+														<button class="rounded-md bg-green-300 px-8 py-1 ml-4 mt-6" style="color: black;">Imprimir Libro</button>
 													</a><br>
-													<button class="rounded-md bg-yellow-300 px-8 py-1 ml-4 mt-6" wire:click="openModalCerrarLibro()">Cerrar Libro</button>
+													<button class="rounded-md bg-yellow-300 px-8 py-1 ml-4 mt-6 white" wire:click="openModalCerrarLibro()">Cerrar Libro</button>
 												</td>
 											</tr>
 										</table>
