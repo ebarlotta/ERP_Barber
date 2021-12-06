@@ -15,6 +15,7 @@ use App\Http\Livewire\Empleado\EmpleadoComponent;
 
 use App\Http\Livewire\Compra\CompraComponent;
 use App\Http\Livewire\Venta\VentaComponent;
+use App\Http\Controllers\SocialController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,6 +31,13 @@ use App\Http\Livewire\Venta\VentaComponent;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+
+Route::get('auth/facebook', [SocialController::class, 'facebookRedirect']);
+
+Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
+
+
 Route::get('/', EmpresaComponent::class)->name('inicio');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
