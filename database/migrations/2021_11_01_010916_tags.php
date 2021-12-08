@@ -16,7 +16,7 @@ class Tags extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
             $table->string('name',30);
-            $table->string('valor',30);
+            $table->string('valor',30)->default(0);
 
             $table->unsignedBigInteger('empresa_id');
 

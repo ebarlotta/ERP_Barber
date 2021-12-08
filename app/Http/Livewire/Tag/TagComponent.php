@@ -10,6 +10,7 @@ class TagComponent extends Component
     public $isModalOpen = false;
     public $tag, $tag_id;
     public $tags;
+    public $valor;
 
     public $empresa_id;
 
@@ -25,7 +26,7 @@ class TagComponent extends Component
         $this->resetCreateForm();   
         $this->openModalPopover();
         $this->isModalOpen=true;
-        return view('livewire.tag.createtag')->with('isModalOpen', $this->isModalOpen)->with('name', $this->name);
+        return view('livewire.tag.createtag')->with('isModalOpen', $this->isModalOpen);
     }
 
     public function openModalPopover()

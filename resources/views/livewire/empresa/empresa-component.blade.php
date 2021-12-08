@@ -15,7 +15,7 @@
                             {{ $empresa['name'] }}
                         </p>
                         <img wire:click="cargamodulos({{ $empresa['id'] }})" class="rounded-md"
-                            src="{{ asset('images/'.$empresa['imagen']) }}" style="margin: auto; margin-top: 10px;">
+                            src="{{ asset('/'.$empresa['imagen']) }}" style="margin: auto; margin-top: 10px;">
                     </div>
                 @endforeach
             @else

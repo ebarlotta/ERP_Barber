@@ -9,7 +9,7 @@
             <form>
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <div class="flex flex-wrap">
-                        <div class="mb-4">
+                        <div class="mb-4 mr-3">
                             <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
                             <input type="text" class="shadow appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput1" wire:model="name">
                             @error('name') <span class="text-red-500">{{ $message }}</span>@enderror
@@ -19,7 +19,7 @@
                             <input type="text" class="shadow appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput1" wire:model="direccion">
                             @error('direccion') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-4 mr-3">
                             <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Cuit</label>
                             <input type="text" class="shadow appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput1" wire:model="cuit">
                             @error('cuit') <span class="text-red-500">{{ $message }}</span>@enderror
@@ -30,10 +30,10 @@
                             @error('ib') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
 
-                        <div class="mb-4">
+                        <div class="mb-4 mr-3">
                             <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Establecimiento</label>
-                            <input type="text" class="shadow appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput1" wire:model="etablecimiento">
-                            @error('etablecimiento') <span class="text-red-500">{{ $message }}</span>@enderror
+                            <input type="text" class="shadow appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput1" wire:model="establecimiento">
+                            @error('establecimiento') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
 
                         <div class="mb-4">
@@ -41,7 +41,7 @@
                             <input type="text" class="shadow appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput1" wire:model="telefono">
                             @error('telefono') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-4 mr-3">
                             <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">actividad</label>
                             <input type="text" class="shadow appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput1" wire:model="actividad">
                             @error('actividad') <span class="text-red-500">{{ $message }}</span>@enderror
@@ -55,8 +55,8 @@
 
                         <div class="mb-4">
                             <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Imágen</label>
-                            <input type="text" class="shadow appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput1" wire:model="actividad1">
-                            @error('actividad1') <span class="text-red-500">{{ $message }}</span>@enderror
+                            <input type="file" class="shadow appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput1" wire:model="imagen">
+                            @error('imagen') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
                     </div>
                 </div>

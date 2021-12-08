@@ -33,16 +33,22 @@ use App\Http\Controllers\SocialController;
 // });
 
 
-Route::get('auth/facebook', [SocialController::class, 'facebookRedirect']);
+// Route::get('auth/facebook', [SocialController::class, 'facebookRedirect']);
 
-Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
-
+// Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
 
 Route::get('/', EmpresaComponent::class)->name('inicio');
+
+Route::get('auth/facebook', [SocialController::class, 'facebookRedirect']);
+Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
+
+Route::get('auth/google', [SocialController::class, 'googleRedirect']);
+Route::get('auth/google/callback', [SocialController::class, 'loginWithGoogle']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
 
 Route::get('areas',AreaComponent::class)->name('areas');
 Route::get('cuentas',CuentaComponent::class)->name('cuentas');

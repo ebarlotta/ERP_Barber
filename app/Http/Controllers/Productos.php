@@ -12,6 +12,8 @@ use App\Models\ProductoTag;
 
 use Illuminate\Http\Request;
 
+use WithPagination;
+
 class Productos extends Controller
 {
    
@@ -23,7 +25,7 @@ class Productos extends Controller
     public function index()
     {
   
-        $productos = Producto::where('empresa_id','=',session('empresa_id'))->get();
+        $productos = Producto::where('empresa_id','=',session('empresa_id'))->paginate(4);
 
         return view('producto.index',compact('productos'));
     }
@@ -67,7 +69,9 @@ class Productos extends Controller
         $producto->estados_id = $request->estados_id;
         $nombreCompleto = basename($request->ruta) . time().'.jpg';       //$this->ruta->extension();
         //return $nombreCompleto;
-        $request->file('ruta')->store($nombreCompleto);
+        //$request->file('ruta')->store($nombreCompleto);
+        //dd($nombreCompleto);
+        $request->file('ruta')->storeAs('images2',$nombreCompleto);
         //dd($nombreCompleto); // $this->ruta->storeAs('images2', $nombreCompleto);
         $producto->ruta = $nombreCompleto;
         //$producto->ruta ='';
@@ -102,6 +106,7 @@ class Productos extends Controller
         $categoria_productos = Categoriaproducto::all();
         $proveedores = Proveedor::all();
         $estados = Estado::where('empresa_id','=',session('empresa_id'))->get();
+        
         //$productos = Producto::where('empresa_id','=',session('empresa_id'))->get();
         
         $producto = Producto::find($id);
@@ -156,7 +161,7 @@ class Productos extends Controller
 
     public function tag() {
 
-        $productos = Producto::where('empresa_id','=',session('empresa_id'))->get();
+        $productos = Producto::where('empresa_id','=',session('empresa_id'))->paginate(4);
 
         return view('producto.tag',compact('productos'));
     }
@@ -171,7 +176,7 @@ class Productos extends Controller
 
         $tagsactivos = Tag::join('producto_tags','producto_tags.tag_id', '=', 'tags.id')
             ->where('empresa_id','=',session('empresa_id'))
-            ->where('producto_tags.producto_id','=',$producto->id)->get();
+            ->where('producto_tags.productos_id','=',$producto->id)->get();
 
         return view('producto.tagedit',compact('producto','tags','tagsactivos'));
         
@@ -182,26 +187,26 @@ class Productos extends Controller
         $producto=Producto::find($producto_id);
         
         $rel = new ProductoTag;
-        $rel->producto_id=$producto_id;
+        $rel->productos_id=$producto_id;
         $rel->tag_id=$tag_id;
         $rel->valor='';
         $rel->save();
 
         $tags = Tag::where('empresa_id','=',session('empresa_id'))->get();
-        $tagsactivos = ProductoTag::where('producto_id','=',$producto->id)->get();
+        $tagsactivos = ProductoTag::where('productos_id','=',$producto->id)->get();
 
         return redirect()->route('producto.tagedit',compact('producto','tags','tagsactivos'));
     }
 
     public function deltag($producto_id, $tag_id) {
         
-        $producto=ProductoTag::where('producto_id',$producto_id)
+        $producto=ProductoTag::where('productos_id',$producto_id)
             ->where('tag_id',$tag_id)
             ->delete();
 
         //return $producto->all();
         $tags = Tag::where('empresa_id','=',session('empresa_id'))->get();
-        $tagsactivos = ProductoTag::where('producto_id','=',$producto_id)->get();
+        $tagsactivos = ProductoTag::where('productos_id','=',$producto_id)->get();
 
         return redirect()->route('producto.tagedit',compact('producto','tags','tagsactivos'));
     }

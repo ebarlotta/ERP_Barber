@@ -29,8 +29,7 @@ class EmpresaUsuariosComponent extends Component
     {
         $this->usuariosglobales= User::all();
         $this->empresas = Empresa::all()->sortBy('id');
-        return view('livewire.empresa-usuarios.empresa-usuarios-component',['datos'=>Empresa::OrderBy('id')->paginate(3)])->extends('layouts.adminlte')
-        ->section('content'); //Enzo
+        return view('livewire.empresa-usuarios.empresa-usuarios-component',['datos'=>Empresa::OrderBy('id')->paginate(3),])->extends('layouts.adminlte');
     }
 
     public function mostrarmodal()

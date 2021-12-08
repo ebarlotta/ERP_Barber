@@ -3171,3 +3171,13 @@ select {
     flex: 0 0 auto;
     width: 16.6666666%;
 }
+
+.personal {
+    background: linear-gradient(90deg, lightblue 20%, white 50%);
+    width: 93%;
+    height: min-content;
+    display: flex;
+    margin: 1.25rem;
+    border-radius: 10px;
+    height: 100%;
+}

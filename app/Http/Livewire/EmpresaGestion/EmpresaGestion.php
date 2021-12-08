@@ -5,9 +5,13 @@ namespace App\Http\Livewire\EmpresaGestion;
 use Livewire\Component;
 use App\Models\Empresa;
 use Illuminate\Support\Facades\DB;
+use Livewire\WithFileUploads;
 
 class EmpresaGestion extends Component
+
 {
+    use WithFileUploads;
+
     public $empresas;
     public $isModalOpen;
     public $seleccionado;
@@ -17,8 +21,7 @@ class EmpresaGestion extends Component
     public function render()
     {
         $this->empresas=Empresa::all();
-        return view('livewire.empresa-gestion.empresa-gestion')->extends('layouts.adminlte')
-        ->section('content');
+        return view('livewire.empresa-gestion.empresa-gestion',['datos'=> Empresa::orderby('name')->paginate(3),])->extends('layouts.adminlte');
     }
 
     public function mostrarmodal()
@@ -76,26 +79,29 @@ class EmpresaGestion extends Component
         $existe=false;  //Consulta si existe la empresa
         $existe = Empresa::find($this->empresa_id);
 
+        $nombreCompleto = basename($this->imagen) . time().'.jpg';
+
         $this->empresa_id = Empresa::updateOrCreate(['id' => $this->empresa_id],[
             'name' => $this->name,
             'direccion' => $this->direccion,
             'cuit' => $this->cuit,
             'establecimiento' => $this->establecimiento,
             'ib' => $this->ib,
-            'image' => $this->imagen,
+            // 'image' => $this->imagen,
+            'imagen' => $this->imagen->storeAs('images2',$nombreCompleto),
             'telefono' => $this->telefono,
             'actividad' => $this->actividad,
             'actividad1' => $this->actividad1,
         ]);
 
         if (!$existe) {     //Si no existe la empresa, inicializa los módulos básicos correspondientes
-            DB::table('empresa_modulos')->insert(['modulo_id' => '1','empresa_id' => $this->empresa_id,]);
-            DB::table('empresa_modulos')->insert(['modulo_id' => '2','empresa_id' => $this->empresa_id,]);
-            DB::table('empresa_modulos')->insert(['modulo_id' => '3','empresa_id' => $this->empresa_id,]);
-            DB::table('empresa_modulos')->insert(['modulo_id' => '4','empresa_id' => $this->empresa_id,]);
-            DB::table('empresa_modulos')->insert(['modulo_id' => '5','empresa_id' => $this->empresa_id,]);
-            DB::table('empresa_modulos')->insert(['modulo_id' => '6','empresa_id' => $this->empresa_id,]);
-            DB::table('empresa_modulos')->insert(['modulo_id' => '7','empresa_id' => $this->empresa_id,]);
+            DB::table('empresa_modulos')->insert(['modulo_id' => '1','empresa_id' => $this->empresa_id->id,]);
+            DB::table('empresa_modulos')->insert(['modulo_id' => '2','empresa_id' => $this->empresa_id->id,]);
+            DB::table('empresa_modulos')->insert(['modulo_id' => '3','empresa_id' => $this->empresa_id->id,]);
+            DB::table('empresa_modulos')->insert(['modulo_id' => '4','empresa_id' => $this->empresa_id->id,]);
+            DB::table('empresa_modulos')->insert(['modulo_id' => '5','empresa_id' => $this->empresa_id->id,]);
+            DB::table('empresa_modulos')->insert(['modulo_id' => '6','empresa_id' => $this->empresa_id->id,]);
+            DB::table('empresa_modulos')->insert(['modulo_id' => '7','empresa_id' => $this->empresa_id->id,]);
         }
 
         $this->closeModalPopover();

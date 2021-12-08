@@ -24,7 +24,7 @@ class CreateEmpresasTable extends Migration
             $table->bigInteger('telefono');
             $table->string('actividad');
             $table->string('actividad1');
-            $table->integer('menu');
+            $table->integer('menu')->default('2');
 
             $table->timestamps();
         });
