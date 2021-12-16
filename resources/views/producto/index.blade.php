@@ -30,7 +30,6 @@
 						<ul>
 							<li class="border text-left w-full flex" style="height: 100px;">
 								
-									{{-- <div class="flex rounded overflow-hidden border"> --}}
 										@if($producto->ruta != 'sin_imagen.jpg') 
 											<img class="block rounded-md flex-none bg-cover" src="{{ asset('images2/'.$producto->ruta) }}" style="width:80px; height: 80px; margin: auto;">	
 										@else

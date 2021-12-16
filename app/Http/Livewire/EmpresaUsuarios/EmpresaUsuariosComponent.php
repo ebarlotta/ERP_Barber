@@ -49,6 +49,7 @@ class EmpresaUsuariosComponent extends Component
     public function CargarUsuarios($id)
     {
         $this->empresaseleccionada = Empresa::find($id);
+        $this->seleccionado=$id;
         $this->usuariosdelaempresa = DB::table('users')->distinct()
             ->join('empresa_usuarios', 'users.id', '=', 'empresa_usuarios.user_id')
             ->join('empresas',  'empresas.id', '=', 'empresa_usuarios.empresa_id',)

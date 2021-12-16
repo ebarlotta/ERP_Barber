@@ -34,15 +34,16 @@ class DatabaseSeeder extends Seeder
         \App\Models\Concepto::factory(10)->create();
         \App\Models\EmpresaUsuario::factory(10)->create();
         // \App\Models\Modulo::factory(10)->create();
-        DB::table('modulos')->insert(['name' => 'Areas','pagina' => 'areas','imagen' => 'areas.jpg','leyenda' => '',]);
-        DB::table('modulos')->insert(['name' => 'Clientes','pagina' => 'clientes','imagen' => 'clientes.jpg','leyenda' => '',]);
-        DB::table('modulos')->insert(['name' => 'Compras','pagina' => 'compras','imagen' => 'compras.jpg','leyenda' => '',]);
-        DB::table('modulos')->insert(['name' => 'Cuentas','pagina' => 'cuentas','imagen' => 'cuentas.jpg','leyenda' => '',]);
-        DB::table('modulos')->insert(['name' => 'Empleados','pagina' => 'empleados','imagen' => 'empleados.jpg','leyenda' => '',]);
-        DB::table('modulos')->insert(['name' => 'Proveedores','pagina' => 'proveedores','imagen' => 'proveedores.jpg','leyenda' => '',]);
-        DB::table('modulos')->insert(['name' => 'Ventas','pagina' => 'ventas','imagen' => 'ventas.jpg','leyenda' => '',]);
+        // DB::table('modulos')->insert(['name' => 'Areas','pagina' => 'areas','imagen' => 'areas.jpg','leyenda' => '',]);
+        // DB::table('modulos')->insert(['name' => 'Clientes','pagina' => 'clientes','imagen' => 'clientes.jpg','leyenda' => '',]);
+        // DB::table('modulos')->insert(['name' => 'Compras','pagina' => 'compras','imagen' => 'compras.jpg','leyenda' => '',]);
+        // DB::table('modulos')->insert(['name' => 'Cuentas','pagina' => 'cuentas','imagen' => 'cuentas.jpg','leyenda' => '',]);
+        // DB::table('modulos')->insert(['name' => 'Empleados','pagina' => 'empleados','imagen' => 'empleados.jpg','leyenda' => '',]);
+        // DB::table('modulos')->insert(['name' => 'Proveedores','pagina' => 'proveedores','imagen' => 'proveedores.jpg','leyenda' => '',]);
+        // DB::table('modulos')->insert(['name' => 'Ventas','pagina' => 'ventas','imagen' => 'ventas.jpg','leyenda' => '',]);
         
         //Ralaciona los módulos de la empresa de prueba 
+        $this->call(ModuloSeeder::class);
         $this->call(EmpresaModuloSeeder::class);
         \App\Models\Empleado::factory(10)->create();
         \App\Models\EmpresaModulo::factory(10)->create();

@@ -9,35 +9,14 @@
         </div>
 
     </x-slot>
+
+    <x-crear>Nuevo Proveedor</x-crear>
+    @if ($isModalOpen)
+        @include('livewire.proveedor.createproveedores')
+    @endif
     
-
-
-
-
-
-
-
-
-
-
-
-
-
     <div style="display: block">
-        @foreach ($proveedores as $proveedor)
-            {{-- <tr> --}}
-                {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->name }}</td> --}}
-                {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->direccion }}</td>
-                <td class="border px-4 py-2 text-left">{{ $proveedor->cuit }}</td> --}}
-                {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->direccion }}</td> --}}
-                {{-- <td class="border px-4 py-2 text-left hidden sm:hidden md:hidden lg:block xl:block">{{ $proveedor->cuit }}</td> --}}
-                {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->telefono }}</td> --}}
-                {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->email }}</td> --}}
-                
-                {{-- <td class="border px-4 py-2"> --}}
-                    {{-- <div class="flex mb-2 mt-2 transform transition duration-500 hover:scale-105 shadow  " style="width:40%; margin-right: 5px; margin-left: 5px"> --}}
-                        
-                
+        @foreach ($datos as $proveedor)
                 <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px; height: 100%;">
                     <div style="width:90%;">
                         <div style="width:100%; display: flex">
@@ -62,101 +41,5 @@
                     {{-- </tr> --}}
                 </div>
         @endforeach
+        <div class="w-full">{{ $datos->links() }}</div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="content-center flex">
-        <div class="bg-white p-2 text-center rounded-lg shadow-lg w-full">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
-                    @if (session()->has('message'))
-                        <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
-                            role="alert">
-                            <div class="flex">
-                                <div>
-                                    <p class="text-xm bg-lightgreen">{{ session('message') }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                    <x-crear>Nuevo Proveedor</x-crear>
-                    @if ($isModalOpen)
-                        @include('livewire.proveedor.createproveedores')
-                    @endif
-                    <table class="table-fixed table-striped w-full">
-                        <thead>
-                            <tr class="bg-gray-100">
-                                <th class="px-4 py-2">Proveedor</th>
-                                {{-- <th class="px-4 py-2">Dirección</th>
-                                <th class="px-4 py-2">Cuit</th> --}}
-                                <th class="px-4 py-2">Dirección</th>
-                                <th class="px-4 py-2 hidden sm:hidden md:hidden lg:block xl:block">Cuit</th>
-                                <th class="px-4 py-2">Teléfono</th>
-                                <th class="px-4 py-2">Email</th>
-                                <th class="px-4 py-2">Opciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($proveedores)
-                            <div style="display: block">
-                                @foreach ($proveedores as $proveedor)
-                                    {{-- <tr> --}}
-                                        {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->name }}</td> --}}
-                                        {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->direccion }}</td>
-                                        <td class="border px-4 py-2 text-left">{{ $proveedor->cuit }}</td> --}}
-                                        {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->direccion }}</td> --}}
-                                        {{-- <td class="border px-4 py-2 text-left hidden sm:hidden md:hidden lg:block xl:block">{{ $proveedor->cuit }}</td> --}}
-                                        {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->telefono }}</td> --}}
-                                        {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->email }}</td> --}}
-                                        
-                                        {{-- <td class="border px-4 py-2"> --}}
-                                            {{-- <div class="flex mb-2 mt-2 transform transition duration-500 hover:scale-105 shadow  " style="width:40%; margin-right: 5px; margin-left: 5px"> --}}
-                                                
-                                        
-                                        <div class="rounded-r-md" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:100%; height:100px; display:flex">
-                                            <div style="width:80%;">
-                                                <div style="width:100%; display: flex">
-                                                    <p>{{ $proveedor->name }}</p>
-                                                    <p>{{ $proveedor->direccion }}</p>
-                                                </div>
-                                                <div style="width:100%; display: flex">
-                                                    <p class="ml-3" style="font-size: 18px">{{ $proveedor->telefono }}</p>
-                                                    <p class="ml-3 mr-1" style="font-size: 12px">{{ $proveedor->email }}</p>
-                                                </div>
-                                            </div>
-                                            <div style="width:20%;">
-                                                <div class="block justify-center" style="width: 20%;">
-                                                    <!-- Editar  -->
-                                                    <x-editar id="{{ $proveedor->id }}"></x-editar>
-                                                    <!-- Eliminar -->
-                                                    <x-eliminar id="{{ $proveedor->id }}"></x-eliminar>
-                                                </div>
-                                                {{-- </div><br> --}}
-                                            </div>
-                                        {{-- </td> --}}
-                                    {{-- </tr> --}}
-                                @endforeach
-                            </div>
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

@@ -4,9 +4,12 @@ namespace App\Http\Livewire\Proveedor;
 
 use Livewire\Component;
 use App\Models\Proveedor;
+use Livewire\WithPagination;
 
 class ProveedorComponent extends Component
 {
+    use WithPagination;
+
     public $isModalOpen = false;
     public $proveedor, $proveedor_id;
     public $proveedores;
@@ -22,8 +25,9 @@ class ProveedorComponent extends Component
     public function render()
     {
         $this->empresa_id=session('empresa_id');
-        $this->proveedores = Proveedor::where('empresa_id', $this->empresa_id)->get();
-        return view('livewire.proveedor.proveedor-component');
+        // $this->proveedores = Proveedor::where('empresa_id', $this->empresa_id)->get();
+        
+        return view('livewire.proveedor.proveedor-component',['datos'=> Proveedor::where('empresa_id', $this->empresa_id)->paginate(4),]);
     }
 
     public function create()

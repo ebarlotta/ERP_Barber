@@ -44,8 +44,8 @@
 					</div>
 				</div>
 				<div class="w-1/2">
-					<div class="max-w-sm rounded overflow-hidden shadow-lg h-full justify-around">
-						<div class="px-6 py-4 align-middle h-1/2">
+					<div class="max-w-sm rounded overflow-hidden shadow-lg justify-around max-w-sm" >
+						<div class="px-6 py-4 align-middle">
 							<div class="font-bold text-xl mb-2">Agregados</div>
 							@if(count($tagsactivos))
 								@foreach ($tagsactivos as $tagactivo)
@@ -61,7 +61,7 @@
 								</p>
 							@endif
 						</div>
-						<div class="px-6 pt-4 pb-2 align-middle h-1/2">
+						<div class="px-6 pt-4 pb-2 align-middle">
 							<div class="font-bold text-xl mb-2">Disponibles</div>
 							@foreach ($tags as $tag)
 								<a href="{{ route('producto.addtag',['product_id'=>$producto->id,'tag_id'=>$tag->id]) }}">

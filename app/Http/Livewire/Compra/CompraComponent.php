@@ -446,6 +446,7 @@ class CompraComponent extends Component
         $this->filtro=$this->filtro."<tr>
         <td></td>
         <td></td>
+        <td></td>
         <td>Totales</td>
         <td>".number_format($Bruto, 2,'.','')."</td>
         <td>".number_format($MontoIvaT, 2,'.','')."</td>
@@ -711,10 +712,19 @@ class CompraComponent extends Component
                 $proveedor = Proveedor::find($registro->id);
                 $this->DeudaProveedoresFiltro = $this->DeudaProveedoresFiltro .
                 "<tr>
-                    <td class=\"bg-gray-100 border border-blue-500 text-left tooltip\"><span class=\"tooltiptext\">
-                    Teléfono: ".$proveedor->telefono."<br>Email: ".$proveedor->email."</span>" . $proveedor->name . "</td>
-                    <td class=\"bg-gray-100 border border-blue-500 text-right\">" . number_format($registro->Saldo,2,',','.') . "</td>
+                    <td class=\"bg-gray-100 border border-blue-500 text-left\">
+                        $proveedor->name
+                        <div class=\"tooltip\">
+                            <span class=\"tooltiptext\">
+                                Teléfono: ".$proveedor->telefono."<br>
+                                Email: ".$proveedor->email."
+                            </span>
+                        </div>
+                    </td>
+                    <td class=\"bg-gray-100 border border-blue-500 text-right\">" . number_format($registro->Saldo,2,',','.') . "
+                    </td>
                 </tr>";
+
                 $Saldo = $Saldo + $registro->Saldo;
             }
         }

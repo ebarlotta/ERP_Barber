@@ -29,29 +29,26 @@
 
 						@foreach ($productos as $producto)
 							<ul>
-								<li class="border text-left">
-									<div class="w-full">
-										<div class="flex rounded overflow-hidden border">
-											@if($producto->ruta != 'sin_imagen.jpg') 
-												<img class="block rounded-md flex-none bg-cover" src="{{ asset('images2/'.$producto->ruta) }}" style="width:80px; height: 80px;">	
-											@else
-												<img class="block rounded-md flex-none bg-cover" src="{{ asset('images/sin_imagen.jpg') }}" style="width:80px; height: 80px;">
-											@endif
-											<div class="bg-white rounded-b pt-4 pl-4 flex justify-between leading-normal w-full">
-												<div class="text-black font-bold text-lg mb-2 leading-tight" style="width:25%;">{{ $producto->name }}</div>
-												<div class="text-black text-lg mb-2 leading-tight w-1/6 w-auto">{{ $producto->existencia }}</div>
-												<div class="text-black text-lg mb-2 leading-tight w-1/6">{{ $producto->stock_minimo }}</div>
-												<div class="text-black text-lg mb-2 leading-tight w-1/6">{{ $producto->estados_id}}</div>
-												<div class="text-black text-lg mb-2 leading-tight w-1/6">
-													<div>
-														<a href="{{ route('producto.tagedit', $producto)}}">
-															<input class="btn btn-default mr-4" type="submit" value="Editar">
-														</a>
-													</div>
+								<li class="border text-left w-full flex" style="height: 100px;">
+									
+										@if($producto->ruta != 'sin_imagen.jpg') 
+											<img class="block rounded-md flex-none bg-cover" src="{{ asset('images2/'.$producto->ruta) }}" style="width:80px; height: 80px; margin: auto">	
+										@else
+											<img class="block rounded-md flex-none bg-cover" src="{{ asset('images/sin_imagen.jpg') }}" style="width:80px; height: 80px; margin: auto">
+										@endif
+										<div class="bg-white rounded-b pt-1 pl-4 flex justify-between leading-normal w-full personal" style="margin: 0px;height: 90px;margin: auto;">
+											<div class="text-black font-bold text-lg mb-2 leading-tight" style="width:25%;">{{ $producto->name }}</div>
+											<div class="text-black text-lg mb-2 leading-tight w-1/6 w-auto">{{ $producto->existencia }}</div>
+											<div class="text-black text-lg mb-2 leading-tight w-1/6">{{ $producto->stock_minimo }}</div>
+											<div class="text-black text-lg mb-2 leading-tight w-1/6">{{ $producto->estados_id}}</div>
+											<div>
+												<div>
+													<a href="{{ route('producto.tagedit', $producto)}}">
+														<input class="btn btn-default mr-4" type="submit" value="Editar">
+													</a>
 												</div>
 											</div>
 										</div>
-									</div>
 								</li>
 							</ul>
 						@endforeach
