@@ -37,7 +37,7 @@ use App\Http\Controllers\SocialController;
 
 // Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
 
-// Route::get('/', EmpresaComponent::class)->name('inicio');
+Route::get('/', EmpresaComponent::class)->name('inicio');
 
 // Auth::routes();
 
