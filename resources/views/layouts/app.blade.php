@@ -73,6 +73,7 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     Usuario Activo: {{ Auth::user()->name }}
                                 </a>
+                                
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -86,6 +87,7 @@
                                     </form>
                                 </div>
                             </li>
+                            <img src="{{ Auth::user()->profile_photo_path }}" width="40px;" height="30px;">
                         @endguest
                     </ul>
                 </div>

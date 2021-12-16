@@ -256,25 +256,33 @@ return [
         //     'label_color' => 'success',
         // ],
         ['header' => 'account_settings'],
+
         [
-            'text' => 'Usuarios x Empresa',
-            'url'  => 'empresausuarios',
-            'icon' => 'fas fa-fw fa-users',
-        ],
-        [
-            'text' => 'Usuarios x Módulo',
-            'url'  => 'modulousuarios',
-            'icon' => 'fas fa-fw fa-user-cog',
-        ],
-        [
-            'text' => 'Módulos x Empresa',
-            'url'  => 'empresamodulos',
-            'icon' => 'fas fa-fw fa-chart-pie',
-        ],
-        [
-            'text' => 'Gestión de empresas',
-            'url'  => 'empresagestion',
+            'text' => 'Administración',
+            'url'  => 'tags',
             'icon' => 'fas fa-fw fa-building',
+            'submenu' => [
+                [
+                    'text' => 'Usuarios x Empresa',
+                    'url'  => 'empresausuarios',
+                    'icon' => 'fas fa-fw fa-users',
+                ],
+                [
+                    'text' => 'Usuarios x Módulo',
+                    'url'  => 'modulousuarios',
+                    'icon' => 'fas fa-fw fa-user-cog',
+                ],
+                [
+                    'text' => 'Módulos x Empresa',
+                    'url'  => 'empresamodulos',
+                    'icon' => 'fas fa-fw fa-chart-pie',
+                ],
+                [
+                    'text' => 'Gestión de empresas',
+                    'url'  => 'empresagestion',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+            ],
         ],
         [
             'text' => 'Ajustes',
@@ -299,6 +307,31 @@ return [
                 [
                     'text' => 'Estados',
                     'url'  => 'estados',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Areas',
+                    'url'  => 'areas',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Clientes',
+                    'url'  => 'clientes',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Cuentas',
+                    'url'  => 'cuentas',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Empleados',
+                    'url'  => 'empleados',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Proveedores',
+                    'url'  => 'proveedores',
                     'icon' => 'fas fa-fw fa-building',
                 ],
             ],

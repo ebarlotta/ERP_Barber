@@ -28,7 +28,7 @@
                     <div style="width:33%">
                         <img class="rounded-l-md w-full w-36 h-36" src="{{ asset('images/'. $modulo->imagen) }}" style="width:100%; height:100%;" >
                     </div>
-                    <div class="rounded-r-md" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:66%; height:100px;">   <!-- background:linear-gradient(90deg, lightblue 40%, white 60%); background:linear-gradient(dónde empieza, color1, 40%, color2, 60%); -->
+                    <div class="rounded-r-md" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:66%; height:100px;">   <!-- background:linear-gradient(90deg, lightblue 40%, white 60%); background:linear-gradient(d贸nde empieza, color1, 40%, color2, 60%); -->
                         <p class="ml-3" style="font-size: 18px">
                             {{ $modulo->name }}
                         </p>

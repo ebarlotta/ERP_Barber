@@ -19,7 +19,8 @@ class ModuloComponent extends Component
         //dd($empresa_modulos);
 
         $this->modulos=Modulo::find($empresa_modulos);
-        return view('livewire.modulo.modulo-component',$this->modulos);
+        return view('livewire.modulo.modulo-component',$this->modulos)->extends('layouts.adminlte')
+        ->section('content'); ;
         } else {
             return view('livewire.empresa.empresa-component');
         }

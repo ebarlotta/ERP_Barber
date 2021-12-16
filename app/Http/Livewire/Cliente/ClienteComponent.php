@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Cliente;
 use Livewire\Component;
 use App\Models\Cliente;
 
+
 class ClienteComponent extends Component
 {
     public $isModalOpen = false;
@@ -23,7 +24,7 @@ class ClienteComponent extends Component
     {
         $this->empresa_id = session('empresa_id');
         $this->clientes = Cliente::where('empresa_id', $this->empresa_id)->get();
-        return view('livewire.cliente.cliente-component');
+        return view('livewire.cliente.cliente-component',['datos'=> Cliente::where('empresa_id', $this->empresa_id)->paginate(3),])->extends('layouts.adminlte');
     }
     public function create()
     {

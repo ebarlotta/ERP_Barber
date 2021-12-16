@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'ea2ef6e77a194a89e29af5f9f54f39f5b17820d2',
+    'reference' => 'b2a61865d6285829bc913510ba98339fa1574738',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -559,7 +559,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'ea2ef6e77a194a89e29af5f9f54f39f5b17820d2',
+      'reference' => 'b2a61865d6285829bc913510ba98339fa1574738',
     ),
     'laravel/sail' => 
     array (
@@ -590,12 +590,12 @@ private static $installed = array (
     ),
     'laravel/socialite' => 
     array (
-      'pretty_version' => 'v5.2.5',
-      'version' => '5.2.5.0',
+      'pretty_version' => 'v5.2.6',
+      'version' => '5.2.6.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'fd0f6a3dd963ca480b598649b54f92d81a43617f',
+      'reference' => 'b5c67f187ddcf15529ff7217fa735b132620dfac',
     ),
     'laravel/tinker' => 
     array (

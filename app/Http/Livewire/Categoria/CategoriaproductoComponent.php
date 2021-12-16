@@ -8,6 +8,7 @@ use App\Models\Categoriaproducto;
 
 class CategoriaproductoComponent extends Component
 {
+
     public $isModalOpen = false;
     public $categoria, $categoria_id;
     public $categorias;
@@ -18,7 +19,7 @@ class CategoriaproductoComponent extends Component
     {
         $this->empresa_id=session('empresa_id');
         $this->categorias = Categoriaproducto::where('empresa_id', $this->empresa_id)->get();
-        return view('livewire.categoria.categoriaproducto-component')->extends('layouts.adminlte');
+        return view('livewire.categoria.categoriaproducto-component',['datos'=> Categoriaproducto::where('empresa_id', $this->empresa_id)->paginate(4),])->extends('layouts.adminlte');
     }
 
     public function create()

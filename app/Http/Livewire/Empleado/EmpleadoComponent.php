@@ -20,7 +20,7 @@ class EmpleadoComponent extends Component
     {
         $this->empresa_id = session('empresa_id');
         $this->empleados = Empleado::where('empresa_id', $this->empresa_id)->get();
-        return view('livewire.empleado.empleado-component');
+        return view('livewire.empleado.empleado-component',['datos'=> Empleado::where('empresa_id', $this->empresa_id)->paginate(4),])->extends('layouts.adminlte');
     }
 
     public function create()

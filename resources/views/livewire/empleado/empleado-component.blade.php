@@ -24,66 +24,34 @@
                             </div>
                         </div>
                     @endif
-                    <x-crear>Nuevo Empleado</x-crear>
-                    @if ($isModalOpen)
-                        @include('livewire.empleado.createempleados')
-                    @endif
-                    <table class="table-fixed table-striped w-full">
-                        <thead>
-                            <tr class="bg-gray-100">
-                                <th class="px-4 py-2 ">Legajo</th>
-                                <th class="px-4 py-2 ">Nombre</th>
-                                <th class="px-4 py-2 ">DNI</th>
-                                {{-- <th class="px-4 py-2  sm:hidden">Dirección</th>
-                                <th class="px-4 py-2  sm:hidden">Cuil</th>
-                                <th class="px-4 py-2  sm:hidden">Teléfono</th>
-                                <th class="px-4 py-2  sm:hidden">Nacimiento</th>
-                                <th class="px-4 py-2  sm:hidden">Ingreso</th>
-                                <th class="px-4 py-2  sm:hidden">Estado Civil</th>
-                                <th class="px-4 py-2  sm:hidden">Tipo de Contratación</th>
-                                <th class="px-4 py-2  sm:hidden">Régimen</th>
-                                <th class="px-4 py-2  sm:hidden">Banco</th>
-                                <th class="px-4 py-2  sm:hidden">NroCuentaBancaria</th>
-                                <th class="px-4 py-2  sm:hidden">Mensualizado</th>
-                                <th class="px-4 py-2  sm:hidden">Jornalizado</th>
-                                <th class="px-4 py-2  sm:hidden">Por Hora</th>
-                                <th class="px-4 py-2  sm:hidden">Por Unidad</th>
-                                <th class="px-4 py-2  sm:hidden">Activo</th>
-                                <th class="px-4 py-2  sm:hidden">Fecha de Baja</th>
-                                <th class="px-4 py-2  sm:hidden">Categoría Profesional</th> --}}
-
-                                <th class="px-4 py-2">Opciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($empleados)
-                                @foreach ($empleados as $empleado)
-                                    <tr>
-                                        <td class="border px-4 py-2 text-left">{{ $empleado->legajo }}</td>
-                                        <td class="border px-4 py-2 text-left">{{ $empleado->name }}</td>
-                                        <td class="border px-4 py-2 text-left">{{ $empleado->dni }}</td>
-                                        {{-- <td class="border px-4 py-2 sm:hidden text-left">{{ $empleado->domicilio }}</td>
-                                        <td class="border px-4 py-2 sm:hidden text-left">{{ $empleado->cuil }}</td>
-                                        <td class="border px-4 py-2 sm:hidden text-left">{{ $empleado->telefono }}</td> --}}
-                                        <td class="border px-4 py-2 ">
-                                            <div class="sm:flex justify-center">
-                                                <div class="sm: flex justify-center">
-                                                    <!-- Editar  -->
-                                                    <x-editar id="{{ $empleado->id }}"></x-editar>
-                                                </div>
-                                                <div class="sm:flex justify-center">
-                                                    <!-- Eliminar -->
-                                                    <x-eliminar id="{{ $empleado->id }}"></x-eliminar>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
+                    <div class="flex justify-around">
+                        <x-crear>Nuevo Empleado</x-crear>
+                        @if ($isModalOpen)
+                            @include('livewire.empleado.createempleados')
+                        @endif
+                        <div class="w-full">{{ $datos->links() }}</div>
+                    </div>
+                    <div style="display: block">
+                        @foreach ($datos as $empleado)
+                            <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px; height: 100%;">
+                                <div style="width:90%;">
+                                    <div style="width:100%; display: flex">
+                                        <p class="shadow-md m-1" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;">{{ $empleado->legajo }}</p>
+                                        <p class="shadow-md m-1" style="background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;">{{ $empleado->name }}</p>
+                                    </div>
+                                    <div style="width:100%; display: flex">
+                                        <p class="shadow-md m-1" style="background-color: rgb(226, 230, 230);border-radius: 10px; padding: 3px;">{{ $empleado->dni }}</p>
+                                    </div>
+                                </div>
+                                <div style="width:10%;">
+                                    <div class="block justify-center" style="width: 20%; margin: auto; justify-content: space-around;align-items: center;">
+                                        <!-- Editar  -->
+                                        <x-editar id="{{ $empleado->id }}"></x-editar>
+                                        <!-- Eliminar -->
+                                        <x-eliminar id="{{ $empleado->id }}"></x-eliminar>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
