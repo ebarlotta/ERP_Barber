@@ -37,13 +37,23 @@ use App\Http\Controllers\SocialController;
 
 // Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
 
-Route::get('/', EmpresaComponent::class)->name('inicio');
+// Route::get('/', EmpresaComponent::class)->name('inicio');
 
-Route::get('auth/facebook', [SocialController::class, 'facebookRedirect']);
-Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
+// Auth::routes();
 
-Route::get('auth/google', [SocialController::class, 'googleRedirect']);
-Route::get('auth/google/callback', [SocialController::class, 'loginWithGoogle']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Login with Facebook
+Route::get('login-facebook', [App\Http\Controllers\Auth\LoginSocialController::class,'redirect_facebook']);
+Route::get('facebook-callback-url', [App\Http\Controllers\Auth\LoginSocialController::class,'callback_facebook']);
+
+//Login with GitHub
+Route::get('login-github', [App\Http\Controllers\Auth\LoginSocialController::class,'redirect_github']);
+Route::get('github-callback-url', [App\Http\Controllers\Auth\LoginSocialController::class,'callback_github']);
+
+//Login with Google
+Route::get('login-google', [App\Http\Controllers\Auth\LoginSocialController::class,'redirect_google']);
+Route::get('google-callback-url', [App\Http\Controllers\Auth\LoginSocialController::class,'callback_google']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
@@ -75,10 +85,3 @@ Route::resource('producto',Productos::class);
 
 Route::get('producto/productobajas', [Productos::class, 'productobajas'])->name('producto.productobajas');
 
-// Route::get('empresas/config', function () {
-//     return view('adminlte');
-// });
-
-// Route::get('welcome', function () {
-//     return view('welcome');
-// });
