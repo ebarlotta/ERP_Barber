@@ -11,6 +11,7 @@ use App\Http\Livewire\Estado\EstadoComponent;
 use App\Http\Livewire\Producto\ProductoComponent;
 use App\Http\Livewire\Tag\TagComponent;
 use App\Http\Livewire\Unidad\UnidadComponent;
+use App\Http\Livewire\Tablas\TablasComponent;
 
 Route::get('empresausuarios',EmpresaUsuariosComponent::class)->name('empresausuarios');
 Route::get('empresamodulos',EmpresaModulosComponent::class)->name('empresamodulos');
@@ -21,3 +22,4 @@ Route::get('unidades',UnidadComponent::class)->name('unidades');
 Route::get('categoriaproducto',CategoriaproductoComponent::class)->name('categoriaproducto');
 Route::get('estados',EstadoComponent::class)->name('estados');
 Route::get('productos',ProductoComponent::class)->name('productos');
+Route::get('tablas',TablasComponent::class)->name('tablas');

@@ -359,6 +359,16 @@ return [
                     ],
         ],
         [
+            'text' => 'Informes',
+            'icon' => 'fas fa-fw fa-building',
+            'submenu' => [
+                        [
+                            'text' => 'Agregar Informe',
+                            'url'  => 'tablas',
+                        ],
+                    ],
+                ],
+        [
             'text' => 'VOLVER',
             'url'  => '/',
             'icon' => 'fas fa-fw fa-building',

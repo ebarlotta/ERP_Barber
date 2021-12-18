@@ -64,7 +64,7 @@ class ClienteComponent extends Component
             'telefono' => 'required|integer',
             'email' => 'email',
         ]);
-        Cliente::updateOrCreate(['id' => $this->cliente_id], [
+        $a=Cliente::updateOrCreate(['id' => $this->cliente_id], [
             'name' => $this->name,
             'empresa_id' => $this->empresa_id,
             'direccion' => $this->direccion,
@@ -72,7 +72,7 @@ class ClienteComponent extends Component
             'telefono' => $this->telefono,
             'email' => $this->email,
         ]);
-
+dd($a);
         session()->flash('message', $this->cliente_id ? 'Cliente Actualizado.' : 'Cliente Creado.');
 
         $this->closeModalPopover();
