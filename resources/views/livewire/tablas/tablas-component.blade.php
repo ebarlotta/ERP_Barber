@@ -24,9 +24,10 @@
                         </div>
                     @endif
     <div class="flex justify-around">
-        <x-crear>Nuevo Informe</x-crear>
+        {{-- <x-crear>Nuevo Informe</x-crear> --}}
+        <button class="bg-green-300 hover:bg-green-400 text-white-900 font-bold py-2 px-4 rounded" wire:click="create({{ $user_id }})">Nuevo Informe</button>
         @if ($isModalOpen)
-            @include('livewire.proveedor.createproveedores')
+            @include('livewire.tablas.createtablas')
         @endif
         <div class="w-full">{{ $datos->links() }}</div>
     </div>
