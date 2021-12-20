@@ -9,30 +9,45 @@
             <form>
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <div class="">
+                        @if($ModalOk)
+                            <div class="alert alert-success">
+                                <strong>
+                                    Seguro que quiere asignar permisos a este usuario para el informe seleccionado?
+                                </strong>
+                                <div class="text-end">
+                                    <button class="btn btn-primary" wire:click=AsignarInforme()> Si </button>
+                                    <button class="btn btn-danger" wire:click="ModalOkAsignar(0)"> No </button>
+                                </div>
+                            </div>
+                        @endif
+                        {{-- @if($ModalOk)
+                            @include('livewire.tablas.ModalOk')
+                        @endif --}}
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2 ml-1">Informes</label>
                         @if($user_id<>0)
                             <div class="mb-4 flex">
                                 @foreach ($ListadeTablas as $item)
                                     <div class="flex">
-                                    @if($item->valor )
-                                        <div class="shadow-md m-1 flex" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 8px; height: 45px;">{{ $item->name }}<img src="{{ asset('images/activo.jpg') }}" style="width: 30px;height: 20px;margin: 5px 10px 0px 12px; padding-right: 10px;"></div>
+                                    @if($item->relac_id )
+                                        <div class="shadow-md m-1 flex" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 8px; height: 45px;" wire:click="ModalOkAsignar({{$item->relac_id}},{{ $item->tabla_id }})">
+                                            {{ $item->name }}<img src="{{ asset('images/activo.jpg') }}" style="width: 30px;height: 20px;margin: 5px 10px 0px 12px; padding-right: 10px;"></div>
                                     @else
-                                        <div class="shadow-md m-1 flex" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 8px; height: 45px;">{{ $item->name }}<img src="{{ asset('images/pasivo.jpg') }}" style="width: 30px;height: 20px;margin: 5px 10px 0px 12px; padding-right: 10px;"></div>
+                                        <div class="shadow-md m-1 flex" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 8px; height: 45px;" wire:click="ModalOkAsignar(0,{{ $item->tabla_id }})">
+                                            {{ $item->name }}<img src="{{ asset('images/pasivo.jpg') }}" style="width: 30px;height: 20px;margin: 5px 10px 0px 12px; padding-right: 10px;">
+                                        </div>
                                     @endif
                                     </div>
                                 @endforeach
                             </div>
-                            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput1" placeholder="Ingrese Descripcion" wire:model="name">
-                            @error('name') <span class="text-red-500">{{ $message }}</span>@enderror
                         @else
                             Debe seleccionar primero un usuario
                         @endif
                     </div>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                    @if($user_id<>0)
+                    {{-- @if($user_id<>0)
                         <x-guardar></x-guardar>
-                    @endif
+                    @endif --}}
                     <x-cerrar></x-cerrar>
                 </div>
             </form>

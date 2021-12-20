@@ -24,48 +24,33 @@
                         </div>
                     @endif
     <div class="flex justify-around">
-        {{-- <x-crear>Nuevo Informe</x-crear> --}}
-        <button class="bg-green-300 hover:bg-green-400 text-white-900 font-bold py-2 px-4 rounded" wire:click="create({{ $user_id }})">Nuevo Informe</button>
+        <x-crear>Nuevo Informe</x-crear>
+        {{-- <button class="bg-green-300 hover:bg-green-400 text-white-900 font-bold py-2 px-4 rounded" wire:click="create({{ $user_id }})">Nuevo Informe</button> --}}
         @if ($isModalOpen)
             @include('livewire.tablas.createtablas')
         @endif
         @if (session('AsignacionOk')) 
             <div class="alert alert-success">{{ session('AsignacionOk') }}
         @endif
-        <div class="w-full">{{ $datos->links() }}</div>
     </div>
     <div style="display: block">
 
         <div class="flex">
-            <div class="block w-1/2"><p><h3>Usuarios</h3></p>
-                @foreach ($users as $user)
-                    <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px;" wire:click="CargarInformesHabilitados({{ $user->id }})">
-                        <div style="width:70%;">
-                            <div style="width:100%; display: flex">
-                                @if($user->avatar)
-                                    <p>
-                                        <img src="{{ $user->avatar }}" alt="" width="40px;" height="40px;" style="margin: 7px;">
-                                    </p>
-                                @else
-                                    <p>
-                                        <img src="images/sin_imagen.jpg" alt="" width="40px;" height="40px;"  style="margin: 7px;">
-                                    </p>    
-                                @endif
-                                <p class="shadow-md m-1" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px; height: 45px;">{{ $user->name }}</p>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
 
             <div class="block w-1/2">
                 <p><h3>Informes Habilitados</h3></p>
-                @if(count($tablas)>=1)
-                    @foreach ($tablas as $tabla)
+                @if(count($ListadeTablas)>=1)
+                    @foreach ($ListadeTablas as $tabla)
                         <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px;">
-                            <div style="width:30%;">
+                            <div >
                                 <div style="width:100%; display: flex">
-                                    <p class="shadow-md m-1" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;">{{ $tabla['name'] }}</p>
+                                    <p class="shadow-md m-1 w-full" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;">{{ $tabla['name'] }}</p>
+                                    <div class="w-full">
+                                    <!-- Editar  -->
+                                    <x-editar id="{{ $tabla->id }}"></x-editar><br>
+                                    <!-- Eliminar -->
+                                    <x-eliminar id="{{ $tabla->id }}"></x-eliminar>
+                                </div>
                                 </div>
                             </div>
                         </div>

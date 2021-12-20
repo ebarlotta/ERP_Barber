@@ -9,12 +9,16 @@ class TablaUsuario extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['user_id', 'tabla_id',];
+    
     //Relación uno a muchos invertida
-    public function usuario(){
+    public function usuario()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function tabla(){
+    public function tabla()
+    {
         return $this->belongsTo(Tabla::class);
     }
 }

@@ -15,6 +15,9 @@ class TablasComponent extends Component
     public $isModalOpen = false;
     public $tablas = [];
     public $user_id;
+    public $ModalOk;
+    public $tabla_id;
+    public $rel_id;
 
 
     public function render()
@@ -33,38 +36,23 @@ class TablasComponent extends Component
         ->where('tabla_usuarios.user_id','=',$usuario_id)
         ->get();
         $this->user_id = $usuario_id;   // Establece el ide de ususario con el que se va a trabajar
+        session(['AsignacionOk'=>null]); // Borra cartel
     }
 
     public function CargarInformesConEstado($user_id) {
-        $this->ListadeTablas = Tabla::selectraw(' name, (select tabla_id from tabla_usuarios WHERE tabla_usuarios.tabla_id = tablas.id and tabla_usuarios.user_id = '.$user_id.') as valor, empresa_id')
+        $this->ListadeTablas = Tabla::selectraw(' name, (select id from tabla_usuarios WHERE tabla_usuarios.tabla_id = tablas.id and tabla_usuarios.user_id = '.$user_id.') as relac_id, empresa_id, id as tabla_id')
         ->where('id','>=',1)
         ->where('empresa_id','=',$this->empresa_id)
         ->get();
 
-
         // select name, (select tabla_id from tabla_usuarios WHERE tabla_usuarios.tabla_id = tablas.id) as valor, empresa_id from `tablas` where `id` >= 1;
-
-
-        //$this->ListadeTablas = Tabla::where('empresa_id','=',$this->empresa_id)
-//            ->select('name', '(select name from tablas WHERE tabla_usuarios.tabla_id = tabla.id)' . 'as valor')            
-            //->selectraw(' name, (select tabla_id from tabla_usuarios WHERE tabla_usuarios.tabla_id = tablas.id) as valor from tablas where empresa_id = 1;')            
-            //->orderby('name')->get();
-
-//         SELECT SupplierName, (SELECT ProductName FROM Products WHERE Products.SupplierID = Suppliers.supplierID AND Price = 22) as valor
-// FROM Suppliers
-// WHERE 1 order by SupplierName;
-
-
-//select name, (select name from tablas, tabla_usuarios WHERE tabla_usuarios.tabla_id = tablas.id) as valor from `tablas` where `empresa_id` = 1 order by `name` asc
     }
 
     public function create($user_id)
     {
-        $this->resetCreateForm();   
         $this->openModalPopover();
         $this->isModalOpen=true;
         $this->CargarInformesConEstado($user_id);
-        //return view('livewire.proveedor.createproveedores')->with('isModalOpen', $this->isModalOpen)->with('name', $this->name);
     }
 
     public function openModalPopover()
@@ -77,15 +65,31 @@ class TablasComponent extends Component
         $this->isModalOpen = false;
         $this->CargarInformesHabilitados($this->user_id);
     }
-
-    private function resetCreateForm(){
-        // $this->proveedor_id = '';
-
-        // $this->name = '';
-        // $this->direccion = '';
-        // $this->cuit = '';
-        // $this->telefono = '';
-        // $this->email = '';
-    }
     
+    public function ModalOkAsignar($relac_id,$tabla_id)
+    {
+        $this->relac_id = $relac_id;
+        $this->tabla_id = $tabla_id;
+        $this->ModalOk = !$this->ModalOk;
+    }
+
+    public function AsignarInforme() {
+
+//        $condiciones = [['user_id', '=', $this->user_id],['tabla_ifind($this->rel_id;
+
+        $a = TablaUsuario::find($this->relac_id);
+            
+        
+
+        //$a=TablaUsuario::where('user_id',$this->user_id)->where('tabla_id',$this->tabla_id);
+        //dd($a);
+        if($a) {
+            $a = TablaUsuario::destroy($this->relac_id);
+            session(['AsignacionOk'=>'Se eliminó correctamente']);
+        } else {
+            $a = TablaUsuario::create(['user_id'=>$this->user_id,'tabla_id'=>$this->tabla_id]);
+            if($a) session(['AsignacionOk'=>'Se asignó correctamente']);
+        }
+        $this->CargarInformesHabilitados($this->user_id);
+    }
 }

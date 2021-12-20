@@ -363,8 +363,16 @@ return [
             'icon' => 'fas fa-fw fa-building',
             'submenu' => [
                         [
-                            'text' => 'Agregar Informe',
+                            'text' => 'Permisos a Informes',
                             'url'  => 'tablas',
+                        ],
+                        [
+                            'text' => 'Visualizar Informes',
+                            'url'  => 'tablas-ver',
+                        ],
+                        [
+                            'text' => 'Editar/Eliminar Informes',
+                            'url'  => 'tablas-edit',
                         ],
                     ],
                 ],
