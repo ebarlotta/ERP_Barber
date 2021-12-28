@@ -56,22 +56,36 @@ class Productos extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'                   => 'required',
+            'descripcion'            => 'required',
+            'precio_compra'          => 'required|numeric',
+            'existencia'             => 'required|numeric',
+            'stock_minimo'           => 'required|numeric',
+            'unidads_id'             => 'required|numeric',
+            'categoriaproductos_id'  => 'required|numeric',
+            'estados_id'             => 'required|numeric',
+        ]);
 
         $producto = new Producto;
-        $producto->name = $request->name;
-        $producto->descripcion  = $request->descripcion;
-        $producto->precio_compra = $request->precio_compra;
-        $producto->existencia = $request->existencia;
-        $producto->stock_minimo = $request->stock_minimo;
-        $producto->lote = $request->lote;
-        $producto->unidads_id = $request->unidads_id;
-        $producto->categoriaproductos_id = $request->categoriaproductos_id;
-        $producto->estados_id = $request->estados_id;
+        $producto->name = $request->old('name');
+        $producto->descripcion  = $request->old('descripcion');
+        $producto->precio_compra = $request->old('precio_compra');
+        $producto->existencia = $request->old('existencia');
+        $producto->stock_minimo = $request->old('stock_minimo');
+        $producto->lote = $request->old('lote');
+        $producto->unidads_id = $request->old('unidads_id');
+        $producto->categoriaproductos_id = $request->old('categoriaproductos_id');
+        $producto->estados_id = $request->old('estados_id');
         $nombreCompleto = basename($request->ruta) . time().'.jpg';       //$this->ruta->extension();
         //return $nombreCompleto;
         //$request->file('ruta')->store($nombreCompleto);
         //dd($nombreCompleto);
-        $request->file('ruta')->storeAs('images2',$nombreCompleto);
+        if ($request->ruta) {
+            $request->file('ruta')->storeAs('images2',$nombreCompleto);
+        } else {
+            $nombreCompleto = 'sin_imagen.jpg';
+        }
         //dd($nombreCompleto); // $this->ruta->storeAs('images2', $nombreCompleto);
         $producto->ruta = $nombreCompleto;
         //$producto->ruta ='';

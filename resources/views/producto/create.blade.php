@@ -9,17 +9,17 @@
       <div class="bg-white px-4 pt-2 pb-2 sm:p-6 sm:pb-4 flex flex-wrap">
          <div class="mb-4 mr-2 text-left">
             <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Nombre del Producto</label>
-            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese Nombre" name="name">
+            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese Nombre" name="name" value="{{ old('name')}}">
             @error('name') <span class="text-red-500">{{ $message }}</span>@enderror
          </div>
          <div class="mb-4 mr-2 text-left">
             <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Descripción</label>
-            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese Descripción" name="descripcion">
+            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese Descripción" name="descripcion" value="{{ old('descripcion')}}">
             @error('descripcion') <span class="text-red-500">{{ $message }}</span>@enderror
          </div>
          <div class="mb-4 mr-2 text-left flex">
                <img src="{{ asset('images/sin_imagen.jpg' )}}" width="100px" height="100px">
-               <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"	id="ruta" name="ruta" placeholder="Ingrese imágen">										
+               <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"	id="ruta" name="ruta" placeholder="Ingrese imágen">								
                @error('ruta') <span class="text-red-500">{{ $message }}</span>@enderror
             {{-- @endif --}}
          </div>
@@ -28,23 +28,23 @@
       <div class="bg-white px-4 pb-2 sm:p-2 sm:pb-4 flex flex-wrap">
          <div class="mb-4 mr-2 text-left">
             <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Precio de compra</label>
-            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese precio de compra" name="precio_compra">
+            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese precio de compra" name="precio_compra" value="{{ old('precio_compra')}}">
             @error('precio_compra') <span class="text-red-500">{{ $message }}</span>@enderror
          </div>
          <div class="mb-4 mr-2 text-left">
             <label for="exampleFormControlInput1"
                   class="block text-gray-700 text-sm font-bold mb-2">Existencia</label>
-            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese existencia" name="existencia">
+            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese existencia" name="existencia" value="{{ old('existencia')}}">
             @error('existencia') <span class="text-red-500">{{ $message }}</span>@enderror
          </div>
          <div class="mb-4 mr-2 text-left">
             <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Stock Mínimo</label>
-            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese stock_minimo" name="stock_minimo">
+            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese stock_minimo" name="stock_minimo" value="{{ old('stock_minimo')}}">
             @error('stock_minimo') <span class="text-red-500">{{ $message }}</span>@enderror
          </div>
          <div class="mb-4 mr-2 text-left">
             <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Lote</label>
-            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese lote" name="lote">
+            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese lote" name="lote" value="{{ old('lote')}}">
             @error('lote') <span class="text-red-500">{{ $message }}</span>@enderror
          </div>
          <div class="mb-4 mr-2 text-left">
@@ -53,7 +53,7 @@
                <select name="unidads_id" class="rounded">
                   <option></option>
                   @foreach ($unidades as $unidad)
-                     <option value="{{$unidad->id}}">{{$unidad->name}}</option>
+                     <option @if (old('unidads_id') == $unidad->id) {{ 'selected' }} @endif value="{{$unidad->id}}">{{$unidad->name}}</option>
                   @endforeach
                </select>
                @error('unidads_id') <span class="text-red-500">{{ $message }}</span>@enderror
@@ -65,7 +65,7 @@
                <select name="categoriaproductos_id" class="rounded">
                   <option></option>
                   @foreach ($categoria_productos as $categoria)
-                     <option value="{{$categoria->id}}">{{$categoria->name}}</option>
+                     <option @if (old('categoriaproductos_id') == $categoria->id) {{ 'selected' }} @endif value="{{$categoria->id}}">{{$categoria->name}}</option>
                   @endforeach
                </select>
                @error('categoriaproductos_id') <span class="text-red-500">{{ $message }}</span>@enderror
@@ -77,7 +77,7 @@
                <select name="proveedor_id" class="rounded">
                   <option></option>
                   @foreach ($proveedores as $proveedor)
-                     <option value="{{$proveedor->id}}">{{$proveedor->name}}</option>
+                     <option @if (old('proveedor_id') == $proveedor->id) {{ 'selected' }} @endif value="{{$proveedor->id}}">{{$proveedor->name}}</option>
                   @endforeach
                </select>
                @error('proveedor_id') <span class="text-red-500">{{ $message }}</span>@enderror
@@ -89,7 +89,7 @@
                <select name="estados_id" class="rounded">
                   <option></option>
                   @foreach ($estados as $estado)
-                     <option value="{{$estado->id}}">{{$estado->name}}</option>
+                     <option @if (old('estados_id') == $estado->id) {{ 'selected' }} @endif value="{{$estado->id}}">{{$estado->name}}</option>
                   @endforeach
                </select>
                @error('estados_id') <span class="text-red-500">{{ $message }}</span>@enderror

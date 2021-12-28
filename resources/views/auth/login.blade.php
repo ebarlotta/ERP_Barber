@@ -65,10 +65,10 @@
                             </div>
                         </div>
                     </form>
-                    <div class="justify-between flex mt-3">
-                        <a href="/login-github" class="w-1/3 mx-2"><button class="btn btn-dark m-2 w-full">GitHub</button></a>
-                        <a href="/login-facebook" class="w-1/3 mx-2"><button class="btn btn-primary m-2 w-full">Facebook</button></a>
-                        <a href="/login-google" class="w-1/3 mx-2"><button class="btn btn-danger m-2 w-full">Google</button></a>
+                    <div class="block mt-3 text-center">
+                        <a href="/login-github" class="w-1/3 mx-2"><button class="btn btn-dark m-2 w-1/2">GitHub</button></a>
+                        <a href="/login-facebook" class="w-1/3 mx-2"><button class="btn btn-primary m-2 w-1/2">Facebook</button></a>
+                        <a href="/login-google" class="w-1/3 mx-2"><button class="btn btn-danger m-2 w-1/2">Google</button></a>
                     </div>
                 </div>
             </div>
