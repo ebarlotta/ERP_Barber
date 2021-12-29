@@ -5,11 +5,11 @@
 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
    
    <x-producto2>
-      <form action="{{route('producto.update',$producto)}}" method="POST">
+      <form action="{{route('producto.update',$producto)}}" method="POST" enctype="multipart/form-data" class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; margin: 1.25rem; border-radius: 10px;">
          @csrf
          @method('PUT')
-         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
-            @if (session()->has('message'))
+         {{-- <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4"> --}}
+            {{-- @if (session()->has('message'))
                <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3" role="alert">
                   <div class="flex">
                      <div>
@@ -17,8 +17,8 @@
                      </div>
                   </div>
                </div>
-            @endif
-         </div>
+            @endif --}}
+         {{-- </div> --}}
          <div class="bg-white px-4 pt-2 pb-2 sm:p-6 sm:pb-4 flex flex-wrap">
             <div class="mb-4 mr-2 text-left">
                <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Nombre del Producto</label>
@@ -32,11 +32,11 @@
             </div>
             <div class="mb-4 mr-2 text-left flex">
                @if($producto->ruta != 'sin_imagen.jpg')
-                  <img src="{{ asset('images2/'.$producto->ruta) }}" width="100px" height="100px">
-                  <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"	name="ruta" placeholder="Ingrese imágen" value="{{ $producto->ruta }}">
+                  <img src="{{ asset('images2/'.$producto->ruta) }}" style="width:100px; height:100px;">
+                  <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"	id="ruta" name="ruta" placeholder="Ingrese imágen" src="{{ asset('images2/'.$producto->ruta) }}">
                   @error('ruta') <span class="text-red-500">{{ $message }}</span>@enderror
                @else
-                  <img src="{{ asset('images/sin_imagen.jpg' )}}" width="100px" height="100px">
+                  <img src="{{ asset('images/sin_imagen.jpg' )}}" style="width:100px; height:100px;">
                   <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"	id="ruta" name="ruta" placeholder="Ingrese imágen">
                   @error('ruta') <span class="text-red-500">{{ $message }}</span>@enderror
                @endif
@@ -62,6 +62,21 @@
                <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Lote</label>
                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese lote" name="lote" value="{{$producto->lote}}">
                @error('lote') <span class="text-red-500">{{ $message }}</span>@enderror
+            </div>
+            <div class="mb-4 mr-2 text-left">
+               <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Cod. Barra</label>
+               <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese código de barra" name="barra" value="{{ old('barra')}}">
+               @error('barra') <span class="text-red-500">{{ $message }}</span>@enderror
+            </div>
+            <div class="mb-4 mr-2 text-left">
+               <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Cód. QR</label>
+               <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese código qr" name="qr" value="{{ old('qr')}}">
+               @error('qr') <span class="text-red-500">{{ $message }}</span>@enderror
+            </div>
+            <div class="mb-4 mr-2 text-left">
+               <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Cód. barra del Proveedor</label>
+               <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese código de barra del proveedor" name="barra_proveedor" value="{{ old('barra_proveedor')}}">
+               @error('barra_proveedor') <span class="text-red-500">{{ $message }}</span>@enderror
             </div>
             <div class="mb-4 mr-2 text-left">
                <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Unidad</label>
@@ -114,7 +129,7 @@
             <div class="mb-4 mr-2 text-left">
                <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Estado</label>
                @if($estados)
-                  <select name="estados_id" class="rounded" value="{{ $producto->id }}">
+                  <select name="estados_id" class="rounded">
                      <option></option>
                      @foreach ($estados as $estado)
                         @if($estado->id == $producto->estados_id)

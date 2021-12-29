@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
-   <form action="{{route('producto.store')}}" method="post" enctype="multipart/form-data">
+   <form action="{{route('producto.store')}}" method="post" enctype="multipart/form-data" class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; margin: 1.25rem; border-radius: 10px;">
       @csrf
       <x-producto2>
       <div class="bg-white px-4 pt-2 pb-2 sm:p-6 sm:pb-4 flex flex-wrap">
@@ -46,6 +46,21 @@
             <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Lote</label>
             <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese lote" name="lote" value="{{ old('lote')}}">
             @error('lote') <span class="text-red-500">{{ $message }}</span>@enderror
+         </div>
+         <div class="mb-4 mr-2 text-left">
+            <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Cod. Barra</label>
+            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese código de barra" name="barra" value="{{ old('barra')}}">
+            @error('barra') <span class="text-red-500">{{ $message }}</span>@enderror
+         </div>
+         <div class="mb-4 mr-2 text-left">
+            <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Cód. QR</label>
+            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese código qr" name="qr" value="{{ old('qr')}}">
+            @error('qr') <span class="text-red-500">{{ $message }}</span>@enderror
+         </div>
+         <div class="mb-4 mr-2 text-left">
+            <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Cód. barra del Proveedor</label>
+            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese código de barra del proveedor" name="barra_proveedor" value="{{ old('barra_proveedor')}}">
+            @error('barra_proveedor') <span class="text-red-500">{{ $message }}</span>@enderror
          </div>
          <div class="mb-4 mr-2 text-left">
             <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Unidad</label>

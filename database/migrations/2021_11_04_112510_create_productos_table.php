@@ -21,6 +21,9 @@ class CreateProductosTable extends Migration
             $table->double('existencia');
             $table->double('stock_minimo');
             $table->string('lote')->nullable();
+            $table->integer('barra')->nullable();
+            $table->string('qr')->nullable();
+            $table->string('barra_proveedor')->nullable();
 
             $table->unsignedBigInteger('unidads_id');
             $table->unsignedBigInteger('categoriaproductos_id');

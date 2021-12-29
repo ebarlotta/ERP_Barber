@@ -9,6 +9,7 @@ use App\Models\Proveedor;
 use App\Models\Unidad;
 use App\Models\Tag;
 use App\Models\ProductoTag;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
@@ -25,7 +26,11 @@ class Productos extends Controller
     public function index()
     {
   
-        $productos = Producto::where('empresa_id','=',session('empresa_id'))->paginate(4);
+        $productos = DB::table('productos')
+        ->join('estados', 'productos.estados_id', '=', 'estados.id')
+        ->select('productos.*','estados.name as EstadoProd')
+        ->where('productos.empresa_id', '=', session('empresa_id'))
+        ->paginate(4);
 
         return view('producto.index',compact('productos'));
     }
@@ -65,30 +70,40 @@ class Productos extends Controller
             'unidads_id'             => 'required|numeric',
             'categoriaproductos_id'  => 'required|numeric',
             'estados_id'             => 'required|numeric',
+            'barra'                  => 'numeric',
         ]);
 
         $producto = new Producto;
-        $producto->name = $request->old('name');
-        $producto->descripcion  = $request->old('descripcion');
-        $producto->precio_compra = $request->old('precio_compra');
-        $producto->existencia = $request->old('existencia');
-        $producto->stock_minimo = $request->old('stock_minimo');
-        $producto->lote = $request->old('lote');
-        $producto->unidads_id = $request->old('unidads_id');
-        $producto->categoriaproductos_id = $request->old('categoriaproductos_id');
-        $producto->estados_id = $request->old('estados_id');
+        $producto->name = $request->name;
+        $producto->descripcion  = $request->descripcion;
+        $producto->precio_compra = $request->precio_compra;
+        $producto->existencia = $request->existencia;
+        $producto->stock_minimo = $request->stock_minimo;
+        $producto->lote = $request->lote;
+        $producto->unidads_id = $request->unidads_id;
+        $producto->categoriaproductos_id = $request->categoriaproductos_id;
+        $producto->estados_id = $request->estados_id;
+        $producto->barra = $request->barra;
+        $producto->qr = $request->qr;
+        $producto->barra_proveedor = $request->barra_proveedor;
         $nombreCompleto = basename($request->ruta) . time().'.jpg';       //$this->ruta->extension();
-        //return $nombreCompleto;
-        //$request->file('ruta')->store($nombreCompleto);
-        //dd($nombreCompleto);
-        if ($request->ruta) {
-            $request->file('ruta')->storeAs('images2',$nombreCompleto);
+        
+        if (is_null($request->ruta)) {
+            $producto->ruta ='sin_imagen.jpg';
         } else {
-            $nombreCompleto = 'sin_imagen.jpg';
+            if ($request->ruta!='sin_imagen.jpg') {
+                $request->file('ruta')->storeAs('images2',$nombreCompleto);
+                $producto->ruta = $nombreCompleto;
+            }
         }
-        //dd($nombreCompleto); // $this->ruta->storeAs('images2', $nombreCompleto);
-        $producto->ruta = $nombreCompleto;
-        //$producto->ruta ='';
+        
+        // if ($request->ruta) {
+        //     $request->file('ruta')->storeAs('images2',$nombreCompleto);
+        // } else {
+        //     $nombreCompleto = 'sin_imagen.jpg';
+        // }
+        // $producto->ruta = $nombreCompleto;
+
         $producto->save();
 
         //$postres->imagen = $request->file('imagen')->store('postres');
@@ -120,10 +135,10 @@ class Productos extends Controller
         $categoria_productos = Categoriaproducto::all();
         $proveedores = Proveedor::all();
         $estados = Estado::where('empresa_id','=',session('empresa_id'))->get();
-        
         //$productos = Producto::where('empresa_id','=',session('empresa_id'))->get();
         
         $producto = Producto::find($id);
+        //dd($producto);
 
         return view('producto.edit',compact('unidades','categoria_productos','proveedores','estados','producto'));
     }
@@ -137,6 +152,17 @@ class Productos extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name'                   => 'required',
+            'descripcion'            => 'required',
+            'precio_compra'          => 'required|numeric',
+            'existencia'             => 'required|numeric',
+            'stock_minimo'           => 'required|numeric',
+            'unidads_id'             => 'required|numeric',
+            'categoriaproductos_id'  => 'required|numeric',
+            'estados_id'             => 'required|numeric',
+        ]);
+        
         $producto = Producto::find($id);
 
         $producto->name = $request->name;
@@ -148,10 +174,20 @@ class Productos extends Controller
         $producto->unidads_id = $request->unidads_id;
         $producto->categoriaproductos_id = $request->categoriaproductos_id;
         $producto->estados_id = $request->estados_id;
-        $nombreCompleto = basename($request->ruta) . time().'.jpg';
+        $producto->barra = $request->barra;
+        $producto->qr = $request->qr;
+        $producto->barra_proveedor = $request->barra_proveedor;
+        $nombreCompleto = substr(basename($request->ruta),0,-4) . time().'.jpg';
         
-        // $producto->ruta == null ? '' : $producto->ruta=$request->file('ruta')->store($nombreCompleto);
-        
+        if (is_null($request->ruta)) {
+            $producto->ruta ='sin_imagen.jpg';
+        } else {
+            if ($request->ruta!='sin_imagen.jpg') {
+                $request->file('ruta')->storeAs('images2',$nombreCompleto);
+                $producto->ruta = $nombreCompleto;
+            }
+        }
+
         $producto->save();
         
         return redirect()->route('producto.index',compact('producto'))->with('message','Producto actualizado');
@@ -168,7 +204,7 @@ class Productos extends Controller
         
         $res = Producto::destroy($id);
 
-        $productos = Producto::where('empresa_id','=',session('empresa_id'))->get();
+        $productos = Producto::where('empresa_id','=',session('empresa_id'))->paginate(4);
 
         return view('producto.index',compact('productos'))->with('message','Producto eliminado');
     }
@@ -190,7 +226,7 @@ class Productos extends Controller
 
         $tagsactivos = Tag::join('producto_tags','producto_tags.tag_id', '=', 'tags.id')
             ->where('empresa_id','=',session('empresa_id'))
-            ->where('producto_tags.productos_id','=',$producto->id)->get();
+            ->where('producto_tags.producto_id','=',$producto->id)->get();
 
         return view('producto.tagedit',compact('producto','tags','tagsactivos'));
         
@@ -201,26 +237,26 @@ class Productos extends Controller
         $producto=Producto::find($producto_id);
         
         $rel = new ProductoTag;
-        $rel->productos_id=$producto_id;
+        $rel->producto_id=$producto_id;
         $rel->tag_id=$tag_id;
         $rel->valor='';
         $rel->save();
 
         $tags = Tag::where('empresa_id','=',session('empresa_id'))->get();
-        $tagsactivos = ProductoTag::where('productos_id','=',$producto->id)->get();
+        $tagsactivos = ProductoTag::where('producto_id','=',$producto->id)->get();
 
         return redirect()->route('producto.tagedit',compact('producto','tags','tagsactivos'));
     }
 
     public function deltag($producto_id, $tag_id) {
         
-        $producto=ProductoTag::where('productos_id',$producto_id)
+        $producto=ProductoTag::where('producto_id',$producto_id)
             ->where('tag_id',$tag_id)
             ->delete();
 
         //return $producto->all();
         $tags = Tag::where('empresa_id','=',session('empresa_id'))->get();
-        $tagsactivos = ProductoTag::where('productos_id','=',$producto_id)->get();
+        $tagsactivos = ProductoTag::where('producto_id','=',$producto_id)->get();
 
         return redirect()->route('producto.tagedit',compact('producto','tags','tagsactivos'));
     }
