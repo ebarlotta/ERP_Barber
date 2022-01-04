@@ -16,6 +16,8 @@ use App\Http\Livewire\Empleado\EmpleadoComponent;
 use App\Http\Livewire\Compra\CompraComponent;
 use App\Http\Livewire\Venta\VentaComponent;
 use App\Http\Controllers\SocialController;
+use App\Http\Livewire\Cart\Cart;
+// use App\Http\Controllers\Cart;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,6 +40,8 @@ use App\Http\Controllers\SocialController;
 // Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
 
 Route::get('/', EmpresaComponent::class)->name('inicio');
+
+// Route::get('/cart', [App\Http\Controllers\Cart::class, 'index']);
 
 //Auth::routes();
 
@@ -68,6 +72,7 @@ Route::get('empleados',EmpleadoComponent::class)->name('empleados');
 
 Route::get('compras',CompraComponent::class)->name('compras');
 Route::get('ventas',VentaComponent::class)->name('ventas');
+Route::get('carts',Cart::class)->name('carts');
 
 Route::get('empresas',EmpresaComponent::class)->name('empresas');
 Route::get('modulos',ModuloComponent::class)->name('modulos');
