@@ -200,7 +200,7 @@ class VisualizarTablaComponent extends Component
                     </tr>';
             break;
                 case "Paretto":
-                    $a = $this->AgregarEncabezado('Paretto Areas-Compras');
+                    $a = $this->AgregarEncabezado('Areas-Compras');
                     $totalNetoCompra = Comprobante::where('Anio', 2021)
                         ->where('empresa_id', session('empresa_id'))
                         ->sum('NetoComp');
@@ -242,7 +242,7 @@ class VisualizarTablaComponent extends Component
 
                         // Paretto Areas-Ventas
 
-                        $b = $this->AgregarEncabezado('Paretto Areas-Ventas');
+                        $b = $this->AgregarEncabezado('Areas-Ventas');
                         $totalNetoVenta = Venta::where('Anio', 2021)
                             ->where('empresa_id', session('empresa_id'))
                             ->sum('NetoComp');
@@ -284,7 +284,7 @@ class VisualizarTablaComponent extends Component
     
                             // Paretto Cuentas-Compras
 
-                        $c = $this->AgregarEncabezado('Paretto Cuentas-Compras');
+                        $c = $this->AgregarEncabezado('Cuentas-Compras');
                         // $totalNetoCompra = Comprobante::where('Anio', 2021)
                         //     ->where('empresa_id', session('empresa_id'))
                         //     ->sum('NetoComp');
@@ -326,7 +326,7 @@ class VisualizarTablaComponent extends Component
         
                                 // Paretto Cuentas-Ventas
 
-                        $d = $this->AgregarEncabezado('Paretto Cuentas-Ventas');
+                        $d = $this->AgregarEncabezado('Cuentas-Ventas');
                         // $totalNetoCompra = Venta::where('Anio', 2021)
                         //     ->where('empresa_id', session('empresa_id'))
                         //     ->sum('NetoComp');
@@ -397,17 +397,18 @@ $this->visualizar = $r;
     public function AgregarEncabezado($Titulo) {
         $a = '<table class="table table-responsive table-hover" style="font-family : Verdana; font-size : 8px; font-weight : 300;" cellspacing="0" cellpadding="0" bgcolor="#5C92FF" border="0">
         <tbody>
+        
         <tr>
-            <td width="11"><img src="images/sup-izq.gif" width="11" height="11"></td>
-            <td width="278"><img src="images/pixeltrans.gif" width="278" height="1"></td>
-            <td width="11" align="right"><img src="images/sup-der.gif" width="11" height="11"></td>
-        </tr>
-        <tr>
-            <td><img src="images/pixeltrans.gif" width="1" height="1"></td>
             <td align="center"><font color="#444" face="verdana,arial,helvetica" size="2">
             <b>'.$Titulo.'</b>
         <tr>
         ';
         return $a;
+        // <td><img src="images/pixeltrans.gif" width="1" height="1"></td>
+        // <tr>
+        //     <td width="11"><img src="images/sup-izq.gif" width="11" height="11"></td>
+        //     <td width="278"><img src="images/pixeltrans.gif" width="278" height="1"></td>
+        //     <td width="11" align="right"><img src="images/sup-der.gif" width="11" height="11"></td>
+        // </tr>
     }
 }

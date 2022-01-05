@@ -21,12 +21,15 @@ class Producto extends Model
         'estados_id',
         'proveedor_id',
         'ruta',
+        'barra',
+        'qr',
+        'barra_proveedor',
     ];
 
     //Relacion de uno a muchos 
 
     public function unidad()
     {
-        return $this->hasMany('App\Models\Unidad');
+        return $this->hasMany('App\Models\Unidad','id');
     }
 }
