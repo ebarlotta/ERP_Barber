@@ -2185,7 +2185,7 @@
     <!-- //password-script -->
 
     <!-- smoothscroll -->
-    <script src="cart/js/SmoothScroll.min.js"></script>
+    {{-- <script src="cart/js/SmoothScroll.min.js"></script> --}}
     <!-- //smoothscroll -->
 
     <!-- start-smooth-scrolling -->

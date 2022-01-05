@@ -72,7 +72,6 @@ Route::get('empleados',EmpleadoComponent::class)->name('empleados');
 
 Route::get('compras',CompraComponent::class)->name('compras');
 Route::get('ventas',VentaComponent::class)->name('ventas');
-Route::get('carts',Cart::class)->name('carts');
 
 Route::get('empresas',EmpresaComponent::class)->name('empresas');
 Route::get('modulos',ModuloComponent::class)->name('modulos');
@@ -90,3 +89,5 @@ Route::resource('producto',Productos::class);
 
 Route::get('producto/productobajas', [Productos::class, 'productobajas'])->name('producto.productobajas');
 
+Route::get('carts/single/{{id}}',[Cart::class,'single'])->name('cart.single');
+Route::get('carts',Cart::class)->name('carts');

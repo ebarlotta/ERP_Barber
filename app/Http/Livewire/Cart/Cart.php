@@ -9,6 +9,8 @@ use App\Models\Empresa;
 
 class Cart extends Component
 {
+    public $ModalDetail = false;
+
     public function render()
     {
         // dd(session('empresa_id'));
@@ -17,8 +19,20 @@ class Cart extends Component
         $this->productos = Producto::where('empresa_id','=',session('empresa_id'))->get();
         $this->minRangePrice = $this->productos->min('precio_compra');
         $this->maxRangePrice = $this->productos->max('precio_compra');
-        $this->productos = Producto::where('empresa_id','=',session('empresa_id'))->orderby('categoriaproductos_id')->get();
+        //$this->productos = Producto::where('empresa_id','=',session('empresa_id'))->orderby('categoriaproductos_id')->get();
         //dd($this->productos);
-        return view('livewire.cart.index');
+
+        return view('livewire.cart.index',['datos'=> Producto::where('empresa_id','=',session('empresa_id'))->orderby('categoriaproductos_id')->paginate(18),]);
+    }
+
+    public function single($id) {
+        // dd("entro".$id);
+        $this->ModalDetail = true;
+        $this->producto_detail = Producto::find($id);
+        return view('livewire.cart.single');
+    }
+
+    public function CloseModal() {
+        $this->ModalDetail = false;
     }
 }

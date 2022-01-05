@@ -2,7 +2,7 @@
 
 @section('content')
 
-
+<div>
         <!-- //top-header -->
         <!-- header-bot-->
         <div class="header-bot">
@@ -48,6 +48,63 @@
                 <div class="clearfix"></div>
             </div>
         </div>
+        @if($ModalDetail)
+        <div class="fixed z-10 inset-0 overflow-y-auto ease-out duration-400">
+            <div class="flex items-end justify-center mt-24 pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+                style="background-color: transparent; ">
+                <div class="fixed inset-0 transition-opacity">
+                    <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+                </div>
+        
+                <span class="hidden sm:inline-block sm:align-middle "></span>
+                <div class="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-1 sm:align-top sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+                    {{-- <form action="#" method="get"> --}}
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: 10px;" wire:click="CloseModal();">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <div class="product-men">
+                                    <div class="men-thumb-item col-md-6">
+                                        <img src="cart/images/m1.jpg" alt="">
+                                        <span class="product-new-top" style="right: 23%;">{{ __("labels.New")}}</span>
+                                    </div>
+                                    <div class="men-thumb-item col-md-6">
+                                        detail
+                                    </div>
+                                    <div class="item-info-product col-md-12">
+                                        <h4>
+                                            <a href="single.html">{{ substr($producto_detail->name,0,20) }}</a>
+                                        </h4>
+                                        <div class="info-product-price">
+                                            <span class="item_price">$ {{ $producto_detail->precio_compra }}</span>
+                                            <del>${{ $producto_detail->precio_compra * 1.10 }}</del>
+                                        </div>
+                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+                                              {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
+                                            {{-- <form action="#" method="get">
+                                                @csrf
+                                                @method('post')
+                                                <fieldset>
+                                                    <input type="hidden" name="cmd" value="_cart" />
+                                                    <input type="hidden" name="add" value="1" />
+                                                    <input type="hidden" name="business" value=" " />
+                                                    <input type="hidden" name="item_name" value="{{ $producto_detail->name }}" />
+                                                    <input type="hidden" name="amount" value="{{ $producto_detail->precio_compra }}" />
+                                                    <input type="hidden" name="discount_amount" value="0.00" />
+                                                    <input type="hidden" name="currency_code" value="USD" />
+                                                    <input type="hidden" name="return" value=" " />
+                                                    <input type="hidden" name="cancel_return" value=" " />
+                                                    <input type="submit" name="submit" value="{{ __("labels.Add_to_cart")}}" class="button" style="margin-bottom: 12px; border-radius: 7px;" />
+                                                </fieldset>
+                                            </form> --}}
+                                        </div>
+                                    </div>
+                                                            
+                        </div>
+                    {{-- </form> --}}
+                </div>
+            </div>
+        </div>
+        @endif
         <!-- shop locator (popup) -->
         <!-- Button trigger modal(shop-locator) -->
         {{-- <div id="small-dialog1" class="mfp-hide">
@@ -511,8 +568,9 @@
         <!-- //signup Model -->
         <!-- //header-bot -->
         <!-- navigation -->
+
         <div class="ban-top">
-            <div class="container">
+            <div class="container flex">
                 <div class="agileits-navi_search">
                     <form action="#" method="post">
                         <select id="agileinfo-nav_search" name="agileinfo_search" required="">
@@ -547,8 +605,20 @@
 							</button>
                             </div>
                             <!-- Collect the nav links, forms, and other content for toggling -->
-                            <div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
-                                <ul class="nav navbar-nav menu__list">
+                            {{-- <div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1"> --}}
+                                <div class="flex " style="display:flex; justify-content: space-between;">
+                                    <a class="nav-stylehead" href="index.html">{{ __("labels.Home") }}
+                                        <span class="sr-only">(current)</span>
+                                    </a>
+
+                                    <a class="nav-stylehead" href="about.html">{{ __("labels.About") }}</a>
+                                    
+                                    <a class="nav-stylehead" href="contact.html">{{ __("labels.Contact") }}</a>
+                                    {{-- <a href="#" class="dropdown-toggle nav-stylehead" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Kitchen
+                                        <span class="caret"></span>
+                                    </a> --}}
+                                </div>
+                                {{--<ul class="flex nav navbar-nav menu__list">
                                     <li class="active">
                                         <a class="nav-stylehead" href="index.html">{{ __("labels.Home") }}
 										<span class="sr-only">(current)</span>
@@ -561,7 +631,7 @@
                                         <a href="#" class="dropdown-toggle nav-stylehead" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Kitchen
 										<span class="caret"></span>
 									</a>
-                                        <ul class="dropdown-menu multi-column columns-3">
+                                         <ul class="dropdown-menu multi-column columns-3">
                                             <div class="agile_inner_drop_nav_info">
                                                 <div class="col-sm-4 multi-gd-img">
                                                     <ul class="multi-column-dropdown">
@@ -618,9 +688,9 @@
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown">
+                                        </ul> 
+                                    </li>--}}
+                                    {{-- <li class="dropdown">
                                         <a href="#" class="dropdown-toggle nav-stylehead" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Household
 										<span class="caret"></span>
 									</a>
@@ -679,7 +749,7 @@
                                                 <div class="clearfix"></div>
                                             </div>
                                         </ul>
-                                    </li>
+                                    </li> --}}
                                     {{-- <li class="">
                                         <a class="nav-stylehead" href="faqs.html">Faqs</a>
                                     </li> --}}
@@ -696,11 +766,11 @@
                                             </li>
                                         </ul>
                                     </li> --}}
-                                    <li class="">
+                                    {{-- <li class="">
                                         <a class="nav-stylehead" href="contact.html">{{ __("labels.Contact") }}</a>
                                     </li>
-                                </ul>
-                            </div>
+                                </ul> --}}
+                            {{-- </div> --}}
                         </div>
                     </nav>
                 </div>
@@ -805,7 +875,11 @@
                         <h3 class="agileits-sear-head">{{ __("labels.Price_range")}}</h3>
                         <ul class="dropdown-menu6">
                             <li>
-                                <div id="slider-range" style="width: 80%; right: 30px;"></div>
+                                <div id="slider-range" style="width: 80%; right: 30px;" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                    <div class="ui-slider-range ui-widget-header" style="left: 0%; width: 100%;"></div>
+                                    <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a>
+                                    <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 100%;"></a>
+                                </div>
                                 <input type="text" id="amount" style="border: 0; color: #ffffff; font-weight: normal;" />
                             </li>
                         </ul>
@@ -1025,17 +1099,19 @@
                         <div class="product-sec1">
                             <h3 class="heading-tittle">{{ $categoria->name}}</h3>
                             {{-- @foreach ($categorias as $categoria) --}}
-                            @foreach ($productos as $producto)
+                            @foreach ($datos as $producto)
                                 <div class="col-md-4 product-men">
-                                    <div class="men-pro-item simpleCart_shelfItem">
+                                    <div class="men-pro-item simpleCart_shelfItem" style="box-shadow: 2px 2px 5px #999;border-radius: 5px;">
                                             <div class="men-thumb-item">
                                                 <img src="cart/images/m1.jpg" alt="">
                                                 <div class="men-cart-pro">
                                                     <div class="inner-men-cart-pro">
-                                                        <a href="single.html" class="link-product-add-cart">{{ __("labels.Quick_view")}}</a>
+                                                        {{-- <a class="play-icon popup-with-zoom-anim" href="#small-dialog1"> --}}
+                                                        <input class="link-product-add-cart" type="button" wire:click="single({{ $producto->id }})" value="{{ __("labels.Quick_view")}}">
                                                     </div>
                                                 </div>
-                                                <span class="product-new-top">{{ __("labels.New")}}</span>
+
+                                                <span class="product-new-top" style="right: -10px; top: -10px;">{{ __("labels.New")}}</span>
                                             </div>
                                             <div class="item-info-product ">
                                                 <h4>
@@ -1043,7 +1119,7 @@
                                                 </h4>
                                                 <div class="info-product-price">
                                                     <span class="item_price">$ {{ $producto->precio_compra }}</span>
-                                                    <del>${{ $producto->precio_compra * 1.10 }}</del>
+                                                    <del>${{ number_format($producto->precio_compra * 1.10,2) }}</del>
                                                 </div>
                                                 <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
                                                     <form action="#" method="post">
@@ -1051,13 +1127,13 @@
                                                             <input type="hidden" name="cmd" value="_cart" />
                                                             <input type="hidden" name="add" value="1" />
                                                             <input type="hidden" name="business" value=" " />
-                                                            <input type="hidden" name="item_name" value="Almonds, 100g" />
-                                                            <input type="hidden" name="amount" value="149.00" />
-                                                            <input type="hidden" name="discount_amount" value="1.00" />
+                                                            <input type="hidden" name="item_name" value="{{ $producto->name }}" />
+                                                            <input type="hidden" name="amount" value="{{ $producto->precio_compra }}" />
+                                                            <input type="hidden" name="discount_amount" value="0.00" />
                                                             <input type="hidden" name="currency_code" value="USD" />
                                                             <input type="hidden" name="return" value=" " />
                                                             <input type="hidden" name="cancel_return" value=" " />
-                                                            <input type="submit" name="submit" value="{{ __("labels.Add_to_cart")}}" class="button" />
+                                                            <input type="submit" name="submit" style="margin-bottom: 10px; border-radius: 5px;" value="{{ __("labels.Add_to_cart")}}" class="button" />
                                                         </fieldset>
                                                     </form>
                                                 </div>
@@ -1068,6 +1144,7 @@
                             {{-- @endforeach --}}
                             <div class="clearfix"></div>
                         </div>
+                        <div>{{ $datos->links() }}</div>
                         <!-- //first section (nuts) -->
                         <!-- second section (nuts special) -->
                         {{-- <div class="product-sec1 product-sec2">
@@ -2097,7 +2174,7 @@
         <!-- //flexisel (for special offers) -->
 
         <!-- password-script -->
-        <script>
+        {{-- <script>
             window.onload = function() {
                 document.getElementById("password1").onchange = validatePassword;
                 document.getElementById("password2").onchange = validatePassword;
@@ -2112,17 +2189,17 @@
                     document.getElementById("password2").setCustomValidity('');
                 //empty string means no validation error
             }
-        </script>
+        </script> --}}
         <!-- //password-script -->
 
         <!-- smoothscroll -->
-        <script src="cart/js/SmoothScroll.min.js"></script>
+        {{-- <script src="cart/js/SmoothScroll.min.js"></script> --}}
         <!-- //smoothscroll -->
 
         <!-- start-smooth-scrolling -->
         <script src="cart/js/move-top.js"></script>
         <script src="cart/js/easing.js"></script>
-        <script>
+        {{-- <script>
             jQuery(document).ready(function($) {
                 $(".scroll").click(function(event) {
                     event.preventDefault();
@@ -2132,7 +2209,7 @@
                     }, 1000);
                 });
             });
-        </script>
+        </script> --}}
         <!-- //end-smooth-scrolling -->
 
         <!-- smooth-scrolling-of-move-up -->
@@ -2162,8 +2239,8 @@
 
 
 
-        <div id="v-barber"></div>
-        <script>
+        {{-- <div id="v-barber"></div> --}}
+        {{-- <script>
             (function(v, d, o, ai) {
                 ai = d.createElement('script');
                 ai.defer = true;
@@ -2171,10 +2248,5 @@
                 ai.src = v.location.protocol + o;
                 d.head.appendChild(ai);
             })(window, document, 'http://a.vdo.ai/core/v-barber/vdo.ai.js');
-        </script>
-    </body>
-
-
-    <!-- Mirrored from p.barber.com/demos_new/template_demo/04-01-2018/grocery_shoppy-demo_Free/709526329/web/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 02 Jan 2022 12:27:44 GMT -->
-
-</html>
+        </script> --}}
+</div>
