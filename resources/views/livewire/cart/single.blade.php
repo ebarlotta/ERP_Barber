@@ -298,13 +298,6 @@ RIGHT SIDEBAR TOGGLE SECTION
 					<option>Kailua</option>
 					<option>Waipahu</option>
 				</optgroup>
-				<optgroup label="Idaho">
-					<option>Boise</option>
-					<option>Nampa</option>
-					<option>Meridian</option>
-					<option>Idaho Falls</option>
-					<option>Pocatello</option>
-				</optgroup>
 				<optgroup label="Illinois">
 					<option>Chicago</option>
 					<option>Aurora</option>

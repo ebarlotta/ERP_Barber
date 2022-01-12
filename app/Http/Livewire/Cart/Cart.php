@@ -10,6 +10,7 @@ use App\Models\Empresa;
 class Cart extends Component
 {
     public $ModalDetail = false;
+    public $Modal_Carrito = false;
 
     public function render()
     {
@@ -34,5 +35,17 @@ class Cart extends Component
 
     public function CloseModal() {
         $this->ModalDetail = false;
+    }
+
+    public function show_carrito($id) {
+        // dd("entro".$id);
+        $this->Modal_Carrito = true;
+        //dd("entro");
+        $this->producto_detail = Producto::find($id);
+        // return view('livewire.cart.single');
+    }
+
+    public function CloseModal_Carrito() {
+        $this->Modal_Carrito = false;
     }
 }
