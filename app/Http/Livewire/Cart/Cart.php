@@ -6,11 +6,16 @@ use Livewire\Component;
 use App\Models\Categoriaproducto;
 use App\Models\Producto;
 use App\Models\Empresa;
+use App\Models\Cart as Carro;
+use App\Models\CartProduct;
+use Illuminate\Support\Facades\Auth;
 
 class Cart extends Component
 {
     public $ModalDetail = false;
     public $Modal_Carrito = false;
+    public $ModalDescontar = false;
+    public $Item_a_eliminar = 0;
 
     public function render()
     {
@@ -22,6 +27,9 @@ class Cart extends Component
         $this->maxRangePrice = $this->productos->max('precio_compra');
         //$this->productos = Producto::where('empresa_id','=',session('empresa_id'))->orderby('categoriaproductos_id')->get();
         //dd($this->productos);
+        $this->detalles = CartProduct::where('user_id','=',Auth::user()->id)
+        ->join('productos','productos.id','=','cart_products.productos_id')->get();
+        //dd($this->detalles);
 
         return view('livewire.cart.index',['datos'=> Producto::where('empresa_id','=',session('empresa_id'))->orderby('categoriaproductos_id')->paginate(18),]);
     }
@@ -37,15 +45,64 @@ class Cart extends Component
         $this->ModalDetail = false;
     }
 
-    public function show_carrito($id) {
+    public function show_carrito() {
         // dd("entro".$id);
         $this->Modal_Carrito = true;
         //dd("entro");
-        $this->producto_detail = Producto::find($id);
+        //$this->producto_detail = Producto::find($id);
+        ////$this->producto_detail = Producto::all();
         // return view('livewire.cart.single');
     }
 
     public function CloseModal_Carrito() {
         $this->Modal_Carrito = false;
     }
+
+    public function Agregar($id){
+        $carrito = Carro::where('user_id', '=', Auth::user()->id)->get();
+        
+        if (count($carrito)==0) {
+            $carrito = new Carro(['user_id' => Auth::user()->id]);
+            $carrito->save();
+        }
+
+        $detalle = CartProduct::where('user_id','=',Auth::user()->id)
+                            ->where('productos_id','=',$id)->get();
+        
+        if(count($detalle)) {
+            $detalle = CartProduct::find($detalle[0]['id']);
+            $detalle->cantidad++;
+        }
+        else {
+            $detalle = new CartProduct(['user_id'=>Auth::user()->id,'productos_id'=>$id,'cantidad'=>1]);            
+        }
+        $detalle->save();
+
+        $this->show_carrito();
+    }
+
+    public function Descontar($id) {
+        $descontar = CartProduct::where('productos_id','=',$id)->where('user_id','=',Auth::user()->id)->first();
+        if ($descontar->cantidad === 1.0 ) {
+            $this->Item_a_eliminar = $descontar->id;
+            $this->ModalDescontar = true;
+        }
+        else {
+            $descontar->cantidad--;
+            $descontar->save();
+        }
+    }
+
+    public function CloseModal_Descontar() {
+        $this->ModalDescontar = false;
+    }
+
+    public function Sacar($id) {
+        $descontar = CartProduct::find($id);
+        //$descontar = CartProduct::where('productos_id','=',$id)->where('user_id','=',Auth::user()->id)->first();
+        //dd($descontar);
+        $descontar->destroy($id);
+        $this->Item_a_eliminar = 0;
+        $this->CloseModal_Descontar();
+    }    
 }

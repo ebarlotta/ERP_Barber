@@ -33,13 +33,13 @@
                     <!-- cart details -->
                     <div class="top_nav_right">
                         <div class="wthreecartaits wthreecartaits2 cart cart box_1">
-                            <form action="#" method="post" class="last">
+                            {{-- <form action="#" method="post" class="last">
                                 <input type="hidden" name="cmd" value="_cart">
-                                <input type="hidden" name="display" value="1">
+                                <input type="hidden" name="display" value="1"> --}}
                                 <button class="w3view-cart" type="submit" name="submit" value="">
-								<i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+								<i class="fa fa-cart-arrow-down" aria-hidden="true" wire:click="show_carrito()"></i>
 							</button>
-                            </form>
+                            {{-- </form> --}}
                         </div>
                     </div>
                     <!-- //cart details -->
@@ -67,26 +67,28 @@
                         <div class="men-thumb-item col-md-12">
                                
                             <ul>
-                                <li class="minicartk-item col-11 shadow-xl">
+                                @foreach($detalles as $detalle)
+                                
+                                <li class="minicartk-item col-11 shadow-xl" style="box-shadow: 2px 2px 5px #999;border-radius: 5px;">
                                     <div class="men-thumb-item flex col-12">
                                         <div class="col-2">
-                                            <img src="cart/images/m1.jpg" alt="">
+                                            <img src="{{ asset('images2/'.$detalle->ruta)}}" alt="">
                                         </div>
 
-                                        <div class="col-8">Madhur Pure Sugar, 1g
+                                        <div class="col-6">{{$detalle->name}}
                                             <div>Discount: $2.00</div>
                                             <div class="minicartk-details-price">
-                                                <span class="minicartk-price">$136.00</span>
+                                                <span class="minicartk-price bold">$ {{ $detalle->precio_compra * $detalle->cantidad }}</span>
                                             </div>
                                         </div>
                                         
-                                        <div class="flex col-2">
-                                            <input class="minicartk-quantity col-12" data-minicartk-idx="0" name="quantity_1" type="text" pattern="[0-9]*" value="2" autocomplete="off">
+                                        <div class="flex col-2 mt-1">
+                                            <input class="minicartk-quantity col-12" data-minicartk-idx="0" name="quantity_1" type="text" pattern="[0-9]*" value="{{ $detalle->cantidad }}" autocomplete="off" style="text-align: center;">
                                             
                                         </div>
 
-                                        <div class="minicartk-details-remove">
-                                            <button type="button" class="minicartk-remove" data-minicartk-idx="0">×</button>
+                                        <div class="minicartk-details-remove col-2" style="vertical-align: center;justify-content: center;display: flex;">
+                                            <button type="button" class="minicartk-remove" data-minicartk-idx="0" wire:click="Descontar({{$detalle->productos_id}})">×</button>
                                         </div>
                                     </div> 
 
@@ -112,7 +114,7 @@
                                     <input type="hidden" name="shipping_1" value="undefined">
                                     <input type="hidden" name="shipping2_1" value="undefined"> --}}
                                 </li>
-
+                                @endforeach
 
                                 {{-- <li class="minicartk-item">
                                     <div class="minicartk-details-name"> <a class="minicartk-name" href="http://127.0.0.1:8000/carts">Sprite,
@@ -173,6 +175,36 @@
             </div>
         </div>
         @endif
+
+        @if ($ModalDescontar)
+        <div class="fixed z-10 inset-0 overflow-y-auto ease-out duration-400">
+            <div class="flex items-end justify-center mt-24 pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+                style="background-color: transparent; ">
+                <div class="fixed inset-0 transition-opacity">
+                    <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+                </div>
+        
+                <span class="hidden sm:inline-block sm:align-middle "></span>
+                <div class="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-1 sm:align-top sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: 10px;" wire:click="CloseModal_Descontar();">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="product-men">
+                        <div class="men-thumb-item col-md-12">
+                            <div class="minicartk-footer">
+                                <div class="minicartk-subtotal mb-3"> Está seguro de que quiere eliminar el producto del Carrito ? </div>
+                                <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out flex">
+                                    <input type="button" style="margin-bottom: 10px; border-radius: 5px; margin-right: 10px; background-color: coral;" value="Eliminar" class="button" wire:click="Sacar({{ $Item_a_eliminar }})">
+                                    <input type="button" style="margin-bottom: 10px; border-radius: 5px; margin-left: 10px;" value="Cerrar" class="button" wire:click="CloseModal_Descontar();">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
 
         @if($ModalDetail)
         <div class="fixed z-10 inset-0 overflow-y-auto ease-out duration-400">
@@ -785,7 +817,7 @@
                                                     <del>${{ number_format($producto->precio_compra * 1.10,2) }}</del>
                                                 </div>
                                                 <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                                    <form action="#" method="post">
+                                                    {{-- <form action="#" method="post">
                                                         <fieldset>
                                                             <input type="hidden" name="cmd" value="_cart" />
                                                             <input type="hidden" name="add" value="1" />
@@ -795,12 +827,13 @@
                                                             <input type="hidden" name="discount_amount" value="0.00" />
                                                             <input type="hidden" name="currency_code" value="USD" />
                                                             <input type="hidden" name="return" value=" " />
-                                                            <input type="hidden" name="cancel_return" value=" " />
-                                                            <input type="submit" name="submit" style="margin-bottom: 10px; border-radius: 5px;" value="{{ __("labels.Add_to_cart")}}" class="button" />
-                                                            <input type="button" style="margin-bottom: 10px; border-radius: 5px;" value="Agregar" class="button" wire:click="show_carrito({{$producto->id}})" />
+                                                            <input type="hidden" name="cancel_return" value=" " /> 
+                                                            <input type="submit" name="submit" style="margin-bottom: 10px; border-radius: 5px;" value="{{ __("labels.Add_to_cart")}}" class="button" />--}}
+                                                            {{-- <input type="button" style="margin-bottom: 10px; border-radius: 5px;" value="{{ __("labels.Add_to_cart")}}" class="button" wire:click="show_carrito({{$producto->id}})" /> --}}
+                                                            <input type="button" style="margin-bottom: 10px; border-radius: 5px;" value="{{ __("labels.Add_to_cart")}}" class="button" wire:click="Agregar({{$producto->id}})" />
 
-                                                        </fieldset>
-                                                    </form>
+                                                        {{-- </fieldset>
+                                                    </form> --}}
                                                 </div>
                                             </div>
                                     </div>                                
