@@ -131,4 +131,9 @@ class Cart extends Component
         return $cantidad;
         }
     }
+
+    public function payment_index() {
+        return view('livewire.cart.payment');
+    }
+
 }

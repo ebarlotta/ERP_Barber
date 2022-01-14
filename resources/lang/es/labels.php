@@ -26,4 +26,19 @@ return [
     "Special_eals" => "Ofertas Especiales",
     "Discount" => "Descuento",
 
+    "Credit_DebitNet_Banking" => "Tarjeta de Crédito/Débito bancaria",
+    "Name_on_Card" => "Nombre en la tarjeta",
+    "Card Number" => "Número de tarjeta",
+    "Expiration_Date" => "Fecha de Vencimiento",
+    "Make_Payment" => "Realizar Pago",
+    "Net_Banking" => "Red Bancaria",
+    "Select_From_Popular_Banks" => "Seleccione un banco",
+    "Or_Select_Other_Bank" => "O seleccione otro banco",
+    "Pay_Now" => "Pagar Ahora",
+    "Paypal_Account" => "Cuenta de PayPal",
+    "Checkout_via_Paypal" => "Pagar via Paypal",
+    "Add_to_My_Cards" => "Agregar a mis tarjetas",
+    "Card_Holder_Name" => "Titular de la tarjeta",
+    "Proceed_Payment" => "Proceder con el pago",
+    "Payment" => "Pagos"
 ];

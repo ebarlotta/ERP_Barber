@@ -91,3 +91,4 @@ Route::get('producto/productobajas', [Productos::class, 'productobajas'])->name(
 
 Route::get('carts/single/{{id}}',[Cart::class,'single'])->name('cart.single');
 Route::get('carts',Cart::class)->name('carts');
+Route::get('payments',[Cart::class,'payment_index'])->name('payments');

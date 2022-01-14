@@ -9,14 +9,11 @@
             <div class="header-bot_inner_wthreeinfo_header_mid">
                 <!-- header-bot-->
                 <div class="col-md-4 logo_agile">
-                    <h1>
-                        <a href="index.html">
-                            {{ $empresa[0]['name'] }}
-                            {{-- <span>G</span>rocery --}}
-                            <span>S</span>hoppy
-                            <img src="cart/images/logo2.png" alt=" ">
-                        </a>
-                    </h1>
+                    <img class="col-md-4" src="{{ asset('images/'. $empresa[0]['imagen']) }}" alt=" " style="width: 100px;height: 70px;">
+                    <h2  class="col-md-8">
+                        {{ $empresa[0]['name'] }}
+                        <span>S</span>hoppy
+                    </h2>
                 </div>
                 <!-- header-bot -->
                 <div class="col-md-8 header">
@@ -63,9 +60,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <div class="product-men">
-                        
                         <div class="men-thumb-item col-md-12">
-                               
                             <ul>
                                 @foreach($detalles as $detalle)
                                 <li class="minicartk-item col-11 shadow-xl" style="box-shadow: 2px 2px 5px #999;border-radius: 5px;">
@@ -99,66 +94,10 @@
                                             <button type="button" class="minicartk-remove" data-minicartk-idx="0" wire:click="Descontar({{$detalle->productos_id}})">×</button>
                                         </div>
                                     </div> 
-
-                                    {{-- <div class="minicartk-details-name col-md-10 flex">
-                                        Madhur Pure Sugar, 1g
-                                        <ul class="minicartk-attributes">
-                                            <li> Discount: $2.00 
-                                                <input type="hidden" name="discount_amount_1" value="2">
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="minicartk-details-quantity">
-                                        <input class="minicartk-quantity" data-minicartk-idx="0" name="quantity_1" type="text" pattern="[0-9]*" value="2" autocomplete="off">
-                                    </div>
-                                    <div class="minicartk-details-remove">
-                                        <button type="button" class="minicartk-remove" data-minicartk-idx="0">×</button>
-                                    </div>
-                                    <div class="minicartk-details-price">
-                                        <span class="minicartk-price">$136.00</span>
-                                    </div>
-                                    <input type="hidden" name="item_name_1" value="Madhur Pure Sugar, 1g">
-                                    <input type="hidden" name="amount_1" value="69">
-                                    <input type="hidden" name="shipping_1" value="undefined">
-                                    <input type="hidden" name="shipping2_1" value="undefined"> --}}
                                 </li>
                                 @endforeach
-
-                                {{-- <li class="minicartk-item">
-                                    <div class="minicartk-details-name"> <a class="minicartk-name" href="http://127.0.0.1:8000/carts">Sprite,
-                                            2.25L (Pack of 2)</a>
-                                        <ul class="minicartk-attributes">
-                                            <li> Discount: $1.00 <input type="hidden" name="discount_amount_2" value="1"> </li>
-                                        </ul>
-                                    </div>
-                                    <div class="minicartk-details-quantity"> <input class="minicartk-quantity" data-minicartk-idx="1"
-                                            name="quantity_2" type="text" pattern="[0-9]*" value="1" autocomplete="off"> </div>
-                                    <div class="minicartk-details-remove"> <button type="button" class="minicartk-remove"
-                                            data-minicartk-idx="1">×</button> </div>
-                                    <div class="minicartk-details-price"> <span class="minicartk-price">$179.00</span> </div> <input
-                                        type="hidden" name="item_name_2" value="Sprite, 2.25L (Pack of 2)"> <input type="hidden" name="amount_2"
-                                        value="180"> <input type="hidden" name="shipping_2" value="undefined"> <input type="hidden"
-                                        name="shipping2_2" value="undefined">
-                                </li>
-                                <li class="minicartk-item minicartk-item-changed">
-                                    <div class="minicartk-details-name"> <a class="minicartk-name" href="http://127.0.0.1:8000/carts">Kameron
-                                            Schiller</a>
-                                        <ul class="minicartk-attributes"> </ul>
-                                    </div>
-                                    <div class="minicartk-details-quantity"> <input class="minicartk-quantity" data-minicartk-idx="2"
-                                            name="quantity_3" type="text" pattern="[0-9]*" value="1" autocomplete="off"> </div>
-                                    <div class="minicartk-details-remove"> <button type="button" class="minicartk-remove"
-                                            data-minicartk-idx="2">×</button> </div>
-                                    <div class="minicartk-details-price"> <span class="minicartk-price">$100.28</span> </div> <input
-                                        type="hidden" name="item_name_3" value="Kameron Schiller"> <input type="hidden" name="amount_3"
-                                        value="100.28"> <input type="hidden" name="shipping_3" value="undefined"> <input type="hidden"
-                                        name="shipping2_3" value="undefined">
-                                </li> --}}
                             </ul>
                             <div class="minicartk-footer">
-                                
-
-
                                 <div class="minicartk-footer">
                                     <div class="minicartk-subtotal mb-3"><div class="minicartk-subtotal"> Subtotal: $ {{ number_format($subtotal,2, ',', '.') }} </div>
                                         {{-- <button class="minicartk-submit" type="submit" data-minicartk-alt="undefined">Check Out with 
@@ -172,30 +111,8 @@
                                         color: #fff; text-decoration: none; position: relative; border: none; width: 100%; text-transform: uppercase; padding: 13px; outline: none; letter-spacing: 1px; font-weight: 600;" value="PAGAR" class="" wire:click="CloseModal_Carrito();">
                                     </div>
                                 </div>
-{{-- 
-                                <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                    <input type="button" style="margin-bottom: 10px; border-radius: 5px;" value="Seguir Comprando" class="button" wire:click="Agregar(10)">
-                                    <input type="button" style="margin-bottom: 10px; border-radius: 5px;" value="PAGAR" class="button" wire:click="Agregar(10)">
-                                </div> --}}
-                                {{-- <input type="hidden" name="cmd" value="_cart">
-                                <input type="hidden" name="upload" value="1">
-                                <input type="hidden" name="bn" value="minicartk_AddToCart_WPS_US">
-                                <input type="hidden" name="business" value=" ">
-                                <input type="hidden" name="currency_code" value="USD">
-                                <input type="hidden" name="return" value=" ">
-                                <input type="hidden" name="cancel_return" value=" "> --}}
                             </div>
-                        {{-- <div class="item-info-product col-md-12">
-                            <h4>
-                                <a href="single.html">{{ substr($producto_detail->name,0,20) }}</a>
-                            </h4>
-                            <div class="info-product-price">
-                                <span class="item_price">Precio del producto $ {{ $producto_detail->precio_compra }}</span>
-                                <del>${{ $producto_detail->precio_compra * 1.10 }}</del>
-                            </div>
-                            <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                            </div>
-                        </div>                                                             --}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -268,7 +185,7 @@
                                                 <span class="item_price">$ {{ number_format($producto_detail->precio_venta * (1-$producto_detail->descuento/100),2, ',', '.') }}</span>
                                                 <del>${{ number_format($producto_detail->precio_venta,2, ',', '.') }}</del>
                                             @else
-                                                <span class="item_price">$ {{ number_formar($producto_detail->precio_venta,2, ',', '.') }}</span>
+                                                <span class="item_price">$ {{ number_format($producto_detail->precio_venta,2, ',', '.') }}</span>
                                             @endif
                                             {{-- <span class="item_price">$ {{ $producto_detail->precio_compra }}</span>
                                             <del>${{ $producto_detail->precio_compra * 1.10 }}</del> --}}
@@ -304,25 +221,12 @@
         <div class="ban-top">
             <div class="container flex">
                 <div class="agileits-navi_search">
-                    <form action="#" method="post">
-                        <select id="agileinfo-nav_search" name="agileinfo_search" required="">
+                    <select id="agileinfo-nav_search" name="agileinfo_search" required="">
 						<option value="">{{ __("labels.All_categories")}}</option>
                         @foreach ($categorias as $categoria)
 						    <option value="{{ $categoria->id}}">{{ $categoria->name}}</option>
                         @endforeach
-                            
-						{{-- <option value="Household">Household</option>
-						<option value="Snacks &amp; Beverages">Snacks & Beverages</option>
-						<option value="Personal Care">Personal Care</option>
-						<option value="Gift Hampers">Gift Hampers</option>
-						<option value="Fruits &amp; Vegetables">Fruits & Vegetables</option>
-						<option value="Baby Care">Baby Care</option>
-						<option value="Soft Drinks &amp; Juices">Soft Drinks & Juices</option>
-						<option value="Frozen Food">Frozen Food</option>
-						<option value="Bread &amp; Bakery">Bread & Bakery</option>
-						<option value="Sweets">Sweets</option> --}}
 					</select>
-                    </form>
                 </div>
                 <div class="top_nav_left">
                     <nav class="navbar navbar-default">
@@ -339,247 +243,18 @@
                             <!-- Collect the nav links, forms, and other content for toggling -->
                             {{-- <div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1"> --}}
                                 <div class="flex " style="display:flex; justify-content: space-between;">
-                                    <a class="nav-stylehead" href="index.html">{{ __("labels.Home") }}
+                                    <a class="nav-stylehead col-4" href="index.html">{{ __("labels.Home") }}
                                         <span class="sr-only">(current)</span>
                                     </a>
-
-                                    <a class="nav-stylehead" href="about.html">{{ __("labels.About") }}</a>
-                                    
-                                    <a class="nav-stylehead" href="contact.html">{{ __("labels.Contact") }}</a>
-                                    {{-- <a href="#" class="dropdown-toggle nav-stylehead" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Kitchen
-                                        <span class="caret"></span>
-                                    </a> --}}
+                                    <a class="nav-stylehead col-4" href="about.html">{{ __("labels.About") }}</a>
+                                    <a class="nav-stylehead col-4" href="contact.html">{{ __("labels.Contact") }}</a>
                                 </div>
-                                {{--<ul class="flex nav navbar-nav menu__list">
-                                    <li class="active">
-                                        <a class="nav-stylehead" href="index.html">{{ __("labels.Home") }}
-										<span class="sr-only">(current)</span>
-									</a>
-                                    </li>
-                                    <li class="">
-                                        <a class="nav-stylehead" href="about.html">{{ __("labels.About") }}</a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle nav-stylehead" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Kitchen
-										<span class="caret"></span>
-									</a>
-                                         <ul class="dropdown-menu multi-column columns-3">
-                                            <div class="agile_inner_drop_nav_info">
-                                                <div class="col-sm-4 multi-gd-img">
-                                                    <ul class="multi-column-dropdown">
-                                                        <li>
-                                                            <a href="product.html">Bakery</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product.html">Baking Supplies</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product.html">Coffee, Tea & Beverages</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product.html">Dried Fruits, Nuts</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product.html">Sweets, Chocolate</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product.html">Spices & Masalas</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product.html">Jams, Honey & Spreads</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-sm-4 multi-gd-img">
-                                                    <ul class="multi-column-dropdown">
-                                                        <li>
-                                                            <a href="product.html">Pickles</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product.html">Pasta & Noodles</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product.html">Rice, Flour & Pulses</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product.html">Sauces & Cooking Pastes</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product.html">Snack Foods</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product.html">Oils, Vinegars</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product.html">Meat, Poultry & Seafood</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-sm-4 multi-gd-img">
-                                                    <img src="cart/images/nav.png" alt="">
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                        </ul> 
-                                    </li>--}}
-                                    {{-- <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle nav-stylehead" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Household
-										<span class="caret"></span>
-									</a>
-                                        <ul class="dropdown-menu multi-column columns-3">
-                                            <div class="agile_inner_drop_nav_info">
-                                                <div class="col-sm-6 multi-gd-img">
-                                                    <ul class="multi-column-dropdown">
-                                                        <li>
-                                                            <a href="product2.html">Kitchen & Dining</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product2.html">Detergents</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product2.html">Utensil Cleaners</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product2.html">Floor & Other Cleaners</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product2.html">Disposables, Garbage Bag</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product2.html">Repellents & Fresheners</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product2.html"> Dishwash</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-sm-6 multi-gd-img">
-                                                    <ul class="multi-column-dropdown">
-                                                        <li>
-                                                            <a href="product2.html">Pet Care</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product2.html">Cleaning Accessories</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product2.html">Pooja Needs</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product2.html">Crackers</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product2.html">Festive Decoratives</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product2.html">Plasticware</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="product2.html">Home Care</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                        </ul>
-                                    </li> --}}
-                                    {{-- <li class="">
-                                        <a class="nav-stylehead" href="faqs.html">Faqs</a>
-                                    </li> --}}
-                                    {{-- <li class="dropdown">
-                                        <a class="nav-stylehead dropdown-toggle" href="#" data-toggle="dropdown">Pages
-										<b class="caret"></b>
-									</a>
-                                        <ul class="dropdown-menu agile_short_dropdown">
-                                            <li>
-                                                <a href="icons.html">Web Icons</a>
-                                            </li>
-                                            <li>
-                                                <a href="typography.html">Typography</a>
-                                            </li>
-                                        </ul>
-                                    </li> --}}
-                                    {{-- <li class="">
-                                        <a class="nav-stylehead" href="contact.html">{{ __("labels.Contact") }}</a>
-                                    </li>
-                                </ul> --}}
-                            {{-- </div> --}}
+
                         </div>
                     </nav>
                 </div>
             </div>
         </div>
-        <!-- //navigation -->
-        <!-- banner -->
-        {{-- <div id="myCarousel" class="carousel slide" data-ride="carousel">
-            <!-- Indicators-->
-            <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1" class=""></li>
-                <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-                <li data-target="#myCarousel" data-slide-to="3" class=""></li>
-            </ol>
-            <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <div class="container">
-                        <div class="carousel-caption">
-                            <h3>Big
-                                <span>Save</span>
-                            </h3>
-                            <p>Get flat
-                                <span>10%</span> Cashback</p>
-                            <a class="button2" href="product.html">Shop Now </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="item item2">
-                    <div class="container">
-                        <div class="carousel-caption">
-                            <h3>Healthy
-                                <span>Saving</span>
-                            </h3>
-                            <p>Get Upto
-                                <span>30%</span> Off</p>
-                            <a class="button2" href="product.html">Shop Now </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="item item3">
-                    <div class="container">
-                        <div class="carousel-caption">
-                            <h3>Big
-                                <span>Deal</span>
-                            </h3>
-                            <p>Get Best Offer Upto
-                                <span>20%</span>
-                            </p>
-                            <a class="button2" href="product.html">Shop Now </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="item item4">
-                    <div class="container">
-                        <div class="carousel-caption">
-                            <h3>Today
-                                <span>Discount</span>
-                            </h3>
-                            <p>Get Now
-                                <span>40%</span> Discount</p>
-                            <a class="button2" href="product.html">Shop Now </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div> --}}
-        <!-- //banner -->
-        <!---728x90--->
 
         <!-- top Products -->
         <div class="ads-grid">
@@ -616,22 +291,7 @@
                             </li>
                         </ul>
                     </div>
-                    <!-- //price range -->
-                    <!-- food preference -->
-                    {{-- <div class="left-side">
-                        <h3 class="agileits-sear-head">Food Preference</h3>
-                        <ul>
-                            <li>
-                                <input type="checkbox" class="checked">
-                                <span class="span">Vegetarian</span>
-                            </li>
-                            <li>
-                                <input type="checkbox" class="checked">
-                                <span class="span">Non-Vegetarian</span>
-                            </li>
-                        </ul>
-                    </div> --}}
-                    <!-- //food preference -->
+            <!-- //food preference -->
                     <!-- discounts -->
                     <div class="left-side">
                         <h3 class="agileits-sear-head">{{ __("labels.Discount")}}</h3>
@@ -719,53 +379,7 @@
                             </li>
                         </ul>
                     </div>
-                    <!-- //reviews -->
-                    <!-- cuisine -->
-                    {{-- <div class="left-side">
-                        <h3 class="agileits-sear-head">Cuisine</h3>
-                        <ul>
-                            <li>
-                                <input type="checkbox" class="checked">
-                                <span class="span">South American</span>
-                            </li>
-                            <li>
-                                <input type="checkbox" class="checked">
-                                <span class="span">French</span>
-                            </li>
-                            <li>
-                                <input type="checkbox" class="checked">
-                                <span class="span">Greek</span>
-                            </li>
-                            <li>
-                                <input type="checkbox" class="checked">
-                                <span class="span">Chinese</span>
-                            </li>
-                            <li>
-                                <input type="checkbox" class="checked">
-                                <span class="span">Japanese</span>
-                            </li>
-                            <li>
-                                <input type="checkbox" class="checked">
-                                <span class="span">Italian</span>
-                            </li>
-                            <li>
-                                <input type="checkbox" class="checked">
-                                <span class="span">Mexican</span>
-                            </li>
-                            <li>
-                                <input type="checkbox" class="checked">
-                                <span class="span">Thai</span>
-                            </li>
-                            <li>
-                                <input type="checkbox" class="checked">
-                                <span class="span">Indian</span>
-                            </li>
-                            <li>
-                                <input type="checkbox" class="checked">
-                                <span class="span"> Spanish </span>
-                            </li>
-                        </ul>
-                    </div> --}}
+     
                     <!-- //cuisine -->
                     <!-- deals -->
                     <div class="deal-leftmk left-side">
@@ -782,46 +396,6 @@
                                 <div class="clearfix"></div>
                             </div>
                         @endforeach
-                        {{-- <div class="special-sec1">
-                            <div class="col-xs-4 img-deals">
-                                <img src="cart/images/d1.jpg" alt="">
-                            </div>
-                            <div class="col-xs-8 img-deal1">
-                                <h3>Bingo Mad Angles</h3>
-                                <a href="single.html">$9.00</a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="special-sec1">
-                            <div class="col-xs-4 img-deals">
-                                <img src="cart/images/d4.jpg" alt="">
-                            </div>
-                            <div class="col-xs-8 img-deal1">
-                                <h3>Tata Salt</h3>
-                                <a href="single.html">$15.00</a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="special-sec1">
-                            <div class="col-xs-4 img-deals">
-                                <img src="cart/images/d5.jpg" alt="">
-                            </div>
-                            <div class="col-xs-8 img-deal1">
-                                <h3>Gujarat Dry Fruit</h3>
-                                <a href="single.html">$525.00</a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="special-sec1">
-                            <div class="col-xs-4 img-deals">
-                                <img src="cart/images/d3.jpg" alt="">
-                            </div>
-                            <div class="col-xs-8 img-deal1">
-                                <h3>Cadbury Dairy Milk</h3>
-                                <a href="single.html">$149.00</a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div> --}}
                     </div>
                     <!-- //deals -->
                 </div>
@@ -862,23 +436,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                                    {{-- <form action="#" method="post">
-                                                        <fieldset>
-                                                            <input type="hidden" name="cmd" value="_cart" />
-                                                            <input type="hidden" name="add" value="1" />
-                                                            <input type="hidden" name="business" value=" " />
-                                                            <input type="hidden" name="item_name" value="{{ $producto->name }}" />
-                                                            <input type="hidden" name="amount" value="{{ $producto->precio_compra }}" />
-                                                            <input type="hidden" name="discount_amount" value="0.00" />
-                                                            <input type="hidden" name="currency_code" value="USD" />
-                                                            <input type="hidden" name="return" value=" " />
-                                                            <input type="hidden" name="cancel_return" value=" " /> 
-                                                            <input type="submit" name="submit" style="margin-bottom: 10px; border-radius: 5px;" value="{{ __("labels.Add_to_cart")}}" class="button" />--}}
-                                                            {{-- <input type="button" style="margin-bottom: 10px; border-radius: 5px;" value="{{ __("labels.Add_to_cart")}}" class="button" wire:click="show_carrito({{$producto->id}})" /> --}}
-                                                            <input type="button" style="margin-bottom: 10px; border-radius: 5px;" value="{{ __("labels.Add_to_cart")}}" class="button" wire:click="Agregar({{$producto->id}})" />
-
-                                                        {{-- </fieldset>
-                                                    </form> --}}
+                                                    <input type="button" style="margin-bottom: 10px; border-radius: 5px;" value="{{ __("labels.Add_to_cart")}}" class="button" wire:click="Agregar({{$producto->id}})" />
                                                 </div>
                                             </div>
                                     </div>                                
@@ -888,270 +446,6 @@
                             <div class="clearfix"></div>
                         </div>
                         <div>{{ $datos->links() }}</div>
-                        <!-- //first section (nuts) -->
-                        <!-- second section (nuts special) -->
-                        {{-- <div class="product-sec1 product-sec2">
-                            <div class="col-xs-7 effect-bg">
-                                <h3 class="">Pure Energy</h3>
-                                <h6>Enjoy our all healthy Products</h6>
-                                <p>Get Extra 10% Off</p>
-                            </div>
-                            <h3 class="w3l-nut-middle">Nuts & Dry Fruits</h3>
-                            <div class="col-xs-5 bg-right-nut">
-                                <img src="cart/images/nut1.png" alt="">
-                            </div>
-                            <div class="clearfix"></div>
-                        </div> --}}
-                        <!-- //second section (nuts special) -->
-                        <!-- third section (oils) -->
-                        {{-- <div class="product-sec1">
-                            <h3 class="heading-tittle">Oils</h3>
-                            <div class="col-md-4 product-men">
-                                <div class="men-pro-item simpleCart_shelfItem">
-                                    <div class="men-thumb-item">
-                                        <img src="cart/images/mk4.jpg" alt="">
-                                        <div class="men-cart-pro">
-                                            <div class="inner-men-cart-pro">
-                                                <a href="single.html" class="link-product-add-cart">Quick View</a>
-                                            </div>
-                                        </div>
-                                        <span class="product-new-top">New</span>
-                                    </div>
-                                    <div class="item-info-product ">
-                                        <h4>
-                                            <a href="single.html">Freedom Oil, 1L</a>
-                                        </h4>
-                                        <div class="info-product-price">
-                                            <span class="item_price">$78.00</span>
-                                            <del>$110.00</del>
-                                        </div>
-                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                            <form action="#" method="post">
-                                                <fieldset>
-                                                    <input type="hidden" name="cmd" value="_cart" />
-                                                    <input type="hidden" name="add" value="1" />
-                                                    <input type="hidden" name="business" value=" " />
-                                                    <input type="hidden" name="item_name" value="Freedom Sunflower Oil, 1L" />
-                                                    <input type="hidden" name="amount" value="78.00" />
-                                                    <input type="hidden" name="discount_amount" value="1.00" />
-                                                    <input type="hidden" name="currency_code" value="USD" />
-                                                    <input type="hidden" name="return" value=" " />
-                                                    <input type="hidden" name="cancel_return" value=" " />
-                                                    <input type="submit" name="submit" value="Add to cart" class="button" />
-                                                </fieldset>
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 product-men">
-                                <div class="men-pro-item simpleCart_shelfItem">
-                                    <div class="men-thumb-item">
-                                        <img src="cart/images/mk5.jpg" alt="">
-                                        <div class="men-cart-pro">
-                                            <div class="inner-men-cart-pro">
-                                                <a href="single.html" class="link-product-add-cart">Quick View</a>
-                                            </div>
-                                        </div>
-                                        <span class="product-new-top">New</span>
-
-                                    </div>
-                                    <div class="item-info-product ">
-                                        <h4>
-                                            <a href="single.html">Saffola Gold, 1L</a>
-                                        </h4>
-                                        <div class="info-product-price">
-                                            <span class="item_price">$130.00</span>
-                                            <del>$150.00</del>
-                                        </div>
-                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                            <form action="#" method="post">
-                                                <fieldset>
-                                                    <input type="hidden" name="cmd" value="_cart" />
-                                                    <input type="hidden" name="add" value="1" />
-                                                    <input type="hidden" name="business" value=" " />
-                                                    <input type="hidden" name="item_name" value="Saffola Gold, 1L" />
-                                                    <input type="hidden" name="amount" value="130.00" />
-                                                    <input type="hidden" name="discount_amount" value="1.00" />
-                                                    <input type="hidden" name="currency_code" value="USD" />
-                                                    <input type="hidden" name="return" value=" " />
-                                                    <input type="hidden" name="cancel_return" value=" " />
-                                                    <input type="submit" name="submit" value="Add to cart" class="button" />
-                                                </fieldset>
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 product-men">
-                                <div class="men-pro-item simpleCart_shelfItem">
-                                    <div class="men-thumb-item">
-                                        <img src="cart/images/mk6.jpg" alt="">
-                                        <div class="men-cart-pro">
-                                            <div class="inner-men-cart-pro">
-                                                <a href="single.html" class="link-product-add-cart">Quick View</a>
-                                            </div>
-                                        </div>
-                                        <span class="product-new-top">New</span>
-
-                                    </div>
-                                    <div class="item-info-product ">
-                                        <h4>
-                                            <a href="single.html">Fortune Oil, 5L</a>
-                                        </h4>
-                                        <div class="info-product-price">
-                                            <span class="item_price">$399.99</span>
-                                            <del>$500.00</del>
-                                        </div>
-                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                            <form action="#" method="post">
-                                                <fieldset>
-                                                    <input type="hidden" name="cmd" value="_cart" />
-                                                    <input type="hidden" name="add" value="1" />
-                                                    <input type="hidden" name="business" value=" " />
-                                                    <input type="hidden" name="item_name" value="Fortune Oil, 5L" />
-                                                    <input type="hidden" name="amount" value="399.99" />
-                                                    <input type="hidden" name="discount_amount" value="1.00" />
-                                                    <input type="hidden" name="currency_code" value="USD" />
-                                                    <input type="hidden" name="return" value=" " />
-                                                    <input type="hidden" name="cancel_return" value=" " />
-                                                    <input type="submit" name="submit" value="Add to cart" class="button" />
-                                                </fieldset>
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div> --}}
-                        <!-- //third section (oils) -->
-                        <!-- fourth section (noodles) -->
-                        {{-- <div class="product-sec1">
-                            <h3 class="heading-tittle">Pasta & Noodles</h3>
-                            <div class="col-md-4 product-men">
-                                <div class="men-pro-item simpleCart_shelfItem">
-                                    <div class="men-thumb-item">
-                                        <img src="cart/images/mk7.jpg" alt="">
-                                        <div class="men-cart-pro">
-                                            <div class="inner-men-cart-pro">
-                                                <a href="single.html" class="link-product-add-cart">Quick View</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item-info-product ">
-                                        <h4>
-                                            <a href="single.html">Yippee Noodles, 65g</a>
-                                        </h4>
-                                        <div class="info-product-price">
-                                            <span class="item_price">$15.00</span>
-                                            <del>$25.00</del>
-                                        </div>
-                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                            <form action="#" method="post">
-                                                <fieldset>
-                                                    <input type="hidden" name="cmd" value="_cart" />
-                                                    <input type="hidden" name="add" value="1" />
-                                                    <input type="hidden" name="business" value=" " />
-                                                    <input type="hidden" name="item_name" value="YiPPee Noodles, 65g" />
-                                                    <input type="hidden" name="amount" value="15.00" />
-                                                    <input type="hidden" name="discount_amount" value="1.00" />
-                                                    <input type="hidden" name="currency_code" value="USD" />
-                                                    <input type="hidden" name="return" value=" " />
-                                                    <input type="hidden" name="cancel_return" value=" " />
-                                                    <input type="submit" name="submit" value="Add to cart" class="button" />
-                                                </fieldset>
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 product-men">
-                                <div class="men-pro-item simpleCart_shelfItem">
-                                    <div class="men-thumb-item">
-                                        <img src="cart/images/mk8.jpg" alt="">
-                                        <div class="men-cart-pro">
-                                            <div class="inner-men-cart-pro">
-                                                <a href="single.html" class="link-product-add-cart">Quick View</a>
-                                            </div>
-                                        </div>
-                                        <span class="product-new-top">New</span>
-
-                                    </div>
-                                    <div class="item-info-product ">
-                                        <h4>
-                                            <a href="single.html">Wheat Pasta, 500g</a>
-                                        </h4>
-                                        <div class="info-product-price">
-                                            <span class="item_price">$98.00</span>
-                                            <del>$120.00</del>
-                                        </div>
-                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                            <form action="#" method="post">
-                                                <fieldset>
-                                                    <input type="hidden" name="cmd" value="_cart" />
-                                                    <input type="hidden" name="add" value="1" />
-                                                    <input type="hidden" name="business" value=" " />
-                                                    <input type="hidden" name="item_name" value="Wheat Pasta, 500g" />
-                                                    <input type="hidden" name="amount" value="98.00" />
-                                                    <input type="hidden" name="discount_amount" value="1.00" />
-                                                    <input type="hidden" name="currency_code" value="USD" />
-                                                    <input type="hidden" name="return" value=" " />
-                                                    <input type="hidden" name="cancel_return" value=" " />
-                                                    <input type="submit" name="submit" value="Add to cart" class="button" />
-                                                </fieldset>
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 product-men">
-                                <div class="men-pro-item simpleCart_shelfItem">
-                                    <div class="men-thumb-item">
-                                        <img src="cart/images/mk9.jpg" alt="">
-                                        <div class="men-cart-pro">
-                                            <div class="inner-men-cart-pro">
-                                                <a href="single.html" class="link-product-add-cart">Quick View</a>
-                                            </div>
-                                        </div>
-                                        <span class="product-new-top">New</span>
-
-                                    </div>
-                                    <div class="item-info-product ">
-                                        <h4>
-                                            <a href="single.html">Chinese Noodles, 68g</a>
-                                        </h4>
-                                        <div class="info-product-price">
-                                            <span class="item_price">$11.99</span>
-                                            <del>$15.00</del>
-                                        </div>
-                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                            <form action="#" method="post">
-                                                <fieldset>
-                                                    <input type="hidden" name="cmd" value="_cart" />
-                                                    <input type="hidden" name="add" value="1" />
-                                                    <input type="hidden" name="business" value=" " />
-                                                    <input type="hidden" name="item_name" value="Chinese Noodles, 68g" />
-                                                    <input type="hidden" name="amount" value="11.99" />
-                                                    <input type="hidden" name="discount_amount" value="1.00" />
-                                                    <input type="hidden" name="currency_code" value="USD" />
-                                                    <input type="hidden" name="return" value=" " />
-                                                    <input type="hidden" name="cancel_return" value=" " />
-                                                    <input type="submit" name="submit" value="Add to cart" class="button" />
-                                                </fieldset>
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div> --}}
-                        <!-- //fourth section (noodles) -->
                     </div>
                 </div>
                 <!-- //product right -->
