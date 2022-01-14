@@ -65,19 +65,84 @@
             </div>
             <div class="mb-4 mr-2 text-left">
                <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Cod. Barra</label>
-               <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese código de barra" name="barra" value="{{ old('barra')}}">
+               <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese código de barra" name="barra" value="{{ $producto->barra }}">
                @error('barra') <span class="text-red-500">{{ $message }}</span>@enderror
             </div>
             <div class="mb-4 mr-2 text-left">
                <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Cód. QR</label>
-               <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese código qr" name="qr" value="{{ old('qr')}}">
+               <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese código qr" name="qr" value="{{ $producto->qr }}">
                @error('qr') <span class="text-red-500">{{ $message }}</span>@enderror
             </div>
             <div class="mb-4 mr-2 text-left">
                <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Cód. barra del Proveedor</label>
-               <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese código de barra del proveedor" name="barra_proveedor" value="{{ old('barra_proveedor')}}">
+               <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese código de barra del proveedor" name="barra_proveedor" value="{{ $producto->barra_proveedor }}">
                @error('barra_proveedor') <span class="text-red-500">{{ $message }}</span>@enderror
             </div>
+
+            <div class="mb-4 mr-2 text-left">
+               <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Descuento</label>
+               <select name="descuento" class="rounded">
+                  <option></option>
+                  {{-- @foreach ($descuentos as $descuento) --}}
+                     @if(0 == $producto->descuento)
+                        <option selected="selected" value="0">0% o más</option>
+                     @else
+                        <option value="0">0% o más</option>
+                     @endif
+                     @if(5 == $producto->descuento)
+                        <option selected="selected" value="5">5% o más</option>
+                     @else
+                        <option value="5">5% o más</option>
+                     @endif
+                     @if(10 == $producto->descuento)
+                        <option selected="selected" value="10">10% o más</option>
+                     @else
+                        <option value="10">10% o más</option>
+                     @endif
+                     @if(20 == $producto->descuento)
+                        <option selected="selected" value="20">20% o más</option>
+                     @else
+                        <option value="20">20% o más</option>
+                     @endif
+                     @if(30 == $producto->descuento)
+                        <option selected="selected" value="30">30% o más</option>
+                     @else
+                        <option value="30">30% o más</option>
+                     @endif
+                     @if(40 == $producto->descuento)
+                        <option selected="selected" value="40">40% o más</option>
+                     @else
+                        <option value="40">40% o más</option>
+                     @endif
+                     @if(50 == $producto->descuento)
+                        <option selected="selected" value="50">50% o más</option>
+                     @else
+                        <option value="50">50% o más</option>
+                     @endif
+                  {{-- @endforeach --}}
+               </select>
+               @error('descuento') <span class="text-red-500">{{ $message }}</span>@enderror
+            </div>
+            <div class="mb-4 mr-2 text-left">
+               <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Descuento Especial</label>
+               <select name="descuento_especial" class="rounded">
+                     @if($producto->descuento_especial)
+                        <option selected="selected" value="1">Si</option>
+                        <option value="0">No</option>
+                     @else
+                        <option value="1">Si</option>
+                        <option selected="selected" value="0">No</option>
+                     @endif
+               </select>
+               {{-- <input type="checkbox" placeholder="Ingrese Descuento especial" name="descuento_especial" value="{{ $producto->descuento_especial }}" @if($producto->descuento_especial) checked @endif> --}}
+               @error('descuento_especial') <span class="text-red-500">{{ $message }}</span>@enderror
+            </div>
+            <div class="mb-4 mr-2 text-left">
+               <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Precio de Venta</label>
+               <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese precio de venta" name="precio_venta" value="{{ $producto->precio_venta }}">
+               @error('precio_venta') <span class="text-red-500">{{ $message }}</span>@enderror
+            </div>
+
             <div class="mb-4 mr-2 text-left">
                <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Unidad</label>
                @if($unidades)

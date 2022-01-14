@@ -24,6 +24,10 @@ class CreateProductosTable extends Migration
             $table->integer('barra')->nullable();
             $table->string('qr')->nullable();
             $table->string('barra_proveedor')->nullable();
+            $table->double('descuento')->nullable()->default(0);
+            $table->double('calificacion')->nullable()->default(0);
+            $table->boolean('descuento_especial')->nullable()->default(0);
+            $table->double('precio_venta')->default(0);
 
             $table->unsignedBigInteger('unidads_id');
             $table->unsignedBigInteger('categoriaproductos_id');

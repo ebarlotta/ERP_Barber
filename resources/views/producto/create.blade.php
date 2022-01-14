@@ -62,6 +62,34 @@
             <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese código de barra del proveedor" name="barra_proveedor" value="{{ old('barra_proveedor')}}">
             @error('barra_proveedor') <span class="text-red-500">{{ $message }}</span>@enderror
          </div>
+
+         <div class="mb-4 mr-2 text-left">
+            <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Descuento</label>
+            {{-- <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese descuento" name="descuento" value="{{ old('descuento')}}"> --}}
+
+            <select name="descuento" class="rounded">
+               <option></option>
+               <option value="5">5% o más</option>
+               <option value="10">10% o más</option>
+               <option value="20">20% o más</option>
+               <option value="30">30% o más</option>
+               <option value="40">40% o más</option>
+               <option value="50">50% o más</option>
+            </select>
+
+            @error('descuento') <span class="text-red-500">{{ $message }}</span>@enderror
+         </div>
+         <div class="mb-4 mr-2 text-left">
+            <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Descuento Especial</label>
+            <input type="checkbox" placeholder="Ingrese Descuento especial" name="descuento_especial" value="{{ old('descuento_especial')}}">
+            @error('descuento_especial') <span class="text-red-500">{{ $message }}</span>@enderror
+         </div>
+         <div class="mb-4 mr-2 text-left">
+            <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Precio de Venta</label>
+            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese precio de venta" name="precio_venta" value="{{ old('precio_venta')}}">
+            @error('precio_venta') <span class="text-red-500">{{ $message }}</span>@enderror
+         </div>
+
          <div class="mb-4 mr-2 text-left">
             <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Unidad</label>
             @if($unidades)

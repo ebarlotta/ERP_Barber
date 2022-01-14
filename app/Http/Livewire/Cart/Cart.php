@@ -16,6 +16,7 @@ class Cart extends Component
     public $Modal_Carrito = false;
     public $ModalDescontar = false;
     public $Item_a_eliminar = 0;
+    public $subtotal = 0;
 
     public function render()
     {
@@ -29,7 +30,9 @@ class Cart extends Component
         //dd($this->productos);
         $this->detalles = CartProduct::where('user_id','=',Auth::user()->id)
         ->join('productos','productos.id','=','cart_products.productos_id')->get();
-        //dd($this->detalles);
+
+        $this->ofertas_especiales = Producto::where('empresa_id','=',session('empresa_id'))->where('descuento_especial','=',1)->get();
+        // dd($this->detalles);
 
         return view('livewire.cart.index',['datos'=> Producto::where('empresa_id','=',session('empresa_id'))->orderby('categoriaproductos_id')->paginate(18),]);
     }
@@ -46,12 +49,20 @@ class Cart extends Component
     }
 
     public function show_carrito() {
-        // dd("entro".$id);
+        $Acum = 0;
         $this->Modal_Carrito = true;
-        //dd("entro");
-        //$this->producto_detail = Producto::find($id);
-        ////$this->producto_detail = Producto::all();
-        // return view('livewire.cart.single');
+        $this->data = CartProduct::where('user_id','=',Auth::user()->id)
+        ->join('productos','productos.id','=','cart_products.productos_id')->get();
+
+        foreach($this->data as $data) {
+            if ($data->descuento>0) {
+                $result = $data->precio_venta*(1-$data->descuento/100) * $data->cantidad;
+            } else {
+                $result = $data->precio_venta* $data->cantidad;
+            }
+            $Acum = $Acum + $result;
+        }
+        $this->subtotal = $Acum;
     }
 
     public function CloseModal_Carrito() {
@@ -105,4 +116,19 @@ class Cart extends Component
         $this->Item_a_eliminar = 0;
         $this->CloseModal_Descontar();
     }    
+
+    public function ActualizarCantidad($id, $cantidad) {
+        $detalle = CartProduct::where('user_id','=',Auth::user()->id)
+        ->where('productos_id','=',$id)
+        ->get();
+        
+        if(is_numeric($cantidad)) {
+        $cantidad = abs($cantidad);// dd($cantidad);
+        
+        // $cantidad->validate([
+        //     'cantidad' => 'required',
+        // ]);
+        return $cantidad;
+        }
+    }
 }

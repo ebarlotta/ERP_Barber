@@ -71,6 +71,10 @@ class Productos extends Controller
             'categoriaproductos_id'  => 'required|numeric',
             'estados_id'             => 'required|numeric',
             'barra'                  => 'numeric',
+            'descuento'              => 'numeric',
+            'calificacion'           => 'numeric',
+            'descuento_especial'     => 'boolean',
+            'precio_venta'           => 'required|numeric',
         ]);
 
         $producto = new Producto;
@@ -86,6 +90,12 @@ class Productos extends Controller
         $producto->barra = $request->barra;
         $producto->qr = $request->qr;
         $producto->barra_proveedor = $request->barra_proveedor;
+
+        $producto->descuento = $request->descuento;
+        //$producto->calificacion = $request->calificacion;
+        $producto->descuento_especial = $request->descuento_especial;
+        $producto->precio_venta = $request->precio_venta;
+
         $nombreCompleto = basename($request->ruta) . time().'.jpg';       //$this->ruta->extension();
         
         if (is_null($request->ruta)) {
@@ -96,31 +106,10 @@ class Productos extends Controller
                 $producto->ruta = $nombreCompleto;
             }
         }
-        
-        // if ($request->ruta) {
-        //     $request->file('ruta')->storeAs('images2',$nombreCompleto);
-        // } else {
-        //     $nombreCompleto = 'sin_imagen.jpg';
-        // }
-        // $producto->ruta = $nombreCompleto;
 
         $producto->save();
 
-        //$postres->imagen = $request->file('imagen')->store('postres');
-
         return redirect()->route('producto.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        
-
     }
 
     /**
@@ -136,7 +125,8 @@ class Productos extends Controller
         $proveedores = Proveedor::all();
         $estados = Estado::where('empresa_id','=',session('empresa_id'))->get();
         //$productos = Producto::where('empresa_id','=',session('empresa_id'))->get();
-        
+        //$descuentos = array(['5'=>'5','10'=>'10','20'=>'20','30'=>'30','40'=>'40','50'=>'50',]);
+
         $producto = Producto::find($id);
         //dd($producto);
 
@@ -161,8 +151,12 @@ class Productos extends Controller
             'unidads_id'             => 'required|numeric',
             'categoriaproductos_id'  => 'required|numeric',
             'estados_id'             => 'required|numeric',
+            'descuento'              => 'numeric',
+            'calificacion'           => 'numeric',
+            'descuento_especial'     => 'boolean',
+            'precio_venta'           => 'required|numeric',
         ]);
-        
+
         $producto = Producto::find($id);
 
         $producto->name = $request->name;
@@ -177,6 +171,12 @@ class Productos extends Controller
         $producto->barra = $request->barra;
         $producto->qr = $request->qr;
         $producto->barra_proveedor = $request->barra_proveedor;
+
+        $producto->descuento = $request->descuento;
+        //$producto->calificacion = $request->calificacion;
+        $producto->descuento_especial = $request->descuento_especial;
+        $producto->precio_venta = $request->precio_venta;
+
         $nombreCompleto = substr(basename($request->ruta),0,-4) . time().'.jpg';
         
         if (is_null($request->ruta)) {

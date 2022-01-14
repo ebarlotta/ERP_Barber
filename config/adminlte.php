@@ -340,22 +340,32 @@ return [
             'text' => 'Productos',
             'icon' => 'fas fa-fw fa-building',
             'submenu' => [
-                        [
-                            'text' => 'Agregar Producto',
-                            'url'  => 'producto/create',
-                        ],
+                        
                         [
                             'text' => 'Agregar Etiqueta',
                             'url'  => 'producto/tag',
                         ],
-                        [
+                        [[
+                            'text' => 'Agregar Producto',
+                            'url'  => 'producto/create',
+                        ],
                             'text' => 'Modificar / Eliminar',
                             'url'  => 'producto',
                         ],
                         [
                             'text' => 'Registrar Bajas',
                             'url'  => 'productobajas',
-                        ],    
+                        ],   
+                        [
+                            'text' => 'Carrito Compras',
+                            'icon' => 'fas fa-fw fa-building',
+                            'submenu' => [
+                                [
+                                    'text' => 'Vista de usuario',
+                                    'url'  => 'carts',
+                                ],
+                            ],
+                        ], 
                     ],
         ],
         [

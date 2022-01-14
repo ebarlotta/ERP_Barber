@@ -23,5 +23,7 @@ return [
     "Free_delivery" => "Envío gratis en tu primera orden",
     "Recive" => "Recibe tu producto enviado desde almacenes locales",   //Get your Groceries delivered from local stores
     "All_categories" => "Todas las categorías",
+    "Special_eals" => "Ofertas Especiales",
+    "Discount" => "Descuento",
 
 ];

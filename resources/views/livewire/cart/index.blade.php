@@ -68,25 +68,33 @@
                                
                             <ul>
                                 @foreach($detalles as $detalle)
-                                
                                 <li class="minicartk-item col-11 shadow-xl" style="box-shadow: 2px 2px 5px #999;border-radius: 5px;">
                                     <div class="men-thumb-item flex col-12">
                                         <div class="col-2">
-                                            <img src="{{ asset('images2/'.$detalle->ruta)}}" alt="">
+                                            @if($detalle->ruta<>'sin_imagen.jpg') <img src="{{ asset('images2/'.$detalle->ruta)}}" alt="" style="width: 100%;height: 100%; padding:3px;">
+                                            @else <img src="{{ asset('images/sin_imagen.jpg')}}" alt="" style="width: 100%;height: 100%; padding:3px;">
+                                            @endif
                                         </div>
 
                                         <div class="col-6">{{$detalle->name}}
-                                            <div>Discount: $2.00</div>
+                                            <div>
+                                                @if($detalle->descuento>0)
+                                                    {{ __("labels.Discount")}}: {{$detalle->descuento }} %
+                                                @endif
+                                            </div>
                                             <div class="minicartk-details-price">
-                                                <span class="minicartk-price bold">$ {{ $detalle->precio_compra * $detalle->cantidad }}</span>
+                                                @if($detalle->descuento>0)
+                                                    <del class="minicartk-price bold">$ {{number_format($detalle->precio_compra * $detalle->cantidad,2, ',', '.') }}</del>
+                                                    <span class="minicartk-price bold">$ {{number_format($detalle->precio_compra * $detalle->cantidad * (1-$detalle->descuento/100),2, ',', '.') }}</span>
+                                                @else
+                                                    <span class="minicartk-price bold">$ {{number_format($detalle->precio_compra * $detalle->cantidad,2, ',', '.') }}</span>
+                                                @endif
                                             </div>
                                         </div>
-                                        
                                         <div class="flex col-2 mt-1">
-                                            <input class="minicartk-quantity col-12" data-minicartk-idx="0" name="quantity_1" type="text" pattern="[0-9]*" value="{{ $detalle->cantidad }}" autocomplete="off" style="text-align: center;">
+                                            <input class="minicartk-quantity col-12" data-minicartk-idx="0" name="quantity_1" type="text" pattern="[0-9]*" value="{{ $detalle->cantidad }}" autocomplete="off" style="text-align: center;" wire:change="ActualizarCantidad({{ $detalle->id }},{{ $detalle->cantidad }})" wire:onblur="ActualizarCantidad({{ $detalle->id }},{{ $detalle->cantidad }})">
                                             
                                         </div>
-
                                         <div class="minicartk-details-remove col-2" style="vertical-align: center;justify-content: center;display: flex;">
                                             <button type="button" class="minicartk-remove" data-minicartk-idx="0" wire:click="Descontar({{$detalle->productos_id}})">×</button>
                                         </div>
@@ -148,17 +156,35 @@
                                 </li> --}}
                             </ul>
                             <div class="minicartk-footer">
-                                <div class="minicartk-subtotal"> Subtotal: $415.28 USD </div> <button class="minicartk-submit" type="submit"
-                                    data-minicartk-alt="undefined">Check Out with <img
-                                        src="//cdnjs.cloudflare.com/ajax/libs/minicart/3.0.1/paypal_65x18.png" alt="paypalm" width="65"
-                                        height="18"></button>
-                            </div> <input type="hidden" name="cmd" value="_cart"> <input type="hidden" name="upload" value="1"> <input
-                                type="hidden" name="bn" value="minicartk_AddToCart_WPS_US"> <input type="hidden" name="business" value=" ">
-                            <input type="hidden" name="currency_code" value="USD"> <input type="hidden" name="return" value=" "> <input
-                                type="hidden" name="cancel_return" value=" ">
+                                
 
 
-                        </div>
+                                <div class="minicartk-footer">
+                                    <div class="minicartk-subtotal mb-3"><div class="minicartk-subtotal"> Subtotal: $ {{ number_format($subtotal,2, ',', '.') }} </div>
+                                        {{-- <button class="minicartk-submit" type="submit" data-minicartk-alt="undefined">Check Out with 
+                                            <img src="//cdnjs.cloudflare.com/ajax/libs/minicart/3.0.1/paypal_65x18.png" alt="paypalm" width="65" height="18">
+                                        </button> --}}
+                                    </div>
+
+                                    <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out flex">
+                                        <input type="button" style="margin-bottom: 10px; border-radius: 5px; margin-right: 10px; background-color: coral;" value="Seguir comprando" class="button" wire:click="CloseModal_Carrito()">
+                                        <input type="button" style="margin-bottom: 10px; border-radius: 5px; margin-left: 10px; background-color:#07a627; font-size: 13px;
+                                        color: #fff; text-decoration: none; position: relative; border: none; width: 100%; text-transform: uppercase; padding: 13px; outline: none; letter-spacing: 1px; font-weight: 600;" value="PAGAR" class="" wire:click="CloseModal_Carrito();">
+                                    </div>
+                                </div>
+{{-- 
+                                <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+                                    <input type="button" style="margin-bottom: 10px; border-radius: 5px;" value="Seguir Comprando" class="button" wire:click="Agregar(10)">
+                                    <input type="button" style="margin-bottom: 10px; border-radius: 5px;" value="PAGAR" class="button" wire:click="Agregar(10)">
+                                </div> --}}
+                                {{-- <input type="hidden" name="cmd" value="_cart">
+                                <input type="hidden" name="upload" value="1">
+                                <input type="hidden" name="bn" value="minicartk_AddToCart_WPS_US">
+                                <input type="hidden" name="business" value=" ">
+                                <input type="hidden" name="currency_code" value="USD">
+                                <input type="hidden" name="return" value=" ">
+                                <input type="hidden" name="cancel_return" value=" "> --}}
+                            </div>
                         {{-- <div class="item-info-product col-md-12">
                             <h4>
                                 <a href="single.html">{{ substr($producto_detail->name,0,20) }}</a>
@@ -221,20 +247,31 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <div class="product-men">
-                                    <div class="men-thumb-item col-md-6">
-                                        <img src="cart/images/m1.jpg" alt="">
-                                        <span class="product-new-top" style="right: 23%;">{{ __("labels.New")}}</span>
+                                    <div class="men-thumb-item col-md-6" style="text-align:left;">
+                                        @if($producto_detail->ruta <>'sin_imagen.jpg')
+                                            <img src="{{ asset('images2/'. $producto_detail->ruta )}}" alt="" style="min-height: 170px;" style="float: left;">
+                                            <span class="product-new-top">{{ __("labels.New")}}</span>
+                                        @else
+                                            <img src="{{ asset('images/sin_imagen.jpg')}}" alt="" style="float: left;">
+                                            <span class="product-new-top">{{ __("labels.New")}}</span>
+                                        @endif
                                     </div>
                                     <div class="men-thumb-item col-md-6">
-                                        detail
+                                        <textarea name="" id="" cols="20" rows="10">{{$producto_detail->descripcion}}</textarea>
                                     </div>
                                     <div class="item-info-product col-md-12">
                                         <h4>
                                             <a href="single.html">{{ substr($producto_detail->name,0,20) }}</a>
                                         </h4>
                                         <div class="info-product-price">
-                                            <span class="item_price">$ {{ $producto_detail->precio_compra }}</span>
-                                            <del>${{ $producto_detail->precio_compra * 1.10 }}</del>
+                                            @if($producto_detail->descuento>0)
+                                                <span class="item_price">$ {{ number_format($producto_detail->precio_venta * (1-$producto_detail->descuento/100),2, ',', '.') }}</span>
+                                                <del>${{ number_format($producto_detail->precio_venta,2, ',', '.') }}</del>
+                                            @else
+                                                <span class="item_price">$ {{ number_formar($producto_detail->precio_venta,2, ',', '.') }}</span>
+                                            @endif
+                                            {{-- <span class="item_price">$ {{ $producto_detail->precio_compra }}</span>
+                                            <del>${{ $producto_detail->precio_compra * 1.10 }}</del> --}}
                                         </div>
                                         <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
                                               {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
@@ -732,18 +769,20 @@
                     <!-- //cuisine -->
                     <!-- deals -->
                     <div class="deal-leftmk left-side">
-                        <h3 class="agileits-sear-head">{{ __("labels.Special_eals")}}</h3>
-                        <div class="special-sec1">
-                            <div class="col-xs-4 img-deals">
-                                <img src="cart/images/d2.jpg" alt="">
+                        <h3 class="agileits-sear-head">{{ __("labels.Special_eals")}}</h3>}
+                        @foreach($ofertas_especiales as $oferta_especial)
+                            <div class="special-sec1">
+                                <div class="col-xs-4 img-deals">
+                                    <img src="{{ asset('images2/' . $oferta_especial->ruta )}}" alt="">
+                                </div>
+                                <div class="col-xs-8 img-deal1">
+                                    <h3>{{ $oferta_especial->name}}</h3>
+                                    <a href="single.html">$ {{ $oferta_especial->precio_venta}}</a>
+                                </div>
+                                <div class="clearfix"></div>
                             </div>
-                            <div class="col-xs-8 img-deal1">
-                                <h3>Lay's Potato Chips</h3>
-                                <a href="single.html">$18.00</a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="special-sec1">
+                        @endforeach
+                        {{-- <div class="special-sec1">
                             <div class="col-xs-4 img-deals">
                                 <img src="cart/images/d1.jpg" alt="">
                             </div>
@@ -782,7 +821,7 @@
                                 <a href="single.html">$149.00</a>
                             </div>
                             <div class="clearfix"></div>
-                        </div>
+                        </div> --}}
                     </div>
                     <!-- //deals -->
                 </div>
@@ -798,7 +837,9 @@
                                 <div class="col-md-4 product-men">
                                     <div class="men-pro-item simpleCart_shelfItem" style="box-shadow: 2px 2px 5px #999;border-radius: 5px;">
                                             <div class="men-thumb-item">
-                                                <img src="cart/images/m1.jpg" alt="">
+                                                @if($producto->ruta<>'sin_imagen.jpg') <img src="{{ asset('images2/'. $producto->ruta )}}" alt="" style="min-height: 170px">
+                                                @else <img src="{{ asset('images/sin_imagen.jpg')}}" alt="" style="min-height: 170px">
+                                                @endif
                                                 <div class="men-cart-pro">
                                                     <div class="inner-men-cart-pro">
                                                         {{-- <a class="play-icon popup-with-zoom-anim" href="#small-dialog1"> --}}
@@ -813,8 +854,12 @@
                                                     <a href="single.html">{{ substr($producto->name,0,20) }}</a>
                                                 </h4>
                                                 <div class="info-product-price">
-                                                    <span class="item_price">$ {{ $producto->precio_compra }}</span>
-                                                    <del>${{ number_format($producto->precio_compra * 1.10,2) }}</del>
+                                                    @if($producto->descuento>0)
+                                                        <span class="item_price">$ {{ number_format($producto->precio_venta * (1-$producto->descuento/100),2, ',', '.') }}</span>
+                                                        <del>${{ number_format($producto->precio_venta,2, ',', '.') }}</del>
+                                                    @else
+                                                        <span class="item_price">$ {{ $producto->precio_venta }}</span>
+                                                    @endif
                                                 </div>
                                                 <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
                                                     {{-- <form action="#" method="post">
