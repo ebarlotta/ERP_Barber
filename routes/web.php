@@ -17,6 +17,7 @@ use App\Http\Livewire\Compra\CompraComponent;
 use App\Http\Livewire\Venta\VentaComponent;
 use App\Http\Controllers\SocialController;
 use App\Http\Livewire\Cart\Cart;
+use App\Http\Livewire\Cart\Payment\PaymentComponent;
 // use App\Http\Controllers\Cart;
 /*
 |--------------------------------------------------------------------------
@@ -89,6 +90,8 @@ Route::resource('producto',Productos::class);
 
 Route::get('producto/productobajas', [Productos::class, 'productobajas'])->name('producto.productobajas');
 
-Route::get('carts/single/{{id}}',[Cart::class,'single'])->name('cart.single');
+// Route::get('carts/single/{{id}}',[Cart::class,'single'])->name('cart.single');
 Route::get('carts',Cart::class)->name('carts');
-Route::get('payments',[Cart::class,'payment_index'])->name('payments');
+// Route::get('payments',[Cart::class,'payment_index'])->name('payments');
+//Route::get('payments',[Cart::class,'payment_index'])->name('payments');
+Route::get('payments',PaymentComponent::class)->name('payments');

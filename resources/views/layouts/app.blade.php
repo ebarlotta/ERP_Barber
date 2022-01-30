@@ -24,7 +24,7 @@
 
     <!-- Styles -->
     
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> --}}
     
 
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
@@ -87,7 +87,11 @@
                                     </form>
                                 </div>
                             </li>
-                            <img src="{{ Auth::user()->profile_photo_path }}" width="40px;" height="30px;">
+                            @if(is_null(Auth::user()->profile_photo_path))
+                                <img src="images/sin_imagen.jpg" width="40px;" height="30px;" style="border-radius: 50%">
+                            @else
+                                <img src="{{ Auth::user()->profile_photo_path }}" width="40px;" height="30px;" style="border-radius: 50%">
+                            @endif
                         @endguest
                     </ul>
                 </div>

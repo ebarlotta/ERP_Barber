@@ -108,7 +108,10 @@
                                     <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out flex">
                                         <input type="button" style="margin-bottom: 10px; border-radius: 5px; margin-right: 10px; background-color: coral;" value="Seguir comprando" class="button" wire:click="CloseModal_Carrito()">
                                         <input type="button" style="margin-bottom: 10px; border-radius: 5px; margin-left: 10px; background-color:#07a627; font-size: 13px;
-                                        color: #fff; text-decoration: none; position: relative; border: none; width: 100%; text-transform: uppercase; padding: 13px; outline: none; letter-spacing: 1px; font-weight: 600;" value="PAGAR" class="" wire:click="CloseModal_Carrito();">
+                                        color: #fff; text-decoration: none; position: relative; border: none; width: 100%; text-transform: uppercase; padding: 13px; outline: none; letter-spacing: 1px; font-weight: 600;" value="{{ __('labels.Pay_Now')}}" wire:click="payment_index">
+                                        {{-- <input type="button" style="margin-bottom: 10px; border-radius: 5px; margin-left: 10px; background-color:#07a627; font-size: 13px;
+                                        color: #fff; text-decoration: none; position: relative; border: none; width: 100%; text-transform: uppercase; padding: 13px; outline: none; letter-spacing: 1px; font-weight: 600;" value="{{ __('labels.Pay_Now')}}" wire:click="{{ route('payments/'.$user_id) }});"> --}}
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -297,27 +300,31 @@
                         <h3 class="agileits-sear-head">{{ __("labels.Discount")}}</h3>
                         <ul>
                             <li>
-                                <input type="checkbox" class="checked">
+                                <input type="checkbox" class="checked" wire:model="D05">
                                 <span class="span">5% {{ __("labels.Or_more")}}</span>
                             </li>
                             <li>
-                                <input type="checkbox" class="checked">
+                                <input type="checkbox" class="checked" wire:model="D10">
                                 <span class="span">10% {{ __("labels.Or_more")}}</span>
                             </li>
                             <li>
-                                <input type="checkbox" class="checked">
+                                <input type="checkbox" class="checked" wire:model="D20">
                                 <span class="span">20% {{ __("labels.Or_more")}}</span>
                             </li>
                             <li>
-                                <input type="checkbox" class="checked">
+                                <input type="checkbox" class="checked" wire:model="D30">
                                 <span class="span">30% {{ __("labels.Or_more")}}</span>
                             </li>
                             <li>
-                                <input type="checkbox" class="checked">
+                                <input type="checkbox" class="checked" wire:model="D40">
+                                <span class="span">40% {{ __("labels.Or_more")}}</span>
+                            </li>
+                            <li>
+                                <input type="checkbox" class="checked" wire:model="D50">
                                 <span class="span">50% {{ __("labels.Or_more")}}</span>
                             </li>
                             <li>
-                                <input type="checkbox" class="checked">
+                                <input type="checkbox" class="checked" wire:model="D60">
                                 <span class="span">60% {{ __("labels.Or_more")}}</span>
                             </li>
                         </ul>
@@ -383,7 +390,7 @@
                     <!-- //cuisine -->
                     <!-- deals -->
                     <div class="deal-leftmk left-side">
-                        <h3 class="agileits-sear-head">{{ __("labels.Special_eals")}}</h3>}
+                        <h3 class="agileits-sear-head">{{ __("labels.Special_deals")}}</h3>
                         @foreach($ofertas_especiales as $oferta_especial)
                             <div class="special-sec1">
                                 <div class="col-xs-4 img-deals">
@@ -411,8 +418,8 @@
                                 <div class="col-md-4 product-men">
                                     <div class="men-pro-item simpleCart_shelfItem" style="box-shadow: 2px 2px 5px #999;border-radius: 5px;">
                                             <div class="men-thumb-item">
-                                                @if($producto->ruta<>'sin_imagen.jpg') <img src="{{ asset('images2/'. $producto->ruta )}}" alt="" style="min-height: 170px">
-                                                @else <img src="{{ asset('images/sin_imagen.jpg')}}" alt="" style="min-height: 170px">
+                                                @if($producto->ruta<>'sin_imagen.jpg') <img src="{{ asset('images2/'. $producto->ruta )}}" alt="" style="height: 260px; max-width: 96%; margin-top: 5px; border-radius: 5px;">
+                                                @else <img src="{{ asset('images/sin_imagen.jpg')}}" alt="" style="height: 260px; max-width: 96%; margin-top: 5px; border-radius: 5px;">
                                                 @endif
                                                 <div class="men-cart-pro">
                                                     <div class="inner-men-cart-pro">
@@ -457,7 +464,7 @@
         <div class="featured-section" id="projects">
             <div class="container">
                 <!-- tittle heading -->
-                <h3 class="tittle-w3l">{{ __("labels.Special_offers")}}
+                <h3 class="tittle-w3l">{{ __("labels.Special_offers") }}
                     <span class="heading-style">
 					<i></i>
 					<i></i>
