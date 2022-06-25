@@ -57,7 +57,7 @@ class ProductoComponent extends Component
         $this->categoria_productos = Categoriaproducto::where('empresa_id', $this->empresa_id)->get();
         $this->estados = Estado::where('empresa_id', $this->empresa_id)->get();
         $this->proveedores = Proveedor::where('empresa_id', $this->empresa_id)->get();
-        //dd($this->unidades);
+        //dd($this->proveedores);
         $this->isModalOpen = true;
     }
 
@@ -101,21 +101,22 @@ class ProductoComponent extends Component
         //$infoPath = File::extension($this->ruta);
         
         //dd($infoPath);
-        
-        if ($this->ruta) {
+        //dd($this->ruta);
+
+        if (!$this->ruta) {
             $nombreCompleto = basename($this->ruta) . time().'.jpg';       //$this->ruta->extension();
             //dd($nombreCompleto);
             try { 
-                $this->ruta->storeAs('images2', $nombreCompleto);
+                //$this->ruta->storeAs('images2', $nombreCompleto);
                 $this->ruta = $nombreCompleto;
             }
             catch(Exception $e) {
                 $this->ruta = $this->ruta;
             }
-        }
+        }       // CORREGIR
 
         //dd($this->ruta->file);
-        // dd(file($this->ruta));   /tmp/phpAFTkwl
+        //dd(file($this->ruta));   //  /tmp/phpAFTkwl
         //dd(basename($this->ruta));   //    phpQqaocm
         Producto::updateOrCreate(['id' => $this->producto_id], [
             'name' => $this->name,

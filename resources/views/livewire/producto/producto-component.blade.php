@@ -35,7 +35,7 @@
 
 				@if ($isModalOpen)
 					{{-- @include('livewire.producto.createproductos') --}}
-					<x-producto>
+					{{-- <x-producto> --}}
 						<form method="POST" enctype="multipart/form-data" action="store()">
 							<div class="bg-white px-4 pt-2 pb-2 sm:p-6 sm:pb-4 flex flex-wrap">
 								<div class="mb-4 mr-2 text-left">
@@ -52,8 +52,7 @@
 								</div>
 								<div class="mb-4 mr-2 text-left flex">
 									@if($this->ruta != 'sin_imagen.jpg')
-										<img src="{{ asset( $this->ruta )}}" width="100px" height="100px">
-										{{-- <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"	id="exampleFormControlInput1" placeholder="Ingrese imágenoooo" wire:model="ruta" value="{{ $this->ruta }}">										 --}}
+										<img src="{{ asset('images2/'.$this->ruta )}}" width="100px" height="100px">
 										@error('ruta') <span class="text-red-500">{{ $message }}</span>@enderror
 									@else
 										<img src="{{ asset('images/sin_imagen.jpg' )}}" width="100px" height="100px">
@@ -139,7 +138,7 @@
 								<x-cerrar></x-cerrar>
 							</div>
 					</form>
-					</x-producto>
+					{{-- </x-producto> --}}
 				@endif	
 				@if ($productos)
 				<div class="flex">
@@ -156,13 +155,13 @@
 									<div class="w-full">
 										<div class="flex rounded overflow-hidden border">
 											@if($producto->ruta != 'sin_imagen.jpg') 
-												<img class="block rounded-md flex-none bg-cover" src="{{ asset($producto->ruta) }}" style="width:80px; height: 80px;">	
+												<img class="block rounded-md flex-none bg-cover" src="{{ asset('images2/'.$producto->ruta) }}" style="width:80px; height: 80px;">	
 											@else
 												<img class="block rounded-md flex-none bg-cover" src="{{ asset('images/sin_imagen.jpg') }}" style="width:80px; height: 80px;">
 											@endif
 											<div class="bg-white rounded-b pt-4 pl-4 flex justify-between leading-normal w-full">
 												<div class="text-black font-bold text-lg mb-2 leading-tight" style="width:25%;">{{ $producto->name }}</div>
-												<div class="text-black text-lg mb-2 leading-tight w-1/6 w-auto">{{ $producto->existencia }}</div>
+												<div class="text-black text-lg mb-2 leading-tight w-1/6">{{ $producto->existencia }}</div>
 												<div class="text-black text-lg mb-2 leading-tight w-1/6">{{ $producto->stock_minimo }}</div>
 												<div class="text-black text-lg mb-2 leading-tight w-1/6">{{ $producto->estados_id}}</div>
 											</div>
