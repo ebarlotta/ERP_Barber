@@ -32,11 +32,11 @@
             </div>
             <div class="mb-4 mr-2 text-left flex">
                @if($producto->ruta != 'sin_imagen.jpg')
-                  <img src="{{ asset('images2/'.$producto->ruta) }}" style="width:100px; height:100px;">
+                  <img src="{{ asset('images2/'.$producto->ruta) }}" style="width: 70px; height:70px; border-radius: 7px;">
                   <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"	id="ruta" name="ruta" placeholder="Ingrese imágen" src="{{ asset('images2/'.$producto->ruta) }}">
                   @error('ruta') <span class="text-red-500">{{ $message }}</span>@enderror
                @else
-                  <img src="{{ asset('images/sin_imagen.jpg' )}}" style="width:100px; height:100px;">
+                  <img src="{{ asset('images/sin_imagen.jpg' )}}" style="width:70px; height:70px; border-radius: 7px;">
                   <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"	id="ruta" name="ruta" placeholder="Ingrese imágen">
                   @error('ruta') <span class="text-red-500">{{ $message }}</span>@enderror
                @endif
