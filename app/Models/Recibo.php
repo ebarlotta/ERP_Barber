@@ -8,6 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Recibo extends Model
 {
     use HasFactory;
+
+    protected $fillable=[
+        'perpago',
+        'lugarpago',
+        'fechapago',
+        'totalhaberes',
+        'noremunetativo',
+        'descuentos',
+        'perultimaliq',
+        'fechaultliq',
+        'estado',
+        'empleado_id',
+        'categoriaprofesional_id',
+    ];
     
     //Relacion uno a muchos inversa
     public function empleado()
