@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Recibo;
 use App\Http\Livewire\Haberes\clsRecibo as clsRecibo;
 use App\Models\Categoriaprofesional;
+use App\Models\ConceptoRecibo;
 use App\Models\Empleado;
 use App\Models\Empresa;
 
@@ -26,10 +27,17 @@ class HaberesComponent extends Component
     public $IdEmpleado=0;
     public $IdCatProfe=0;
     public $TotHaberes=0;
+    public $Rem=0;
     public $NoRem=0;
     public $Descuentos=0;
     public $PerUltLiq=0;
     public $FechaUltLiq=0;
+    public $Conceptos;  //Recordset de Conceptos del recibo
+    public $SumHaberes;
+    public $SumUnidades;
+    public $TotalRemu;
+    public $RB; //Utilizado para sumarizar la Remuneración Bruta a la cual hacerle los descuentos
+    
     
     //Datos propios de la empresa
     public $NombreEmpresa;
@@ -84,10 +92,6 @@ class HaberesComponent extends Component
         ->where('perpago',$Periodo)
         ->get();
 
-        $this->CargarDatosDeLaEmpresa();
-        $this->CargarDatosDelEmpleado();
-        $this->CargarDatosCategoriaProfesional();
-
         // dd($ReciboRec=json_decode(json_encode($ReciboRec), true));
         if(count($ReciboRec)) {
             $this->LugarPago=$ReciboRec[0]['lugarpago'];
@@ -115,6 +119,12 @@ class HaberesComponent extends Component
             $this->FechaUltLiq=$ReciboRec[0]['fechaultliq'];
 
             //$this->Banco=$row['Banco'];
+
+            $this->CargarDatosDeLaEmpresa();
+            $this->CargarDatosDelEmpleado();
+            $this->CargarDatosCategoriaProfesional();
+            $this->DevolverConceptosRecibo($this->IdRecibo);
+
 
         }
         // dd($Recibo);
@@ -229,4 +239,225 @@ class HaberesComponent extends Component
         $this->NombreSubCategoria = $Categoria[0]['subcategoria'];
         $this->CCT = $Categoria[0]['cct'];
     }
+
+    public function DevolverConceptosRecibo($IdRecibo) {
+        $Detalle = DB::table('concepto_recibos')
+        ->join('conceptos','concepto_id','=','conceptos.id')
+        ->where('recibo_id','=',$IdRecibo)->get();
+
+        $Detalle=json_decode($Detalle, true);
+        //dd($Detalle);
+        $a = Recibo::find($this->IdRecibo);
+        
+        $precios = array($a->CategoriaProfesional->preciomes,$a->CategoriaProfesional->preciodia,$a->CategoriaProfesional->preciohora,$a->CategoriaProfesional->preciounidad,$a->CategoriaProfesional->basico,$a->CategoriaProfesional->basico1,$a->CategoriaProfesional->basico2);
+		$precios = implode("#", $precios);
+        
+        $activo = array($a->DatosEmpleado->mensualizado,$a->DatosEmpleado->jornalizado,$a->DatosEmpleado->hora,$a->DatosEmpleado->unidad);
+        $tipos= implode("#", $activo);
+
+        $i=0;
+        // dd($Detalle);
+        foreach($Detalle as $Conceptohtml) {
+            
+            $AA[$i]['orden'] = $Conceptohtml['orden'];
+            $AA[$i]['cantidad'] = $Conceptohtml['cantidad'];
+            $AA[$i]['name'] = $Conceptohtml['name'];
+            $AA[$i]['Rem']='0'; $AA[$i]['NoRem']='0'; $AA[$i]['Descuento']='0';
+            // dd($Conceptohtml['cantidad']." ". $Conceptohtml['unidad']." ". $Conceptohtml['montofijo']." ". $Conceptohtml['calculo']);
+            if($Conceptohtml['rem']>0) {
+                $AA[$i]['Rem']=$this->CalcularExpresion($precios, $tipos, $Conceptohtml['cantidad'], $Conceptohtml['montofijo'], $Conceptohtml['calculo']);
+                $AA[$i]['NoRem']=0;
+                $AA[$i]['Descuento']=0;
+            }
+            if($Conceptohtml['norem']>0) {
+                $AA[$i]['Rem']=0;
+                $AA[$i]['NoRem']=$this->CalcularExpresion($precios, $tipos, $Conceptohtml['cantidad'], $Conceptohtml['montofijo'], $Conceptohtml['calculo']);
+                $AA[$i]['Descuento']=0;
+            }
+            if($Conceptohtml['descuento']>0) {
+                $AA[$i]['Rem']=0;
+                $AA[$i]['NoRem']=0;
+                $AA[$i]['Descuento']=$this->CalcularExpresion($precios, $tipos, $Conceptohtml['cantidad'], $Conceptohtml['montofijo'], $Conceptohtml['calculo']);;
+            }
+            $i++;
+            // $AA[$i]['NR']=$this->CalcularExpresion($precios, $tipos, $Conceptohtml['cantidad'], $Conceptohtml['unidad'], $Conceptohtml['montofijo'], $Conceptohtml['calculo']);
+        }
+
+        $this->Conceptos = $AA;
+        // dd($this->Conceptos);
+        // for ($i=0; $i<count($this->Conceptos);$i++) {
+
+        // }
+        // dd($this->Conceptos['name']);
+        // dd($this->Conceptos[1]['name']);
+        // $HTM='';
+        // $R='';
+        // $NR='';
+        // $D=0;
+        
+        // $pp=0;
+        
+        
+        // dd($pp);
+
+        // if ($this->Conceptos[0]['montofijo']>0) {
+            
+        //     $pp=floatval($this->CalcularExpresion($precios, $tipos, $this->Conceptos[0]['cantidad'], $this->Conceptos[0]['unidad'], $this->Conceptos[0]['montofijo'], $this->Conceptos[0]['calculo']));
+        //     // $pp=$this->CalcularExpresion($precios,$tipos,$this->Conceptos->cantidad,$this->Conceptos->unidad,$this->Conceptos->montofijo,$this->Conceptos->calculo,$this->SumHaberes,$this->SumUnidades);
+        //     if ($this->Rem>0) { 
+        //         $HTM=$HTM.'<td align="right">'.number_format($pp, 2, ',', '.').'</td>'; $R=$R+$this->Conceptos[0]['montofijo']; } 
+        //     else { $HTM=$HTM.'<td align="right">0,00</td>';}
+        //     if ($this->NoRem>0) { $HTM=$HTM.'<td align="right">'.number_format($pp, 2, ',', '.').'</td>'; $NR=$NR+$pp; } 
+        //     else { $HTM=$HTM.'<td align="right">0,00</td>';}
+        //     if ($this->Descuentos>0) { 
+        //         $HTM=$HTM.'<td align="right">'.number_format($this->Conceptos[0]['montofijo'], 2, ',', '.').'</td>'; 
+        //         // dd($this->Descuentos);
+        //         $D=$D+$this->Conceptos[0]['montofijo']; } 
+        //     else { $HTM=$HTM.'<td align="right">0,00</td></tr>';}
+        // } 
+        // else {
+            
+        //     $pp=floatval($this->CalcularExpresion($precios, $tipos, $this->Conceptos[0]['cantidad'], $this->Conceptos[0]['unidad'], $this->Conceptos[0]['montofijo'], $this->Conceptos[0]['calculo']));
+        //     if ($this->Rem>0) { $HTM=$HTM.'<td align="right">'.number_format($pp, 2, ',', '.').'</td>';  $R=$R+$pp;} else { $HTM=$HTM.'<td align="right">0,00</td>';}
+        //     $this->TotalRemu=$this->TotalRemu+$pp;
+        //      if ($this->NoRem>0) { $HTM=$HTM.'<td align="right">'.number_format($pp, 2, ',', '.').'</td>'; $NR=$NR+$pp;} else { $HTM=$HTM.'<td align="right">0,00</td>';}
+        //     if ($this->Descuentos>0) { $HTM=$HTM.'<td align="right">'.number_format($pp, 2, ',', '.').'</td>';  $D=$D+$pp; } else { $HTM=$HTM.'<td align="right">0,00</td></tr>';}
+        // }
+    // }
+
+    // public function DevolverConceptosRecibo($IdRecibo) {
+    //     $this->Conceptos = DB::table('concepto_recibos')
+    //     ->join('conceptos','concepto_id','=','conceptos.id')
+    //     ->where('recibo_id','=',$IdRecibo)->get();
+
+    //     $this->Conceptos=json_encode($this->Conceptos, true);
+    //     dd($this->Conceptos['name']);
+    //     dd($this->Conceptos[1]['name']);
+    //     $HTM='';
+    //     $R='';
+    //     $NR='';
+    //     $D=0;
+    //     $a = Recibo::find($this->IdRecibo);
+        
+    //     $precios = array($a->CategoriaProfesional->preciomes,$a->CategoriaProfesional->preciodia,$a->CategoriaProfesional->preciohora,$a->CategoriaProfesional->porunidad,$a->CategoriaProfesional->basico,$a->CategoriaProfesional->basico1,$a->CategoriaProfesional->basico2);
+	// 	$precios = implode("#", $precios);
+        
+    //     $activo = array($a->DatosEmpleado->mensualizado,$a->DatosEmpleado->jornalizado,$a->DatosEmpleado->hora,$a->DatosEmpleado->unidad);
+    //     $tipos= implode("#", $activo);
+        
+    //     $pp=0;
+    //     $pp=$this->CalcularExpresion($precios, $tipos, $this->Conceptos[0]['cantidad'], $this->Conceptos[0]['unidad'], $this->Conceptos[0]['montofijo'], $this->Conceptos[0]['calculo']);
+        
+    //     // dd($pp);
+
+    //     if ($this->Conceptos[0]['montofijo']>0) {
+            
+    //         $pp=floatval($this->CalcularExpresion($precios, $tipos, $this->Conceptos[0]['cantidad'], $this->Conceptos[0]['unidad'], $this->Conceptos[0]['montofijo'], $this->Conceptos[0]['calculo']));
+    //         // $pp=$this->CalcularExpresion($precios,$tipos,$this->Conceptos->cantidad,$this->Conceptos->unidad,$this->Conceptos->montofijo,$this->Conceptos->calculo,$this->SumHaberes,$this->SumUnidades);
+    //         if ($this->Rem>0) { 
+    //             $HTM=$HTM.'<td align="right">'.number_format($pp, 2, ',', '.').'</td>'; $R=$R+$this->Conceptos[0]['montofijo']; } 
+    //         else { $HTM=$HTM.'<td align="right">0,00</td>';}
+    //         if ($this->NoRem>0) { $HTM=$HTM.'<td align="right">'.number_format($pp, 2, ',', '.').'</td>'; $NR=$NR+$pp; } 
+    //         else { $HTM=$HTM.'<td align="right">0,00</td>';}
+    //         if ($this->Descuentos>0) { 
+    //             $HTM=$HTM.'<td align="right">'.number_format($this->Conceptos[0]['montofijo'], 2, ',', '.').'</td>'; 
+    //             // dd($this->Descuentos);
+    //             $D=$D+$this->Conceptos[0]['montofijo']; } 
+    //         else { $HTM=$HTM.'<td align="right">0,00</td></tr>';}
+    //     } 
+    //     else {
+            
+    //         $pp=floatval($this->CalcularExpresion($precios, $tipos, $this->Conceptos[0]['cantidad'], $this->Conceptos[0]['unidad'], $this->Conceptos[0]['montofijo'], $this->Conceptos[0]['calculo']));
+    //         if ($this->Rem>0) { $HTM=$HTM.'<td align="right">'.number_format($pp, 2, ',', '.').'</td>';  $R=$R+$pp;} else { $HTM=$HTM.'<td align="right">0,00</td>';}
+    //         $this->TotalRemu=$this->TotalRemu+$pp;
+    //          if ($this->NoRem>0) { $HTM=$HTM.'<td align="right">'.number_format($pp, 2, ',', '.').'</td>'; $NR=$NR+$pp;} else { $HTM=$HTM.'<td align="right">0,00</td>';}
+    //         if ($this->Descuentos>0) { $HTM=$HTM.'<td align="right">'.number_format($pp, 2, ',', '.').'</td>';  $D=$D+$pp; } else { $HTM=$HTM.'<td align="right">0,00</td></tr>';}
+    //     }
+    }
+
+
+    public function CalcularExpresion($precio,$tipo,$CA, $MF,$expre) {
+
+        unset($A);
+        unset($pieces);
+
+        $A=array();
+        
+        $precios = explode("#", $precio); $PM=$precios[0]; $PD=$precios[1]; $PH=$precios[2]; $PU=$precios[3]; $BC=$precios[4]; $B1=$precios[5]; $B2=$precios[6];
+        
+        $tipos   = explode("#", $tipo);   $TM=$tipos[0];   $TD=$tipos[1];   $TH=$tipos[2];   $TU=$tipos[3];
+        // dd($tipos);
+        // PD: Precio Mes   PD: Precio Dia    PH: Precio Hora    PU: Precio Unidad
+        // TM: Tipo Mes     TD: Tipo Dia      TH: Tipo Hora      TU: Tipo Unidad
+        $pieces = explode("*", $expre);
+        
+        /*
+        RA	    Remuneración básica
+        RB	    Remuneración básica
+        AAOS	Aporte Adicional Obra Social
+        AASS	Aporte Adicional Seg. Social
+        ANR	    Asig. No Remunerat
+        BC	    Básico Categoría al inicio
+        B1	    Básico Categoría Uno
+        B2	    Básico Categoría Dos
+        ANT	    Antiguedad
+        CA	    Cantidad
+        MF	    Monto Fijo
+        -- UN	    Unidades --
+        DE	    Total Descuentos
+        
+        */
+        for ($c=0; $c<count($pieces); $c++) {
+        // dd($pieces[$c]);
+        
+        // 	while ($pieces[$c]) {
+        // 		$c++;
+                switch ($pieces[$c]) {
+                    case "RA":{ $A[$c]=$PM*$TM+$PD*$TD+$PH*$TH+$PU*$TU  ;   break;}// 'R'emuneracion 'A'signada
+                    case "RB":{ $A[$c]=($PM*$TM+$PD*$TD+$PH*$TH+$PU*$TU)   ; $this->RB=$A[$c];   break;}// 'R'emuneracion 'A'signada
+                    //case "TH":{ $A[$c]=($PD*$TD+$PH*$TH+$PM*$TM+$PU*$TU)*$C;	break;}// 'T'otal 'H'aberes
+        
+                    // case "U": {	 $A[$c]=$U;  break;}				// 'U'nidades
+                    case "DE": { $A[$c]=$this->RB;  break;}			// 'D'escuentos 
+        
+                    case "MF": { $A[$c]=$MF; break;}				    // 'M'onto 'F'ijo
+                    case "CA": { $A[$c]=$CA; break;}				// 'C'antidad
+                    case "BC": { $A[$c]=$BC; break;}				// 'B'ásico 'C'ategoria
+                    case "B1": { $A[$c]=$B1; break;}				// 'B'ásico 'C'ategoria 1
+                    case "B2": { $A[$c]=$B2; break;}				// 'B'ásico 'C'ategoria 2
+        
+        //             case "AAOS": { if (($SH*0.03)<$C) { $A[$c]=$C-($SH*0.03); } else { $A[$c]=0;} break;}	//
+        //             case "AASS": { if (($SH*0.14)<$C) { $A[$c]=$C-($SH*0.14); } else { $A[$c]=0;} break;}	//
+        //             case "ANR": {	 if ($SumUnidades<=$C) { $A[$c]=$U*$SumUnidades/200;} else { $A[$c]=$MF*$SumUnidades; } break;}	// Asignacion No Remunerativa
+        //             case "ANT": {	$Empl = new clsEmpleado($Periodo,$IdEmp); $A[$c]=$Empl->Antiguedad; unset($Empl); break;} // Devuelve la cantidad de a&ntilde;os
+        //               // case "ANTFCalc": {	$Empl = new clsEmpleado($Periodo,$IdEmp); $A[$c]=$Empl->AntiguedadFC($Periodo); unset($Empl); break;} // Devuelve la cantidad de a&ntilde;os
+        // // 			case "ANR": {	 if ($SumUnidades<=200) { $A[$c]=239*$SumUnidades/200;} else { $A[$c]=239; } break;}	// Asignacion No Remunerativa
+        //             case "2SAC":{ $Anio=substr($Periodo,0,4);
+        //                 $sSql="SELECT sum(TotHaberes)/12 as Tot FROM tblRecibos WHERE PerPago<=".$Anio."12 and PerPago >=".$Anio."07 and IdEmpleado=$IdEmp";
+        //                 $stmt =  $GLOBALS['pdo']->prepare($sSql); $stmt->execute();
+        //                 $row=$stmt->fetch();
+        //                 $A[$c]=$row['Tot'];   break;}// 2do SAC
+        //             case "1SAC":{ $Anio=substr($Periodo,0,4);
+        //                 $sSql="SELECT sum(TotHaberes)/12 as Tot FROM tblRecibos WHERE PerPago<=".$Anio."06 and PerPago >=".$Anio."01 and IdEmpleado=$IdEmp";
+        //                 $stmt =  $GLOBALS['pdo']->prepare($sSql); $stmt->execute();
+        //                 $row=$stmt->fetch();
+        //                 $A[$c]=$row['Tot'];   break;}// 2do SAC
+        
+                    // case is_numeric($pieces[$c]) : { $A[$c]=$pieces[$c]; break;} // Si es un numero
+                }
+            }
+            // $res=$A[0];
+            //dd($A[0]);
+
+            $res=reset($A);
+            for ($d=1; $d<count($A); $d++) {
+                $res=$res*$A[$d];
+            }
+
+            return $res*$CA;
+        //Controla que si hay un tope maximo, este no sea superado por el calculo obtenido
+            // if ($res>$MM && $MM<>0) { $res=$MM; }
+            // return $res;
+        }
+        
 }

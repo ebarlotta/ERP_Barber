@@ -34,4 +34,14 @@ class Recibo extends Model
     {
         return $this->hasMany(ConceptoRecibo::class);
     }
+
+    public function CategoriaProfesional()
+    {
+        return $this->hasOne(Categoriaprofesional::class,'id');
+    }
+
+    public function DatosEmpleado()
+    {
+        return $this->hasOne(Empleado::class,'id');
+    }
 }

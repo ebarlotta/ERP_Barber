@@ -18,6 +18,7 @@ class CreateConceptoRecibosTable extends Migration
 
             $table->unsignedBigInteger('concepto_id');
             $table->unsignedBigInteger('recibo_id');
+            $table->double('cantidad');
 
             $table->timestamps();
 
