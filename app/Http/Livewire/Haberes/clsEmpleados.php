@@ -1,7 +1,7 @@
 <?php
  // Clase Empleado
 // -------------------
-include_once("../stringconexion.inc");
+//include_once("../stringconexion.inc");
 //$pdo = new PDO('mysql:host=127.0.0.1;dbname=barl83_barlotta', $_SESSION['user'], $_SESSION['password']);
 class clsEmpleado {
 	var $IdEmpleado;

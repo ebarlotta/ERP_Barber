@@ -334,6 +334,11 @@ return [
                     'url'  => 'proveedores',
                     'icon' => 'fas fa-fw fa-building',
                 ],
+                [
+                    'text' => 'Haberes',
+                    'url'  => 'haberes',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
             ],
         ],
         [

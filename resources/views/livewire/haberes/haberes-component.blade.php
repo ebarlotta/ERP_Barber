@@ -129,96 +129,93 @@
                       </tbody>
                     </table>
                     <div id="DivRecibo">
-                      <div class="bg-success">
-                        Mes {{ $mes }} <br>
-                        Año {{ $anio }}
-                        Empleado seleccionado: {{ $empleadoseleccionado }}
+                      <div  style="background-color: rgb(156 163 175 / var(--tw-bg-opacity));">
                         {{ session('message') }}
-                        {{-- {{$EmpleadosActivos}}<br>
-            {{ $empleadoseleccionado}}<br> --}}
                         @if ($IdRecibo)
                           <table class="table table-responsive table-hover"
                             style="font-size:9px;" border="1">
                             <tbody>
                               <tr>
-                                <td colspan="2"><b>{{ $NombreEmpresa }}</b></td>
-                                <td colspan="4" align="right">Dirección: {{ $DireccionEmpresa }}</td>
+                                <td colspan="2" ><strong>Nombre de la Empresa:{{ $NombreEmpresa }}</strong></td>
+                                <td  align="center"><strong>CUIT DE LA EMPRESA: {{ $Cuit }}</strong></td>
+                                <td colspan="2" align="right">Dirección: {{ $DireccionEmpresa }}</td>
                               </tr>
                               <tr>
-                                <td colspan="2" align="center"><strong>CUIT DE LA EMPRESA</strong></td>
-                                <td colspan="2" align="center">{{ $Cuit }} </td>
-                                <td align="center">{{ $CCT }} </td>
+                                
                                 <td align="center"><b>LEGAJO Nº {{ $Legajo }}</b>
                                 </td>
                               </tr>
                               <tr bgcolor="lightGray">
-                                <td colspan="2" align="center"><strong>APELLIDO Y NOMBRES</strong></td>
-                                <td colspan="2" align="center"><strong>CUIL DEL EMPLEADO</strong></td>
+                                <td  align="center"><strong>APELLIDO Y NOMBRES</strong></td>
+                                <td align="center"><strong>CUIL DEL EMPLEADO</strong></td>
+                                <td align="center"><strong>CONVENIO</strong></td>
                                 <td align="center"><strong>SECCION</strong></td>
                                 <td align="center"><strong>FECHA INGRESO/ANT</strong>
                                 </td>
                               </tr>
                               <tr>
-                                <td colspan="2" align="center">{{ $NombreEmpleado }}</td>
-                                <td colspan="2" align="center">{{ $Cuil }}</td>
+                                <td align="center">{{ $NombreEmpleado }}</td>
+                                <td align="center">{{ $Cuil }}</td>
+                                <td align="center">{{ $CCT }} </td>
                                 <td align="center">{{ $Seccion }}</td>
                                 <td align="center">{{ substr($FechaIngreso, 0, 10) }} - 7a9m</td>
                               </tr>
                               <tr bgcolor="lightGray">
                                 <td colspan="2" align="center"><strong>CATEGORIA</strong></td>
-                                <td colspan="2" style="font-size : 9px;" align="center"><strong>CALIFICACION<br> PROFESIONAL</strong></td>
+                                <td  style="font-size : 9px;" align="center"><strong>CALIFICACION<br> PROFESIONAL</strong></td>
                                 <td align="center"><strong>PERIODO DE<br> PAGO</strong></td>
                                 <td align="center"><strong>REMUNERACION<br>ASIGNADA</strong></td>
                               </tr>
                               <tr>
                                 <td colspan="2" align="center">{{ $NombreCategoria }}</td>
-                                <td colspan="2" align="center">{{ $NombreSubCategoria }}</td>
+                                <td  align="center">{{ $NombreSubCategoria }}</td>
                                 <td align="center"><strong>{{ $PerPago }}</strong></td>
                                 <td align="center">$ {{ $TotHaberes }}</td>
                               </tr>
                               <tr bgcolor="lightGray">
-                                <td style="font-size : 9px;" align="center"><strong>COD.</strong></td>
-                                <td style="font-size : 9px;" align="center"><strong>DESCRIPCION<br> DE CONCEPTOS</strong></td>
+                                {{-- <td style="font-size : 9px;" align="center"><strong>COD.</strong></td> --}}
+                                <td style="font-size : 9px;" align="left"><strong>COD.    DESCRIPCION<br> DE CONCEPTOS</strong></td>
                                 <td style="font-size : 10px;" align="center"><strong>UNIDADES</strong></td>
-                                <td style="font-size : 9px;" align="center"><strong>RENUMERACIONES<br> SUJETAS A<br>RETENCIONES</strong></td>
+                                <td style="font-size : 9px;" align="center"><strong>REM.SUJETAS A<br>RETENCIONES</strong></td>
                                 <td style="font-size : 9px;" align="center"><strong>REMUNERACIONES<br> EXENTAS</strong></td>
                                 <td style="font-size : 10px;" align="center"><strong>DESCUENTOS</strong></td>
                               </tr>
+                              @if($Conceptos)
                               @foreach($Conceptos as $Concepto)
                               <tr>
                                 {{-- <td>{{ $Concepto }}</td> --}}
-                                <td align="center">{{ $Concepto['orden'] }}</td>
-                                <td>{{ $Concepto['name'] }}</td>
+                                {{-- <td align="center">{{ $Concepto['orden'] }}</td> --}}
+                                <td>{{ $Concepto['orden'] }}       {{ $Concepto['name'] }}</td>
                                 <td align="center">{{ $Concepto['cantidad'] }}</td>
                                 <td align="right">{{ number_format($Concepto['Rem'], 2, ',', '.') }}</td>
                                 <td align="right">{{ number_format($Concepto['NoRem'], 2, ',', '.') }}</td>
-                                <td align="right">{{ number_format($Concepto['Descuento'], 2, ',', '.') }}</td>
+                                <td align="right">{{ number_format($Concepto['Descuento'], 2, ',', '.') }}
+                                  <a href="#" class="rounded-md bg-red-300 px-6 mx-2 py-1 mt-3">Eliminar</a>
+                                </td>
                               </tr>
                               @endforeach
+                              @endif
                               <tr
                                 onclick="var  xxx='../Empleados/ModificarDetalle.php?Detalle=0&amp;IdConcepto=0&amp;Cantidad=0&amp;Recibo=0'; window.open(xxx,'nuevaVentana','width=300, height=400'); ">
-                                <td>-</td>
                                 <td>-</td>
                                 <td align="center">-</td>
                                 <td align="right">-</td>
                                 <td align="right">-</td>
-                                <td align="right">-</td>
+                                <td align="right"><a href="#" class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3">Agregar</a></td>
                               </tr>
                               <tr>
                                 <td align="center"><strong></strong></td>
                                 <td align="center"><strong></strong></td>
-                                <td align="center"><strong></strong></td>
-                                <td align="center"><strong>75.577,43</strong></td>
-                                <td align="center"><strong>0,00</strong></td>
-                                <td align="center"><strong>13.603,93</strong></td>
+                                <td align="right"><strong>{{ number_format($AcumRem, 2, ',', '.') }}</strong></td>
+                                <td align="right"><strong>{{ number_format($AcumNoRem, 2, ',', '.') }}</strong></td>
+                                <td align="right"><strong>{{ number_format($AcumDescuento, 2, ',', '.') }}</strong></td>
                               </tr>
                               <tr>
                                 <td colspan="2" align="center"></td>
-                                <td align="center"></td>
                                 <td colspan="2" align="center"><strong>NETO A
                                     COBRAR</strong></td>
                                 <td bgcolor="lightGray" align="right">
-                                  <strong>61.973,50</strong></td>
+                                  <strong>{{ number_format(($AcumRem+$AcumNoRem-$AcumDescuento), 2, ',', '.') }}</strong></td>
                               </tr>
                               <tr>
                                 <td colspan="6" style="font-size : 10px;"

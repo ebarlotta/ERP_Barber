@@ -37,6 +37,9 @@ class HaberesComponent extends Component
     public $SumUnidades;
     public $TotalRemu;
     public $RB; //Utilizado para sumarizar la Remuneración Bruta a la cual hacerle los descuentos
+    public $AcumRem;
+    public $AcumNoRem;
+    public $AcumDescuento;
     
     
     //Datos propios de la empresa
@@ -109,20 +112,23 @@ class HaberesComponent extends Component
             
             $this->IdRecibo=$ReciboRec[0]['id'];
             $this->IdEmpleado=$ReciboRec[0]['empleado_id'];
-            $this->IdCatProfe=$ReciboRec[0]['categoriaprofesional_id'];
+            $this->IdCatProfe=$ReciboRec[0]['categoriaprofesional_id']; //REVISAR QUE COINCIDAN LA CAT PROF DEL RECIBO CON LA DEL EMPLEADO
             
-            $this->TotHaberes=$ReciboRec[0]['totalhaberes'];
-            $this->NoRem=$ReciboRec[0]['noremunerativo'];
+            $this->TotHaberes=$ReciboRec[0]['totalhaberes']; // REVISAR QUE DEVUELVA EL BÁSICO DE LA CATEGORÍA SEGÚN SEA MENSUAL/DIARIO/ETC
+            $this->NoRem=$ReciboRec[0]['noremunerativo'];   
             $this->Descuentos=$ReciboRec[0]['descuentos'];
             
             $this->PerUltLiq=$ReciboRec[0]['perultimaliq'];
             $this->FechaUltLiq=$ReciboRec[0]['fechaultliq'];
 
             //$this->Banco=$row['Banco'];
+            $this->AcumRem=0;
+            $this->AcumNoRem=0;
+            $this->AcumDescuento=0;
 
             $this->CargarDatosDeLaEmpresa();
             $this->CargarDatosDelEmpleado();
-            $this->CargarDatosCategoriaProfesional();
+            $this->CargarDatosCategoriaProfesional($ReciboRec[0]['categoriaprofesional_id']);
             $this->DevolverConceptosRecibo($this->IdRecibo);
 
 
@@ -233,11 +239,13 @@ class HaberesComponent extends Component
         $this->CategoriaProfesional_id = $Empleado[0]['categoriaprofesional_id'];
     }
 
-    public function CargarDatosCategoriaProfesional() {
-        $Categoria = Categoriaprofesional::find($this->CategoriaProfesional_id)->get();
-        $this->NombreCategoria = $Categoria[0]['name'];
-        $this->NombreSubCategoria = $Categoria[0]['subcategoria'];
-        $this->CCT = $Categoria[0]['cct'];
+    public function CargarDatosCategoriaProfesional($id) {
+        $Categoria = Categoriaprofesional::find($id);
+        // $Categoria = Categoriaprofesional::find($this->CategoriaProfesional_id)->get();
+        // dd($Categoria);
+        $this->NombreCategoria = $Categoria->name;
+        $this->NombreSubCategoria = $Categoria->subcategoria;
+        $this->CCT = $Categoria->cct;
     }
 
     public function DevolverConceptosRecibo($IdRecibo) {
@@ -246,17 +254,25 @@ class HaberesComponent extends Component
         ->where('recibo_id','=',$IdRecibo)->get();
 
         $Detalle=json_decode($Detalle, true);
-        //dd($Detalle);
-        $a = Recibo::find($this->IdRecibo);
+        // $a = Recibo::find($this->IdRecibo);
         
-        $precios = array($a->CategoriaProfesional->preciomes,$a->CategoriaProfesional->preciodia,$a->CategoriaProfesional->preciohora,$a->CategoriaProfesional->preciounidad,$a->CategoriaProfesional->basico,$a->CategoriaProfesional->basico1,$a->CategoriaProfesional->basico2);
+        $a = Categoriaprofesional::find($this->IdCatProfe);
+        $e = Empleado::where('empresa_id',$this->EmpresaId)->where('id',$this->empleadoseleccionado)->get();
+        // $e = json_decode($e, true);
+        $precios = array($a->preciomes,$a->preciodia,$a->preciohora,$a->preciounidad,$a->basico,$a->basico1,$a->basico2);
+        // dd($e);
+        // $precios = array($a->CategoriaProfesional->preciomes,$a->CategoriaProfesional->preciodia,$a->CategoriaProfesional->preciohora,$a->CategoriaProfesional->preciounidad,$a->CategoriaProfesional->basico,$a->CategoriaProfesional->basico1,$a->CategoriaProfesional->basico2);
 		$precios = implode("#", $precios);
         
-        $activo = array($a->DatosEmpleado->mensualizado,$a->DatosEmpleado->jornalizado,$a->DatosEmpleado->hora,$a->DatosEmpleado->unidad);
+        $activo = array($e[0]['mensualizado'],$e[0]['jornalizado'],$e[0]['hora'],$e[0]['unidad']);
+        // dd($e);
+        // $activo = array($a->DatosEmpleado->mensualizado,$a->DatosEmpleado->jornalizado,$a->DatosEmpleado->hora,$a->DatosEmpleado->unidad);
         $tipos= implode("#", $activo);
 
         $i=0;
         // dd($Detalle);
+unset($AA);
+unset($this->Conceptos);
         foreach($Detalle as $Conceptohtml) {
             
             $AA[$i]['orden'] = $Conceptohtml['orden'];
@@ -268,22 +284,26 @@ class HaberesComponent extends Component
                 $AA[$i]['Rem']=$this->CalcularExpresion($precios, $tipos, $Conceptohtml['cantidad'], $Conceptohtml['montofijo'], $Conceptohtml['calculo']);
                 $AA[$i]['NoRem']=0;
                 $AA[$i]['Descuento']=0;
+                $this->AcumRem=$this->AcumRem+$AA[$i]['Rem'];
             }
             if($Conceptohtml['norem']>0) {
                 $AA[$i]['Rem']=0;
                 $AA[$i]['NoRem']=$this->CalcularExpresion($precios, $tipos, $Conceptohtml['cantidad'], $Conceptohtml['montofijo'], $Conceptohtml['calculo']);
                 $AA[$i]['Descuento']=0;
+                $this->AcumNoRem=$this->AcumNoRem+$AA[$i]['NoRem'];
             }
             if($Conceptohtml['descuento']>0) {
                 $AA[$i]['Rem']=0;
                 $AA[$i]['NoRem']=0;
-                $AA[$i]['Descuento']=$this->CalcularExpresion($precios, $tipos, $Conceptohtml['cantidad'], $Conceptohtml['montofijo'], $Conceptohtml['calculo']);;
+                $AA[$i]['Descuento']=$this->CalcularExpresion($precios, $tipos, $Conceptohtml['cantidad'], $Conceptohtml['montofijo'], $Conceptohtml['calculo']);
+                $this->AcumDescuento=$this->AcumDescuento+$AA[$i]['Descuento'];
             }
             $i++;
             // $AA[$i]['NR']=$this->CalcularExpresion($precios, $tipos, $Conceptohtml['cantidad'], $Conceptohtml['unidad'], $Conceptohtml['montofijo'], $Conceptohtml['calculo']);
         }
-
+if(isset($AA)) {
         $this->Conceptos = $AA;
+    }
         // dd($this->Conceptos);
         // for ($i=0; $i<count($this->Conceptos);$i++) {
 
@@ -377,14 +397,14 @@ class HaberesComponent extends Component
 
 
     public function CalcularExpresion($precio,$tipo,$CA, $MF,$expre) {
-
+// dd($MF);
         unset($A);
         unset($pieces);
 
         $A=array();
         
         $precios = explode("#", $precio); $PM=$precios[0]; $PD=$precios[1]; $PH=$precios[2]; $PU=$precios[3]; $BC=$precios[4]; $B1=$precios[5]; $B2=$precios[6];
-        
+        //dd($precios);
         $tipos   = explode("#", $tipo);   $TM=$tipos[0];   $TD=$tipos[1];   $TH=$tipos[2];   $TU=$tipos[3];
         // dd($tipos);
         // PD: Precio Mes   PD: Precio Dia    PH: Precio Hora    PU: Precio Unidad
@@ -450,6 +470,7 @@ class HaberesComponent extends Component
             //dd($A[0]);
 
             $res=reset($A);
+            // dd($res);
             for ($d=1; $d<count($A); $d++) {
                 $res=$res*$A[$d];
             }
