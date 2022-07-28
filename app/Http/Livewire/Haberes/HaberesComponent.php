@@ -74,12 +74,28 @@ class HaberesComponent extends Component
     //Modales
     public $ModalAgregar=false;
     public $ModificarEscalaShow=false;
+    public $ModificarConceptoShow=false;
+    public $GestionarConceptos=false;
 
     // Propio de los items cargados para liquidar
+    public $item_id;
     public $items;
     public $item;
     public $cantidad;
     public $cmbitem;
+
+    public $name;
+    public $orden;
+    public $unidad;
+    public $haberes;
+    public $remunerativo;
+    public $noremunerativo;
+    public $descuento;
+    public $activo;
+    public $montofijo;
+    public $calculo;
+    public $montomaximo;
+
 
     //Propio de Modificar Categoría
     public $cmbOpcionCatProf;
@@ -478,6 +494,57 @@ class HaberesComponent extends Component
         $ReciboRec->destroy($this->IdRecibo);
         $this->CargarEmpleadosActivosEnEsePeriodo();
         session()->flash('messageOk', 'El recibo se eliminó con éxito');
+    }
+
+    public function ModificarConceptoShow($item_id,$item_name,$item_cantidad) {
+        $this->ModificarConceptoShow=true;
+        $this->item_id  = $item_id;
+        $this->item  = $item_name;
+        $this->cantidad = $item_cantidad;
+    }
+
+    public function ModificarConceptoHide() {
+        $this->ModificarConceptoShow=false;
+    }
+
+    public function ModificarConcepto() {
+        $ConceptoAEditar = ConceptoRecibo::find($this->item_id);
+        // $ConceptoAEditar = ConceptoRecibo::where('recibo_id',$this->IdRecibo)->where('concepto_id',$this->item_id)->get();
+        $ConceptoAEditar->cantidad = $this->cantidad;
+        // dd($ConceptoAEditar);
+        $ConceptoAEditar->save();
+        $this->DevolverConceptosRecibo($this->IdRecibo);
+        session()->flash('messageOk', 'El Concepto se actualizó con éxito');
+        $this->ModificarConceptoHide();
+    }
+
+    public function GestionarConceptosShow() {
+        $this->items = Concepto::where('empresa_id',session('empresa_id'))->get();
+        // dd($this->items);
+        $this->GestionarConceptos=true;
+    }
+
+    public function GestionarConceptoHide() {
+        $this->GestionarConceptos=false;
+    }
+
+    public function CargarItemAModificar() {
+        $item = Concepto::where('empresa_id',session('empresa_id'))->where('id',$this->cmbitem)->get();
+        //$item = utf8_encode(Concepto::where('empresa_id',session('empresa_id'))->where('id',$this->cmbitem)->get());
+        
+        //dd($item[0]['orden']);// $this->name = $this->item->name;
+        $this->orden = $item[0]['orden'];
+        $this->name = $item[0]['name'];
+        $this->unidad = $item[0]['unidad'];
+        $this->haberes = $item[0]['haberes'];
+        $this->remunerativo = $item[0]['rem'];
+        $this->noremunerativo = $item[0]['norem'];
+        $this->descuento = $item[0]['descuento'];
+        $this->activo = $item[0]['activo'];
+        $this->montofijo = $item[0]['montofijo'];
+        $this->calculo = $item[0]['calculo'];
+        $this->montomaximo = $item[0]['montomaximo'];
+        //dd($item);
     }
 
 }

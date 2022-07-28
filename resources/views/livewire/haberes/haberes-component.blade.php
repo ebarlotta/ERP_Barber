@@ -13,10 +13,13 @@
 
         <div class="bg-white p-2 text-center rounded-lg shadow-lg w-full">
             @if ($ModalAgregar)
-                @include('livewire.haberes.modificarconcepto')
+                @include('livewire.haberes.altaconcepto')
             @endif
             @if ($ModificarEscalaShow)
                 @include('livewire.haberes.modificarescala')
+            @endif
+            @if ($ModificarConceptoShow)
+                @include('livewire.haberes.modificarconcepto')
             @endif
             {{-- <div class="max-w-7xl mx-auto sm:px-6 lg:px-8"> --}}
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
@@ -46,7 +49,7 @@
                         <tbody bordercolor="#FFFFFF" style="font-family : Verdana; font-size : 12px; font-weight : 300;"
                             bgcolor="#AFF3F7">
                             <tr align="center">
-                                <td valign="top">
+                                <td valign="top" style="min-width: 80%">
                                     <input id="IdProyecto" name="IdProyecto" type="hidden" size="10">
                                     <table style="font-size:8px;" class="table table-responsive table-hover" border="1">
                                         <tbody bordercolor="#FFFFFF" style="font-family : Verdana; font-size : 12px; font-weight : 300;" bgcolor="#EFF3F7">
@@ -114,7 +117,7 @@
                                                             <td colspan="2" style="border-bottom-width: 2px;border-color: black;">
                                                                 <strong>Nombre de la Empresa:{{ $NombreEmpresa }}</strong>
                                                             </td>
-                                                            <td align="center" style="border-bottom-width: 2px;border-color: black;">
+                                                            <td  colspan="2" align="center" style="border-bottom-width: 2px;border-color: black;">
                                                                 <strong>CUIT DE LA EMPRESA: {{ $Cuit }}</strong>
                                                             </td>
                                                             <td colspan="2" align="right" style="border-bottom-width: 2px;border-color: black;">
@@ -138,10 +141,10 @@
                                                         </tr>
                                                         <tr bgcolor="lightGray">
                                                             <td align="center"><strong>CATEGORIA</strong></td>
-                                                            <td align="center"><strong>CALIFICACION<br> PROFESIONAL</strong></td>
-                                                            <td align="center"><strong>PERIODO DE<br> PAGO</strong></td>
+                                                            <td align="center"><strong>CALIFICACION PROFESIONAL</strong></td>
+                                                            <td align="center"><strong>PERIODO DE PAGO</strong></td>
                                                             <td align="center"><b>LEGAJO Nº </b>
-                                                            <td align="center"><strong>REMUNERACION<br>ASIGNADA</strong></td>
+                                                            <td align="center"><strong>REMUNERACION ASIGNADA</strong></td>
                                                         </tr>
                                                         <tr>
                                                             <td align="center" style="border-bottom-width: 2px;border-color: black;">{{ $NombreCategoria }}</td>
@@ -151,7 +154,7 @@
                                                             <td align="center" style="border-bottom-width: 2px;border-color: black;">$ {{ $TotHaberes }}</td>
                                                         </tr>
                                                         <tr bgcolor="lightGray">
-                                                            <td align="left"><strong>COD. DESCRIPCION<br> DE CONCEPTOS</strong></td>
+                                                            <td align="left"><strong>CÓDIGO CONCEPTOS</strong></td>
                                                             <td style="font-size : 10px;" align="center"><strong>UNIDADES</strong></td>
                                                             <td align="center"><strong>REM.SUJETAS A<br>RETENCIONES</strong></td>
                                                             <td align="center"><strong>REMUNERACIONES<br> EXENTAS</strong></td>
@@ -159,7 +162,7 @@
                                                         </tr>
                                                         @if ($Conceptos)
                                                             @foreach ($Conceptos as $Concepto)
-                                                                <tr>
+                                                                <tr wire:click="ModificarConceptoShow({{ $Concepto['id'] }} ,'{{ $Concepto['name']}}' ,{{ $Concepto['cantidad'] }})">
                                                                     <td>{{ substr(str_repeat(0, 4).$Concepto['orden'], - 4); }} {{ $Concepto['name'] }}</td>
                                                                     <td align="center">{{ '   '.$Concepto['cantidad'] }}</td>
                                                                     <td align="right">{{ number_format($Concepto['Rem'], 2, ',', '.') }}</td>
@@ -251,31 +254,6 @@
         </div>
         </td>
         <td>
-            <table style="font-size:8px;" class="table table-responsive table-hover" border="0">
-                <caption>Referencias</caption>
-                <tbody>
-                    <tr>
-                        <td style="border-width: 0.5px;border: solid; border-color: #585858;" bgcolor="#EFFBEF">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                        <td>Sin Editar</td>
-                    </tr>
-                    <tr>
-                        <td style="border-width: 0.5px;border: solid; border-color: #585858;" bgcolor="#F7F8E0">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                        <td>Editado</td>
-                    </tr>
-                    <tr>
-                        <td style="border-width: 0.5px;border: solid; border-color: #585858;" bgcolor="#E0F2F7">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                        <td>Impreso</td>
-                    </tr>
-                    <tr>
-                        <td style="border-width: 0.5px;border: solid; border-color: #585858;" bgcolor="#F8E0E6">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                        <td>Cerrado</td>
-                    </tr>
-                </tbody>
-            </table>
             <!-- //Boton Alta Recibo  -->
             <div class="General">
                 <div>
@@ -287,6 +265,8 @@
                 <div>
                     <button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;"
                         title="Genera un nuevo recibo del primer Aguinaldo">1erSAC</button>
+                </div>
+                <div>
                     <button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;"
                         title="Genera un nuevo recibo del segundo Aguinaldo">2doSAC</button>
                 </div>
@@ -316,6 +296,12 @@
                     <button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;"
                         title="Elimina el recibo seleccionado" wire:click="EliminarRecibo">Eliminar Recibo</button>
                 </div>
+                <div>
+                    <button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;" title="Elimina el recibo seleccionado" wire:click="GestionarConceptosShow()">Gestionar Conceptos</button>
+                    @if ($GestionarConceptos)
+                        @include('livewire.haberes.gestionarconceptos')
+                    @endif
+                </div>
             </div>
         </td>
         </tr>
@@ -323,7 +309,6 @@
         </table>
         </font>
     </div>
-    {{-- </div> --}}
 </div>
 </div>
 </div>

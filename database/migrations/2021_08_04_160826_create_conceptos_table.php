@@ -25,6 +25,9 @@ class CreateConceptosTable extends Migration
             $table->double('montofijo');
             $table->string('calculo');
             $table->double('montomaximo');
+            $table->double('empresa_id');
+            
+            $table->foreign('empresa_id')->references('id')->on('empresas');
 
             $table->timestamps();
         });
