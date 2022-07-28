@@ -7,17 +7,17 @@
             <!-- Navigation Links -->
             @livewire('submenu')
         </div>
-
     </x-slot>
 
     <div class="content-center flex">
 
-
         <div class="bg-white p-2 text-center rounded-lg shadow-lg w-full">
-          @if ($ModalAgregar)
-            @include('livewire.haberes.modificarconcepto')
-          
-      @endif
+            @if ($ModalAgregar)
+                @include('livewire.haberes.modificarconcepto')
+            @endif
+            @if ($ModificarEscalaShow)
+                @include('livewire.haberes.modificarescala')
+            @endif
             {{-- <div class="max-w-7xl mx-auto sm:px-6 lg:px-8"> --}}
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
                 @if (session()->has('messageOk'))
@@ -41,10 +41,6 @@
                     </div>
                 @endif
 
-
-
-
-
                 <font size="1" face="Verdana">
                     <table class="table table-responsive table-hover" border="1">
                         <tbody bordercolor="#FFFFFF" style="font-family : Verdana; font-size : 12px; font-weight : 300;"
@@ -52,11 +48,8 @@
                             <tr align="center">
                                 <td valign="top">
                                     <input id="IdProyecto" name="IdProyecto" type="hidden" size="10">
-                                    <table style="font-size:8px;" class="table table-responsive table-hover"
-                                        border="1">
-                                        <tbody bordercolor="#FFFFFF"
-                                            style="font-family : Verdana; font-size : 12px; font-weight : 300;"
-                                            bgcolor="#EFF3F7">
+                                    <table style="font-size:8px;" class="table table-responsive table-hover" border="1">
+                                        <tbody bordercolor="#FFFFFF" style="font-family : Verdana; font-size : 12px; font-weight : 300;" bgcolor="#EFF3F7">
                                             <tr style="vertical-align: middle;">
                                                 <td align="center">Año</td>
                                                 <td align="center">Mes de Liquidación</td>
@@ -65,7 +58,6 @@
                                             <tr style="vertical-align: middle;">
                                                 <td style="vertical-align: top;">
                                                     <select class="form-control" wire:model="anio">
-                                                        {{-- wire:change="CargarEmpleadosActivosEnEsePeriodo();" --}}
                                                         <option value="2022">2022</option>
                                                         <option value="2021">2021</option>
                                                         <option value="2020">2020</option>
@@ -80,8 +72,7 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <select class="form-control" wire:model="mes"
-                                                        wire:click="CargarEmpleadosActivosEnEsePeriodo();">
+                                                    <select class="form-control" wire:model="mes" wire:click="CargarEmpleadosActivosEnEsePeriodo();">
                                                         <option value="00">-</option>
                                                         <option value="01">enero</option>
                                                         <option value="02">febrero</option>
@@ -99,28 +90,17 @@
                                                         <option value="14">2doSAC</option>
                                                         <option value="15">Vacaciones</option>
                                                     </select>
-                                                    {{-- <label for="FI">Fecha de Pago</label>
-              <input type="date" id="FI" name="FI"><br> --}}
                                                 </td>
                                                 <td style="vertical-align: top;">
-                                                    {{-- {{$EmpleadosActivos}} --}}
-
                                                     @if ($EmpleadosActivos)
                                                         <select class="form-control">
                                                             <option value="00" selected>-</option>
                                                             @foreach ($EmpleadosActivos as $empleado)
-                                                                {{-- <option value="{{ !empty($empleado->id) ? $empleado->id:$empleado['id'] }}"> --}}
-                                                                {{-- {{ !empty($empleado->name) ? $empleado->name.'*' : $empleado['name'] }} --}}
-                                                                {{-- </option> --}}
-                                                                <option value="{{ $empleado['id'] }}"
-                                                                    wire:click="cargaIdEmpleado({{ $empleado['id'] }});">
-                                                                    {{ $empleado['name'] }}</option>
-                                                                {{-- <option value="{{ $empleado['id'] }}">
-                  {{ $empleado['name'] }}
-                  </option> --}}
+                                                                <option value="{{ $empleado['id'] }}" wire:click="cargaIdEmpleado({{ $empleado['id'] }});">{{ $empleado['name'] }}</option>
                                                             @endforeach
                                                         </select>
                                                     @endif
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -128,88 +108,69 @@
                                         <div style="background-color: rgb(156 163 175 / var(--tw-bg-opacity));">
                                             {{ session('message') }}
                                             @if ($IdRecibo)
-                                                <table class="table table-responsive table-hover"
-                                                    style="font-size:12px;" border="1">
+                                                <table class="table table-responsive table-hover" style="font-size:12px;" border="1">
                                                     <tbody>
                                                         <tr>
-                                                            <td colspan="2"
-                                                                style="border-bottom-width: 2px;border-color: black;">
-                                                                <strong>Nombre de la
-                                                                    Empresa:{{ $NombreEmpresa }}</strong>
+                                                            <td colspan="2" style="border-bottom-width: 2px;border-color: black;">
+                                                                <strong>Nombre de la Empresa:{{ $NombreEmpresa }}</strong>
                                                             </td>
-                                                            <td align="center"
-                                                                style="border-bottom-width: 2px;border-color: black;">
+                                                            <td align="center" style="border-bottom-width: 2px;border-color: black;">
                                                                 <strong>CUIT DE LA EMPRESA: {{ $Cuit }}</strong>
                                                             </td>
-                                                            <td colspan="2" align="right"
-                                                                style="border-bottom-width: 2px;border-color: black;">
-                                                                Dirección: {{ $DireccionEmpresa }}</td>
+                                                            <td colspan="2" align="right" style="border-bottom-width: 2px;border-color: black;">
+                                                                Dirección: {{ $DireccionEmpresa }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr bgcolor="lightGray">
+                                                            <td align="center"><strong>APELLIDO Y NOMBRES</strong></td>
+                                                            <td align="center"><strong>CUIL DEL EMPLEADO</strong></td>
+                                                            <td align="center"><strong>CONVENIO</strong></td>
+                                                            <td align="center"><strong>SECCION</strong></td>
+                                                            <td align="center"><strong>FECHA INGRESO/ANT</strong>
+                                                            </td>
                                                         </tr>
                                                         <tr>
+                                                            <td align="center">{{ $NombreEmpleado }}</td>
+                                                            <td align="center">{{ $Cuil }}</td>
+                                                            <td align="center">{{ $CCT }} </td>
+                                                            <td align="center">{{ $Seccion }}</td>
+                                                            <td align="center">{{ substr($FechaIngreso, 0, 10) }} - 7a9m</td>
+                                                        </tr>
+                                                        <tr bgcolor="lightGray">
+                                                            <td align="center"><strong>CATEGORIA</strong></td>
+                                                            <td align="center"><strong>CALIFICACION<br> PROFESIONAL</strong></td>
+                                                            <td align="center"><strong>PERIODO DE<br> PAGO</strong></td>
+                                                            <td align="center"><b>LEGAJO Nº </b>
+                                                            <td align="center"><strong>REMUNERACION<br>ASIGNADA</strong></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="center" style="border-bottom-width: 2px;border-color: black;">{{ $NombreCategoria }}</td>
+                                                            <td align="center" style="border-bottom-width: 2px;border-color: black;">{{ $NombreSubCategoria }}</td>
+                                                            <td align="center" style="border-bottom-width: 2px;border-color: black;"><strong>{{ $PerPago }}</strong></td>
+                                                            <td align="center" style="border-bottom-width: 2px;border-color: black;"><strong>{{ $Legajo }}</strong></td>
+                                                            <td align="center" style="border-bottom-width: 2px;border-color: black;">$ {{ $TotHaberes }}</td>
+                                                        </tr>
+                                                        <tr bgcolor="lightGray">
+                                                            <td align="left"><strong>COD. DESCRIPCION<br> DE CONCEPTOS</strong></td>
+                                                            <td style="font-size : 10px;" align="center"><strong>UNIDADES</strong></td>
+                                                            <td align="center"><strong>REM.SUJETAS A<br>RETENCIONES</strong></td>
+                                                            <td align="center"><strong>REMUNERACIONES<br> EXENTAS</strong></td>
+                                                            <td style="font-size : 10px;" align="center"><strong>DESCUENTOS</strong></td>
+                                                        </tr>
+                                                        @if ($Conceptos)
+                                                            @foreach ($Conceptos as $Concepto)
+                                                                <tr>
+                                                                    <td>{{ substr(str_repeat(0, 4).$Concepto['orden'], - 4); }} {{ $Concepto['name'] }}</td>
+                                                                    <td align="center">{{ '   '.$Concepto['cantidad'] }}</td>
+                                                                    <td align="right">{{ number_format($Concepto['Rem'], 2, ',', '.') }}</td>
+                                                                    <td align="right">{{ number_format($Concepto['NoRem'], 2, ',', '.') }}</td>
+                                                                    <td align="right">{{ number_format($Concepto['Descuento'], 2, ',', '.') }}
 
-
-                                </td>
-                            </tr>
-                            <tr bgcolor="lightGray">
-                                <td align="center"><strong>APELLIDO Y NOMBRES</strong></td>
-                                <td align="center"><strong>CUIL DEL EMPLEADO</strong></td>
-                                <td align="center"><strong>CONVENIO</strong></td>
-                                <td align="center"><strong>SECCION</strong></td>
-                                <td align="center"><strong>FECHA INGRESO/ANT</strong>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center">{{ $NombreEmpleado }}</td>
-                                <td align="center">{{ $Cuil }}</td>
-                                <td align="center">{{ $CCT }} </td>
-                                <td align="center">{{ $Seccion }}</td>
-                                <td align="center">{{ substr($FechaIngreso, 0, 10) }} - 7a9m</td>
-                            </tr>
-                            <tr bgcolor="lightGray">
-                                <td align="center"><strong>CATEGORIA</strong></td>
-                                <td align="center"><strong>CALIFICACION<br> PROFESIONAL</strong></td>
-                                <td align="center"><strong>PERIODO DE<br> PAGO</strong></td>
-                                <td align="center"><b>LEGAJO Nº </b>
-                                <td align="center"><strong>REMUNERACION<br>ASIGNADA</strong></td>
-                            </tr>
-                            <tr>
-                                <td align="center" style="border-bottom-width: 2px;border-color: black;">
-                                    {{ $NombreCategoria }}</td>
-                                <td align="center" style="border-bottom-width: 2px;border-color: black;">
-                                    {{ $NombreSubCategoria }}</td>
-                                <td align="center" style="border-bottom-width: 2px;border-color: black;">
-                                    <strong>{{ $PerPago }}</strong>
-                                </td>
-                                <td align="center" style="border-bottom-width: 2px;border-color: black;">
-                                    <strong>{{ $Legajo }}</strong>
-                                </td>
-                                <td align="center" style="border-bottom-width: 2px;border-color: black;">$
-                                    {{ $TotHaberes }}</td>
-                            </tr>
-                            <tr bgcolor="lightGray">
-                                {{-- <td style="font-size : 9px;" align="center"><strong>COD.</strong></td> --}}
-                                <td align="left"><strong>COD. DESCRIPCION<br> DE CONCEPTOS</strong></td>
-                                <td style="font-size : 10px;" align="center"><strong>UNIDADES</strong></td>
-                                <td align="center"><strong>REM.SUJETAS A<br>RETENCIONES</strong></td>
-                                <td align="center"><strong>REMUNERACIONES<br> EXENTAS</strong></td>
-                                <td style="font-size : 10px;" align="center"><strong>DESCUENTOS</strong></td>
-                            </tr>
-                            @if ($Conceptos)
-                                @foreach ($Conceptos as $Concepto)
-                                    <tr>
-                                        {{-- <td>{{ $Concepto }}</td> --}}
-                                        {{-- <td align="center">{{ $Concepto['orden'] }}</td> --}}
-                                        <td>{{ $Concepto['orden'] }} {{ $Concepto['name'] }}</td>
-                                        <td align="center">{{ $Concepto['cantidad'] }}</td>
-                                        <td align="right">{{ number_format($Concepto['Rem'], 2, ',', '.') }}</td>
-                                        <td align="right">{{ number_format($Concepto['NoRem'], 2, ',', '.') }}</td>
-                                        <td align="right">{{ number_format($Concepto['Descuento'], 2, ',', '.') }}
-
-                                            <a href="#" class="rounded-md bg-red-300 px-6 mx-2 py-1 mt-3"
-                                                wire:click="EliminarDetalle({{ $Concepto['id'] }})">Eliminar</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                                                        <a href="#" class="rounded-md bg-red-300 px-6 mx-2 py-1 mt-3"
+                                                                            wire:click="EliminarDetalle({{ $Concepto['id'] }})">Eliminar</a>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
                             @endif
                             <tr>
                                 {{-- onclick="var  xxx='modificarconcepto.php?Detalle=0&amp;IdConcepto=0&amp;Cantidad=0&amp;Recibo=0'; window.open(xxx,'nuevaVentana','width=300, height=400'); " --}}
@@ -334,7 +295,7 @@
                         title="Genera un nuevo conjunto de recibos de sueldo para el mes seleccionado">Alta
                         Grupal</button>
                 </div>
-                <div>
+                {{-- <div>
                     <button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;"
                         title="Agrega un nuevo concepto al recibo">Administrar
                         Conceptos</button>
@@ -342,19 +303,18 @@
                 <div>
                     <button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;"
                         title="Genera una vista previa del recibo">Graficar</button>
-                </div>
+                </div> --}}
                 <div>
                     <button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;"
                         title="Genera un archivo PDF del recibo">Imprimir PDF</button>
                 </div>
                 <div>
-                    <button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;"
-                        title="Cambia la escala salarial con la que se liquida el recibo">Modificar
-                        Escala</button>
+                    {{-- <a href="#" class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" wire:click="ModificarEscalaShow">Modificar Escala</a> --}}
+                    <button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;" title="Cambia la escala salarial con la que se liquida el recibo" wire:click="ModificarEscalaShow">Modificar Escala</button>
                 </div>
                 <div>
                     <button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;"
-                        title="Elimina el recibo seleccionado">Eliminar Recibo</button>
+                        title="Elimina el recibo seleccionado" wire:click="EliminarRecibo">Eliminar Recibo</button>
                 </div>
             </div>
         </td>
