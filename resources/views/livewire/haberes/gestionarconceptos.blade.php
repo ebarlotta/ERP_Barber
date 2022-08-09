@@ -150,15 +150,24 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="display: flex;"                            >
+                                <td style="display: flex;">
                                     <div class="form-control" style="margin: 8px">Monto Fijo<input type="text" wire:model="montofijo"></div>
-                                    <div class="form-control" style="margin: 8px">Forma de Cálculo<input type="text" wire:model="calculo"></div>
+                                    <div class="form-control" style="margin: 8px" data-toggle="tooltip" data-placement="right" title="<p>RA: Remuneración Asignada</p> \n /n <br /> <p></p>BC: Básico Categoría</p>">Forma de Cálculo<input type="text" wire:model="calculo"></div>
                                     <div class="form-control" style="margin: 8px">Monto Máximo:<input type="text" wire:model="montomaximo"></div>
                                     <div class="form-control" style="margin: 8px">Orden <input type="text" wire:model="orden"></div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <div style="display: flex; justify-content: center;">
+                    @if (session()->has('messageModalOk'))
+                    <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3 w-2/3 text-center" role="alert">
+                        <div class="flex">
+                            <div> <p class="text-xm bg-lightgreen">{{ session('messageModalOk') }}</p> </div>
+                        </div>
+                    </div>
+                    @endif
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                     <span class="mt-3 flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
@@ -168,19 +177,19 @@
                         </button>
                     </span>
                     <span class="mt-3 flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-                        <button wire:click.prevent="ModificarConcepto" type="button"
+                        <button wire:click.prevent="ModificarValoresDeConcepto" type="button"
                             class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-red-300 text-base leading-6 font-bold text-white-900 shadow-sm hover:bg-red-400 focus:outline-none focus:border-green-700 focus:shadow-outline-green transition ease-in-out duration-150 sm:text-sm sm:leading-5">
                             Modificar
                         </button>
                     </span>
                     <span class="mt-3 flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-                        <button wire:click.prevent="ModificarConcepto" type="button"
+                        <button wire:click.prevent="ActualizaConcepto" type="button"
                             class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-red-300 text-base leading-6 font-bold text-white-900 shadow-sm hover:bg-red-400 focus:outline-none focus:border-green-700 focus:shadow-outline-green transition ease-in-out duration-150 sm:text-sm sm:leading-5">                            
                             Actualizar Concepto
                         </button>
                     </span>
                     <span class="mt-3 flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-                        <button wire:click.prevent="ModificarConcepto" type="button"
+                        <button wire:click.prevent="EliminarConcepto" type="button"
                             class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-red-300 text-base leading-6 font-bold text-white-900 shadow-sm hover:bg-red-400 focus:outline-none focus:border-green-700 focus:shadow-outline-green transition ease-in-out duration-150 sm:text-sm sm:leading-5">                            
                             Eliminar
                         </button>

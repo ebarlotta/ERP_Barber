@@ -305,6 +305,11 @@ return [
                     'icon' => 'fas fa-fw fa-building',
                 ],
                 [
+                    'text' => 'Categorías Profesionales',
+                    'url'  => 'categoriaprofesional',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
                     'text' => 'Estados',
                     'url'  => 'estados',
                     'icon' => 'fas fa-fw fa-building',

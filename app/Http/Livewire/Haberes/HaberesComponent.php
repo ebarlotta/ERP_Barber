@@ -387,6 +387,7 @@ class HaberesComponent extends Component
                         break;
                     }                    // 'M'onto 'F'ijo
                 case "CA": {
+                    // dd($CA);
                         $A[$c] = $CA;
                         break;
                     }                // 'C'antidad
@@ -519,13 +520,17 @@ class HaberesComponent extends Component
     }
 
     public function GestionarConceptosShow() {
-        $this->items = Concepto::where('empresa_id',session('empresa_id'))->get();
+        $this->CargarListaDeConceptos();
         // dd($this->items);
         $this->GestionarConceptos=true;
     }
 
     public function GestionarConceptoHide() {
         $this->GestionarConceptos=false;
+    }
+
+    public function CargarListaDeConceptos() {
+        $this->items = Concepto::where('empresa_id',session('empresa_id'))->get();
     }
 
     public function CargarItemAModificar() {
@@ -545,6 +550,87 @@ class HaberesComponent extends Component
         $this->calculo = $item[0]['calculo'];
         $this->montomaximo = $item[0]['montomaximo'];
         //dd($item);
+    }
+
+    public function EliminarConcepto(){ 
+        $Concepto = Concepto::find($this->cmbitem);
+        $Concepto_Recibo = ConceptoRecibo::where('concepto_id',$this->cmbitem)->get();
+        if(count($Concepto_Recibo)) {
+            $Concepto->activo = false;
+            $Concepto->save();
+            session()->flash('messageModalOk', 'El Concepto se marcó como no activo.');
+        } else {
+            $Concepto->destroy($this->cmbitem);
+            session()->flash('messageModalOk', 'El Concepto se eliminó.');
+        }
+        $this->CargarListaDeConceptos();
+    }
+
+    public function ActualizaConcepto(){ 
+        //Genera nuevo Concepto con los datos del anterior
+        $ConceptoNuevo = new Concepto();
+        $ConceptoNuevo->orden = $this->orden;
+        $ConceptoNuevo->name = $this->name;
+        $ConceptoNuevo->unidad = $this->unidad;
+        dd($this->haberes);
+        $ConceptoNuevo->haber = $this->haberes;
+        $ConceptoNuevo->rem = $this->remunerativo;
+        $ConceptoNuevo->norem = $this->noremunerativo;
+        $ConceptoNuevo->descuento = $this->descuento;
+        $ConceptoNuevo->montofijo = $this->montofijo;
+        $ConceptoNuevo->calculo = $this->calculo;
+        $ConceptoNuevo->montomaximo = $this->montomaximo;
+        $ConceptoNuevo->empresa_id = session('empresa_id');
+        $ConceptoNuevo->activo=true;
+        $ConceptoNuevo->save();
+        // Desactiva el Concepto anterior
+        $Concepto = Concepto::find($this->cmbitem);
+        $Concepto->activo = false;
+        $Concepto->save();
+        $this->CargarListaDeConceptos();
+        session()->flash('messageModalOk', 'Se Actualizó el Concepto con los nuevos valores');
+    }
+
+    public function ModificarValoresDeConcepto() {
+        $Concepto = Concepto::find($this->cmbitem);
+        $Concepto->orden = $this->orden;
+        $Concepto->name = $this->name;
+        $Concepto->unidad = $this->unidad;
+        is_null($this->haberes) ? $Concepto->haber = 0 : $this->haberes = $Concepto->haber;
+        is_null($this->remunerativo) ? $Concepto->rem = 0 : $Concepto->rem = $this->remunerativo;
+        is_null($this->noremunerativo) ? $Concepto->norem = 0 : $Concepto->norem = $this->noremunerativo;
+        is_null($this->descuento) ? $Concepto->descuento = 0 : $Concepto->descuento = $this->descuento;
+
+        // $Concepto->norem = $this->noremunerativo;
+        // $Concepto->descuento = $this->descuento;
+        //dd($Concepto->haber . ' ' . $Concepto->rem . ' ' . $Concepto->norem . ' ' . $Concepto->descuento);
+        $Concepto->montofijo = $this->montofijo;
+        $Concepto->calculo = $this->calculo;
+        $Concepto->montomaximo = $this->montomaximo;
+        //$Concepto->empresa_id = session('empresa_id');
+        $Concepto->activo=$this->activo;
+        $Concepto->save();
+        $this->CargarListaDeConceptos();
+        session()->flash('messageModalOk', 'Se Modificó el valor del Concepto para todos los valores.');
+    }
+
+    public function NuevoConcepto(){ 
+        $ConceptoNuevo = new Concepto();
+        $ConceptoNuevo->orden = $this->orden;
+        $ConceptoNuevo->name = $this->name;
+        $ConceptoNuevo->unidad = $this->unidad;
+        $ConceptoNuevo->haber = $this->haberes;
+        $ConceptoNuevo->rem = $this->remunerativo;
+        $ConceptoNuevo->norem = $this->noremunerativo;
+        $ConceptoNuevo->descuento = $this->descuento;
+        $ConceptoNuevo->montofijo = $this->montofijo;
+        $ConceptoNuevo->calculo = $this->calculo;
+        $ConceptoNuevo->montomaximo = $this->montomaximo;
+        $ConceptoNuevo->empresa_id = session('empresa_id');
+        $ConceptoNuevo->activo=true;
+        $ConceptoNuevo->save();
+        session()->flash('messageModalOk', 'Se Actualizó el Concepto con los nuevos valores');
+        $this->CargarListaDeConceptos();
     }
 
 }
