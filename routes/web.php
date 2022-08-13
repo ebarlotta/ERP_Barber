@@ -18,6 +18,11 @@ use App\Http\Livewire\Venta\VentaComponent;
 use App\Http\Controllers\SocialController;
 use App\Http\Livewire\Cart\Cart;
 use App\Http\Livewire\Cart\Payment\PaymentComponent;
+
+use Illuminate\Foundation\Auth\User as AuthUser;
+
+
+
 // use App\Http\Controllers\Cart;
 /*
 |--------------------------------------------------------------------------
@@ -95,3 +100,5 @@ Route::get('carts',Cart::class)->name('carts');
 // Route::get('payments',[Cart::class,'payment_index'])->name('payments');
 //Route::get('payments',[Cart::class,'payment_index'])->name('payments');
 Route::get('payments',PaymentComponent::class)->name('payments');
+
+Route::get('deletion/?id=abc123',EmpleadoComponent::class)->name('deletion'); //Eliminación de datos en Facebook

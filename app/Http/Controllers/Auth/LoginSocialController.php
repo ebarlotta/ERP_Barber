@@ -46,7 +46,7 @@ class LoginSocialController extends Controller
     public function callback_facebook() {
         $facebookUser = Socialite::driver('facebook')->user();
         $UserExist = User::where('email','=',$facebookUser->email)->get();
-        dd($googleUser);
+        //dd($googleUser);
         $RedSocial = ' Facebook ';
 
         if(count($UserExist)) {
