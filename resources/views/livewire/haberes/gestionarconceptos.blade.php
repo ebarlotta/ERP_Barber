@@ -150,8 +150,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="display: flex;">
-                                    <div class="form-control" style="margin: 8px">Monto Fijo<input type="text" wire:model="montofijo"></div>
+                                <td style="display: flex; flex-wrap; ">
+                                    <div class="form-control" style="margin: 8px"><p> Monto Fijo</p><input type="text" wire:model="montofijo"></div>
                                     <div class="form-control" style="margin: 8px" data-toggle="tooltip" data-placement="right" title="<p>RA: Remuneración Asignada</p> \n /n <br /> <p></p>BC: Básico Categoría</p>">Forma de Cálculo<input type="text" wire:model="calculo"></div>
                                     <div class="form-control" style="margin: 8px">Monto Máximo:<input type="text" wire:model="montomaximo"></div>
                                     <div class="form-control" style="margin: 8px">Orden <input type="text" wire:model="orden"></div>
