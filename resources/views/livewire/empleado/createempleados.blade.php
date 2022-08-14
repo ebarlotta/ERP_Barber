@@ -57,7 +57,7 @@
                     </div>
                     <div class="mb-4 w-5/12 mr-3">
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Estado Civil</label>
-                        <select class="rounded text-gray-700" wire:model="estadocivil">
+                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" wire:model="estadocivil" >
                             <option value="">-</option>
                             <option value="Separado/a">Separado/a</option>
                             <option value="Soltero/a">Soltero/a</option>
@@ -68,7 +68,7 @@
                     </div>
                     <div class="mb-4 w-5/12 mr-3">
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Tipo Contratación</label>
-                        <select class="rounded text-gray-700" wire:model="tipocontratacion">
+                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" wire:model="tipocontratacion">
                             <option value="">-</option>
                             <option value="Por Contrato">Por Contrato</option>
                             <option value="A tiempo parcial">A tiempo parcial</option>
@@ -112,7 +112,7 @@
                     </div>
                     <div class="mb-4 w-5/12 mr-3">
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Mensualizado</label>
-                        <select class="rounded text-gray-700" name="mensualizado" id="" wire:model="mensualizado">
+                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="mensualizado" id="" wire:model="mensualizado">
                             <option value="1">Mensualizado</option>
                             <option value="0">No Mensualizado</option>
                         </select>
@@ -120,7 +120,7 @@
                     </div>
                     <div class="mb-4 w-5/12 mr-3">
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Jornalizado</label>
-                        <select class="rounded text-gray-700" name="jornalizado" id="" wire:model="jornalizado">
+                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="jornalizado" id="" wire:model="jornalizado">
                             <option value="1">Jornalizado</option>
                             <option value="0">No Jornalizado</option>
                         </select>
@@ -128,7 +128,7 @@
                     </div>
                     <div class="mb-4 w-5/12 mr-3">
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Por Hora</label>
-                        <select class="rounded text-gray-700" name="hora" id="" wire:model="hora">
+                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="hora" id="" wire:model="hora">
                             <option value="1">Por Hora</option>
                             <option value="0">No por hora</option>
                         </select>
@@ -137,7 +137,7 @@
                     <div class="mb-4 w-5/12 mr-3">
                         <label for="exampleFormControlInput1"
                             class="block text-gray-700 text-sm font-bold mb-2">Unidad/</label>
-                            <select class="rounded text-gray-700" name="unidad" id="" wire:model="unidad">
+                            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="unidad" id="" wire:model="unidad">
                                 <option value="1">Por Unidad</option>
                                 <option value="0">No por Unidad</option>
                             </select>
@@ -145,7 +145,7 @@
                     </div>
                     <div class="mb-4 w-5/12 mr-3">
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Activo</label>
-                        <select class="rounded text-gray-700" name="activo" id="" wire:model="activo">
+                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="activo" id="" wire:model="activo">
                             <option value="1">Activo</option>
                             <option value="0">Pasivo</option>
                         </select>
@@ -157,6 +157,22 @@
                         <input type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="exampleFormControlInput1" placeholder="Fecha de Baja" wire:model="baja">
                         @error('baja') <span class="text-red-500">{{ $message }}</span>@enderror
+                    </div>
+                    <div class="mb-4 w-5/12 mr-3">
+                        <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Categoría Profesional</label>
+                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="categoriaprofesional" id="" wire:model="categoriaprofesional">
+                            {{$categoriaprofesional . 'hola'}}
+                            @foreach ($categoriasprofesionales as $categoriaprofesionalx)
+                                @if ($categoriaprofesionalx->id == $categoriaprofesional)
+                                    <option value="{{ $categoriaprofesionalx->id }}" selected>{{ $categoriaprofesionalx->name }}</option>
+                                @else
+                                    <option value="{{ $categoriaprofesionalx->id }}">{{ $categoriaprofesionalx->name }}</option>
+                                @endif    
+                            @endforeach
+                        </select>
+
+                        
+                        @error('categoriaprofesional') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">

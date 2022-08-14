@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Empleado;
 
+use App\Models\Categoriaprofesional;
 use Livewire\Component;
 use App\Models\Empleado;
 use Carbon\Carbon;
@@ -13,9 +14,10 @@ class EmpleadoComponent extends Component
     public $empleados;
 
     public $name, $domicilio, $cuil, $telefono, $legajo, $dni, $nacimiento, $ingreso, $estadocivil, $tipocontratacion;
-    public $regimen, $banco, $nrocuentabanco, $jornalizado, $mensualizado=false, $hora, $unidad, $seccion, $activo, $baja;
+    public $regimen, $banco, $nrocuentabanco, $jornalizado, $mensualizado=false, $hora, $unidad, $seccion, $activo, $baja, $categoriaprofesional, $categoriasprofesionales;
 
     public $empresa_id;
+
     public function render()
     {
         $this->empresa_id = session('empresa_id');
@@ -65,6 +67,7 @@ class EmpleadoComponent extends Component
         $this->seccion = '';
         $this->activo = '';
         $this->baja = null;
+        $this->categoriaprofesional = '';
     }
 
     public function store()
@@ -89,6 +92,7 @@ class EmpleadoComponent extends Component
             'unidad' => 'required|bool',
             'seccion' => 'required',
             'activo' => 'required|bool',
+            // 'categoriaprofesional' => 'required',
             
         ]);
         
@@ -114,6 +118,7 @@ class EmpleadoComponent extends Component
             'seccion' => $this->seccion,
             'activo' => $this->activo,
             'baja'=> $this->baja,
+            'categoriaprofesional_id'=> $this->categoriaprofesional,
         ]);
 
         session()->flash('message', $this->empleado_id ? 'Empleado Actualizado.' : 'Empleado Creado.');
@@ -125,6 +130,7 @@ class EmpleadoComponent extends Component
     public function edit($id)
     {
         $empleado = Empleado::findOrFail($id);
+        $this->categoriasprofesionales = Categoriaprofesional::where('empresa_id',session('empresa_id'))->get();
         $this->id = $id;
         $this->empleado_id = $id;
         $this->legajo = $empleado->legajo;
@@ -148,7 +154,8 @@ class EmpleadoComponent extends Component
         $this->seccion = $empleado->seccion;
         $this->activo = $empleado->activo;
         $this->baja = Carbon::parse($empleado->baja)->format('Y-m-d');
-
+        $this->categoriaprofesional = $empleado->categoriaprofesional->id;
+                //dd($empleado->categoriaprofesional->id);
         $this->openModalPopover();
     }
 

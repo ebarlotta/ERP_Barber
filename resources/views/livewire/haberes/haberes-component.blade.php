@@ -21,6 +21,9 @@
             @if ($ModificarConceptoShow)
                 @include('livewire.haberes.modificarconcepto')
             @endif
+            @if ($EliminarConceptoReciboShow)
+                @include('livewire.haberes.eliminarconceptorecibo')
+            @endif
             {{-- <div class="max-w-7xl mx-auto sm:px-6 lg:px-8"> --}}
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
                 @if (session()->has('messageOk'))
@@ -169,8 +172,7 @@
                                                                     <td align="right">{{ number_format($Concepto['NoRem'], 2, ',', '.') }}</td>
                                                                     <td align="right">{{ number_format($Concepto['Descuento'], 2, ',', '.') }}
 
-                                                                        <a href="#" class="rounded-md bg-red-300 px-6 mx-2 py-1 mt-3"
-                                                                            wire:click="EliminarDetalle({{ $Concepto['id'] }})">Eliminar</a>
+                                                                        <a href="#" class="rounded-md bg-red-300 px-6 mx-2 py-1 mt-3" wire:click="EliminarConceptoReciboShow({{ $Concepto['id'] }} ,'{{ $Concepto['name']}}' ,{{ $Concepto['cantidad'] }})">Eliminar</a>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach

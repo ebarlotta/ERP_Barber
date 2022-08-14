@@ -76,6 +76,7 @@ class HaberesComponent extends Component
     public $ModificarEscalaShow=false;
     public $ModificarConceptoShow=false;
     public $GestionarConceptos=false;
+    public $EliminarConceptoReciboShow=false;
 
     // Propio de los items cargados para liquidar
     public $item_id;
@@ -131,7 +132,6 @@ class HaberesComponent extends Component
         $ReciboRec = Recibo::where('empleado_id', $IdEmpleado)
             ->where('perpago', $Periodo)
             ->get();
-
         if (count($ReciboRec)) {
             $this->LugarPago = $ReciboRec[0]['lugarpago'];
             $fecha = $ReciboRec[0]['fechapago'];
@@ -438,12 +438,12 @@ class HaberesComponent extends Component
         // return $res;
     }
 
-    public function EliminarDetalle($id) {
-        $detalle = ConceptoRecibo::find($id);
-        $detalle->destroy($id);
-        session()->flash('messageOk', 'El detalle se eliminó con éxito');
-        $this->cargaIdEmpleado($this->empleadoseleccionado);
-    }
+    // public function EliminarDetalle($id) {
+    //     $detalle = ConceptoRecibo::find($id);
+    //     $detalle->destroy($id);
+    //     session()->flash('messageOk', 'El detalle se eliminó con éxito');
+    //     $this->cargaIdEmpleado($this->empleadoseleccionado);
+    // }
 
     public function MostrarOcultarModalAgregar() {
         $this->items = Concepto::all();
@@ -507,6 +507,27 @@ class HaberesComponent extends Component
     public function ModificarConceptoHide() {
         $this->ModificarConceptoShow=false;
     }
+
+    public function EliminarConceptoReciboShow($item_id,$item_name,$item_cantidad) {
+        $this->EliminarConceptoReciboShow=true;
+        $this->item_id  = $item_id;
+        $this->item  = $item_name;
+        $this->cantidad = $item_cantidad;
+    }
+
+    public function EliminarConceptoReciboHide() {
+        $this->EliminarConceptoReciboShow=false;
+    }
+    
+    public function EliminarConceptoRecibo() {
+        $ConceptoAEliminar = ConceptoRecibo::find($this->item_id);
+        //dd($ConceptoAEditar);
+        $ConceptoAEliminar->destroy($this->item_id);
+        $this->DevolverConceptosRecibo($this->IdRecibo);
+        session()->flash('messageOk', 'El ítem se eliminó');
+        $this->EliminarConceptoReciboHide();
+    }
+
 
     public function ModificarConcepto() {
         $ConceptoAEditar = ConceptoRecibo::find($this->item_id);
@@ -608,7 +629,7 @@ class HaberesComponent extends Component
         $Concepto->calculo = $this->calculo;
         $Concepto->montomaximo = $this->montomaximo;
         //$Concepto->empresa_id = session('empresa_id');
-        $Concepto->activo=$this->activo;
+        is_null($this->activo) ? $Concepto->activo = 0 : $Concepto->activo = $this->activo;
         $Concepto->save();
         $this->CargarListaDeConceptos();
         session()->flash('messageModalOk', 'Se Modificó el valor del Concepto para todos los valores.');

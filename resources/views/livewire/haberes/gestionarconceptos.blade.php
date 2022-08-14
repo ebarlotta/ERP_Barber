@@ -18,7 +18,7 @@
                                     <div id="DivConceptos">
                                         Items<br>
                                         <select class="form-control" wire:model="cmbitem" wire:change="CargarItemAModificar">
-                                            <option value="">-</option>
+                                            <option value="" selected>-</option>
                                             @foreach($items as $item)
                                             <option value="{{$item->id}}">{{$item->name}}</option>
                                             @endforeach
