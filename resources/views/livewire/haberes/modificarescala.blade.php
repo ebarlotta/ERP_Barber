@@ -8,17 +8,18 @@
         <span class="hidden sm:inline-block sm:align-middle "></span>
         <div class="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-1 sm:align-top sm:max-w-lg sm:w-full"
             role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+            @if($NombreCategoria)
             <form>
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    La escala Actual es: <label for="">{{ $NombreCategoria }}</label> 
-                    <table style="margin-bottom: 10px;" border="1">
+                    La escala Actual es: <label for=""><b>{{ $NombreCategoria }}</b></label> <br><br>
+                    <table style="margin-bottom: 10px;">
                         <tbody>
                             <tr>
-                                <td>Item a editar</td>
-                                <td>Cantidad</td>
+                                <td style="border: 1px solid rgb(95, 95, 95); border-spacing: 0;">Listado de escalas disponibles</td>
+                                <td style="border: 1px solid rgb(95, 95, 95); border-spacing: 0;">Variantes</td>
                             </tr>
                             <tr>
-                                <td>
+                                <td style="border: 1px solid rgb(95, 95, 95); border-spacing: 0;">
                                     <select class="form-control"  wire:model="cmbitem" style="max-width : 250px;">
                                         <option value=" "> </option>
                                         @foreach ($CategoriasProf as $item)													 
@@ -26,7 +27,7 @@
                                         @endforeach
                                     </select>
                                 </td>
-                                <td>
+                                <td style="border: 1px solid rgb(95, 95, 95); border-spacing: 0;">
                                     <select class="form-control"  wire:model="cmbOpcionCatProf" style="max-width : 250px;">
                                         <option value="0" selected>-</option>
                                         <option value="1">Sólo de este recibo</option>
@@ -51,6 +52,18 @@
                     </span>
                 </div>
             </form>
+            @else
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    No se ha seleccionado un empleado.
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <span class="mt-3 flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
+                        <button wire:click="ModificarEscalaHide()" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-yellow-300 text-base leading-6 font-bold text-gray-900 shadow-sm hover:bg-yellow-400 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                            Cerrar
+                        </button>
+                    </span>
+                </div>
+            @endif
         </div>
     </div>
 </div>
