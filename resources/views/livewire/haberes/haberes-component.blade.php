@@ -247,7 +247,7 @@
                                 <td colspan="2">
                                     <strong>FECHA DEPOSITO</strong>
                                 </td>
-                                <td colspan="2" align="center">2022-01-06</td>
+                                <td colspan="2" align="center">{{ substr($FechaUltLiq,8,2).'-'.substr($FechaUltLiq,6,2).'-'. substr($FechaUltLiq,0,4) }}</td>
                             </tr>
                         </tbody>
                     </table>
