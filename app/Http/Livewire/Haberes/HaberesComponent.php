@@ -123,12 +123,12 @@ class HaberesComponent extends Component
 
     public function cargaIdEmpleado($id) {
         $this->empleadoseleccionado = $id;
-        $this->CargarEmpleadosActivosEnEsePeriodo();
+        //$this->CargarEmpleadosActivosEnEsePeriodo();
         // $this->CargarEmpleadosTipoYCategoria($id);
-        $this->CargasDatosRecibo($this->anio . $this->mes, $this->empleadoseleccionado);
+        $this->CargarDatosRecibo($this->anio . $this->mes, $this->empleadoseleccionado);
     }
 
-    public function CargasDatosRecibo($Periodo, $IdEmpleado) {
+    public function CargarDatosRecibo($Periodo, $IdEmpleado) {
         $ReciboRec = Recibo::where('empleado_id', $IdEmpleado)
             ->where('perpago', $Periodo)
             ->get();
@@ -153,7 +153,7 @@ class HaberesComponent extends Component
             $this->IdRecibo = $ReciboRec[0]['id'];
             $this->IdEmpleado = $ReciboRec[0]['empleado_id'];
             $this->IdCatProfe = $ReciboRec[0]['categoriaprofesional_id']; //REVISAR QUE COINCIDAN LA CAT PROF DEL RECIBO CON LA DEL EMPLEADO
-
+            
             $this->NoRem = $ReciboRec[0]['noremunerativo'];
             $this->Descuentos = $ReciboRec[0]['descuentos'];
 
@@ -243,12 +243,17 @@ class HaberesComponent extends Component
         $this->Seccion = $Empleado[0]['seccion'];
         $this->Banco = $Empleado[0]['banco'];
         $this->CategoriaProfesional_id = $Empleado[0]['categoriaprofesional_id'];
+        //dd($this->CategoriaProfesional_id);
     }
 
     public function CargarDatosCategoriaProfesional($id) {
 
-        $Empleado = Empleado::find($id);
-        $Categoria = Categoriaprofesional::find($Empleado->categoriaprofesional_id);
+        //$Empleado = Empleado::find($id);
+        $Empleado = Empleado::find($this->IdEmpleado);
+        
+        $Categoria = Categoriaprofesional::find($id);
+        //dd($Categoria);
+        // $Categoria = Categoriaprofesional::find($Empleado->categoriaprofesional_id);
         if($Empleado->mensualizado) { $this->xPrecioMes    = $Categoria->preciomes;    $this->TotHaberes=$Categoria->preciomes;  }
         if($Empleado->jornalizado)  { $this->xPrecioDia    = $Categoria->preciodia;    $this->TotHaberes=$Categoria->preciodia;  }
         if($Empleado->hora)         { $this->xPrecioHora   = $Categoria->preciohora;   $this->TotHaberes=$Categoria->preciohora;}
@@ -325,7 +330,6 @@ class HaberesComponent extends Component
 
         //         $pp=floatval($this->CalcularExpresion($precios, $tipos, $this->Conceptos[0]['cantidad'], $this->Conceptos[0]['unidad'], $this->Conceptos[0]['montofijo'], $this->Conceptos[0]['calculo']));
         // $pp=$this->CalcularExpresion($precios,$tipos,$this->Conceptos->cantidad,$this->Conceptos->unidad,$this->Conceptos->montofijo,$this->Conceptos->calculo,$this->SumHaberes,$this->SumUnidades);
-        
     }
 
 
@@ -466,7 +470,7 @@ class HaberesComponent extends Component
     }
 
     public function ModificarEscalaShow() {
-        $this->CategoriasProf = Categoriaprofesional::all();
+        $this->CategoriasProf = Categoriaprofesional::where('empresa_id',session('empresa_id'))->get();
         $this->ModificarEscalaShow=true;
     }
 
@@ -593,7 +597,7 @@ class HaberesComponent extends Component
         $ConceptoNuevo->orden = $this->orden;
         $ConceptoNuevo->name = $this->name;
         $ConceptoNuevo->unidad = $this->unidad;
-        dd($this->haberes);
+        //dd($this->haberes);
         $ConceptoNuevo->haber = $this->haberes;
         $ConceptoNuevo->rem = $this->remunerativo;
         $ConceptoNuevo->norem = $this->noremunerativo;

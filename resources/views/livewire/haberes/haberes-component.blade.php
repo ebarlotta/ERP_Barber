@@ -99,7 +99,7 @@
                                                 </td>
                                                 <td style="vertical-align: top;">
                                                     @if ($EmpleadosActivos)
-                                                        <select class="form-control">
+                                                        <select class="form-control" wire:model="IdEmpleado">
                                                             <option value="00" selected>-</option>
                                                             @foreach ($EmpleadosActivos as $empleado)
                                                                 <option value="{{ $empleado['id'] }}" wire:click="cargaIdEmpleado({{ $empleado['id'] }});">{{ $empleado['name'] }}</option>
@@ -247,7 +247,7 @@
                                 <td colspan="2">
                                     <strong>FECHA DEPOSITO</strong>
                                 </td>
-                                <td colspan="2" align="center">2022-01-06</td>
+                                <td colspan="2" align="center">{{ substr($FechaUltLiq,8,2).'-'.substr($FechaUltLiq,6,2).'-'. substr($FechaUltLiq,0,4) }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -258,6 +258,9 @@
         <td>
             <!-- //Boton Alta Recibo  -->
             <div class="General">
+                <div>
+                    <button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;" title="Dibuja el recibo por Pantalla" wire:click="cargaIdEmpleado({{ $IdEmpleado }})">Graficar Recibo</button>
+                </div>
                 <div>
                     <button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;"
                         title="Genera un nuevo recibo de sueldo para el mes seleccionado"
