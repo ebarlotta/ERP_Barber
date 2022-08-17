@@ -101,4 +101,4 @@ Route::get('carts',Cart::class)->name('carts');
 //Route::get('payments',[Cart::class,'payment_index'])->name('payments');
 Route::get('payments',PaymentComponent::class)->name('payments');
 
-Route::get('deletion/?id=abc123',EmpleadoComponent::class)->name('deletion'); //Eliminación de datos en Facebook
+//Route::get('deletion/?id=abc123',EmpleadoComponent::class)->name('deletion'); //Eliminación de datos en Facebook
