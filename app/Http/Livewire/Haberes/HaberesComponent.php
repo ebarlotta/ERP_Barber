@@ -11,6 +11,7 @@ use App\Models\Concepto;
 use App\Models\ConceptoRecibo;
 use App\Models\Empleado;
 use App\Models\Empresa;
+use Hamcrest\Type\IsNumeric;
 
 class HaberesComponent extends Component
 {
@@ -266,12 +267,17 @@ class HaberesComponent extends Component
 
     public function DevolverConceptosRecibo($IdRecibo)
     {
+        // Restablece los contadores a cero
+        $this->AcumRem=0;
+        $this->AcumNoRem=0;
+        $this->AcumDescuento=0;
 
         $Detalle = DB::table('concepto_recibos')
             ->join('conceptos', 'concepto_id', '=', 'conceptos.id')
             ->where('recibo_id', '=', $IdRecibo)->get(['concepto_recibos.id','concepto_id','recibo_id','cantidad','orden','name','unidad','haber','rem','norem','descuento','montofijo','calculo','montomaximo']);
 
         $Detalle = json_decode($Detalle, true);
+        // dd($Detalle);
         $a = Categoriaprofesional::find($this->IdCatProfe);
         $e = Empleado::where('empresa_id', $this->EmpresaId)->where('id', $this->empleadoseleccionado)->get();
         $precios = array($a->preciomes, $a->preciodia, $a->preciohora, $a->preciounidad, $a->basico, $a->basico1, $a->basico2);
@@ -367,8 +373,10 @@ class HaberesComponent extends Component
         DE	    Total Descuentos
         
         */
+        //dd($pieces);
         for ($c = 0; $c < count($pieces); $c++) {
             switch ($pieces[$c]) {
+                case is_numeric($pieces[$c]): { $A[$c]=$pieces[$c] ; break;}
                 case "RA": {
                         $A[$c] = $PM * $TM + $PD * $TD + $PH * $TH + $PU * $TU;
                         break;
@@ -408,6 +416,10 @@ class HaberesComponent extends Component
                         break;
                     }                // 'B'ásico 'C'ategoria 2
 
+                case "REM": {
+                    $A[$c] = $this->AcumRem;
+                }
+
                     //             case "AAOS": { if (($SH*0.03)<$C) { $A[$c]=$C-($SH*0.03); } else { $A[$c]=0;} break;}	//
                     //             case "AASS": { if (($SH*0.14)<$C) { $A[$c]=$C-($SH*0.14); } else { $A[$c]=0;} break;}	//
                     //             case "ANR": {	 if ($SumUnidades<=$C) { $A[$c]=$U*$SumUnidades/200;} else { $A[$c]=$MF*$SumUnidades; } break;}	// Asignacion No Remunerativa
@@ -434,20 +446,14 @@ class HaberesComponent extends Component
         $res = reset($A);
         for ($d = 1; $d < count($A); $d++) {
             $res = $res * $A[$d];
+            // if ($d==1) { dd($A[$d]); }
         }
 
-        return $res * $CA;
+        return $res;
         //Controla que si hay un tope maximo, este no sea superado por el calculo obtenido
         // if ($res>$MM && $MM<>0) { $res=$MM; }
         // return $res;
     }
-
-    // public function EliminarDetalle($id) {
-    //     $detalle = ConceptoRecibo::find($id);
-    //     $detalle->destroy($id);
-    //     session()->flash('messageOk', 'El detalle se eliminó con éxito');
-    //     $this->cargaIdEmpleado($this->empleadoseleccionado);
-    // }
 
     public function MostrarOcultarModalAgregar() {
         $this->items = Concepto::all();
@@ -621,7 +627,7 @@ class HaberesComponent extends Component
         $Concepto->orden = $this->orden;
         $Concepto->name = $this->name;
         $Concepto->unidad = $this->unidad;
-        is_null($this->haberes) ? $Concepto->haber = 0 : $this->haberes = $Concepto->haber;
+        is_null($this->haberes) ? $Concepto->haber = 0 : $Concepto->haber = $this->haberes;
         is_null($this->remunerativo) ? $Concepto->rem = 0 : $Concepto->rem = $this->remunerativo;
         is_null($this->noremunerativo) ? $Concepto->norem = 0 : $Concepto->norem = $this->noremunerativo;
         is_null($this->descuento) ? $Concepto->descuento = 0 : $Concepto->descuento = $this->descuento;

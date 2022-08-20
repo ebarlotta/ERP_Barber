@@ -49,12 +49,12 @@
 
                 <font size="1" face="Verdana">
                     <table class="table table-responsive table-hover" border="1">
-                        <tbody bordercolor="#FFFFFF" style="font-family : Verdana; font-size : 12px; font-weight : 300;"
+                        <tbody bordercolor="#FFFFFF" style="font-family : Verdana; font-size : 15px; font-weight : 300;"
                             bgcolor="#AFF3F7">
                             <tr align="center">
                                 <td valign="top" style="min-width: 80%">
-                                    <input id="IdProyecto" name="IdProyecto" type="hidden" size="10">
-                                    <table style="font-size:8px;" class="table table-responsive table-hover" border="1">
+                                    
+                                    <table style="font-size:10px;" class="table table-responsive table-hover" border="1">
                                         <tbody bordercolor="#FFFFFF" style="font-family : Verdana; font-size : 12px; font-weight : 300;" bgcolor="#EFF3F7">
                                             <tr style="vertical-align: middle;">
                                                 <td align="center">Año</td>
@@ -114,7 +114,7 @@
                                         <div style="background-color: rgb(156 163 175 / var(--tw-bg-opacity));">
                                             {{ session('message') }}
                                             @if ($IdRecibo)
-                                                <table class="table table-responsive table-hover" style="font-size:12px;" border="1">
+                                                <table class="table table-responsive table-hover" style="font-size:14px;" border="1">
                                                     <tbody>
                                                         <tr>
                                                             <td colspan="2" style="border-bottom-width: 2px;border-color: black;">
@@ -132,7 +132,7 @@
                                                             <td align="center"><strong>CUIL DEL EMPLEADO</strong></td>
                                                             <td align="center"><strong>CONVENIO</strong></td>
                                                             <td align="center"><strong>SECCION</strong></td>
-                                                            <td align="center"><strong>FECHA INGRESO/ANT</strong>
+                                                            <td colspan="2" align="center"><strong>FECHA INGRESO/ANT</strong>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -140,28 +140,29 @@
                                                             <td align="center">{{ $Cuil }}</td>
                                                             <td align="center">{{ $CCT }} </td>
                                                             <td align="center">{{ $Seccion }}</td>
-                                                            <td align="center">{{ substr($FechaIngreso, 0, 10) }} - 7a9m</td>
+                                                            <td colspan="2" align="center">{{ substr($FechaIngreso, 0, 10) }} - 7a9m</td>
                                                         </tr>
                                                         <tr bgcolor="lightGray">
                                                             <td align="center"><strong>CATEGORIA</strong></td>
                                                             <td align="center"><strong>CALIFICACION PROFESIONAL</strong></td>
                                                             <td align="center"><strong>PERIODO DE PAGO</strong></td>
                                                             <td align="center"><b>LEGAJO Nº </b>
-                                                            <td align="center"><strong>REMUNERACION ASIGNADA</strong></td>
+                                                            <td colspan="2" align="center"><strong>REMUNERACION ASIGNADA</strong></td>
                                                         </tr>
                                                         <tr>
                                                             <td align="center" style="border-bottom-width: 2px;border-color: black;">{{ $NombreCategoria }}</td>
                                                             <td align="center" style="border-bottom-width: 2px;border-color: black;">{{ $NombreSubCategoria }}</td>
                                                             <td align="center" style="border-bottom-width: 2px;border-color: black;"><strong>{{ $PerPago }}</strong></td>
                                                             <td align="center" style="border-bottom-width: 2px;border-color: black;"><strong>{{ $Legajo }}</strong></td>
-                                                            <td align="center" style="border-bottom-width: 2px;border-color: black;">$ {{ $TotHaberes }}</td>
+                                                            <td colspan="2" align="center" style="border-bottom-width: 2px;border-color: black;">$ {{ number_format($TotHaberes, 2, ',', '.') }}</td>
                                                         </tr>
                                                         <tr bgcolor="lightGray">
                                                             <td align="left"><strong>CÓDIGO CONCEPTOS</strong></td>
-                                                            <td style="font-size : 10px;" align="center"><strong>UNIDADES</strong></td>
-                                                            <td align="center"><strong>REM.SUJETAS A<br>RETENCIONES</strong></td>
-                                                            <td align="center"><strong>REMUNERACIONES<br> EXENTAS</strong></td>
-                                                            <td style="font-size : 10px;" align="center"><strong>DESCUENTOS</strong></td>
+                                                            <td align="center"><strong>UNIDADES</strong></td>
+                                                            <td align="right"><strong>REM.SUJETAS A<br>RETENCIONES</strong></td>
+                                                            <td align="right"><strong>REMUNERACIONES<br> EXENTAS</strong></td>
+                                                            <td align="right"><strong>DESCUENTOS</strong></td>
+                                                            <td align="center"><strong>Acciones</strong></td>
                                                         </tr>
                                                         @if ($Conceptos)
                                                             @foreach ($Conceptos as $Concepto)
@@ -170,8 +171,8 @@
                                                                     <td align="center">{{ '   '.$Concepto['cantidad'] }}</td>
                                                                     <td align="right">{{ number_format($Concepto['Rem'], 2, ',', '.') }}</td>
                                                                     <td align="right">{{ number_format($Concepto['NoRem'], 2, ',', '.') }}</td>
-                                                                    <td align="right">{{ number_format($Concepto['Descuento'], 2, ',', '.') }}
-
+                                                                    <td align="right">{{ number_format($Concepto['Descuento'], 2, ',', '.') }}</td>
+                                                                    <td colspan="2" align="center">
                                                                         <a href="#" class="rounded-md bg-red-300 px-6 mx-2 py-1 mt-3" wire:click="EliminarConceptoReciboShow({{ $Concepto['id'] }} ,'{{ $Concepto['name']}}' ,{{ $Concepto['cantidad'] }})">Eliminar</a>
                                                                     </td>
                                                                 </tr>
@@ -183,8 +184,8 @@
                                 <td align="center">-</td>
                                 <td align="right">-</td>
                                 <td align="right">-</td>
-                                <td align="right">
-                                    <a href="#" class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" wire:click="MostrarOcultarModalAgregar">Agregar</a>
+                                <td align="right">-</td>
+                                <td align="center"><a href="#" class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" wire:click="MostrarOcultarModalAgregar">Agregar</a>
                                 </td>
                             </tr>
                             <tr>
@@ -192,62 +193,42 @@
                                 <td align="center"><strong></strong></td>
                                 <td align="right"><strong>{{ number_format($AcumRem, 2, ',', '.') }}</strong></td>
                                 <td align="right"><strong>{{ number_format($AcumNoRem, 2, ',', '.') }}</strong></td>
-                                <td align="right"><strong>{{ number_format($AcumDescuento, 2, ',', '.') }}</strong>
+                                <td align="right"><strong>{{ number_format($AcumDescuento, 2, ',', '.') }}</strong></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td style="border-bottom-width: 2px;border-color: black;"></td>
+                                <td colspan="2" align="center" style="border-bottom-width: 2px;border-color: black;"></td>
+                                <td colspan="2" align="center" style="border-bottom-width: 2px;border-color: black;"><strong>NETO A COBRAR</strong></td>
+                                <td bgcolor="lightGray" align="center" style="border-bottom-width: 2px;border-color: black; font-weight: bold;">
+                                    <b>$ {{ number_format($AcumRem + $AcumNoRem - $AcumDescuento, 2, ',', '.') }}</b>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" align="center"
-                                    style="border-bottom-width: 2px;border-color: black;"></td>
-                                <td colspan="2" align="center"
-                                    style="border-bottom-width: 2px;border-color: black;"><strong>NETO A
-                                        COBRAR</strong></td>
-                                <td bgcolor="lightGray" align="right"
-                                    style="border-bottom-width: 2px;border-color: black;">
-                                    <strong>{{ number_format($AcumRem + $AcumNoRem - $AcumDescuento, 2, ',', '.') }}</strong>
-                                </td>
+                                <td colspan="6" bgcolor="lightGray"><strong>Son pesos: SESENTA Y UN MIL NOVECIENTOS SETENTA Y TRES PESOS CON 50/100 CENTAVOS</strong></td>
                             </tr>
                             <tr>
-                                <td colspan="6" style="font-size : 12px;" bgcolor="lightGray"><strong>Son pesos:
-                                        SESENTA Y UN
-                                        MIL NOVECIENTOS SETENTA Y TRES PESOS CON 50/100
-                                        CENTAVOS</strong></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"><strong>LUGAR</strong></td>
-                                <td colspan="2" align="center">{{ $LugarPago }}</td>
-                                <td rowspan="6" colspan="2">Recibí el importe de
-                                    esta liquidación de pago de mi <br>remuneración
-                                    correspondiente al período indicado y<br> duplicado
-                                    de la misma conforme a la ley
-                                    vigente.<br><br><br><br><br><br>
+                                <td><strong>LUGAR</strong></td>
+                                <td align="left">{{ $LugarPago }}</td>
+                                <td><strong>BANCO</strong></td>
+                                <td align="left">{{ $Banco }}</td>
+                                <td rowspan="6" colspan="2">Recibí el importe de esta liquidación de pago de mi <br>
+                                    remuneración correspondiente al período indicado y<br>
+                                    duplicado de la misma conforme a la ley vigente.<br><br><br><br>
                                     <center><strong>FIRMA EMPLEADO/R</strong></center>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2"><strong>FECHA DE
-                                        LIQUIDACIÓN</strong></td>
-                                <td colspan="2" align="center">01-02-2022</td>
+                                <td><strong>FECHA DE LIQUIDACIÓN</strong></td>
+                                <td align="left">01-02-2022</td>
+                                <td><strong>ULTIMA LIQUIDACIÓN</strong></td>
+                                <td align="left">202112</td>
                             </tr>
                             <tr>
-                                <td colspan="2"><strong>ART 12 LEY 17250</strong>
-                                </td>
-                                <td colspan="2"></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"><strong>ULTIMA LIQUIDACIÓN</strong>
-                                </td>
-                                <td colspan="2" align="center">202112</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"><strong>BANCO</strong></td>
-                                <td colspan="2" align="center">{{ $Banco }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <strong>FECHA DEPOSITO</strong>
-                                </td>
-                                <td colspan="2" align="center">{{ substr($FechaUltLiq,8,2).'-'.substr($FechaUltLiq,6,2).'-'. substr($FechaUltLiq,0,4) }}</td>
+                                <td><strong>FECHA DEPOSITO</strong></td>
+                                <td align="left">{{ substr($FechaUltLiq,8,2).'-'.substr($FechaUltLiq,5,2).'-'. substr($FechaUltLiq,0,4) }}</td>
+                                <td><strong>ART 12 LEY 17250</strong></td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>
