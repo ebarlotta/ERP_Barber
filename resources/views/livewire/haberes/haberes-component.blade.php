@@ -115,7 +115,7 @@
                                             {{ session('message') }}
                                             @if ($IdRecibo)
                                                 <table class="table table-responsive table-hover" style="font-size:14px;" border="1">
-                                                    <tbody>
+                                                    <tbody style="height: 100px; overflow-y: auto;">
                                                         <tr>
                                                             <td colspan="2" style="border-bottom-width: 2px;border-color: black;">
                                                                 <strong>Nombre de la Empresa:{{ $NombreEmpresa }}</strong>
@@ -140,7 +140,7 @@
                                                             <td align="center">{{ $Cuil }}</td>
                                                             <td align="center">{{ $CCT }} </td>
                                                             <td align="center">{{ $Seccion }}</td>
-                                                            <td colspan="2" align="center">{{ substr($FechaIngreso, 0, 10) }} - 7a9m</td>
+                                                            <td colspan="2" align="center">{{ substr($FechaIngreso, 0, 10) }} - {{ $ano_diferencia.'a'.$mes_diferencia.'m' }}</td>
                                                         </tr>
                                                         <tr bgcolor="lightGray">
                                                             <td align="center"><strong>CATEGORIA</strong></td>
@@ -201,11 +201,11 @@
                                 <td colspan="2" align="center" style="border-bottom-width: 2px;border-color: black;"></td>
                                 <td colspan="2" align="center" style="border-bottom-width: 2px;border-color: black;"><strong>NETO A COBRAR</strong></td>
                                 <td bgcolor="lightGray" align="center" style="border-bottom-width: 2px;border-color: black; font-weight: bold;">
-                                    <b>$ {{ number_format($AcumRem + $AcumNoRem - $AcumDescuento, 2, ',', '.') }}</b>
+                                    <b>$ {{ number_format($NetoACobrar, 2, ',', '.') }} </b>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="6" bgcolor="lightGray"><strong>Son pesos: SESENTA Y UN MIL NOVECIENTOS SETENTA Y TRES PESOS CON 50/100 CENTAVOS</strong></td>
+                                <td colspan="6" bgcolor="lightGray"><strong>Son pesos: {{ strtoupper($NetoACobrarLetras)}} </strong></td>
                             </tr>
                             <tr>
                                 <td><strong>LUGAR</strong></td>

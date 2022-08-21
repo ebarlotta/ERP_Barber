@@ -85,8 +85,8 @@
                                     <td align="center">Categoría Profesional</td>
                                     <td align="center">Sub Categoría</td>
                                     <td align="center">CCT</td>
-                                    <td>Precio Dia</td>
                                     <td>Precio Mes</td>
+                                    <td>Precio Dia</td>
                                     <td>Precio Hora</td>
                                     <td>Por Unidad</td>
                                     <td align="center">Básico Cat.</td>
@@ -103,22 +103,14 @@
                                         <td>{{ $categoria->name }}</td>
                                         <td>{{ $categoria->subcategoria }}</td>
                                         <td>{{ $categoria->cct }}</td>
-                                        <td align="right"> {{ number_format($categoria->preciodia, 2, ',', '.') }}
-                                        </td>
-                                        <td align="right"> {{ number_format($categoria->preciomes, 2, ',', '.') }}
-                                        </td>
-                                        <td align="right"> {{ number_format($categoria->preciohora, 2, ',', '.') }}
-                                        </td>
-                                        <td align="right"> {{ number_format($categoria->preciounidad, 2, ',', '.') }}
-                                        </td>
-                                        <td align="right"> {{ number_format($categoria->basico, 2, ',', '.') }}
-                                        </td>
-                                        <td align="right"> {{ number_format($categoria->basico1, 2, ',', '.') }}
-                                        </td>
-                                        <td align="center">{{ number_format($categoria->basico2, 2, ',', '.') }}
-                                        </td>
-                                        <td align="center">{{ number_format($categoria->porcentaje, 2, ',', '.') }}
-                                        </td>
+                                        <td align="right"> {{ number_format($categoria->preciomes, 2, ',', '.') }}</td>
+                                        <td align="right"> {{ number_format($categoria->preciodia, 2, ',', '.') }}</td>
+                                        <td align="right"> {{ number_format($categoria->preciohora, 2, ',', '.') }}</td>
+                                        <td align="right"> {{ number_format($categoria->preciounidad, 2, ',', '.') }}</td>
+                                        <td align="right"> {{ number_format($categoria->basico, 2, ',', '.') }}</td>
+                                        <td align="right"> {{ number_format($categoria->basico1, 2, ',', '.') }}</td>
+                                        <td align="center">{{ number_format($categoria->basico2, 2, ',', '.') }}</td>
+                                        <td align="center">{{ number_format($categoria->porcentaje, 2, ',', '.') }}</td>
                                         <td align="left"> {{ $categoria->activo }}</td>
                                         <td align="left"> {{ $categoria->observacion }}</td>
                                     </tr>

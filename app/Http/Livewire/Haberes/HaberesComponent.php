@@ -42,6 +42,8 @@ class HaberesComponent extends Component
     public $AcumRem;
     public $AcumNoRem;
     public $AcumDescuento;
+    public $NetoACobrar;
+    public $NetoACobrarLetras;
 
 
     //Datos propios de la empresa
@@ -54,6 +56,7 @@ class HaberesComponent extends Component
     public $NombreEmpleado;
     public $Cuil;
     public $FechaIngreso;
+    public $Antiguedad;
     public $Legajo;
     public $Seccion;
     public $Banco;
@@ -240,6 +243,7 @@ class HaberesComponent extends Component
         $this->NombreEmpleado = $Empleado[0]['name'];
         $this->Cuil = $Empleado[0]['cuil'];
         $this->FechaIngreso = $Empleado[0]['ingreso'];
+        $this->Antiguedad = $this->calculaedad($this->FechaIngreso);
         $this->Legajo = $Empleado[0]['legajo'];
         $this->Seccion = $Empleado[0]['seccion'];
         $this->Banco = $Empleado[0]['banco'];
@@ -249,20 +253,25 @@ class HaberesComponent extends Component
 
     public function CargarDatosCategoriaProfesional($id) {
 
-        //$Empleado = Empleado::find($id);
         $Empleado = Empleado::find($this->IdEmpleado);
         
         $Categoria = Categoriaprofesional::find($id);
-        //dd($Categoria);
-        // $Categoria = Categoriaprofesional::find($Empleado->categoriaprofesional_id);
-        if($Empleado->mensualizado) { $this->xPrecioMes    = $Categoria->preciomes;    $this->TotHaberes=$Categoria->preciomes;  }
-        if($Empleado->jornalizado)  { $this->xPrecioDia    = $Categoria->preciodia;    $this->TotHaberes=$Categoria->preciodia;  }
-        if($Empleado->hora)         { $this->xPrecioHora   = $Categoria->preciohora;   $this->TotHaberes=$Categoria->preciohora;}
-        if($Empleado->unidad)       { $this->xPrecioUnidad = $Categoria->preciounidad; $this->TotHaberes=$Categoria->preciounidad;}
+    
+        //Este detalle se tiene en cuenta para el cálculo de algunos items del recibo
+        if($Empleado->mensualizado) { $this->TotHaberes=$Categoria->preciomes;  }
+        if($Empleado->jornalizado)  { $this->TotHaberes=$Categoria->preciodia;  }
+        if($Empleado->hora)         { $this->TotHaberes=$Categoria->preciohora;}
+        if($Empleado->unidad)       { $this->TotHaberes=$Categoria->preciounidad;}
+
+        $this->xPrecioMes    = $Categoria->preciomes;   
+        $this->xPrecioDia    = $Categoria->preciodia;  
+        $this->xPrecioHora   = $Categoria->preciohora;  
+        $this->xPrecioUnidad = $Categoria->preciounidad;
 
         $this->NombreCategoria = $Categoria->name;
         $this->NombreSubCategoria = $Categoria->subcategoria;
         $this->CCT = $Categoria->cct;
+
     }
 
     public function DevolverConceptosRecibo($IdRecibo)
@@ -278,6 +287,7 @@ class HaberesComponent extends Component
 
         $Detalle = json_decode($Detalle, true);
         // dd($Detalle);
+        //Toma el cógigo de la categoría profesional correspondiente al RECIBO
         $a = Categoriaprofesional::find($this->IdCatProfe);
         $e = Empleado::where('empresa_id', $this->EmpresaId)->where('id', $this->empleadoseleccionado)->get();
         $precios = array($a->preciomes, $a->preciodia, $a->preciohora, $a->preciounidad, $a->basico, $a->basico1, $a->basico2);
@@ -320,6 +330,9 @@ class HaberesComponent extends Component
             $this->Conceptos = $AA;
         }
 
+        $this->NetoACobrar = $this->AcumRem + $this->AcumNoRem - $this->AcumDescuento;
+        $this->NetoACobrarLetras = $this->convertir((int)$this->NetoACobrar) .' con '.  ((int)(($this->NetoACobrar-(int)$this->NetoACobrar)*100)) . '/100 centavos';
+        //dd($this->NetoACobrarLetras);
         // if ($this->Conceptos[0]['montofijo']>0) {
 
         //     $pp=floatval($this->CalcularExpresion($precios, $tipos, $this->Conceptos[0]['cantidad'], $this->Conceptos[0]['unidad'], $this->Conceptos[0]['montofijo'], $this->Conceptos[0]['calculo']));
@@ -373,52 +386,26 @@ class HaberesComponent extends Component
         DE	    Total Descuentos
         
         */
-        //dd($pieces);
         for ($c = 0; $c < count($pieces); $c++) {
             switch ($pieces[$c]) {
                 case is_numeric($pieces[$c]): { $A[$c]=$pieces[$c] ; break;}
-                case "RA": {
-                        $A[$c] = $PM * $TM + $PD * $TD + $PH * $TH + $PU * $TU;
-                        break;
-                    } // 'R'emuneracion 'A'signada
-                case "RB": {
-                        $A[$c] = ($PM * $TM + $PD * $TD + $PH * $TH + $PU * $TU);
-                        $this->RB = $A[$c];
-                        break;
-                    } // 'R'emuneracion 'A'signada
+                case "RA": { $A[$c] = $PM * $TM + $PD * $TD + $PH * $TH + $PU * $TU; break; } // 'R'emuneracion 'A'signada
+                case "RB": { $A[$c] = ($PM * $TM + $PD * $TD + $PH * $TH + $PU * $TU); $this->RB = $A[$c]; break; } // 'R'emuneracion 'A'signada
                     //case "TH":{ $A[$c]=($PD*$TD+$PH*$TH+$PM*$TM+$PU*$TU)*$C;	break;}// 'T'otal 'H'aberes
-
                     // case "U": {	 $A[$c]=$U;  break;}				// 'U'nidades
-                case "DE": {
-                        $A[$c] = $this->RB;
-                        break;
-                    }            // 'D'escuentos 
+                case "DE": { $A[$c] = $this->RB; break; }            // 'D'escuentos 
+                case "MF": { $A[$c] = $MF; break; }                    // 'M'onto 'F'ijo
+                case "CA": { $A[$c] = $CA; break; }                // 'C'antidad
+                case "BC": { $A[$c] = $BC; break; }                // 'B'ásico 'C'ategoria
+                case "B1": { $A[$c] = $B1; break; }                // 'B'ásico 'C'ategoria 1
+                case "B2": { $A[$c] = $B2; break; }                // 'B'ásico 'C'ategoria 2
+                case "REM": { $A[$c] = $this->AcumRem; break; }
+                case "PM": { $A[$c] = $this->xPrecioMes; break; }
+                case "PD": { $A[$c] = $this->xPrecioDia;break; break;}
+                case "PH": { $A[$c] = $this->xPrecioHora; break;}
+                case "PU": { $A[$c] = $this->xPrecioUnidad; break;}
+                case "ANT": { $A[$c] = $this->xPrecioUnidad; break;}
 
-                case "MF": {
-                        $A[$c] = $MF;
-                        break;
-                    }                    // 'M'onto 'F'ijo
-                case "CA": {
-                    // dd($CA);
-                        $A[$c] = $CA;
-                        break;
-                    }                // 'C'antidad
-                case "BC": {
-                        $A[$c] = $BC;
-                        break;
-                    }                // 'B'ásico 'C'ategoria
-                case "B1": {
-                        $A[$c] = $B1;
-                        break;
-                    }                // 'B'ásico 'C'ategoria 1
-                case "B2": {
-                        $A[$c] = $B2;
-                        break;
-                    }                // 'B'ásico 'C'ategoria 2
-
-                case "REM": {
-                    $A[$c] = $this->AcumRem;
-                }
 
                     //             case "AAOS": { if (($SH*0.03)<$C) { $A[$c]=$C-($SH*0.03); } else { $A[$c]=0;} break;}	//
                     //             case "AASS": { if (($SH*0.14)<$C) { $A[$c]=$C-($SH*0.14); } else { $A[$c]=0;} break;}	//
@@ -436,12 +423,8 @@ class HaberesComponent extends Component
                     //                 $stmt =  $GLOBALS['pdo']->prepare($sSql); $stmt->execute();
                     //                 $row=$stmt->fetch();
                     //                 $A[$c]=$row['Tot'];   break;}// 2do SAC
-
-                    // case is_numeric($pieces[$c]) : { $A[$c]=$pieces[$c]; break;} // Si es un numero
             }
         }
-        // $res=$A[0];
-        //dd($A[0]);
 
         $res = reset($A);
         for ($d = 1; $d < count($A); $d++) {
@@ -454,6 +437,20 @@ class HaberesComponent extends Component
         // if ($res>$MM && $MM<>0) { $res=$MM; }
         // return $res;
     }
+
+    public function calculaedad($fechanacimiento){
+        
+        list($ano,$mes,$dia) = explode("-",$fechanacimiento);
+        $dia = substr($dia,0,2);
+        $this->ano_diferencia  = date("Y") - $ano;
+        $this->mes_diferencia = date("m") - $mes;
+        $this->dia_diferencia   = date("d") - $dia;
+        if ($this->dia_diferencia < 0 || $this->mes_diferencia < 0){ $this->ano_diferencia--; }
+        $this->Antiguedad = $this->ano_diferencia.'a'.$this->mes_diferencia.'m'; 
+        //dd($this->Antiguedad);
+
+        return $this->ano_diferencia;
+      }
 
     public function MostrarOcultarModalAgregar() {
         $this->items = Concepto::all();
@@ -664,4 +661,76 @@ class HaberesComponent extends Component
         $this->CargarListaDeConceptos();
     }
 
+        public function basico($numero) {
+            $valor = array ('uno','dos','tres','cuatro','cinco','seis','siete','ocho',
+        'nueve','diez','once','doce','trece','catorce','quince','dieciseis','diecisiete','dieciocho','diecinueve','veinte','veintiuno ','vientidos ','veintitrés ', 'veinticuatro','veinticinco',
+        'veintiséis','veintisiete','veintiocho','veintinueve');
+        return $valor[$numero - 1];
+        }
+        
+        public function decenas($n) {
+            $decenas = array (30=>'treinta',40=>'cuarenta',50=>'cincuenta',60=>'sesenta', 70=>'setenta',80=>'ochenta',90=>'noventa');
+            if( $n <= 29) return $this->basico($n);
+                $x = $n % 10;
+            if ( $x == 0 ) {
+                return $decenas[$n];
+            } else {
+                return $decenas[$n - $x].' y '. $this->basico($x);
+            }
+        }
+        
+        public function centenas($n) {
+            $cientos = array (100 =>'cien',200 =>'doscientos',300=>'trecientos', 400=>'cuatrocientos', 500=>'quinientos',600=>'seiscientos', 700=>'setecientos',800=>'ochocientos', 900 =>'novecientos');
+            if( $n >= 100) {
+            if ( $n % 100 == 0 ) {
+                return $cientos[$n];
+            } else {
+                $u = (int) substr($n,0,1);
+                $d = (int) substr($n,1,2);
+                return (($u == 1)?'ciento':$cientos[$u*100]).' '.$this->decenas($d);
+            }
+            } else {
+                return $this->decenas($n);
+            }
+        }
+        
+        public function miles($n) {
+            if($n > 999) {
+                if( $n == 1000) { return 'mil'; }
+                else {
+                    $l = strlen($n); // 8
+                    $c = (int)substr($n,0,$l-3);  // 46172
+                    $x = (int)substr($n,-3); //0
+                    if($c == 1) { $cadena = 'mil '.$this->centenas($x); }
+                    else if($x != 0) { $cadena = $this->centenas($c).' mil '.$this->centenas($x); }
+                    else $cadena = $this->centenas($c). ' mil';
+                    return $cadena;
+                }
+            } else return $this->centenas($n);
+        }
+        
+        public function millones($n) {
+            if($n == 1000000) {return 'un millón';}
+            else {
+                $l = strlen($n);
+                $c = (int)substr($n,0,$l-6);
+                $x = (int)substr($n,-6);
+                if($c == 1) {
+                    $cadena = ' millón ';
+                } else {
+                    $cadena = ' millones ';
+                }
+                return $this->miles($c).$cadena.(($x > 0) ? $this->miles($x):'');
+            }
+        }
+
+        public function convertir($n) {
+            switch (true) {
+                case ( $n >= 1 && $n <= 29) : return $this->basico($n); break;
+                case ( $n >= 30 && $n < 100) : return $this->decenas($n); break;
+                case ( $n >= 100 && $n < 1000) : return $this->centenas($n); break;
+                case ($n >= 1000 && $n <= 999999): return $this->miles($n); break;
+                case ($n >= 1000000): return $this->millones($n);
+            }
+        }
 }
