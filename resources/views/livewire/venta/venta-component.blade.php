@@ -23,7 +23,7 @@
 							@else 
 								<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white" wire:click="CambiarTab(2)">
 							@endif
-								<i class="fas fa-cog text-base mr-1"></i> Deuda a Proveedores
+								<i class="fas fa-cog text-base mr-1"></i> Deuda a Clientes
 							</a>
 						</li>
 						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -32,7 +32,7 @@
 							@else 
 								<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white" wire:click="CambiarTab(3)">
 							@endif
-								<i class="fas fa-briefcase text-base mr-1"></i> Crédito de Proveedores
+								<i class="fas fa-briefcase text-base mr-1"></i> Crédito de Clientes
 							</a>
 						</li>
 						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -205,16 +205,16 @@
 											@error('gfecha') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
 										<div class="w-44 mr-1">
-											<label for="">Proveedor</label><br>
-											<select class="ml-2 w-full rounded-md h-8 leading-none" wire:model="gproveedor">
+											<label for="">Cliente</label><br>
+											<select class="ml-2 w-full rounded-md h-8 leading-none" wire:model="gcliente">
 												<option value=" "> </option>
-												@foreach ($proveedores as $proveedor)
-													<option value="{{ $proveedor->id }}">
-														{{ $proveedor->name }}
+												@foreach ($clientes as $cliente)
+													<option value="{{ $cliente->id }}">
+														{{ $cliente->name }}
 													</option>
 												@endforeach
 											</select>
-											@error('gproveedor') <span class="text-red-500">{{ $message }}</span>@enderror
+											@error('gcliente') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
 										<div class="w-36 mr-1">
 											<label for="">Comprobante</label><br>
@@ -392,12 +392,12 @@
 													<option value="11">Noviembre</option>
 													<option value="12">Diciembre</option>
 												</select></div>
-											<div class="border px-2">Proveedor<br>
-												<select class=" rounded-md h-7 py-0 leading-none" wire:model="gfproveedor" wire:change="gfiltro()">
+											<div class="border px-2">Cliente<br>
+												<select class=" rounded-md h-7 py-0 leading-none" wire:model="gfcliente" wire:change="gfiltro()">
 													<option value=""></option>
-													@foreach ($proveedores as $proveedor)
-														<option value="{{ $proveedor->id }}">
-															{{ $proveedor->name }}</option>
+													@foreach ($clientes as $cliente)
+														<option value="{{ $cliente->id }}">
+															{{ $cliente->name }}</option>
 													@endforeach
 												</select>
 											</div>
@@ -472,7 +472,7 @@
 											</tr>
 											<tr>
 												<td class="border border-green-600">Mes</td>
-												<td class="border border-green-600">Proveedor</td>
+												<td class="border border-green-600">Cliente</td>
 												<td class="border border-green-600">ParticipaIva</td>
 												<td class="border border-green-600">Iva</td>
 												<td class="border border-green-600">Detalle</td>
@@ -502,11 +502,11 @@
 													</select>
 												</td>
 												<td class="border border-green-600">
-													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfproveedor" wire:change="gfiltro()">
+													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfcliente" wire:change="gfiltro()">
 														<option value=""></option>
-														@foreach ($proveedores as $proveedor)
-															<option value="{{ $proveedor->id }}">
-																{{ $proveedor->name }}</option>
+														@foreach ($clientes as $cliente)
+															<option value="{{ $cliente->id }}">
+																{{ $cliente->name }}</option>
 														@endforeach
 													</select>
 
@@ -580,7 +580,7 @@
 								</div>
 							</div>
 
-{{-- Deuda a Proveedores --}}
+{{-- Deuda a Clientes --}}
 {{-- =================== --}}
 							<div class="{{ $tabActivo != 2 ? 'hidden' : '' }}">
 								<div class="flex justify-center">
@@ -626,7 +626,7 @@
 
 									<div class="flex mt-4 justify-center">
 										<div class="block mb-4 justify-start">
-											<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularDeudaProveedores(0)">Solicitar Listado</button>
+											<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularDeudaClientes(0)">Solicitar Listado</button>
 											<a href="{{ URL::to('/pdf/deuda'.'/'.$ddesde.'/'.$dhasta) }}" target="_blank">
 												<button class="rounded-md bg-yellow-500 px-8 py-1 mx-2 mt-3" style="color: black;">Generar PDF</button>
 											</a>
@@ -634,13 +634,13 @@
 									</div>
 
 									<div class="flex justify-center w-full">
-										@if ($MostrarDeudaProveedores)
-											{!! $DeudaProveedoresFiltro !!}
+										@if ($MostrarDeudaClientes)
+											{!! $DeudaClientesFiltro !!}
 										@endif
 									</div>
 								</div>								
 							</div>
-{{-- Crédito de Proveedores --}}
+{{-- Crédito de Clientes --}}
 {{-- ======================= --}}							
 							<div class="{{ $tabActivo != 3 ? 'hidden' : '' }}">
 								<div class="block">
@@ -691,7 +691,7 @@
 									<div class="flex justify-center">
 										<div class="flex mt-4 justify-center">
 											<div class="block mb-4 justify-start">
-												<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularCreditoProveedores()">Solicitar Listado</button>
+												<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularCreditoClientes()">Solicitar Listado</button>
 												<a href="{{ URL::to('/pdf/credito'.'/'.$cdesde.'/'.$chasta) }}" target="_blank">
 													<button class="rounded-md bg-yellow-500 px-8 	py-1 mx-2 mt-3" style="color: black;">Generar PDF</button>
 												</a>
@@ -701,8 +701,8 @@
 									{{-- Filtro --}}
 									<div class="flex justify-center">
 										<div class="flex justify-center w-full">
-											@if ($MostrarCreditoProveedores)
-												{!! $CreditoProveedoresFiltro !!}
+											@if ($MostrarCreditoClientes)
+												{!! $CreditoClientesFiltro !!}
 											@endif
 										</div>
 									</div>
@@ -770,7 +770,7 @@
 													</select>
 												</td>
 												<td>
-													<a href="{{ URL::to('/pdf/ivacompras'.'/'.$lanio.'/'.$lmes) }}" target="_blank">
+													<a href="{{ URL::to('/pdf/ivaventas'.'/'.$lanio.'/'.$lmes) }}" target="_blank">
 														<button class="rounded-md bg-green-300 px-8 py-1 ml-4 mt-6" style="color: black;">Imprimir Libro</button>
 													</a><br>
 													<button class="rounded-md bg-yellow-300 px-8 py-1 ml-4 mt-6 white" wire:click="openModalCerrarLibro()">Cerrar Libro</button>
@@ -778,7 +778,7 @@
 											</tr>
 										</table>
 										@if($ModalCerrarLibro)
-											@include('livewire.compra.modalcerrarlibrocompras')
+											@include('livewire.venta.modalcerrarlibroventas')
 										@endif
 										<div class="w-full">
 											@if ($MostrarLibros)

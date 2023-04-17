@@ -99,9 +99,8 @@ class Cart extends Component
         $this->ModalDetail = false;
     }
 
-    public function show_carrito() {
+    public function CalcularSubtotal() {
         $Acum = 0;
-        $this->Modal_Carrito = true;
         $this->data = CartProduct::where('user_id','=',Auth::user()->id)
         ->join('productos','productos.id','=','cart_products.productos_id')->get();
 
@@ -114,6 +113,13 @@ class Cart extends Component
             $Acum = $Acum + $result;
         }
         $this->subtotal = $Acum;
+    }
+
+    public function show_carrito() {
+        $this->Modal_Carrito = true;
+
+        $this->CalcularSubtotal();
+    
     }
 
     public function CloseModal_Carrito() {
@@ -153,6 +159,7 @@ class Cart extends Component
         else {
             $descontar->cantidad--;
             $descontar->save();
+            $this->CalcularSubtotal();
         }
     }
 

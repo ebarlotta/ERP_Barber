@@ -355,10 +355,15 @@ return [
                             'text' => 'Agregar Etiqueta',
                             'url'  => 'producto/tag',
                         ],
-                        [[
+                        [
                             'text' => 'Agregar Producto',
                             'url'  => 'producto/create',
                         ],
+                        [
+                            'text' => 'Gestión de Producto',
+                            'url'  => 'productos',
+                        ],
+                        [
                             'text' => 'Modificar / Eliminar',
                             'url'  => 'producto',
                         ],

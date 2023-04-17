@@ -79,10 +79,10 @@
                                             </div>
                                             <div class="minicartk-details-price">
                                                 @if($detalle->descuento>0)
-                                                    <del class="minicartk-price bold">$ {{number_format($detalle->precio_compra * $detalle->cantidad,2, ',', '.') }}</del>
-                                                    <span class="minicartk-price bold">$ {{number_format($detalle->precio_compra * $detalle->cantidad * (1-$detalle->descuento/100),2, ',', '.') }}</span>
+                                                    <del class="minicartk-price bold">$ {{number_format($detalle->precio_venta * $detalle->cantidad,2, ',', '.') }}</del>
+                                                    <span class="minicartk-price bold">$ {{number_format($detalle->precio_venta * $detalle->cantidad * (1-$detalle->descuento/100),2, ',', '.') }}</span>
                                                 @else
-                                                    <span class="minicartk-price bold">$ {{number_format($detalle->precio_compra * $detalle->cantidad,2, ',', '.') }}</span>
+                                                    <span class="minicartk-price bold">$ {{number_format($detalle->precio_venta * $detalle->cantidad,2, ',', '.') }}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -185,10 +185,10 @@
                                         </h4>
                                         <div class="info-product-price">
                                             @if($producto_detail->descuento>0)
-                                                <span class="item_price">$ {{ number_format($producto_detail->precio_venta * (1-$producto_detail->descuento/100),2, ',', '.') }}</span>
-                                                <del>${{ number_format($producto_detail->precio_venta,2, ',', '.') }}</del>
+                                                <span class="item_price">$ {{ number_format($producto_detail->precio_compra * (1-$producto_detail->descuento/100),2, ',', '.') }}</span>
+                                                <del>${{ number_format($producto_detail->precio_compra,2, ',', '.') }}</del>
                                             @else
-                                                <span class="item_price">$ {{ number_format($producto_detail->precio_venta,2, ',', '.') }}</span>
+                                                <span class="item_price">$ {{ number_format($producto_detail->precio_compra,2, ',', '.') }}</span>
                                             @endif
                                             {{-- <span class="item_price">$ {{ $producto_detail->precio_compra }}</span>
                                             <del>${{ $producto_detail->precio_compra * 1.10 }}</del> --}}
@@ -437,7 +437,7 @@
                                                 <div class="info-product-price">
                                                     @if($producto->descuento>0)
                                                         <span class="item_price">$ {{ number_format($producto->precio_venta * (1-$producto->descuento/100),2, ',', '.') }}</span>
-                                                        <del>${{ number_format($producto->precio_venta,2, ',', '.') }}</del>
+                                                        <del>$ {{ number_format($producto->precio_venta,2, ',', '.') }}</del>
                                                     @else
                                                         <span class="item_price">$ {{ $producto->precio_venta }}</span>
                                                     @endif

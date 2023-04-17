@@ -3,8 +3,8 @@
 namespace App\Http\Livewire\Venta;
 
 use Livewire\Component;
-use App\Models\Proveedor;
 use App\Models\Area;
+use App\Models\Cliente;
 use App\Models\Cuenta;
 use App\Models\EmpresaUsuario;
 use App\Models\Iva;
@@ -17,7 +17,7 @@ use App\Models\Venta;
 class VentaComponent extends Component
 {
 
-    public $areas, $cuentas, $ivas, $proveedores;       // Globales
+    public $areas, $cuentas, $ivas, $clientes;       // Globales
     public $empresa_id; public $tabActivo=1; public $venta_id;
     
     //Comprobantes
@@ -28,19 +28,19 @@ class VentaComponent extends Component
     public $ModalModify, $openModalModify;
     public $ModalAgregarDetalle, $openModalAgregarDetalle;
     public $ModalCerrarLibro;
-    public $gfecha,$gproveedor, $gcomprobante, $gcuenta, $gdetalle, $ganio, $gmes, $garea, $gpartiva, $gbruto, $giva2, $gexento, $gimpinterno, $gperciva, $gretgan, $gperib, $gneto, $gmontopagado, $gcantidad;
+    public $gfecha,$gcliente, $gcomprobante, $gcuenta, $gdetalle, $ganio, $gmes, $garea, $gpartiva, $gbruto, $giva2, $gexento, $gimpinterno, $gperciva, $gretgan, $gperib, $gneto, $gmontopagado, $gcantidad;
     public $gselect_productos, $gprecio_prod, $gcantidad_prod, $glistado_prod;
     //Variables del filtro
-    public $gfmes, $gfproveedor, $gfparticipa, $gfiva, $gfdetalle, $gfarea, $gfcuenta, $gfanio, $fgascendente, $gfsaldo; //Comprobantes
+    public $gfmes, $gfcliente, $gfparticipa, $gfiva, $gfdetalle, $gfarea, $gfcuenta, $gfanio, $fgascendente, $gfsaldo; //Comprobantes
     
-    // Deuda Proveedores
+    // Deuda Clientes
     public $darea, $ddesde, $dhasta, $danio;
-    public $DeudaProveedoresFiltro, $MostrarDeudaProveedores; 
+    public $DeudaClientesFiltro, $MostrarDeudaClientes; 
     public $deudaPDF;
 
-    // Crédito Proveedores
+    // Crédito Clientes
     public $carea, $cdesde, $chasta, $canio;
-    public $CreditoProveedoresFiltro, $MostrarCreditoProveedores;
+    public $CreditoClientesFiltro, $MostrarCreditoClientes;
 
     // Libros de Iva
     public $lmes,$lanio;
@@ -59,7 +59,7 @@ class VentaComponent extends Component
         }
         $this->areas = Area::where('empresa_id', $this->empresa_id)->get();
         $this->cuentas = Cuenta::where('empresa_id', $this->empresa_id)->get();
-        $this->proveedores = Proveedor::where('empresa_id', $this->empresa_id)->get();
+        $this->clientes = Cliente::where('empresa_id', $this->empresa_id)->get();
         $this->ivas = Iva::where('id','>',1)->get();
         $this->productos = Producto::where('empresa_id', $this->empresa_id)->orderBy('name','asc')->get();
 
@@ -116,7 +116,7 @@ class VentaComponent extends Component
             'giva'              => 'required|integer',
             'garea'             => 'required|integer',
             'gcuenta'           => 'required|integer',
-            'gproveedor'        => 'required|integer',
+            'gcliente'        => 'required|integer',
         ]);
         $cerrado = Venta::where('PasadoEnMes','=',$this->gmes)
             ->where('Anio','=',$this->ganio)
@@ -146,7 +146,7 @@ class VentaComponent extends Component
                 'cuenta_id'         => $this->gcuenta,
                 'user_id'           => auth()->user()->id,
                 'empresa_id'        => session('empresa_id'),
-                'proveedor_id'      => $this->gproveedor,
+                'cliente_id'      => $this->gcliente,
             ]);
             //updateOrCreate
             $this->gfiltro();
@@ -183,7 +183,7 @@ class VentaComponent extends Component
                 'giva'              => 'required|integer',
                 'garea'             => 'required|integer',
                 'gcuenta'           => 'required|integer',
-                'gproveedor'        => 'required|integer',
+                'gcliente'        => 'required|integer',
             ]);
             $comp->update([
                 'fecha'             => $this->gfecha,
@@ -207,7 +207,7 @@ class VentaComponent extends Component
                 'cuenta_id'         => $this->gcuenta,
                 'user_id'           => auth()->user()->id,
                 'empresa_id'        => session('empresa_id'),
-                'proveedor_id'      => $this->gproveedor,
+                'cliente_id'      => $this->gcliente,
             ]);
             //updateOrCreate
             $this->gfiltro();
@@ -247,7 +247,7 @@ class VentaComponent extends Component
                   <tr>
                     <th scope=\"col\">Fecha</th>
                     <th scope=\"col\">Comprobante</th>
-                    <th scope=\"col\">Proveedor</th>
+                    <th scope=\"col\">Cliente</th>
                     <th class=\"col d-none d-sm-table-cell\" scope=\"col\">Detalle</th>
                     <th scope=\"col\">Bruto</th>
                     <th scope=\"col\">Iva</th>
@@ -272,7 +272,7 @@ class VentaComponent extends Component
             $Area=Area::find($registro->area_id);
             $Cuenta=Cuenta::find($registro->cuenta_id);
             $Iva=Iva::find($registro->iva_id);
-            $Proveedor=Proveedor::find($registro->proveedor_id);
+            $Cliente=Cliente::find($registro->cliente_id);
             if($Iva->monto==0) { $MontoIva=0; } else {
                 $MontoIva=($registro->BrutoComp*$Iva->monto/100);
             }
@@ -294,7 +294,7 @@ class VentaComponent extends Component
             <tr wire:click=\"gCargarRegistro(". $registro->id .")\">
                 <td>$Fecha</td>
                 <td>$registro->comprobante</td>
-                <td>$Proveedor->name</td>
+                <td>$Cliente->name</td>
                 <td class=\" d-none d-sm-table-cell\">$registro->detalle</td>
                 <td>".number_format($registro->BrutoComp, 2,'.','')."</td>
                 <td>".number_format($MontoIva, 2,'.','')."</td>
@@ -363,9 +363,9 @@ class VentaComponent extends Component
         $sql='';
         switch ($interfaz) {
             case "ventas" : {
-                //Mes 	Proveedor 	ParticipaIva 	Iva 	Detalle 	Area 	Cuenta 	Año 	Asc. C/Saldo
+                //Mes 	Cliente 	ParticipaIva 	Iva 	Detalle 	Area 	Cuenta 	Año 	Asc. C/Saldo
                 if ($this->gfmes) $sql=" PasadoEnMes=" . $this->gfmes;
-                if ($this->gfproveedor) $sql=$sql ? $sql=$sql." and proveedor_id=" . $this->gfproveedor : " proveedor_id=" . $this->gfproveedor;
+                if ($this->gfcliente) $sql=$sql ? $sql=$sql." and cliente_id=" . $this->gfcliente : " cliente_id=" . $this->gfcliente;
                 if ($this->gfparticipa) $sql=$sql ? $sql=$sql." and ParticIva='" . $this->gfparticipa . "'" : " ParticIva='" . $this->gfparticipa . "'";
                 if ($this->gfiva) $sql=$sql ? $sql=$sql." and iva_id=" . $this->gfiva : " iva_id=" . $this->gfiva;
                 if ($this->gfdetalle) $sql=$sql ? $sql=$sql." and detalle='" . $this->gfdetalle . "'" : " detalle='" . $this->gfdetalle . "'";
@@ -373,36 +373,37 @@ class VentaComponent extends Component
                 if ($this->gfcuenta) $sql=$sql ? $sql=$sql." and cuenta_id=" . $this->gfcuenta : " cuenta_id=" . $this->gfcuenta;
                 if ($this->gfanio) $sql=$sql ? $sql=$sql." and Anio=" . $this->gfanio : " Anio=" . $this->gfanio;
                 $sql=$sql ? $sql=$sql." and empresa_id=" . session('empresa_id') : $sql." empresa_id=" . session('empresa_id');;
-                //Fecha	Comprobante	Proveedor	Detalle	Bruto	Iva	exento	Imp.Interno	Percec.Iva	Retenc.IB	Retenc.Gan	Neto	Pagado	Saldo	Cant.Litros	Partic.Iva	Pasado EnMes	Area	Cuenta
+                //Fecha	Comprobante	Cliente	Detalle	Bruto	Iva	exento	Imp.Interno	Percec.Iva	Retenc.IB	Retenc.Gan	Neto	Pagado	Saldo	Cant.Litros	Partic.Iva	Pasado EnMes	Area	Cuenta
                 $sql = "SELECT * FROM ventas WHERE" . $sql . " ORDER BY fecha, comprobante";
                 if ($this->fgascendente) $sql=$sql . " ASC";
+                // dd($sql);
                 break;
             }
             case "deuda" : {
                 if ($this->darea==0) { $darea=''; } else { $darea=' and ventas.area_id='.$this->darea; }  //Comprueba si se ha seleccionado un area en especìfico
                 if ($this->danio==0) { $danio=''; } else { $danio=' and ventas.Anio='.$this->danio; }  //Comprueba si se ha seleccionado un año en especìfico
                     $sql = DB::table('ventas')
-                    ->selectRaw('sum(NetoComp-MontoPagadoComp) as Saldo, proveedors.id')
-                    ->join('proveedors', 'ventas.proveedor_id', '=', 'proveedors.id')
-                    ->groupBy('proveedors.id')
+                    ->selectRaw('sum(NetoComp-MontoPagadoComp) as Saldo, clientes.id')
+                    ->join('clientes', 'ventas.cliente_id', '=', 'clientes.id')
+                    ->groupBy('clientes.id')
                     ->where('ventas.fecha','>=',$this->ddesde)
                     ->where('ventas.fecha','<=',$this->dhasta)
                     ->where('ventas.empresa_id','=',session('empresa_id'))
                     ->get();
-                $this->MostrarDeudaProveedores=true;break;
+                $this->MostrarCreditoClientes=true;break;
             };
             case "credito" : {
                 if ($this->carea==0) { $carea=''; } else { $carea=' and ventas.area_id='.$this->carea; }  //Comprueba si se ha seleccionado un area en especìfico
                 if ($this->canio==0) { $canio=''; } else { $canio=' and ventas.Anio='.$this->canio; }  //Comprueba si se ha seleccionado un año en especìfico
 
                 $sql = DB::table('ventas')
-                    ->selectRaw('sum(NetoComp-MontoPagadoComp) as Saldo, proveedors.id')
-                    ->join('proveedors', 'ventas.proveedor_id', '=', 'proveedors.id')
-                    ->groupBy('proveedors.id')
+                    ->selectRaw('sum(NetoComp-MontoPagadoComp) as Saldo, clientes.id')
+                    ->join('clientes', 'ventas.cliente_id', '=', 'clientes.id')
+                    ->groupBy('clientes.id')
                     ->where('ventas.fecha','>=',$this->cdesde)
                     ->where('ventas.fecha','<=',$this->chasta)
                     ->get();
-                $this->MostrarCreditoProveedores=true;break;
+                $this->MostrarCreditoClientes=true;break;
             };
             case "libro" : {
                 $sql="SELECT PasadoEnMes, Max(Cerrado) as Cerrado FROM ventas WHERE ParticIva='Si' and Anio=" . $this->lanio . " and empresa_id='".session('empresa_id')."' GROUP BY PasadoEnMes, Anio";
@@ -437,7 +438,7 @@ class VentaComponent extends Component
         $this->garea=$registro->area_id;
         $this->gcuenta=$registro->cuenta_id;
         $this->giva=$registro->iva_id;
-        $this->gproveedor=$registro->proveedor_id;
+        $this->gcliente=$registro->cliente_id;
 
         $this->validate([
             'gfecha'            => 'required|date',
@@ -457,7 +458,7 @@ class VentaComponent extends Component
             'giva'              => 'required|integer',
             'garea'             => 'required|integer',
             'gcuenta'           => 'required|integer',
-            'gproveedor'        => 'required|integer',
+            'gcliente'        => 'required|integer',
         ]);
     }
 
@@ -478,28 +479,28 @@ class VentaComponent extends Component
         $this->gneto = number_format( floatval($this->gbruto) + floatval($this->giva2) + floatval($this->gexento) + floatval($this->gimpinterno) + floatval($this->gperciva) + floatval($this->gperib) + floatval($this->gretgan),2 ,'.','' ) ;
     }
 
-    public function CalcularDeudaProveedores($ret) {
+    public function CalcularDeudaClientes($ret) {
         $registros = $this->ProcesaSQLFiltro('deuda'); // Procesa los campos a mostrar
 
         $this->deudaPDF = $registros;
         //Dibuja el filtro
         $Saldo=0;
-        $this->DeudaProveedoresFiltro = "<table class=\"mt-6\" style=\"width:300px\">
+        $this->DeudaClientesFiltro = "<table class=\"mt-6\" style=\"width:300px\">
             <tr class=\"bg-blue-200 border border-blue-500\">
                 <td class=\"center bg-gray-300\">Nombre</td>
                 <td class=\"center bg-gray-300\">Deuda</td>
             </tr>";
         foreach($registros as $registro) {
             if ($registro->Saldo>1) {
-                $proveedor = Proveedor::find($registro->id);
-                $this->DeudaProveedoresFiltro = $this->DeudaProveedoresFiltro .
+                $cliente = Cliente::find($registro->id);
+                $this->DeudaClientesFiltro = $this->DeudaClientesFiltro .
                 "<tr>
                     <td class=\"bg-gray-100 border border-blue-500 text-left\">
-                        $proveedor->name
+                        $cliente->name
                         <div class=\"tooltip\">
                             <span class=\"tooltiptext\">
-                                Teléfono: ".$proveedor->telefono."<br>
-                                Email: ".$proveedor->email."
+                                Teléfono: ".$cliente->telefono."<br>
+                                Email: ".$cliente->email."
                             </span>
                         </div>
                     </td>
@@ -508,43 +509,43 @@ class VentaComponent extends Component
                 </tr>";
             //     "<tr>
             //     <td class=\"bg-gray-100 border border-blue-500 text-left tooltip\"><span class=\"tooltiptext\">
-            //     Teléfono: ".$proveedor->telefono."<br>Email: ".$proveedor->email."</span>" . $proveedor->name . "</td>
+            //     Teléfono: ".$cliente->telefono."<br>Email: ".$cliente->email."</span>" . $cliente->name . "</td>
             //     <td class=\"bg-gray-100 border border-blue-500 text-right\">" . number_format($registro->Saldo,2,',','.') . "</td>
             // </tr>";
                 $Saldo = $Saldo + $registro->Saldo;
             }
         }
-        $this->DeudaProveedoresFiltro = $this->DeudaProveedoresFiltro .
+        $this->DeudaClientesFiltro = $this->DeudaClientesFiltro .
             "<tr class=\"bg-green-500 w-36\">
                 <td class=\"colspan-2 bg-gray-300\">Total Deuda</td>
                 <td class=\"text-right bg-gray-300\"><b>".number_format($Saldo,2,',','.')."</b></td>
             </tr>
             </table>";
-        if($ret) return $this->DeudaProveedoresFiltro;
+        if($ret) return $this->DeudaClientesFiltro;
     }
 
-    public function CalcularCreditoProveedores() {
+    public function CalcularCreditoClientes() {
         $registros = $this->ProcesaSQLFiltro('credito'); // Procesa los campos a mostrar
         //Dibuja el filtro
         $Saldo=0;
-        $this->CreditoProveedoresFiltro = "<table class=\"mt-6\" style=\"width:300px\">
+        $this->CreditoClientesFiltro = "<table class=\"mt-6\" style=\"width:300px\">
             <tr class=\"bg-blue-200 border border-blue-500\">
                 <td class=\"center bg-gray-400\">Nombre</td>
                 <td class=\"center bg-gray-400\">Crédito</td>
             </tr>";
         foreach($registros as $registro) {
             if($registro->Saldo<1) {
-                $proveedor = Proveedor::find($registro->id);
-                $this->CreditoProveedoresFiltro = $this->CreditoProveedoresFiltro .
+                $cliente = Cliente::find($registro->id);
+                $this->CreditoClientesFiltro = $this->CreditoClientesFiltro .
                 "<tr>
-                    <td class=\"bg-gray-100 border border-blue-500 text-left tooltip\" wire:click=\"copy(".$proveedor->id.")\"><span class=\"tooltiptext\">
-                    Teléfono: ".$proveedor->telefono."<br>Email: ".$proveedor->email."</span>" . $proveedor->name . "</td>
+                    <td class=\"bg-gray-100 border border-blue-500 text-left tooltip\" wire:click=\"copy(".$cliente->id.")\"><span class=\"tooltiptext\">
+                    Teléfono: ".$cliente->telefono."<br>Email: ".$cliente->email."</span>" . $cliente->name . "</td>
                     <td class=\"bg-gray-100 border border-blue-500 text-right\">" . number_format($registro->Saldo * -1 ,2,',','.') . "</td>
                 </tr>";
                 $Saldo = $Saldo + $registro->Saldo * -1;
             }
         }
-        $this->CreditoProveedoresFiltro = $this->CreditoProveedoresFiltro .
+        $this->CreditoClientesFiltro = $this->CreditoClientesFiltro .
             "<tr class=\"bg-green-500\">
                 <td class=\"colspan-2 bg-gray-400\">Total Crédito</td>
                 <td class=\"bg-gray-400 text-right\"><b>".number_format($Saldo,2,',','.')."</b></td>
@@ -613,9 +614,9 @@ class VentaComponent extends Component
 
         $detalle->save();
 
-        // Incrementa la cantidad de stock del producto
+        // Decrementa la cantidad de stock del producto porque es una venta
         $producto = Producto::find($this->gselect_productos);
-        $producto->existencia = $producto->existencia + abs($this->gcantidad_prod);
+        $producto->existencia = $producto->existencia - abs($this->gcantidad_prod);
         $producto->save();
 
         $this->listado_productos();

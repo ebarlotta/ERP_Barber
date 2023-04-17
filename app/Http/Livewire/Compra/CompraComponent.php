@@ -242,130 +242,34 @@ class CompraComponent extends Component
         $registros = DB::select(DB::raw($sql));       // Busca el recordset
         //Dibuja el filtro
         $Saldo=0;
-
+        
+        // <div class=\"table-responsive-sm\">
         $this->filtro="
-            <div class=\"table-responsive-sm\">
-                <table class=\"table table-striped\" style=\"font-size:13px;\">
+                <table class=\"table table-striped\" style=\"font-size:13px; word-wrap: anywhere;\">
                 <thead>
                   <tr>
-                    <th scope=\"col\">Fecha</th>
-                    <th scope=\"col\">Comprobante</th>
-                    <th scope=\"col\">Proveedor</th>
-                    <th class=\"col d-none d-sm-table-cell\" scope=\"col\">Detalle</th>
-                    <th scope=\"col\">Bruto</th>
-                    <th scope=\"col\">Iva</th>
-                    <th scope=\"col\">Exento</th>
-                    <th class=\"col d-none d-sm-table-cell\" scope=\"col\">Imp.Interno</th>
-                    <th class=\"col d-none d-sm-table-cell\" scope=\"col\">Percec.Iva</th>
-                    <th class=\"col d-none d-sm-table-cell\" scope=\"col\">Retenc.IB</th>
-                    <th class=\"col d-none d-sm-table-cell\" scope=\"col\">Retenc.Gan</th>
-                    <th scope=\"col\">Neto</th>
-                    <th scope=\"col\">Pagado</th>
-                    <th class=\"col d-none d-sm-table-cell\" scope=\"col\">Saldo</th>
-                    <th class=\"col d-none d-sm-table-cell\" scope=\"col\">Cant.Litros</th>
-                    <th class=\"col d-none d-sm-table-cell\" scope=\"col\">Partic.Iva</th>
-                    <th class=\"col d-none d-sm-table-cell\" scope=\"col\">Pasado EnMes</th>
-                    <th class=\"col d-none d-sm-table-cell\" scope=\"col\">Area</th>
-                    <th class=\"col d-none d-sm-table-cell\" scope=\"col\">Cuenta</th>
+                    <th class=\"p-0\" scope=\"col\">Fecha</th>
+                    <th class=\"p-0\" scope=\"col\">Comprobante</th>
+                    <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Proveedor</th>
+                    <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Detalle</th>
+                    <th class=\"p-0\" scope=\"col\">Bruto</th>
+                    <th class=\"p-0\" scope=\"col\">Iva</th>
+                    <th class=\"p-0\" scope=\"col\">Exento</th>
+                    <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Imp.Interno</th>
+                    <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Percec.Iva</th>
+                    <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Retenc.IB</th>
+                    <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Retenc.Gan</th>
+                    <th class=\"p-0\" scope=\"col\">Neto</th>
+                    <th class=\"p-0\" scope=\"col\">Pagado</th>
+                    <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Saldo</th>
+                    <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Cant.Litros</th>
+                    <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Partic.Iva</th>
+                    <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Pasado EnMes</th>
+                    <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Area</th>
+                    <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Cuenta</th>
                   </tr>
                 </thead>";
                 
-
-
-
-
-            //       <tr>
-            //         <th scope=\"row\">2</th>
-            //         <td>Mark</td>
-            //         <td>Otto</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>                  </tr>
-            //       <tr>
-            //         <th scope=\"row\">3</th>
-            //         <td>Mark</td>
-            //         <td>Otto</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>
-            //         <td>@mdo</td>                  </tr>
-                  
-            //     </tbody>
-            //     </table>
-            //     </div>
-            // </div>";
-
-        // $this->filtro=$this->filtro."
-        // <div class=\"col-12 fse-1 md:fse-0 flex border table-auto w-full border border-green-800 border-collapse bg-gray-300 rounded-md\">
-            
-        //         <div class=\"xs:col-flex1 border\">Fecha</div>
-        //         <div class=\"xs:col-flex1 md:col-flex border\">Comprobante</div>
-        //         <div class=\"col-2 border\">Proveedor</div>
-        //         <div class=\"xs:col-flex1 md:col-flex text-center hidden sm:hidden md:hidden lg:block xl:block \">Detalle</div>
-        //         <div class=\"col-2 border\">Bruto</div>
-        //         <div class=\"xs:col-flex1 md:col-flex border\">Iva</div>
-        //         <div class=\"col-2 border\">Exento</div>
-        //         <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Imp.Interno</div>
-        //         <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Percec.Iva</div>
-        //         <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Retenc.IB</div>
-        //         <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Retenc.Gan</div>
-        //         <div class=\"col-2 border\">Neto</div>
-        //         <div class=\"xs:col-flex1 md:col-flex border\">Pagado</div>
-        //         <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Saldo</div>
-        //         <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Cant.Litros</div>
-        //         <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Partic.Iva</div>
-        //         <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Pasado EnMes</div>
-        //         <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Area</div>
-        //         <div class=\"hidden sm:hidden md:hidden lg:block xl:block\">Cuenta</div>
-        // </div>    ";
-
-        // $this->filtro="
-        // <div class=\"table-auto w-full border border-green-800 border-collapse bg-gray-300 rounded-md text-xs\">
-        //     <div class=\"bg-gradient-to-r from-green-400 to-blue-500 flex flex-wrap justify-between\">
-        //         <div class=\"w-2\">Fecha</div>
-        //         <div >Comprobante</div>
-        //         <div >Proveedor</div>
-        //         <div class=\"text-center hidden sm:block md:block lg:block xl:block \">Detalle</div>
-        //         <div >Bruto</div>
-        //         <div >Iva</div>
-        //         <div >exento</div>
-        //         <div class=\"hidden sm:block md:block lg:block xl:block\">Imp.Interno</div>
-        //         <div class=\"hidden sm:block md:block lg:block xl:block\">Percec.Iva</div>
-        //         <div class=\"hidden sm:block md:block lg:block xl:block\">Retenc.IB</div>
-        //         <div class=\"hidden sm:block md:block lg:block xl:block\">Retenc.Gan</div>
-        //         <div >Neto</div>
-        //         <div >Pagado</div>
-        //         <div >Saldo</div>
-        //         <div class=\"hidden sm:block md:block lg:block xl:block\">Cant.Litros</div>
-        //         <div class=\"hidden sm:block md:block lg:block xl:block\">Partic.Iva</div>
-        //         <div class=\"hidden sm:block md:block lg:block xl:block\">Pasado EnMes</div>
-        //         <div >Area</div>
-        //         <div >Cuenta</div>
-        //     </div>";
-        // $this->filtro=$this->filtro."
-        // <table class=\"table-auto w-full border border-green-800 border-collapse bg-gray-300 rounded-md text-xs\">
-        //     <tr class=\"bg-gradient-to-r from-green-400 to-blue-500\">
-        //         <td class=\"border border-green-600\">Fecha</td><td class=\"border border-green-600\">Comprobante</td><td class=\"border border-green-600\">Proveedor</td><td class=\"border border-green-600\">Detalle</td><td class=\"border border-green-600\">Bruto</td><td class=\"border border-green-600\">Iva</td><td class=\"border border-green-600\">exento</td><td class=\"border border-green-600\">Imp.Interno</td><td class=\"border border-green-600\">Percec.Iva</td><td class=\"border border-green-600\">Retenc.IB</td><td class=\"border border-green-600\">Retenc.Gan</td><td class=\"border border-green-600\">Neto</td><td class=\"border border-green-600\">Pagado</td><td class=\"border border-green-600\">Saldo</td><td class=\"border border-green-600\">Cant.Litros</td><td class=\"border border-green-600\">Partic.Iva</td><td class=\"border border-green-600\">Pasado EnMes</td><td class=\"border border-green-600\">Area</td><td class=\"border border-green-600\">Cuenta</td>
-        //     </tr>";
             $Cantidad = 0; $MontoPagado = 0; $Neto = 0; $RetGan = 0; $RetIB = 0; $PerIva = 0; $Exento = 0 ;$ImpInterno = 0; $Bruto = 0; $MontoIvaT =0; $NetoT = 0;
         foreach($registros as $registro) {
             //dd($registro);
@@ -395,25 +299,25 @@ class CompraComponent extends Component
 
             $this->filtro=$this->filtro."
             <tr wire:click=\"gCargarRegistro(". $registro->id .")\">
-                <td>$Fecha</td>
-                <td>$registro->comprobante</td>
-                <td>$Proveedor->name</td>
-                <td class=\" d-none d-sm-table-cell\">$registro->detalle</td>
-                <td>".number_format($registro->BrutoComp, 2,'.','')."</td>
-                <td>".number_format($MontoIva, 2,'.','')."</td>
-                <td>".number_format($registro->ExentoComp, 2,'.','')."</td>
-                <td class=\"col d-none d-sm-table-cell\">".number_format($registro->ImpInternoComp, 2,'.','')."</td>
-                <td class=\"col d-none d-sm-table-cell\">".number_format($registro->PercepcionIvaComp, 2,'.','')."</td>
-                <td class=\"col d-none d-sm-table-cell\">".number_format($registro->RetencionIB, 2,'.','')."</td>
-                <td class=\"col d-none d-sm-table-cell\">".number_format($registro->RetencionGan, 2,'.','')."</td>
-                <td>".number_format($registro->NetoComp, 2,'.','')."</td>
-                <td>".number_format($registro->MontoPagadoComp, 2,'.','')."</td>
-                <td class=\"col d-none d-sm-table-cell\">".number_format($Saldo, 2,'.','')."</td>
-                <td class=\"col d-none d-sm-table-cell\">".number_format($registro->CantidadLitroComp, 2,'.','')."</td>
-                <td class=\"col d-none d-sm-table-cell\">$registro->ParticIva</td>
-                <td class=\"col d-none d-sm-table-cell\">" . $this->ConvierteMesEnTexto($registro->PasadoEnMes) . "</td>
-                <td class=\"col d-none d-sm-table-cell\">$Area->name</td>
-                <td class=\"col d-none d-sm-table-cell\">$Cuenta->name</td>
+                <td class=\"p-0\">".substr($Fecha,0,6).substr($Fecha,8,2)."</td>
+                <td class=\"p-0\">$registro->comprobante</td>
+                <td class=\"p-0 col d-none d-sm-table-cell\">$Proveedor->name</td>
+                <td class=\"p-0 col d-none d-sm-table-cell\">$registro->detalle</td>
+                <td class=\"p-0\">".number_format($registro->BrutoComp, 2,'.','')."</td>
+                <td class=\"p-0\">".number_format($MontoIva, 2,'.','')."</td>
+                <td class=\"p-0\">".number_format($registro->ExentoComp, 2,'.','')."</td>
+                <td class=\"p-0 col d-none d-sm-table-cell\">".number_format($registro->ImpInternoComp, 2,'.','')."</td>
+                <td class=\"p-0 col d-none d-sm-table-cell\">".number_format($registro->PercepcionIvaComp, 2,'.','')."</td>
+                <td class=\"p-0 col d-none d-sm-table-cell\">".number_format($registro->RetencionIB, 2,'.','')."</td>
+                <td class=\"p-0 col d-none d-sm-table-cell\">".number_format($registro->RetencionGan, 2,'.','')."</td>
+                <td class=\"p-0\">".number_format($registro->NetoComp, 2,'.','')."</td>
+                <td class=\"p-0\">".number_format($registro->MontoPagadoComp, 2,'.','')."</td>
+                <td class=\"p-0 col d-none d-sm-table-cell\">".number_format($Saldo, 2,'.','')."</td>
+                <td class=\"p-0 col d-none d-sm-table-cell\">".number_format($registro->CantidadLitroComp, 2,'.','')."</td>
+                <td class=\"p-0 col d-none d-sm-table-cell\">$registro->ParticIva</td>
+                <td class=\"p-0 col d-none d-sm-table-cell\">" . $this->ConvierteMesEnTexto($registro->PasadoEnMes) . "</td>
+                <td class=\"p-0 col d-none d-sm-table-cell\">$Area->name</td>
+                <td class=\"p-0 col d-none d-sm-table-cell\">$Cuenta->name</td>
             </tr>";
             // $this->filtro=$this->filtro."
             //     <div class=\"flex col-12 fse-1 md:fse-0\" wire:click=\"gCargarRegistro(". $registro->id .")\">
@@ -444,8 +348,8 @@ class CompraComponent extends Component
         }
 
         $this->filtro=$this->filtro."<tr>
-        <td></td>
-        <td></td>
+        <td class=\"col d-none d-sm-table-cell\"></td>
+        <td class=\"col d-none d-sm-table-cell\"></td>
         <td></td>
         <td>Totales</td>
         <td>".number_format($Bruto, 2,'.','')."</td>
@@ -466,7 +370,7 @@ class CompraComponent extends Component
     </tr> 
     </tbody>
         </table>
-        </div>
+        
     </div>";
     
 
