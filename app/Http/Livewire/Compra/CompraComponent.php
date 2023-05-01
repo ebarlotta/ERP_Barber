@@ -693,6 +693,22 @@ class CompraComponent extends Component
         }
     }
 
+
+    public function Ejecutar() {
+        $sql="SELECT tblComprobantes2.*, proveedors.id FROM tblComprobantes2 
+        INNER JOIN proveedors ON tblComprobantes2.CuitComp = proveedors.name and proveedors.empresa_id=4 and tblComprobantes2.Empresa='20255083571'
+        INTO OUTFILE '/home/casa-pc/Descargas/Migracion/location.csv';";
+
+        /*$sql="SELECT tblComprobantes2.*, proveedors.id
+        FROM tblComprobantes2
+        INNER JOIN proveedors ON tblComprobantes2.CuitComp = proveedors.name
+        INTO OUTFILE '/home/casa-pc/Descargas/Migracion/location.csv';";*/
+        $registros = DB::select(DB::raw($sql));  
+
+        //SELECT tblComprobantes2.*, proveedors.id FROM tblComprobantes2 INNER JOIN proveedors ON tblComprobantes2.CuitComp = proveedors.name and proveedors.empresa_id=1
+        //SELECT tblComprobantes2.*, proveedors.id FROM tblComprobantes2 INNER JOIN proveedors ON tblComprobantes2.CuitComp = proveedors.name and proveedors.empresa_id=2 and tblComprobantes2.Empresa='30712141790' 
+        
+    }
     public function CerrarLibro() {
         //$sSql="SELECT * FROM tblComprobantes WHERE Anio=$LibroAnio and Empresa='".$_SESSION['CuitEmpresa']."' and PasadoEnMes='$LibroMes' and ParticipaEnIva='Si'";
         $i=0;
