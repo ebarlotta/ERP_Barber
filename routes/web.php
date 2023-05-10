@@ -19,6 +19,8 @@ use App\Http\Controllers\SocialController;
 use App\Http\Livewire\Cart\Cart;
 use App\Http\Livewire\Cart\Payment\PaymentComponent;
 
+//use App\Http\Livewire\EmpresaGestion\EmpresaGestion;
+
 use Illuminate\Foundation\Auth\User as AuthUser;
 
 
@@ -80,6 +82,7 @@ Route::get('compras',CompraComponent::class)->name('compras');
 Route::get('ventas',VentaComponent::class)->name('ventas');
 
 Route::get('empresas',EmpresaComponent::class)->name('empresas');
+//Route::get('empresagestion',EmpresaGestion::class)->name('empresagestion');
 Route::get('modulos',ModuloComponent::class)->name('modulos');
 
 Route::get('pdf/deuda/{ddesde}/{dhasta}', [ImprimirPDF::class, 'DeudaPFD'])->name('DeudaPFD');

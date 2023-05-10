@@ -15,7 +15,7 @@
 								<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white" wire:click="CambiarTab(1)">
 							@endif
 								<i class="fas fa-space-shuttle text-base mr-1"></i> Gestionar Comprobantes
-								<button class="btn btn-" wire:click="Ejecutar">Ejecutar</button>
+								<!-- <button class="btn btn-" wire:click="Ejecutar">Ejecutar</button> -->
 						</li>
 						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
 							@if($tabActivo==2)
@@ -462,7 +462,8 @@
 											</div>
 											<div class="border px-2 grid text-left">
 												<label style="font-size: 80%;">Año</label>
-												<select class="px-2 rounded-md h-7 py-0 leading-none" wire:model="gfanio" wire:change="gfiltro()">
+												<!-- <select class="px-2 rounded-md h-7 py-0 leading-none" wire:model="gfanio" wire:change="gfiltro()"> -->
+												<select class="px-2 rounded-md h-7 py-0 leading-none" wire:model="gfanio" wire:change="gsetanio(gfanio)">
 													<option value="2023">2023</option>
 													<option value="2022">2022</option>
 													<option value="2021">2021</option>
