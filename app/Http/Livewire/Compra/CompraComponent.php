@@ -51,7 +51,7 @@ class CompraComponent extends Component
 
     public function render() {
         //dd($this->empresa_id);
-        $this->gfanio = date("Y");
+        if ($this->gfanio==null) { $this->gfanio = date("Y"); } 
         
         if (!is_null(session('empresa_id'))) { $this->empresa_id = session('empresa_id'); } 
         else { 
