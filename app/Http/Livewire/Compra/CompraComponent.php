@@ -245,6 +245,7 @@ class CompraComponent extends Component
         $registros = DB::select(DB::raw($sql));       // Busca el recordset
         // Extrae los distintos Detalles si es que los hay
         $sqlDetalle = "SELECT DISTINCT detalle " . substr($sql,9);
+        $sqlDetalle = substr($sqlDetalle,0,-27);
         $this->detalles = DB::select(DB::raw($sqlDetalle));        
         //Dibuja el filtro
         $Saldo=0;
