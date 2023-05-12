@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 
 class CompraComponent extends Component
 {
-    public $areas, $cuentas, $ivas, $proveedores;       // Globales
+    public $areas, $cuentas, $ivas, $proveedores, $detalles=[];       // Globales
     public $empresa_id; public $tabActivo=1; public $comprobante_id;
     
     //Comprobantes
@@ -31,6 +31,7 @@ class CompraComponent extends Component
     public $gselect_productos, $gprecio_prod, $gcantidad_prod, $glistado_prod;
     //Variables del filtro
     public $gfmes, $gfproveedor, $gfparticipa, $gfiva, $gfdetalle, $gfarea, $gfcuenta, $gfanio, $fgascendente, $gfsaldo; //Comprobantes
+    
     
     // Deuda Proveedores
     public $darea, $ddesde, $dhasta, $danio;
@@ -50,6 +51,8 @@ class CompraComponent extends Component
 
     public function render() {
         //dd($this->empresa_id);
+        $this->gfanio = date("Y");
+        
         if (!is_null(session('empresa_id'))) { $this->empresa_id = session('empresa_id'); } 
         else { 
             $userid=auth()->user()->id;
@@ -240,6 +243,9 @@ class CompraComponent extends Component
         
         $sql = $this->ProcesaSQLFiltro('comprobantes'); // Procesa los campos a mostrar
         $registros = DB::select(DB::raw($sql));       // Busca el recordset
+        // Extrae los distintos Detalles si es que los hay
+        $sqlDetalle = "SELECT DISTINCT detalle " . substr($sql,9);
+        $this->detalles = DB::select(DB::raw($sqlDetalle));        
         //Dibuja el filtro
         $Saldo=0;
         

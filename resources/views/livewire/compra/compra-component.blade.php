@@ -16,6 +16,7 @@
 							@endif
 								<i class="fas fa-space-shuttle text-base mr-1"></i> Gestionar Comprobantes
 								<!-- <button class="btn btn-" wire:click="Ejecutar">Ejecutar</button> -->
+								</a>
 						</li>
 						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
 							@if($tabActivo==2)
@@ -433,10 +434,10 @@
 											<div class="border px-2 grid text-left">
 												<label style="font-size: 80%;">Detalle</label>
 												<select class="px-2 rounded-md h-7 py-0 leading-none" wire:model="gfdetalle" wire:change="gfiltro()">
-													<option value=""></option>
-													@foreach ($ivas as $iva)
-														<option value="{{ $iva->id }}">
-															{{ $iva->descripcion }}</option>
+													<option value="">Todos</option>
+													@foreach ($detalles as $detalle)
+														<option value="{{ $detalle->detalle }}">
+															{{ $detalle->detalle }}</option>
 													@endforeach
 												</select>
 											</div>
