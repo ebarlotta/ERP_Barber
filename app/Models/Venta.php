@@ -32,7 +32,7 @@ class Venta extends Model
         'cuenta_id',
         'user_id',
         'empresa_id',
-        'proveedor_id',
+        'cliente_id',
     ];
 
     //Relación uno a uno
