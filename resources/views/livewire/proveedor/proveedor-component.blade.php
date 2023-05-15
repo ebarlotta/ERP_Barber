@@ -31,6 +31,7 @@
         <div class="w-full">{{ $datos->links() }}</div>
     </div>
     <div style="display: block">
+    <label for="">Buscar por cuit</label><input class="shadow-md m-1" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;" wire:model="search" type="search" placeholder="Search posts by title...">
         @foreach ($datos as $proveedor)
             <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px; height: 100%;">
                 <div style="width:90%;">
