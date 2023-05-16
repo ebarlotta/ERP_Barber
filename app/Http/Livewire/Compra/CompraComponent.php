@@ -626,15 +626,15 @@ class CompraComponent extends Component
         $Saldo=0;
         $this->DeudaProveedoresFiltro = "<table class=\"mt-6\" style=\"width:300px\">
             <tr class=\"bg-blue-200 border border-blue-500\">
-                <td class=\"center bg-gray-300\">Nombre</td>
-                <td class=\"center bg-gray-300\">Deuda</td>
+                <td class=\"center bg-gray-300\"><b>Nombre</b></td>
+                <td class=\"center bg-gray-300\"><b>Deuda</b></td>
             </tr>";
         foreach($registros as $registro) {
             if ($registro->Saldo>1) {
                 $proveedor = Proveedor::find($registro->id);
                 $this->DeudaProveedoresFiltro = $this->DeudaProveedoresFiltro .
                 "<tr>
-                    <td class=\"bg-gray-100 border border-blue-500 text-left\">
+                    <td class=\"bg-gray-100 border border-blue-500 text-left pl-4\">
                         $proveedor->name
                         <div class=\"tooltip\">
                             <span class=\"tooltiptext\">
@@ -643,7 +643,7 @@ class CompraComponent extends Component
                             </span>
                         </div>
                     </td>
-                    <td class=\"bg-gray-100 border border-blue-500 text-right\">" . number_format($registro->Saldo,2,',','.') . "
+                    <td class=\"bg-gray-100 border border-blue-500 text-right pr-4\">" . number_format($registro->Saldo,2,',','.') . "
                     </td>
                 </tr>";
 
@@ -653,7 +653,7 @@ class CompraComponent extends Component
         $this->DeudaProveedoresFiltro = $this->DeudaProveedoresFiltro .
             "<tr class=\"bg-green-500 w-36\">
                 <td class=\"colspan-2 bg-gray-300\">Total Deuda</td>
-                <td class=\"text-right bg-gray-300\"><b>".number_format($Saldo,2,',','.')."</b></td>
+                <td class=\"text-right bg-gray-300 pr-4\"><b>".number_format($Saldo,2,',','.')."</b></td>
             </tr>
             </table>";
             //dd("filtro" . $this->DeudaProveedoresFiltro);
@@ -671,25 +671,30 @@ class CompraComponent extends Component
         $Saldo=0;
         $this->CreditoProveedoresFiltro = "<table class=\"mt-6\" style=\"width:300px\">
             <tr class=\"bg-blue-200 border border-blue-500\">
-                <td class=\"center bg-gray-400\">Nombre</td>
-                <td class=\"center bg-gray-400\">Crédito</td>
+                <td class=\"center bg-gray-400\"><b>Nombre</b></td>
+                <td class=\"center bg-gray-400\"><b>Crédito</b></td>
             </tr>";
         foreach($registros as $registro) {
-            if($registro->Saldo<1) {
+            if($registro->Saldo<-1) {
                 $proveedor = Proveedor::find($registro->id);
+                // "<tr>
+                //     <td class=\"bg-gray-100 border border-blue-500 text-left tooltip\" wire:click=\"copy(".$proveedor->id.")\"><span class=\"tooltiptext\">
+                //     Teléfono: ".$proveedor->telefono."<br>Email: ".$proveedor->email."</span>" . $proveedor . "</td>
+                //     <td class=\"bg-gray-100 border border-blue-500 text-right\">" . number_format($registro->Saldo * -1 ,2,',','.') . "</td>
+                // </tr>";
                 $this->CreditoProveedoresFiltro = $this->CreditoProveedoresFiltro .
                 "<tr>
-                    <td class=\"bg-gray-100 border border-blue-500 text-left tooltip\" wire:click=\"copy(".$proveedor->id.")\"><span class=\"tooltiptext\">
-                    Teléfono: ".$proveedor->telefono."<br>Email: ".$proveedor->email."</span>" . $proveedor->name . "</td>
-                    <td class=\"bg-gray-100 border border-blue-500 text-right\">" . number_format($registro->Saldo * -1 ,2,',','.') . "</td>
+                    <td class=\"bg-gray-100 border border-blue-500 text-left pl-4\">" . $proveedor->name . "</td>
+                    <td class=\"bg-gray-100 border border-blue-500 text-right pr-4\">" . number_format($registro->Saldo * -1 ,2,',','.') . "</td>
                 </tr>";
                 $Saldo = $Saldo + $registro->Saldo * -1;
             }
         }
+        
         $this->CreditoProveedoresFiltro = $this->CreditoProveedoresFiltro .
             "<tr class=\"bg-green-500\">
                 <td class=\"colspan-2 bg-gray-400\">Total Crédito</td>
-                <td class=\"bg-gray-400 text-right\"><b>".number_format($Saldo,2,',','.')."</b></td>
+                <td class=\"bg-gray-400 text-right pr-4\"><b>".number_format($Saldo,2,',','.')."</b></td>
             </tr>
             </table>";
     }
