@@ -433,7 +433,7 @@ class CompraComponent extends Component
     }
     public function gsetanio($dato){
         $this->gfanio=$dato;
-        $this->gfiltro();
+        call($this->gfiltro());
     }
     public function ProcesaSQLFiltro($interfaz){
         $sql='';
@@ -521,6 +521,7 @@ class CompraComponent extends Component
                     //->whereBetween('comprobantes.fecha',["'".$this->ddesde."'","'".$this->dhasta."'"])
                     ->where('comprobantes.fecha','>=',$this->cdesde)
                     ->where('comprobantes.fecha','<=',$this->chasta)
+                    ->where('comprobantes.empresa_id','=',session('empresa_id'))
                     //->orderByDesc('avg_salary')
                     ->get();
                 $this->MostrarCreditoProveedores=true;break;
