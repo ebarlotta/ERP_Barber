@@ -312,23 +312,23 @@ class CompraComponent extends Component
             <tr wire:click=\"gCargarRegistro(". $registro->id .")\">
                 <td class=\"p-0\">".substr($Fecha,0,6).substr($Fecha,8,2)."</td>
                 <td class=\"p-0\">$registro->comprobante</td>
-                <td class=\"p-0 col d-none d-sm-table-cell\">$Proveedor->name</td>
-                <td class=\"p-0 col d-none d-sm-table-cell\">$registro->detalle</td>
-                <td class=\"p-0\">".number_format($registro->BrutoComp, 2,'.','')."</td>
-                <td class=\"p-0\">".number_format($MontoIva, 2,'.','')."</td>
-                <td class=\"p-0\">".number_format($registro->ExentoComp, 2,'.','')."</td>
-                <td class=\"p-0 col d-none d-sm-table-cell\">".number_format($registro->ImpInternoComp, 2,'.','')."</td>
-                <td class=\"p-0 col d-none d-sm-table-cell\">".number_format($registro->PercepcionIvaComp, 2,'.','')."</td>
-                <td class=\"p-0 col d-none d-sm-table-cell\">".number_format($registro->RetencionIB, 2,'.','')."</td>
-                <td class=\"p-0 col d-none d-sm-table-cell\">".number_format($registro->RetencionGan, 2,'.','')."</td>
-                <td class=\"p-0\">".number_format($registro->NetoComp, 2,'.','')."</td>
-                <td class=\"p-0\">".number_format($registro->MontoPagadoComp, 2,'.','')."</td>
-                <td class=\"p-0 col d-none d-sm-table-cell\">".number_format($Saldo, 2,'.','')."</td>
-                <td class=\"p-0 col d-none d-sm-table-cell\">".number_format($registro->CantidadLitroComp, 2,'.','')."</td>
+                <td class=\"p-0 col d-none d-sm-table-cell text-left\">$Proveedor->name</td>
+                <td class=\"p-0 col d-none d-sm-table-cell text-left\">$registro->detalle</td>
+                <td class=\"p-0 text-right\">".number_format($registro->BrutoComp, 2,'.','')."</td>
+                <td class=\"p-0 text-right\">".number_format($MontoIva, 2,'.','')."</td>
+                <td class=\"p-0 text-right\">".number_format($registro->ExentoComp, 2,'.','')."</td>
+                <td class=\"p-0 col d-none d-sm-table-cell text-right\">".number_format($registro->ImpInternoComp, 2,'.','')."</td>
+                <td class=\"p-0 col d-none d-sm-table-cell text-right\">".number_format($registro->PercepcionIvaComp, 2,'.','')."</td>
+                <td class=\"p-0 col d-none d-sm-table-cell text-right\">".number_format($registro->RetencionIB, 2,'.','')."</td>
+                <td class=\"p-0 col d-none d-sm-table-cell text-right\">".number_format($registro->RetencionGan, 2,'.','')."</td>
+                <td class=\"p-0 text-right\">".number_format($registro->NetoComp, 2,'.','')."</td>
+                <td class=\"p-0 text-right\">".number_format($registro->MontoPagadoComp, 2,'.','')."</td>
+                <td class=\"p-0 col d-none d-sm-table-cell text-right\">".number_format($Saldo, 2,'.','')."</td>
+                <td class=\"p-0 col d-none d-sm-table-cell text-right\">".number_format($registro->CantidadLitroComp, 2,'.','')."</td>
                 <td class=\"p-0 col d-none d-sm-table-cell\">$registro->ParticIva</td>
-                <td class=\"p-0 col d-none d-sm-table-cell\">" . $this->ConvierteMesEnTexto($registro->PasadoEnMes) . "</td>
-                <td class=\"p-0 col d-none d-sm-table-cell\">$Area->name</td>
-                <td class=\"p-0 col d-none d-sm-table-cell\">$Cuenta->name</td>
+                <td class=\"p-0 col d-none d-sm-table-cell text-right\">" . $this->ConvierteMesEnTexto($registro->PasadoEnMes) . "</td>
+                <td class=\"p-0 col d-none d-sm-table-cell text-right\">$Area->name</td>
+                <td class=\"p-0 col d-none d-sm-table-cell text-right\">$Cuenta->name</td>
             </tr>";
             // $this->filtro=$this->filtro."
             //     <div class=\"flex col-12 fse-1 md:fse-0\" wire:click=\"gCargarRegistro(". $registro->id .")\">
@@ -363,21 +363,21 @@ class CompraComponent extends Component
         <td class=\"col d-none d-sm-table-cell\"></td>
         <td></td>
         <td>Totales</td>
-        <td>".number_format($Bruto, 2,'.','')."</td>
-        <td>".number_format($MontoIvaT, 2,'.','')."</td>
-        <td>".number_format($Exento, 2,'.','')."</td>
-        <td class=\"col d-none d-sm-table-cell\">".number_format($ImpInterno, 2,'.','')."</td>
-        <td class=\"col d-none d-sm-table-cell\">".number_format($PerIva, 2,'.','')."</td>
-        <td class=\"col d-none d-sm-table-cell\">".number_format($RetIB, 2,'.','')."</td>
-        <td class=\"col d-none d-sm-table-cell\">".number_format($RetGan, 2,'.','')."</td>
-        <td>".number_format($NetoT, 2,'.','')."</td>
-        <td>".number_format($MontoPagado, 2,'.','')."</td>
-        <td class=\"col d-none d-sm-table-cell\">".number_format($Saldo, 2,'.','')."</td>
-        <td class=\"col d-none d-sm-table-cell\">".number_format($Cantidad, 2,'.','')."</td>
-        <td class=\"col d-none d-sm-table-cell\"></td>
-        <td class=\"col d-none d-sm-table-cell\"></td>
-        <td class=\"col d-none d-sm-table-cell\"></td>
-        <td class=\"col d-none d-sm-table-cell\"></td>
+        <td class=\"p-0 text-right\">".number_format($Bruto, 2,'.','')."</td>
+        <td class=\"p-0 text-right\">".number_format($MontoIvaT, 2,'.','')."</td>
+        <td class=\"p-0 text-right\">".number_format($Exento, 2,'.','')."</td>
+        <td class=\"p-0 d-none d-sm-table-cell text-right\">".number_format($ImpInterno, 2,'.','')."</td>
+        <td class=\"p-0 d-none d-sm-table-cell text-right\">".number_format($PerIva, 2,'.','')."</td>
+        <td class=\"p-0 d-none d-sm-table-cell text-right\">".number_format($RetIB, 2,'.','')."</td>
+        <td class=\"p-0 d-none d-sm-table-cell text-right\">".number_format($RetGan, 2,'.','')."</td>
+        <td class=\"p-0 text-right\">".number_format($NetoT, 2,'.','')."</td>
+        <td class=\"p-0 text-right\">".number_format($MontoPagado, 2,'.','')."</td>
+        <td class=\"p-0 d-none d-sm-table-cell text-right\">".number_format($Saldo, 2,'.','')."</td>
+        <td class=\"p-0 d-none d-sm-table-cell text-right\">".number_format($Cantidad, 2,'.','')."</td>
+        <td class=\"p-0 d-none d-sm-table-cell\"></td>
+        <td class=\"p-0 d-none d-sm-table-cell\"></td>
+        <td class=\"p-0 d-none d-sm-table-cell\"></td>
+        <td class=\"p-0 d-none d-sm-table-cell\"></td>
     </tr> 
     </tbody>
         </table>

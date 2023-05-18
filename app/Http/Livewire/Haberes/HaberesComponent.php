@@ -113,12 +113,14 @@ class HaberesComponent extends Component
 
     public function CargarEmpleadosActivosEnEsePeriodo()
     {
+        //dd(session('empresa_id'));
         $this->EmpleadosActivos = null;
         $this->EmpleadosActivos = DB::table('empleados')
             ->select('empleados.name', 'empleados.id', 'empleados.activo')
             ->leftjoin('recibos', 'empleado_id', 'empleados.id')
             ->leftjoin('empresas', 'empresas.id', 'empleados.empresa_id')
             ->where('recibos.perpago', $this->anio . $this->mes)
+            ->where('empresas.id', $this->EmpresaId)
             // ->groupBy('Nombre')
             ->get();
         $this->EmpleadosActivos = json_decode(json_encode($this->EmpleadosActivos), true);
@@ -299,6 +301,7 @@ class HaberesComponent extends Component
         unset($AA);
         unset($this->Conceptos);
         foreach ($Detalle as $Conceptohtml) {
+            //dd($Conceptohtml);
             $AA[$i]['id'] = $Conceptohtml['id'];
             $AA[$i]['orden'] = $Conceptohtml['orden'];
             $AA[$i]['cantidad'] = $Conceptohtml['cantidad'];
@@ -369,7 +372,7 @@ class HaberesComponent extends Component
         // PD: Precio Mes   PD: Precio Dia    PH: Precio Hora    PU: Precio Unidad
         // TM: Tipo Mes     TD: Tipo Dia      TH: Tipo Hora      TU: Tipo Unidad
         $pieces = explode("*", $expre);
-
+        //dd($pieces);
         /*
         RA	    Remuneración básica
         RB	    Remuneración básica
@@ -396,6 +399,7 @@ class HaberesComponent extends Component
                 case "DE": { $A[$c] = $this->RB; break; }            // 'D'escuentos 
                 case "MF": { $A[$c] = $MF; break; }                    // 'M'onto 'F'ijo
                 case "CA": { $A[$c] = $CA; break; }                // 'C'antidad
+                case "C": { $A[$c] = $CA; break; }                // 'C'antidad
                 case "BC": { $A[$c] = $BC; break; }                // 'B'ásico 'C'ategoria
                 case "B1": { $A[$c] = $B1; break; }                // 'B'ásico 'C'ategoria 1
                 case "B2": { $A[$c] = $B2; break; }                // 'B'ásico 'C'ategoria 2
@@ -425,8 +429,8 @@ class HaberesComponent extends Component
                     //                 $A[$c]=$row['Tot'];   break;}// 2do SAC
             }
         }
-
         $res = reset($A);
+        //dd($res*$A[1]);
         for ($d = 1; $d < count($A); $d++) {
             $res = $res * $A[$d];
             // if ($d==1) { dd($A[$d]); }
