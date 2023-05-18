@@ -27,7 +27,7 @@ class ProveedorComponent extends Component
         $this->empresa_id=session('empresa_id');
         // $this->proveedores = Proveedor::where('empresa_id', $this->empresa_id)->get();
         
-        return view('livewire.proveedor.proveedor-component',['datos'=> Proveedor::where('cuit', 'like', '%'.$this->search.'%')->orwhere('name', 'like', '%'.$this->search.'%')->paginate(4),])->extends('layouts.adminlte');
+        return view('livewire.proveedor.proveedor-component',['datos'=> Proveedor::where('empresa_id', $this->empresa_id)->where('cuit', 'like', '%'.$this->search.'%')->orwhere('name', 'like', '%'.$this->search.'%')->paginate(4),])->extends('layouts.adminlte');
     }
 
     public function create()

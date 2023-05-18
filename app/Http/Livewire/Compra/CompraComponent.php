@@ -61,8 +61,8 @@ class CompraComponent extends Component
             $empresas= EmpresaUsuario::where('user_id',$userid)->get();
             return view('livewire.empresa.empresa-component')->with('empresas', $empresas); 
         }
-        $this->areas = Area::where('empresa_id', $this->empresa_id)->get();
-        $this->cuentas = Cuenta::where('empresa_id', $this->empresa_id)->get();
+        $this->areas = Area::where('empresa_id', $this->empresa_id)->ORDERBY('name')->get();
+        $this->cuentas = Cuenta::where('empresa_id', $this->empresa_id)->ORDERBY('name')->get();
         $this->proveedores = Proveedor::where('empresa_id', $this->empresa_id)->ORDERBY('name')->get();
         $this->ivas = Iva::where('id','>',1)->get();
         $this->productos = Producto::where('empresa_id', $this->empresa_id)->orderBy('name','asc')->get();

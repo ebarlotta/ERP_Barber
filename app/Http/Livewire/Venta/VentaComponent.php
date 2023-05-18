@@ -57,9 +57,9 @@ class VentaComponent extends Component
             $empresas= EmpresaUsuario::where('user_id',$userid)->get();
             return view('livewire.empresa.empresa-component')->with('empresas', $empresas); 
         }
-        $this->areas = Area::where('empresa_id', $this->empresa_id)->get();
-        $this->cuentas = Cuenta::where('empresa_id', $this->empresa_id)->get();
-        $this->clientes = Cliente::where('empresa_id', $this->empresa_id)->get();
+        $this->areas = Area::where('empresa_id', $this->empresa_id)->ORDERBy('name','asc')->get();
+        $this->cuentas = Cuenta::where('empresa_id', $this->empresa_id)->ORDERBy('name','asc')->get();
+        $this->clientes = Cliente::where('empresa_id', $this->empresa_id)->ORDERBy('name','asc')->get();
         $this->ivas = Iva::where('id','>',1)->get();
         $this->productos = Producto::where('empresa_id', $this->empresa_id)->orderBy('name','asc')->get();
 
