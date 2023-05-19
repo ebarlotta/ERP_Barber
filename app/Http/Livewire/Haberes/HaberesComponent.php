@@ -188,6 +188,10 @@ class HaberesComponent extends Component
     // }
 
     public function AltaRecibo($a, $m) {
+        //Carga los datos del recibo actual 
+        $reciboActual = Recibo::where('perpago', $a . $m)
+            ->where('empleado_id', $this->empleadoseleccionado)
+            ->get();
         //Prepara el recibo para el siguiente periodo
         $mx = $m;
         $mx = $mx + 1;
@@ -199,13 +203,9 @@ class HaberesComponent extends Component
         if (strlen($m) == 1) {
             $m = '0' . $m;
         }
-        $reciboActual = Recibo::where('perpago', $a . $m)
-            ->where('empleado_id', $this->empleadoseleccionado)
-            ->get();
         if (strlen($mx) == 1) {
             $mx = '0' . $mx;
         }
-
         $recibo = Recibo::where('perpago', $a . $mx)
             ->where('empleado_id', $this->empleadoseleccionado)
             ->get();
@@ -432,7 +432,9 @@ class HaberesComponent extends Component
         $res = reset($A);
         //dd($res*$A[1]);
         for ($d = 1; $d < count($A); $d++) {
-            $res = $res * $A[$d];
+            if (is_numeric($A[$d])) { $res = $res * (float)($A[$d]); dd((float)($A[$d])); } 
+            else { $res = $res * $A[$d]; }
+            
             // if ($d==1) { dd($A[$d]); }
         }
 
@@ -562,11 +564,11 @@ class HaberesComponent extends Component
     }
 
     public function CargarListaDeConceptos() {
-        $this->items = Concepto::where('empresa_id',session('empresa_id'))->get();
+        $this->items = Concepto::where('empresa_id',session('empresa_id'))->ORDERBY('name','asc')->get();
     }
 
     public function CargarItemAModificar() {
-        $item = Concepto::where('empresa_id',session('empresa_id'))->where('id',$this->cmbitem)->get();
+        $item = Concepto::where('empresa_id',session('empresa_id'))->where('id',$this->cmbitem)->ORDERBY('name','asc')->get();
         //$item = utf8_encode(Concepto::where('empresa_id',session('empresa_id'))->where('id',$this->cmbitem)->get());
         
         //dd($item[0]['orden']);// $this->name = $this->item->name;

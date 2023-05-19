@@ -26,7 +26,7 @@ class CreateConceptosTable extends Migration
             $table->string('calculo');
             $table->double('montomaximo');
             $table->integer('activo')->default(true);
-            $table->unsignedBigInteger('empresa_id')->default(1);
+            $table->unsignedBigInteger('empresa_id')->default(2);
             
             $table->foreign('empresa_id')->references('id')->on('empresas');
 
