@@ -92,15 +92,17 @@ class HaberesComponent extends Component
     public $name;
     public $orden;
     public $unidad;
-    public $haberes;
-    public $remunerativo;
-    public $noremunerativo;
-    public $descuento;
-    public $activo;
+    public $haberes=false;
+    public $remunerativo=false;
+    public $noremunerativo=false;
+    public $descuento=false;
+    public $activo=false;
     public $montofijo;
     public $calculo;
     public $montomaximo;
 
+    public $chkTodos=true;
+    public $chkActivos=false;  // Al cargar el formulario muestra sólo los items activos
 
     //Propio de Modificar Categoría
     public $cmbOpcionCatProf;
@@ -225,11 +227,32 @@ class HaberesComponent extends Component
             $ReciboN->categoriaprofesional_id = $reciboActual[0]['categoriaprofesional_id'];
             $ReciboN->save();
             session()->flash('messageOk', 'El recibo se agregó con éxito');
+            //dd($reciboActual[0]['id']);
+            $this->MigrarConceptosANuevoRecibo($reciboActual[0]['id'] , $ReciboN->id);
         } else {
             session()->flash('messageError', 'El recibo ya se encontraba generado');
         }
     }
 
+    public function MigrarConceptosANuevoRecibo($idViejo,$idNuevo) {
+
+        $Detalle = DB::table('concepto_recibos')
+            ->join('conceptos', 'concepto_id', '=', 'conceptos.id')
+            ->where('recibo_id', '=', $idViejo)->get();
+
+        $Detalle = json_decode($Detalle, true);
+        //dd($Detalle);
+        
+        foreach ($Detalle as $item) {
+            $concepto_recibo = new ConceptoRecibo();
+            //dd($item['concepto_id'] );
+            $concepto_recibo->concepto_id = $item['concepto_id'];
+            $concepto_recibo->recibo_id = $idNuevo;
+            $concepto_recibo->cantidad = $item['cantidad'];
+            $concepto_recibo->save();
+            session()->flash('messageOk1', 'Conceptos migrados con éxito');
+        }
+    }
     public function CargarDatosDeLaEmpresa() {
         //Busca los datos de la empresa
         $Empresa = Empresa::where('id', $this->EmpresaId)->get();
@@ -276,8 +299,7 @@ class HaberesComponent extends Component
 
     }
 
-    public function DevolverConceptosRecibo($IdRecibo)
-    {
+    public function DevolverConceptosRecibo($IdRecibo) {
         // Restablece los contadores a cero
         $this->AcumRem=0;
         $this->AcumNoRem=0;
@@ -288,7 +310,8 @@ class HaberesComponent extends Component
             ->where('recibo_id', '=', $IdRecibo)->get(['concepto_recibos.id','concepto_id','recibo_id','cantidad','orden','name','unidad','haber','rem','norem','descuento','montofijo','calculo','montomaximo']);
 
         $Detalle = json_decode($Detalle, true);
-        // dd($Detalle);
+        //dd($IdRecibo);
+        //dd($Detalle);
         //Toma el cógigo de la categoría profesional correspondiente al RECIBO
         $a = Categoriaprofesional::find($this->IdCatProfe);
         $e = Empleado::where('empresa_id', $this->EmpresaId)->where('id', $this->empleadoseleccionado)->get();
@@ -301,7 +324,7 @@ class HaberesComponent extends Component
         unset($AA);
         unset($this->Conceptos);
         foreach ($Detalle as $Conceptohtml) {
-            //dd($Conceptohtml);
+            
             $AA[$i]['id'] = $Conceptohtml['id'];
             $AA[$i]['orden'] = $Conceptohtml['orden'];
             $AA[$i]['cantidad'] = $Conceptohtml['cantidad'];
@@ -327,6 +350,8 @@ class HaberesComponent extends Component
                 $AA[$i]['Descuento'] = $this->CalcularExpresion($precios, $tipos, $Conceptohtml['cantidad'], $Conceptohtml['montofijo'], $Conceptohtml['calculo']);
                 $this->AcumDescuento = $this->AcumDescuento + $AA[$i]['Descuento'];
             }
+            //if (trim($AA[$i]['name'])=="Antiguedad Salud.") { dd($Conceptohtml) ; }
+            //dd($Conceptohtml) ;
             $i++;
         }
         if (isset($AA)) {
@@ -354,9 +379,7 @@ class HaberesComponent extends Component
         // $pp=$this->CalcularExpresion($precios,$tipos,$this->Conceptos->cantidad,$this->Conceptos->unidad,$this->Conceptos->montofijo,$this->Conceptos->calculo,$this->SumHaberes,$this->SumUnidades);
     }
 
-
-    public function CalcularExpresion($precio, $tipo, $CA, $MF, $expre)
-    {
+    public function CalcularExpresion($precio, $tipo, $CA, $MF, $expre) {
         // dd($MF);
         unset($A);
         unset($pieces);
@@ -364,15 +387,15 @@ class HaberesComponent extends Component
         $A = array();
 
         $precios = explode("#", $precio);
-        $PM = $precios[0]; $PD = $precios[1]; $PH = $precios[2]; $PU = $precios[3]; $BC = $precios[4]; $B1 = $precios[5]; $B2 = $precios[6];
+        $PM = (float)$precios[0]; $PD = (float)$precios[1]; $PH = (float)$precios[2]; $PU = (float)$precios[3]; $BC = (float)$precios[4]; $B1 = (float)$precios[5]; $B2 = (float)$precios[6];
 
         $tipos   = explode("#", $tipo);
-        $TM = $tipos[0]; $TD = $tipos[1]; $TH = $tipos[2]; $TU = $tipos[3];
+        $TM = (float)$tipos[0]; $TD = (float)$tipos[1]; $TH = (float)$tipos[2]; $TU = (float)$tipos[3];
         
         // PD: Precio Mes   PD: Precio Dia    PH: Precio Hora    PU: Precio Unidad
         // TM: Tipo Mes     TD: Tipo Dia      TH: Tipo Hora      TU: Tipo Unidad
-        $pieces = explode("*", $expre);
-        //dd($pieces);
+        //dd(trim($expre));
+        $pieces = explode("*",trim($expre));
         /*
         RA	    Remuneración básica
         RB	    Remuneración básica
@@ -389,17 +412,18 @@ class HaberesComponent extends Component
         DE	    Total Descuentos
         
         */
+        
         for ($c = 0; $c < count($pieces); $c++) {
             switch ($pieces[$c]) {
-                case is_numeric($pieces[$c]): { $A[$c]=$pieces[$c] ; break;}
+                case is_numeric($pieces[$c]): { $A[$c]=(float)$pieces[$c] ; break;}
                 case "RA": { $A[$c] = $PM * $TM + $PD * $TD + $PH * $TH + $PU * $TU; break; } // 'R'emuneracion 'A'signada
-                case "RB": { $A[$c] = ($PM * $TM + $PD * $TD + $PH * $TH + $PU * $TU); $this->RB = $A[$c]; break; } // 'R'emuneracion 'A'signada
+                case "RB": { $A[$c] = ($PM * $TM + $PD * $TD + $PH * $TH + $PU * $TU); $this->RB = $A[$c]; dd($A[$c]);break; } // 'R'emuneracion 'A'signada
                     //case "TH":{ $A[$c]=($PD*$TD+$PH*$TH+$PM*$TM+$PU*$TU)*$C;	break;}// 'T'otal 'H'aberes
                     // case "U": {	 $A[$c]=$U;  break;}				// 'U'nidades
                 case "DE": { $A[$c] = $this->RB; break; }            // 'D'escuentos 
                 case "MF": { $A[$c] = $MF; break; }                    // 'M'onto 'F'ijo
                 case "CA": { $A[$c] = $CA; break; }                // 'C'antidad
-                case "C": { $A[$c] = $CA; break; }                // 'C'antidad
+                case "C":  { $A[$c] = $CA; break; }                // 'C'antidad
                 case "BC": { $A[$c] = $BC; break; }                // 'B'ásico 'C'ategoria
                 case "B1": { $A[$c] = $B1; break; }                // 'B'ásico 'C'ategoria 1
                 case "B2": { $A[$c] = $B2; break; }                // 'B'ásico 'C'ategoria 2
@@ -408,7 +432,7 @@ class HaberesComponent extends Component
                 case "PD": { $A[$c] = $this->xPrecioDia;break; break;}
                 case "PH": { $A[$c] = $this->xPrecioHora; break;}
                 case "PU": { $A[$c] = $this->xPrecioUnidad; break;}
-                case "ANT": { $A[$c] = $this->xPrecioUnidad; break;}
+                case "ANT": { $A[$c] = $this->Antiguedad; break;}
 
 
                     //             case "AAOS": { if (($SH*0.03)<$C) { $A[$c]=$C-($SH*0.03); } else { $A[$c]=0;} break;}	//
@@ -431,10 +455,12 @@ class HaberesComponent extends Component
         }
         $res = reset($A);
         //dd($res*$A[1]);
+        
         for ($d = 1; $d < count($A); $d++) {
-            if (is_numeric($A[$d])) { $res = $res * (float)($A[$d]); dd((float)($A[$d])); } 
-            else { $res = $res * $A[$d]; }
-            
+            if (is_numeric($A[$d])) 
+            { $res = $res * (float)($A[$d]); } 
+            else { $res = $res * (float)$A[$d]; }
+            //if($d==3) { dd($A[0]."*".$A[1]."*".$A[2]."*".$A[3]); }
             // if ($d==1) { dd($A[$d]); }
         }
 
@@ -444,8 +470,7 @@ class HaberesComponent extends Component
         // return $res;
     }
 
-    public function calculaedad($fechanacimiento){
-        
+    public function calculaedad($fechanacimiento) {      
         list($ano,$mes,$dia) = explode("-",$fechanacimiento);
         $dia = substr($dia,0,2);
         $this->ano_diferencia  = date("Y") - $ano;
@@ -454,11 +479,11 @@ class HaberesComponent extends Component
         if ($this->dia_diferencia < 0 || $this->mes_diferencia < 0){ $this->ano_diferencia--; }
         $this->Antiguedad = $this->ano_diferencia.'a'.$this->mes_diferencia.'m'; 
         //dd($this->Antiguedad);
-
+        
         return $this->ano_diferencia;
       }
 
-    public function MostrarOcultarModalAgregar() {
+      public function MostrarOcultarModalAgregar() {
         $this->items = Concepto::all();
         $this->ModalAgregar = true;
     }
@@ -487,8 +512,7 @@ class HaberesComponent extends Component
         $this->ModificarEscalaShow=false;
     }
 
-    public function ModificarEscala($IdCatProf, $Opcion)
-    {
+    public function ModificarEscala($IdCatProf, $Opcion) {
         $ReciboRec = Recibo::find($this->IdRecibo);
         $Empleado = Empleado::find($ReciboRec->DatosEmpleado->id);
         // dd($Empleado);
@@ -541,7 +565,6 @@ class HaberesComponent extends Component
         $this->EliminarConceptoReciboHide();
     }
 
-
     public function ModificarConcepto() {
         $ConceptoAEditar = ConceptoRecibo::find($this->item_id);
         // $ConceptoAEditar = ConceptoRecibo::where('recibo_id',$this->IdRecibo)->where('concepto_id',$this->item_id)->get();
@@ -564,22 +587,24 @@ class HaberesComponent extends Component
     }
 
     public function CargarListaDeConceptos() {
-        $this->items = Concepto::where('empresa_id',session('empresa_id'))->ORDERBY('name','asc')->get();
+        $this->items = Concepto::where('empresa_id',session('empresa_id'))->where('activo',$this->chkTodos=="Todos" ? 1 : 0)->ORDERBY('name','asc')->get();
+        //dd($this->items);
     }
 
     public function CargarItemAModificar() {
         $item = Concepto::where('empresa_id',session('empresa_id'))->where('id',$this->cmbitem)->ORDERBY('name','asc')->get();
         //$item = utf8_encode(Concepto::where('empresa_id',session('empresa_id'))->where('id',$this->cmbitem)->get());
-        
+        //dd($item);
         //dd($item[0]['orden']);// $this->name = $this->item->name;
         $this->orden = $item[0]['orden'];
         $this->name = $item[0]['name'];
         $this->unidad = $item[0]['unidad'];
-        $this->haberes = $item[0]['haberes'];
-        $this->remunerativo = $item[0]['rem'];
-        $this->noremunerativo = $item[0]['norem'];
-        $this->descuento = $item[0]['descuento'];
-        $this->activo = $item[0]['activo'];
+        //dd((bool)$item[0]['haber']==true);
+        (bool)$item[0]['haber']==true ? $this->haberes = true : $this->haberes = false;
+        (bool)$item[0]['rem']==true ? $this->remunerativo = true : $this->remunerativo = false;
+        (bool)$item[0]['norem']==true ? $this->noremunerativo = true : $this->noremunerativo = false;
+        (bool)$item[0]['descuento']==true ? $this->descuento = true : $this->descuento = false;
+        (bool)$item[0]['activo']==true ? $this->activo=true : $this->activo=false;
         $this->montofijo = $item[0]['montofijo'];
         $this->calculo = $item[0]['calculo'];
         $this->montomaximo = $item[0]['montomaximo'];
@@ -627,13 +652,14 @@ class HaberesComponent extends Component
 
     public function ModificarValoresDeConcepto() {
         $Concepto = Concepto::find($this->cmbitem);
+        //dd($Concepto);
         $Concepto->orden = $this->orden;
         $Concepto->name = $this->name;
         $Concepto->unidad = $this->unidad;
-        is_null($this->haberes) ? $Concepto->haber = 0 : $Concepto->haber = $this->haberes;
-        is_null($this->remunerativo) ? $Concepto->rem = 0 : $Concepto->rem = $this->remunerativo;
-        is_null($this->noremunerativo) ? $Concepto->norem = 0 : $Concepto->norem = $this->noremunerativo;
-        is_null($this->descuento) ? $Concepto->descuento = 0 : $Concepto->descuento = $this->descuento;
+        is_null($this->haberes) ? (bool)$Concepto->haber = false : $Concepto->haber = $this->haberes;
+        is_null($this->remunerativo) ? (bool)$Concepto->rem = false : $Concepto->rem = $this->remunerativo;
+        is_null($this->noremunerativo) ? (bool)$Concepto->norem = false : $Concepto->norem = $this->noremunerativo;
+        is_null($this->descuento) ? (bool)$Concepto->descuento = false : $Concepto->descuento = $this->descuento;
 
         // $Concepto->norem = $this->noremunerativo;
         // $Concepto->descuento = $this->descuento;
@@ -667,11 +693,28 @@ class HaberesComponent extends Component
         $this->CargarListaDeConceptos();
     }
 
+    public function setTodos() {
+        if ($this->chkTodos=='Todos') {
+            $this->chkActivos = false;
+        } else {
+            $this->chkActivos = true;
+        }
+        $this->CargarListaDeConceptos();
+        //dd($this->chkActivos);
+    }
+    // public function setValue($elemento){
+    //     switch ($elemento) {
+    //         case 'haberes': $this->haberes=!$this->haberes; break;
+    //         case 'rem': $this->remunerativo=!$this->remunerativo; break;
+    //         case 'norem': $this->noremunerativo=!$this->noremunerativo; break;
+    //         case 'descuento': $this->descuento=!$this->descuento; break;
+    //         case 'activo': $this->activo=!$this->activo; break;
+    //     }
+    //     //dd("Elemento elegido:".$elemento.": Haberes:".(bool)$this->haberes ." Remunerativo:$this->remunerativo NoRemunerativo:$this->noremunerativo Descuento:$this->descuento Activo:$this->activo");
+    // }
         public function basico($numero) {
-            $valor = array ('uno','dos','tres','cuatro','cinco','seis','siete','ocho',
-        'nueve','diez','once','doce','trece','catorce','quince','dieciseis','diecisiete','dieciocho','diecinueve','veinte','veintiuno ','vientidos ','veintitrés ', 'veinticuatro','veinticinco',
-        'veintiséis','veintisiete','veintiocho','veintinueve');
-        return $valor[$numero - 1];
+            $valor = array ('uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince','dieciseis','diecisiete','dieciocho','diecinueve','veinte','veintiuno ','vientidos ','veintitrés ', 'veinticuatro','veinticinco','veintiséis','veintisiete','veintiocho','veintinueve');
+            return $valor[$numero - 1];
         }
         
         public function decenas($n) {

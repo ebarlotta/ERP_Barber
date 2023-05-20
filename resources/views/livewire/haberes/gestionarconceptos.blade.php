@@ -7,7 +7,7 @@
 
         <span class="hidden sm:inline-block sm:align-middle "></span>
         <div class="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-1 sm:align-top sm:w-full"
-            role="dialog" aria-modal="true" aria-labelledby="modal-headline" style="max-width: 48rem;">
+            role="dialog" aria-modal="true" aria-labelledby="modal-headline" style="max-width: 70%;">
             <form>
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <table class="table table-responsive table-hover" border="1">
@@ -24,11 +24,20 @@
                                             @endforeach
                                         </select>
                                     
-                                    <input type="radio" checked="true" name="T" id="T" value="Todos"
+                                        <select class="pt-2 mt-2" wire:model="chkTodos" wire:change="setTodos()">
+                                            <option value="Activos">Activos</option>
+                                            <option value="Todos" selected>Todos</option>
+                                        </select>
+
+                                        <!-- <input type="radio" name="Todos" class="btn" wire:model="chkTodos"   wire:click="setTodos('Todos')"  value="{{$chkTodos}}">  Todos
+                                        <input type="radio" name="Todos" class="btn" wire:model="chkActivos" wire:click="setTodos('Activos')"value="{{!$chkTodos}}">Sólo Activos -->
+                                    </div>
+
+                                    <!-- <input type="radio" checked="true" name="T" id="T" value="Todos"
                                         onclick="xajax.call('RenovarConcepto', {method: 'get', parameters:[T.value]}); return false;">Todos
                                     <input type="radio" name="T" id="T" value="Activos"
                                         onclick="xajax.call('RenovarConcepto', {method: 'get', parameters:[T.value]}); return false;">Sólo
-                                    Activos
+                                    Activos -->
                                     </div>
                                     <div style="margin-left: 10px;">
                                         Descricpion <br><input class="form-control" type="text" wire:model="name">
@@ -122,31 +131,11 @@
                             </tr>
                             <tr>
                                 <td style="display: flex; margin-top:10px">
-                                    @if($haberes)
-                                    <input style="margin-left: 15px;" type="checkbox" wire:model="haberes" checked> Haberes
-                                    @else
-                                    <input style="margin-left: 15px;" type="checkbox" wire:model="haberes"> Haberes
-                                    @endif
-                                    @if($remunerativo)
-                                    <input style="margin-left: 15px;" type="checkbox" wire:model="remunerativo" checked> Remunerativo
-                                    @else
-                                    <input style="margin-left: 15px;" type="checkbox" wire:model="remunerativo"> Remunerativo
-                                    @endif
-                                    @if($noremunerativo)
-                                    <input style="margin-left: 15px;" type="checkbox" wire:model="noremunerativo" checked> No Remunerativo
-                                    @else
-                                    <input style="margin-left: 15px;" type="checkbox" wire:model="noremunerativo"> No Remunerativo
-                                    @endif
-                                    @if($descuento)
-                                    <input style="margin-left: 15px;" type="checkbox" wire:model="descuento" checked> Descuento
-                                    @else
-                                    <input style="margin-left: 15px;" type="checkbox" wire:model="descuento"> Descuento
-                                    @endif
-                                    @if($activo)
-                                    <input style="margin-left: 15px;" type="checkbox" wire:model="activo" checked> Activo
-                                    @else
-                                    <input style="margin-left: 15px;" type="checkbox" wire:model="activo"> Activo
-                                    @endif
+                                    <input style="margin-left: 15px;" type="checkbox" wire:model="haberes" > Haberes
+                                    <input style="margin-left: 15px;" type="checkbox" wire:model="remunerativo"  > Remunerativo
+                                    <input style="margin-left: 15px;" type="checkbox" wire:model="noremunerativo" > No Remunerativo
+                                    <input style="margin-left: 15px;" type="checkbox" wire:model="descuento"  > Descuento
+                                    <input style="margin-left: 15px;" type="checkbox" wire:model="activo" > Activo
                                 </td>
                             </tr>
                             <tr>

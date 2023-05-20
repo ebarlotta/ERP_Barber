@@ -36,6 +36,17 @@
                         </div>
                     </div>
                 @endif
+                <!-- Mensaje mostrado cuando se migran los conceptos de un recibo nuevo -->
+                @if (session()->has('messageOk1')) 
+                    <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
+                        role="alert">
+                        <div class="flex">
+                            <div>
+                                <p class="text-xm bg-lightgreen">{{ session('messageOk1') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 @if (session()->has('messageError'))
                     <div class="bg-warning border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
                         role="alert">
