@@ -65,7 +65,6 @@ class ProveedorComponent extends Component
             'direccion' => 'required',
             'cuit' => 'required|integer',
             'telefono' => 'required|integer',
-            'email' => 'required|email',
         ]);
         Proveedor::updateOrCreate(['id' => $this->proveedor_id], [
             'name' => $this->name,
@@ -73,7 +72,6 @@ class ProveedorComponent extends Component
             'direccion' => $this->direccion,
             'cuit' => $this->cuit,
             'telefono' => $this->telefono,
-            'email' => $this->email,
         ]);
 
         session()->flash('message', $this->proveedor_id ? 'Proveedor Actualizado.' : 'Proveedor Creado.');

@@ -6,6 +6,7 @@ use App\Models\Categoriaprofesional;
 use Livewire\Component;
 use App\Models\Empleado;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class EmpleadoComponent extends Component
 {
@@ -18,11 +19,32 @@ class EmpleadoComponent extends Component
 
     public $empresa_id;
 
+    public $search;
+    public $listaactivos=true;
+
     public function render()
     {
         $this->empresa_id = session('empresa_id');
-        $this->empleados = Empleado::where('empresa_id', $this->empresa_id)->get();
-        return view('livewire.empleado.empleado-component',['datos'=> Empleado::where('empresa_id', $this->empresa_id)->paginate(4),])->extends('layouts.adminlte');
+//dd($this->listaactivos);
+        if($this->listaactivos) { $activos=1; } else { $activos='?'; }
+
+        $sql = "Select * from empleados where empresa_id=1 and activo=1 and (name like '%ce%')";
+        $datos = DB::select(DB::raw($sql)); 
+
+        return view('livewire.empleado.empleado-component',['datos'=> Empleado::where('empresa_id', $this->empresa_id)
+            ->where('activo', $activos)
+            ->where('name', 'like', '%'.$this->search.'%')
+            ->paginate(30),])->extends('layouts.adminlte');
+
+         
+        // else { $activos=0; 
+        //     return view('livewire.empleado.empleado-component',['datos'=> Empleado::where('empresa_id', $this->empresa_id)
+        //     ->orwhere('name', 'like', '%'.$this->search.'%')
+        //     ->paginate(30),])->extends('layouts.adminlte');
+        // }
+        // ->orwhere('domicilio', 'like', '%'.$this->search.'%')
+        // ->orwhere('cuil', 'like', '%'.$this->search.'%')
+        // ->orwhere('banco', 'like', '%'.$this->search.'%')
     }
 
     public function create()

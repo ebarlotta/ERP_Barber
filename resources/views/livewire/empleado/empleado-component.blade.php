@@ -31,9 +31,19 @@
                         @endif
                         <div class="w-full">{{ $datos->links() }}</div>
                     </div>
+                    <label for="">Buscar por nombre</label><input class="shadow-md m-1" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;" wire:model="search" type="search" placeholder="Ingresa nombre o cuit">
+                    <select wire:model="listaactivos">
+                        <option value="1" selected>Sólo Activos</option>
+                        <option value="0">Todos</option>
+                    </select>
+                    <!-- <input type="checkbox" wire:model="listaactivos" value="1">Todos / Sólo Activos -->
                     <div style="display: block">
                         @foreach ($datos as $empleado)
-                            <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px; height: 100%;">
+                            @if($empleado->activo)
+                                <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px; height: 100%;">
+                            @else
+                                <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightGray 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px; height: 100%;">
+                            @endif
                                 <div style="width:90%;">
                                     <div style="width:100%; display: flex">
                                         <p class="shadow-md m-1" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;">{{ $empleado->legajo }}</p>

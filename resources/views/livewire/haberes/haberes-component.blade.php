@@ -58,7 +58,7 @@
                     </div>
                 @endif
 
-                <font size="1" face="Verdana">
+                <font size="1">
                     <table class="table table-responsive table-hover" border="1">
                         <tbody bordercolor="#FFFFFF" style="font-family : Verdana; font-size : 15px; font-weight : 300;"
                             bgcolor="#AFF3F7">
@@ -114,7 +114,7 @@
                                                         <select class="form-control" wire:model="IdEmpleado">
                                                             <option value="00" selected>-</option>
                                                             @foreach ($EmpleadosActivos as $empleado)
-                                                                <option value="{{ $empleado['id'] }}" wire:click="cargaIdEmpleado({{ $empleado['id'] }});">{{ $empleado['name'] }}</option>
+                                                                <option  style="text-decoration:line-through; color: rgb(246, 250, 0); background-color: rgb(5, 26, 1);" value="{{ $empleado['id'] }}" wire:click="cargaIdEmpleado({{ $empleado['id'] }});">{{ ucwords(strtolower($empleado['name'])) }}</option>
                                                             @endforeach
                                                         </select>
                                                     @endif
@@ -126,7 +126,7 @@
                                         <div style="background-color: rgb(156 163 175 / var(--tw-bg-opacity));">
                                             {{ session('message') }}
                                             @if ($IdRecibo)
-                                                <table class="table table-responsive table-hover" style="font-size:14px;" border="1">
+                                                <table class="table table-responsive table-hover" style="font-size:12px;" border="1">
                                                     <tbody style="height: 100px; overflow-y: auto;">
                                                         <tr>
                                                             <td colspan="2" style="border-bottom-width: 2px;border-color: black;">
@@ -148,7 +148,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td align="center">{{ $NombreEmpleado }}</td>
+                                                            <td align="center">{{ ucwords($NombreEmpleado) }}</td>
                                                             <td align="center">{{ $Cuil }}</td>
                                                             <td align="center">{{ $CCT }} </td>
                                                             <td align="center">{{ $Seccion }}</td>
@@ -189,62 +189,62 @@
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
-                            @endif
-                            <tr>
-                                {{-- onclick="var  xxx='modificarconcepto.php?Detalle=0&amp;IdConcepto=0&amp;Cantidad=0&amp;Recibo=0'; window.open(xxx,'nuevaVentana','width=300, height=400'); " --}}
-                                <td>-</td>
-                                <td align="center">-</td>
-                                <td align="right">-</td>
-                                <td align="right">-</td>
-                                <td align="right">-</td>
-                                <td align="center"><a href="#" class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" wire:click="MostrarOcultarModalAgregar">Agregar</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center"><strong></strong></td>
-                                <td align="center"><strong></strong></td>
-                                <td align="right"><strong>{{ number_format($AcumRem, 2, ',', '.') }}</strong></td>
-                                <td align="right"><strong>{{ number_format($AcumNoRem, 2, ',', '.') }}</strong></td>
-                                <td align="right"><strong>{{ number_format($AcumDescuento, 2, ',', '.') }}</strong></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td style="border-bottom-width: 2px;border-color: black;"></td>
-                                <td colspan="2" align="center" style="border-bottom-width: 2px;border-color: black;"></td>
-                                <td colspan="2" align="center" style="border-bottom-width: 2px;border-color: black;"><strong>NETO A COBRAR</strong></td>
-                                <td bgcolor="lightGray" align="center" style="border-bottom-width: 2px;border-color: black; font-weight: bold;">
-                                    <b>$ {{ number_format($NetoACobrar, 2, ',', '.') }} </b>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="6" bgcolor="lightGray"><strong>Son pesos: {{ strtoupper($NetoACobrarLetras)}} </strong></td>
-                            </tr>
-                            <tr>
-                                <td><strong>LUGAR</strong></td>
-                                <td align="left">{{ $LugarPago }}</td>
-                                <td><strong>BANCO</strong></td>
-                                <td align="left">{{ $Banco }}</td>
-                                <td rowspan="6" colspan="2">Recibí el importe de esta liquidación de pago de mi <br>
-                                    remuneración correspondiente al período indicado y<br>
-                                    duplicado de la misma conforme a la ley vigente.<br><br><br><br>
-                                    <center><strong>FIRMA EMPLEADO/R</strong></center>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>FECHA DE LIQUIDACIÓN</strong></td>
-                                <td align="left">01-02-2022</td>
-                                <td><strong>ULTIMA LIQUIDACIÓN</strong></td>
-                                <td align="left">202112</td>
-                            </tr>
-                            <tr>
-                                <td><strong>FECHA DEPOSITO</strong></td>
-                                <td align="left">{{ substr($FechaUltLiq,8,2).'-'.substr($FechaUltLiq,5,2).'-'. substr($FechaUltLiq,0,4) }}</td>
-                                <td><strong>ART 12 LEY 17250</strong></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    @endif
+                                                        @endif
+                                                        <tr>
+                                                            {{-- onclick="var  xxx='modificarconcepto.php?Detalle=0&amp;IdConcepto=0&amp;Cantidad=0&amp;Recibo=0'; window.open(xxx,'nuevaVentana','width=300, height=400'); " --}}
+                                                            <td>-</td>
+                                                            <td align="center">-</td>
+                                                            <td align="right">-</td>
+                                                            <td align="right">-</td>
+                                                            <td align="right">-</td>
+                                                            <td align="center"><a href="#" class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" wire:click="MostrarOcultarModalAgregar">Agregar</a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="center"><strong></strong></td>
+                                                            <td align="center"><strong></strong></td>
+                                                            <td align="right"><strong>{{ number_format($AcumRem, 2, ',', '.') }}</strong></td>
+                                                            <td align="right"><strong>{{ number_format($AcumNoRem, 2, ',', '.') }}</strong></td>
+                                                            <td align="right"><strong>{{ number_format($AcumDescuento, 2, ',', '.') }}</strong></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="border-bottom-width: 2px;border-color: black;"></td>
+                                                            <td colspan="2" align="center" style="border-bottom-width: 2px;border-color: black;"></td>
+                                                            <td colspan="2" align="center" style="border-bottom-width: 2px;border-color: black;"><strong>NETO A COBRAR</strong></td>
+                                                            <td bgcolor="lightGray" align="center" style="border-bottom-width: 2px;border-color: black; font-weight: bold;">
+                                                                <b>$ {{ number_format($NetoACobrar, 2, ',', '.') }} </b>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="6" bgcolor="lightGray"><strong>Son pesos: {{ strtoupper($NetoACobrarLetras)}} </strong></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>LUGAR</strong></td>
+                                                            <td align="left">{{ $LugarPago }}</td>
+                                                            <td><strong>BANCO</strong></td>
+                                                            <td align="left">{{ $Banco }}</td>
+                                                            <td rowspan="6" colspan="2">Recibí el importe de esta liquidación de pago de mi remuneración correspondiente al período indicado y duplicado de la misma conforme a la ley vigente.<br><br><br><br>
+                                                                <center><strong>FIRMA EMPLEADO/R</strong></center>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>FECHA DE LIQUIDACIÓN</strong></td>
+                                                            <td align="left">01-02-2022</td>
+                                                            <td><strong>ULTIMA LIQUIDACIÓN</strong></td>
+                                                            <td align="left">202112</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>FECHA DEPOSITO</strong></td>
+                                                            <td align="left">{{ substr($FechaUltLiq,8,2).'-'.substr($FechaUltLiq,5,2).'-'. substr($FechaUltLiq,0,4) }}</td>
+                                                            <td><strong>ART 12 LEY 17250</strong></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            @else
+                                                <h1>SELECCIONE UN EMPLEADO</h1>
+                                            @endif
             </div>
         </div>
         </td>
@@ -262,11 +262,15 @@
                 </div>
                 <div>
                     <button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;"
-                        title="Genera un nuevo recibo del primer Aguinaldo">1erSAC</button>
+                        title="Genera un nuevo recibo del primer Aguinaldo" wire:click="AltaRecibo({{ $anio }},'{{ 13 }}')">1erSAC</button>
                 </div>
                 <div>
                     <button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;"
-                        title="Genera un nuevo recibo del segundo Aguinaldo">2doSAC</button>
+                        title="Genera un nuevo recibo del segundo Aguinaldo" wire:click="AltaRecibo({{ $anio }},'{{ 14 }}')">2doSAC</button>
+                </div>
+                <div>
+                    <button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;"
+                        title="Genera un nuevo recibo de Vacaciones" wire:click="AltaRecibo({{ $anio }},'{{ 15 }}')">Vacaciones</button>
                 </div>
                 <div>
                     <button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;"
@@ -283,8 +287,12 @@
                         title="Genera una vista previa del recibo">Graficar</button>
                 </div> --}}
                 <div>
-                    <button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;"
-                        title="Genera un archivo PDF del recibo">Imprimir PDF</button>
+                    <a href="{{ URL::to('/pdf/recibos'.'/'.$anio.'/'.$mes.'/'.$empleadoseleccionado) }}" target="_blank">
+						<button class="rounded-md bg-green-300 px-8 py-1 ml-4 mt-6" style="color: black;">Imprimir PDF</button>
+					</a><br>
+
+                    <!-- <button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;"
+                        title="Genera un archivo PDF del recibo">Imprimir PDF</button> -->
                 </div>
                 <div>
                     {{-- <a href="#" class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" wire:click="ModificarEscalaShow">Modificar Escala</a> --}}

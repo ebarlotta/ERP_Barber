@@ -101,11 +101,14 @@ class HaberesComponent extends Component
     public $calculo;
     public $montomaximo;
 
-    public $chkTodos=true;
-    public $chkActivos=false;  // Al cargar el formulario muestra sólo los items activos
+    public $chkTodos=false;
+    public $chkActivos=true;  // Al cargar el formulario muestra sólo los items activos
 
     //Propio de Modificar Categoría
     public $cmbOpcionCatProf;
+
+    // Recibos de Sueldo
+    public $lmes,$lanio, $empleado;
 
     public function render()
     {
@@ -117,15 +120,31 @@ class HaberesComponent extends Component
     {
         //dd(session('empresa_id'));
         $this->EmpleadosActivos = null;
+        $this->IdRecibo = null;  // Borra el id de recibo para que se borre la pantalla con recibos
+        if($this->mes == 13 or $this->mes == 14 or $this->mes == 15 ) {
+            $this->EmpleadosActivos = DB::table('empleados')
+            ->select('empleados.name', 'empleados.id', 'empleados.activo')
+            ->leftjoin('empresas', 'empresas.id', 'empleados.empresa_id')
+            ->where('activo',  1)
+            ->where('empresas.id',  session('empresa_id'))
+            // ->groupBy('Nombre')
+            ->orderby('empleados.name')
+            ->get();
+            $this->EmpleadosActivos = json_decode(json_encode($this->EmpleadosActivos), true);
+
+        } else {
         $this->EmpleadosActivos = DB::table('empleados')
             ->select('empleados.name', 'empleados.id', 'empleados.activo')
             ->leftjoin('recibos', 'empleado_id', 'empleados.id')
             ->leftjoin('empresas', 'empresas.id', 'empleados.empresa_id')
+            ->where('activo',  1)
             ->where('recibos.perpago', $this->anio . $this->mes)
-            ->where('empresas.id', $this->EmpresaId)
+            ->where('empresas.id',  session('empresa_id'))
             // ->groupBy('Nombre')
+            ->orderby('empleados.name')
             ->get();
         $this->EmpleadosActivos = json_decode(json_encode($this->EmpleadosActivos), true);
+        }
         //dd($this->EmpleadosActivos);
     }
 
@@ -194,14 +213,24 @@ class HaberesComponent extends Component
         $reciboActual = Recibo::where('perpago', $a . $m)
             ->where('empleado_id', $this->empleadoseleccionado)
             ->get();
-        //Prepara el recibo para el siguiente periodo
-        $mx = $m;
-        $mx = $mx + 1;
-        if ($mx == 13) {
-            $mx = '01';
-            $a = $a + 1;
-        }  //Coloca mes en 1 y suma un año si es el recibo de diciembre
 
+        //Prepara el recibo para el siguiente periodo
+        
+        
+        // $mx = $mx + 1;
+        // if ($mx == 13) {
+        //     $mx = '01';
+        //     $a = $a + 1;
+        // }  //Coloca mes en 1 y suma un año si es el recibo de diciembre
+        
+        switch ($m) {
+            case 12: $mx = '01'; $a = $a + 1; break;  // si es DICIEMBRE, vuelve el mes a 1 e incrementa el año
+            case 13: $mx = 13; break;  // Si es el primer aguinaldo, coloca el mes en 13 para diferenciarlo
+            case 14: $mx = 14; break; // Si es el segundo aguinaldo, coloca el mes en 14 para diferenciarlo
+            case 15: $mx = 15; break; // Si son vacaciones, coloca el mes en 15 para diferenciarlo
+            default: $mx = $m;
+        }
+        
         if (strlen($m) == 1) {
             $m = '0' . $m;
         }
@@ -253,9 +282,10 @@ class HaberesComponent extends Component
             session()->flash('messageOk1', 'Conceptos migrados con éxito');
         }
     }
+
     public function CargarDatosDeLaEmpresa() {
         //Busca los datos de la empresa
-        $Empresa = Empresa::where('id', $this->EmpresaId)->get();
+        $Empresa = Empresa::where('id', session('empresa_id'))->get();
         $this->NombreEmpresa = $Empresa[0]['name'];
         $this->Cuit = $Empresa[0]['cuit'];
         $this->DireccionEmpresa = $Empresa[0]['direccion'];
@@ -263,7 +293,7 @@ class HaberesComponent extends Component
 
     public function CargarDatosDelEmpleado() {
         //Busca los datos del Empleado
-        $Empleado = Empleado::where('empresa_id', $this->EmpresaId)
+        $Empleado = Empleado::where('empresa_id',  session('empresa_id'))
             ->where('id', $this->empleadoseleccionado)->get();
         $this->NombreEmpleado = $Empleado[0]['name'];
         $this->Cuil = $Empleado[0]['cuil'];
@@ -273,7 +303,7 @@ class HaberesComponent extends Component
         $this->Seccion = $Empleado[0]['seccion'];
         $this->Banco = $Empleado[0]['banco'];
         $this->CategoriaProfesional_id = $Empleado[0]['categoriaprofesional_id'];
-        //dd($this->CategoriaProfesional_id);
+        //dd($this->CategoriaProfesional_id);        
     }
 
     public function CargarDatosCategoriaProfesional($id) {
@@ -314,7 +344,7 @@ class HaberesComponent extends Component
         //dd($Detalle);
         //Toma el cógigo de la categoría profesional correspondiente al RECIBO
         $a = Categoriaprofesional::find($this->IdCatProfe);
-        $e = Empleado::where('empresa_id', $this->EmpresaId)->where('id', $this->empleadoseleccionado)->get();
+        $e = Empleado::where('empresa_id', session('empresa_id'))->where('id', $this->empleadoseleccionado)->get();
         $precios = array($a->preciomes, $a->preciodia, $a->preciohora, $a->preciounidad, $a->basico, $a->basico1, $a->basico2);
         $precios = implode("#", $precios);
         $activo = array($e[0]['mensualizado'], $e[0]['jornalizado'], $e[0]['hora'], $e[0]['unidad']);
@@ -484,7 +514,8 @@ class HaberesComponent extends Component
       }
 
       public function MostrarOcultarModalAgregar() {
-        $this->items = Concepto::all();
+        //$this->items = Concepto::all();
+        $this->items = Concepto::where('empresa_id',session('empresa_id'))->where('activo',1)->ORDERBY('name','asc')->get();
         $this->ModalAgregar = true;
     }
 
@@ -504,7 +535,7 @@ class HaberesComponent extends Component
     }
 
     public function ModificarEscalaShow() {
-        $this->CategoriasProf = Categoriaprofesional::where('empresa_id',session('empresa_id'))->get();
+        $this->CategoriasProf = Categoriaprofesional::where('empresa_id',session('empresa_id'))->where('activo',1)->orderby('name')->get();
         $this->ModificarEscalaShow=true;
     }
 
@@ -587,7 +618,15 @@ class HaberesComponent extends Component
     }
 
     public function CargarListaDeConceptos() {
-        $this->items = Concepto::where('empresa_id',session('empresa_id'))->where('activo',$this->chkTodos=="Todos" ? 1 : 0)->ORDERBY('name','asc')->get();
+        if ($this->chkTodos=='Todos') {
+            //Si el check está en todos
+            $this->items = Concepto::where('empresa_id',session('empresa_id'))->ORDERBY('name','asc')->get();
+            //Si el check está en Activos
+        } else {
+            $this->items = Concepto::where('empresa_id',session('empresa_id'))->where('activo',1)->ORDERBY('name','asc')->get();
+        }
+
+        //$this->items = Concepto::where('empresa_id',session('empresa_id'))->where('activo',$this->chkTodos=="Todos" ? 1 : 0)->ORDERBY('name','asc')->get();
         //dd($this->items);
     }
 

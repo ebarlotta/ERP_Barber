@@ -94,9 +94,7 @@ class CompraComponent extends Component
         if(is_null($this->gbruto)) $this->gbruto=0.00;
         if(is_null($this->gmontopagado)) $this->gmontopagado=0.00;
         if(is_null($this->gcantidad)) $this->gcantidad=0.00;
-        if(is_null($this->giva2)) $this->giva2=0.00;
-        
-        
+        if(is_null($this->giva2)) $this->giva2=0.00;        
     }
 
     public function store() {

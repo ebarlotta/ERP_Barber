@@ -20,12 +20,18 @@ class CategoriaprofesionalComponent extends Component
     public $basico1  ;
     public $basico2  ;
     public $porcentaje;
+    public $elementosactivos=1;
     public $activo;
     public $observacion;
 
     public function render()
     {
-        $this->categorias = Categoriaprofesional::where('empresa_id',session('empresa_id'))->get();
+        if($this->elementosactivos==1) {
+            $this->categorias = Categoriaprofesional::where('empresa_id',session('empresa_id'))->where('activo',$this->elementosactivos)->get();
+        } else {
+            $this->categorias = Categoriaprofesional::where('empresa_id',session('empresa_id'))->get();
+        }
+        
         return view('livewire.categoriaprofesional.categoriaprofesional-component')->extends('layouts.adminlte');
     }
 

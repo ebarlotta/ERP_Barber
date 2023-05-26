@@ -20,7 +20,7 @@ class CreateProveedorsTable extends Migration
             $table->string('direccion');
             $table->bigInteger('cuit');
             $table->bigInteger('telefono');
-            $table->string('email')->unique();
+            $table->string('email');
             
             $table->timestamps();
 
