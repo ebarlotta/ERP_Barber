@@ -80,6 +80,7 @@ Route::get('empleados',EmpleadoComponent::class)->name('empleados');
 
 Route::get('compras',CompraComponent::class)->name('compras');
 Route::get('ventas',VentaComponent::class)->name('ventas');
+Route::get('ventasmostrador',VentaComponent::class)->name('ventasmostrador');
 
 Route::get('empresas',EmpresaComponent::class)->name('empresas');
 //Route::get('empresagestion',EmpresaGestion::class)->name('empresagestion');

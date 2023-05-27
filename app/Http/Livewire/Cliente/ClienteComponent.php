@@ -26,7 +26,9 @@ class ClienteComponent extends Component
     {
         $this->empresa_id = session('empresa_id');
         $this->clientes = Cliente::where('empresa_id', $this->empresa_id)->ORDERBy('name','asc')->get();
-        return view('livewire.cliente.cliente-component',['datos'=> Cliente::where('empresa_id', "=",$this->empresa_id)->where('cuil', 'like', '%'.$this->search.'%')->orwhere('name', 'like', '%'.$this->search.'%')->paginate(3),])->extends('layouts.adminlte');
+        //dd($this->clientes);
+        return view('livewire.cliente.cliente-component',['datos'=> Cliente::where('empresa_id', "=",$this->empresa_id)->where('cuil', 'like', '%'.$this->search.'%')->paginate(4),])->extends('layouts.adminlte');
+        //return view('livewire.cliente.cliente-component',['datos'=> Cliente::where('empresa_id', "=",$this->empresa_id)->where('cuil', 'like', '%'.$this->search.'%')->orwhere('name', 'like', '%'.$this->search.'%')->paginate(3),])->extends('layouts.adminlte');
     }
     public function create()
     {
@@ -62,7 +64,7 @@ class ClienteComponent extends Component
         $this->validate([
             'name' => 'required',
             'direccion' => 'required',
-            'cuil' => 'required|integer',
+            'cuil' => 'required',
             'telefono' => 'required|integer',
             'email' => 'email',
         ]);
@@ -74,7 +76,7 @@ class ClienteComponent extends Component
             'telefono' => $this->telefono,
             'email' => $this->email,
         ]);
-dd($a);
+
         session()->flash('message', $this->cliente_id ? 'Cliente Actualizado.' : 'Cliente Creado.');
 
         $this->closeModalPopover();

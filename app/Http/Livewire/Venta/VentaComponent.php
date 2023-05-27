@@ -30,6 +30,7 @@ class VentaComponent extends Component
     public $ModalCerrarLibro;
     public $gfecha,$gcliente, $gcomprobante, $gcuenta, $gdetalle, $ganio, $gmes, $garea, $gpartiva, $gbruto, $giva2, $gexento, $gimpinterno, $gperciva, $gretgan, $gperib, $gneto, $gmontopagado, $gcantidad;
     public $gselect_productos, $gprecio_prod, $gcantidad_prod, $glistado_prod;
+    public $gventa;
     //Variables del filtro
     public $gfmes, $gfcliente, $gfparticipa, $gfiva, $gfdetalle, $gfarea, $gfcuenta, $gfanio, $fgascendente, $gfsaldo; //Comprobantes
     
@@ -49,6 +50,9 @@ class VentaComponent extends Component
     //Listado de filtros
     public $filtro;                 // Comprobantes
 
+    //Variables de Ventas a Mostrador
+    public $productos;
+
     public function render()
     {
         if (!is_null(session('empresa_id'))) { $this->empresa_id = session('empresa_id'); } 
@@ -57,13 +61,19 @@ class VentaComponent extends Component
             $empresas= EmpresaUsuario::where('user_id',$userid)->get();
             return view('livewire.empresa.empresa-component')->with('empresas', $empresas); 
         }
-        $this->areas = Area::where('empresa_id', $this->empresa_id)->ORDERBy('name','asc')->get();
-        $this->cuentas = Cuenta::where('empresa_id', $this->empresa_id)->ORDERBy('name','asc')->get();
-        $this->clientes = Cliente::where('empresa_id', $this->empresa_id)->ORDERBy('name','asc')->get();
-        $this->ivas = Iva::where('id','>',1)->get();
-        $this->productos = Producto::where('empresa_id', $this->empresa_id)->orderBy('name','asc')->get();
-
-        return view('livewire.venta.venta-component');
+        $url = substr($_SERVER["REQUEST_URI"],1);
+        if($url=="ventasmostrador") { 
+            $this->productos = Producto::where('empresa_id', $this->empresa_id)->orderBy('name','asc')->get();
+            return view('livewire.venta.ventasmostrador.ventamostrador')->extends('layouts.adminlte');
+        } else
+        {
+            $this->areas = Area::where('empresa_id', $this->empresa_id)->ORDERBy('name','asc')->get();
+            $this->cuentas = Cuenta::where('empresa_id', $this->empresa_id)->ORDERBy('name','asc')->get();
+            $this->clientes = Cliente::where('empresa_id', $this->empresa_id)->ORDERBy('name','asc')->get();
+            $this->ivas = Iva::where('id','>',1)->get();
+            $this->productos = Producto::where('empresa_id', $this->empresa_id)->orderBy('name','asc')->get();
+            return view('livewire.venta.venta-component');
+        }
     }
 
     public function openModalDelete() { $this->ModalDelete = true;  }

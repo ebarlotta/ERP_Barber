@@ -24,6 +24,7 @@ class Producto extends Model
         'barra',
         'qr',
         'barra_proveedor',
+        'empresa_id',
     ];
 
     //Relacion de uno a muchos 

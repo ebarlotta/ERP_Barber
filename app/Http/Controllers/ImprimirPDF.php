@@ -321,13 +321,13 @@ class ImprimirPDF extends Controller
         
         $firmaempleador="EMPLEADOR";
 
-        $html='<table style="font-size: 4px; line-height: 16px; width:100%; font-family: Arial, Helvetica, sans-serif; border-collapse: collapse;">
+        $html='<table style="font-size: 5px; line-height: 16px; width:100%; font-family: Arial, Helvetica, sans-serif; border-collapse: collapse;">
                         <tbody bordercolor="#FFFFFF" bgcolor="#AFF3F7">
                             <tr align="center">
                                 <td valign="top" style="min-width: 80%">
                                     <div id="DivRecibo">
                                         <div style="background-color: rgb(156 163 175 / var(--tw-bg-opacity));">
-                                                <table class="table table-responsive table-hover" style="font-size:8px; border-collapse: collapse;" border="1">
+                                                <table class="table table-responsive table-hover" style="font-size:10px; border-collapse: collapse;" border="1">
                                                     <tbody style="height: 100px; overflow-y: auto;">
                                                         <tr>
                                                             <td colspan="3" style="border-bottom-width: 2px;border-color: black;">

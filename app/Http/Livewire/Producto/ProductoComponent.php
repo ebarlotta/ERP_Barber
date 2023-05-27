@@ -49,7 +49,10 @@ class ProductoComponent extends Component
 
     public function mostrarmodal()
     {
+
+        $this->resetCreateForm();
         $this->isModalOpen = true;
+        $this->openModalPopover();
     }
     public function openModalPopover()
     {
@@ -103,21 +106,32 @@ class ProductoComponent extends Component
         //dd($infoPath);
         //dd($this->ruta);
 
-        if (!$this->ruta) {
-            $nombreCompleto = basename($this->ruta) . time().'.jpg';       //$this->ruta->extension();
-            //dd($nombreCompleto);
-            try { 
-                //$this->ruta->storeAs('images2', $nombreCompleto);
-                $this->ruta = $nombreCompleto;
-            }
-            catch(Exception $e) {
-                $this->ruta = $this->ruta;
-            }
-        }       // CORREGIR
+        if($this->ruta==NULL) {
+            $this->ruta = "sin_imagen.jpg";   
+        } else
+        {
+            $nombreCompleto = basename($this->ruta) . time().'.jpg';
+            $this->ruta = $nombreCompleto;
+        }
+
+        //dd($this->ruta);
+
+        // if (!$this->ruta) {
+        //     //$nombreCompleto = basename($this->ruta) . time().'.jpg';       //$this->ruta->extension();
+        //     //dd($nombreCompleto);
+        //     try { 
+        //         //$this->ruta->storeAs('images2', $nombreCompleto);
+        //         $this->ruta = $nombreCompleto;
+        //     }
+        //     catch(Exception $e) {
+        //         $this->ruta = $this->ruta;
+        //     }
+        // }       // CORREGIR
 
         //dd($this->ruta->file);
         //dd(file($this->ruta));   //  /tmp/phpAFTkwl
         //dd(basename($this->ruta));   //    phpQqaocm
+        
         Producto::updateOrCreate(['id' => $this->producto_id], [
             'name' => $this->name,
             'descripcion' => $this->descripcion,
@@ -129,6 +143,7 @@ class ProductoComponent extends Component
             'unidads_id' => $this->unidads_id,
             'categoriaproductos_id' => $this->categoriaproductos_id,
             'estados_id'=> $this->estados_id,
+            'empresa_id' => session('empresa_id'),
             'proveedor_id' => $this->proveedor_id,
         ]);
 

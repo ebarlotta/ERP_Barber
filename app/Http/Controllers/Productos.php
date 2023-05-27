@@ -17,7 +17,6 @@ use WithPagination;
 
 class Productos extends Controller
 {
-   
     /**
      * Display a listing of the resource.
      *
@@ -25,14 +24,17 @@ class Productos extends Controller
      */
     public function index()
     {
-  
-        $productos = DB::table('productos')
-        ->join('estados', 'productos.estados_id', '=', 'estados.id')
-        ->select('productos.*','estados.name as EstadoProd')
-        ->where('productos.empresa_id', '=', session('empresa_id'))
-        ->paginate(4);
++        
+        // $productos = DB::table('productos')
+        // ->join('estados', 'productos.estados_id', '=', 'estados.id')
+        // ->select('productos.*','estados.name as EstadoProd')
+        // ->where('productos.empresa_id', '=', session('empresa_id'))
+        // ->paginate(4);
+        $productos = Producto::all();
+        dd($productos);
 
-        return view('producto.index',compact('productos'));
+        return view('producto.index');
+        //return view('producto.index',compact('productos'));
     }
 
     /**
@@ -42,10 +44,10 @@ class Productos extends Controller
      */
     public function create()
     {
-        $unidades = Unidad::all();
-        $categoria_productos = Categoriaproducto::all();
-        $proveedores = Proveedor::all();
-        $estados = Estado::all();
+        $unidades = Unidad::where('empresa_id', session('empresa_id'))->get();
+        $categoria_productos = Categoriaproducto::where('empresa_id', session('empresa_id'))->get();
+        $proveedores = Proveedor::where('empresa_id', session('empresa_id'))->get();
+        $estados = Estado::where('empresa_id', session('empresa_id'))->get();
         $productos = Producto::where('empresa_id','=',session('empresa_id'))->get();
 
         $tags = Tag::where('empresa_id','=',session('empresa_id'))->get();
@@ -95,6 +97,7 @@ class Productos extends Controller
         //$producto->calificacion = $request->calificacion;
         $producto->descuento_especial = $request->descuento_especial;
         $producto->precio_venta = $request->precio_venta;
+        $producto->empresa_id = session('empresa_id');
 
         $nombreCompleto = basename($request->ruta) . time().'.jpg';       //$this->ruta->extension();
         

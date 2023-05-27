@@ -33,7 +33,7 @@ class CreateProductosTable extends Migration
             $table->unsignedBigInteger('categoriaproductos_id');
             $table->unsignedBigInteger('estados_id');
             $table->unsignedBigInteger('proveedor_id')->default(1);
-            $table->unsignedBigInteger('empresa_id')->default(1);
+            $table->unsignedBigInteger('empresa_id');
 
             $table->string('ruta');
 
