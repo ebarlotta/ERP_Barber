@@ -15,6 +15,8 @@ use App\Http\Livewire\Empleado\EmpleadoComponent;
 
 use App\Http\Livewire\Compra\CompraComponent;
 use App\Http\Livewire\Venta\VentaComponent;
+use App\Http\Livewire\Venta\VentaMostradorComponent;
+
 use App\Http\Controllers\SocialController;
 use App\Http\Livewire\Cart\Cart;
 use App\Http\Livewire\Cart\Payment\PaymentComponent;
@@ -80,7 +82,7 @@ Route::get('empleados',EmpleadoComponent::class)->name('empleados');
 
 Route::get('compras',CompraComponent::class)->name('compras');
 Route::get('ventas',VentaComponent::class)->name('ventas');
-Route::get('ventasmostrador',VentaComponent::class)->name('ventasmostrador');
+Route::get('ventasmostrador',VentaMostradorComponent::class)->name('ventasmostrador');
 
 Route::get('empresas',EmpresaComponent::class)->name('empresas');
 //Route::get('empresagestion',EmpresaGestion::class)->name('empresagestion');

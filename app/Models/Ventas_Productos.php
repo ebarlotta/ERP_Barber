@@ -16,4 +16,9 @@ class Ventas_Productos extends Model
         'precio',
         'user_id',
     ];
+
+    public function descripcionp()
+    {
+        return $this->hasMany('App\Models\Producto','id');
+    }
 }

@@ -13,9 +13,9 @@
                         </div>
                         <p class="relative -bottom-1 left-0 mx-2">
                             {{ $empresa['name'] }}
-                        </p>
-                        <img wire:click="cargamodulos({{ $empresa['id'] }})" class="rounded-md"
-                            src="{{ asset('/images2/'.$empresa['imagen']) }}" style="margin: auto; margin-top: 10px; width: 150px; height: 150px;">
+                        
+                        <img wire:click="cargamodulos({{ $empresa['id'] }})" class="rounded-md" src="{{ asset(''.$empresa['imagen']) }}" style="margin: auto; margin-top: 10px; width: 150px; height: 150px;">
+                        <!-- <img wire:click="cargamodulos({{ $empresa['id'] }})" class="rounded-md" src="{{ asset('/images2/'.$empresa['imagen']) }}" style="margin: auto; margin-top: 10px; width: 150px; height: 150px;"> -->
                     </div>
                 @endforeach
             @else

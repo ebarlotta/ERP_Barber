@@ -88,12 +88,13 @@ class EmpresaGestion extends Component
             'establecimiento' => $this->establecimiento,
             'ib' => $this->ib,
             // 'image' => $this->imagen,
-            'imagen' => $this->imagen->storeAs('',$nombreCompleto),
+            'imagen' => $this->imagen->storeAs('storageimages',$nombreCompleto),
             // 'imagen' => $this->imagen->storeAs('images2',$nombreCompleto),
             'telefono' => $this->telefono,
             'actividad' => $this->actividad,
             'actividad1' => $this->actividad1,
         ]);
+        //dd($this->imagen);
 
         if (!$existe) {     //Si no existe la empresa, inicializa los módulos básicos correspondientes
             DB::table('empresa_modulos')->insert(['modulo_id' => '1','empresa_id' => $this->empresa_id->id,]);
@@ -103,6 +104,7 @@ class EmpresaGestion extends Component
             DB::table('empresa_modulos')->insert(['modulo_id' => '5','empresa_id' => $this->empresa_id->id,]);
             DB::table('empresa_modulos')->insert(['modulo_id' => '6','empresa_id' => $this->empresa_id->id,]);
             DB::table('empresa_modulos')->insert(['modulo_id' => '7','empresa_id' => $this->empresa_id->id,]);
+            DB::table('empresa_modulos')->insert(['modulo_id' => '14','empresa_id' => $this->empresa_id->id,]);
         }
 
         $this->closeModalPopover();

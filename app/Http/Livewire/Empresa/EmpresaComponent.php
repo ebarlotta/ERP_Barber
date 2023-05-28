@@ -28,7 +28,7 @@ class EmpresaComponent extends Component
             //dd($empresa->empresa_id);
             $this->empresas[] = Empresa::find($empresa->empresa_id);
         }
-        
+        //dd($this->empresas[2]);
         return view('livewire.empresa.empresa-component');
     }
 

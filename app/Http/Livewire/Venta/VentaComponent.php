@@ -50,9 +50,6 @@ class VentaComponent extends Component
     //Listado de filtros
     public $filtro;                 // Comprobantes
 
-    //Variables de Ventas a Mostrador
-    public $productos;
-
     public function render()
     {
         if (!is_null(session('empresa_id'))) { $this->empresa_id = session('empresa_id'); } 
@@ -62,7 +59,8 @@ class VentaComponent extends Component
             return view('livewire.empresa.empresa-component')->with('empresas', $empresas); 
         }
         $url = substr($_SERVER["REQUEST_URI"],1);
-        if($url=="ventasmostrador") { 
+        //dd($url);
+        if($url=="ventasmostrador" or $url=="livewire/message/venta.venta-component") { 
             $this->productos = Producto::where('empresa_id', $this->empresa_id)->orderBy('name','asc')->get();
             return view('livewire.venta.ventasmostrador.ventamostrador')->extends('layouts.adminlte');
         } else
