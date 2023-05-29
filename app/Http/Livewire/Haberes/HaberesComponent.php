@@ -447,7 +447,7 @@ class HaberesComponent extends Component
             switch ($pieces[$c]) {
                 case is_numeric($pieces[$c]): { $A[$c]=(float)$pieces[$c] ; break;}
                 case "RA": { $A[$c] = $PM * $TM + $PD * $TD + $PH * $TH + $PU * $TU; break; } // 'R'emuneracion 'A'signada
-                case "RB": { $A[$c] = ($PM * $TM + $PD * $TD + $PH * $TH + $PU * $TU); $this->RB = $A[$c]; dd($A[$c]);break; } // 'R'emuneracion 'A'signada
+                case "RB": { $A[$c] = ($PM * $TM + $PD * $TD + $PH * $TH + $PU * $TU); $this->RB = $A[$c];break; } // 'R'emuneracion 'A'signada
                     //case "TH":{ $A[$c]=($PD*$TD+$PH*$TH+$PM*$TM+$PU*$TU)*$C;	break;}// 'T'otal 'H'aberes
                     // case "U": {	 $A[$c]=$U;  break;}				// 'U'nidades
                 case "DE": { $A[$c] = $this->RB; break; }            // 'D'escuentos 
