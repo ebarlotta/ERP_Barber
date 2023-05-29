@@ -337,7 +337,9 @@ class HaberesComponent extends Component
 
         $Detalle = DB::table('concepto_recibos')
             ->join('conceptos', 'concepto_id', '=', 'conceptos.id')
-            ->where('recibo_id', '=', $IdRecibo)->get(['concepto_recibos.id','concepto_id','recibo_id','cantidad','orden','name','unidad','haber','rem','norem','descuento','montofijo','calculo','montomaximo']);
+            ->where('recibo_id', '=', $IdRecibo)
+            ->orderBy('orden')
+            ->get(['concepto_recibos.id','concepto_id','recibo_id','cantidad','orden','name','unidad','haber','rem','norem','descuento','montofijo','calculo','montomaximo']);
 
         $Detalle = json_decode($Detalle, true);
         //dd($IdRecibo);
@@ -450,6 +452,7 @@ class HaberesComponent extends Component
                 case "RB": { $A[$c] = ($PM * $TM + $PD * $TD + $PH * $TH + $PU * $TU); $this->RB = $A[$c];break; } // 'R'emuneracion 'A'signada
                     //case "TH":{ $A[$c]=($PD*$TD+$PH*$TH+$PM*$TM+$PU*$TU)*$C;	break;}// 'T'otal 'H'aberes
                     // case "U": {	 $A[$c]=$U;  break;}				// 'U'nidades
+                
                 case "DE": { $A[$c] = $this->RB; break; }            // 'D'escuentos 
                 case "MF": { $A[$c] = $MF; break; }                    // 'M'onto 'F'ijo
                 case "CA": { $A[$c] = $CA; break; }                // 'C'antidad
@@ -457,7 +460,7 @@ class HaberesComponent extends Component
                 case "BC": { $A[$c] = $BC; break; }                // 'B'ásico 'C'ategoria
                 case "B1": { $A[$c] = $B1; break; }                // 'B'ásico 'C'ategoria 1
                 case "B2": { $A[$c] = $B2; break; }                // 'B'ásico 'C'ategoria 2
-                case "REM": { $A[$c] = $this->AcumRem; break; }
+                case "REM":{ $A[$c] = $this->AcumRem; dd($this->AcumRem); break; }
                 case "PM": { $A[$c] = $this->xPrecioMes; break; }
                 case "PD": { $A[$c] = $this->xPrecioDia;break; break;}
                 case "PH": { $A[$c] = $this->xPrecioHora; break;}
