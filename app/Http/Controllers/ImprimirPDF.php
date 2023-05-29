@@ -424,13 +424,13 @@ class ImprimirPDF extends Controller
                             </tr>
                             <tr>
                                 <td><strong>FECHA DE LIQUIDACIÓN</strong></td>
-                                <td align="left">01-02-2022</td>
+                                <td align="left">'. substr($Haber->FechaUltLiq,8,2).'-'.substr($Haber->FechaUltLiq,5,2).'-'. substr($Haber->FechaUltLiq,0,4) .'</td>
                                 <td><strong>ULTIMA LIQUIDACIÓN</strong></td>
-                                <td align="left">202112</td>
+                                <td align="left">'.substr($Haber->PerUltLiq,0,4) . '-' . substr($Haber->PerUltLiq,4,2) .'</td>
                             </tr>
                             <tr>
                                 <td><strong>FECHA DEPOSITO</strong></td>
-                                <td align="left">.' . substr($Haber->FechaUltLiq,8,2).'-'.substr($Haber->FechaUltLiq,5,2).'-'. substr($Haber->FechaUltLiq,0,4) .'</td>
+                                <td align="left">' . $Haber->FechaPago .'</td>
                                 <td><strong>ART 12 LEY 17250</strong></td>
                                 <td></td>
                             </tr>
