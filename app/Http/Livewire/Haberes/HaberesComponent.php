@@ -460,7 +460,7 @@ class HaberesComponent extends Component
                 case "BC": { $A[$c] = $BC; break; }                // 'B'ásico 'C'ategoria
                 case "B1": { $A[$c] = $B1; break; }                // 'B'ásico 'C'ategoria 1
                 case "B2": { $A[$c] = $B2; break; }                // 'B'ásico 'C'ategoria 2
-                case "REM":{ $A[$c] = $this->AcumRem; dd($this->AcumRem); break; }
+                case "REM":{ $A[$c] = $this->AcumRem; break; }
                 case "PM": { $A[$c] = $this->xPrecioMes; break; }
                 case "PD": { $A[$c] = $this->xPrecioDia;break; break;}
                 case "PH": { $A[$c] = $this->xPrecioHora; break;}
