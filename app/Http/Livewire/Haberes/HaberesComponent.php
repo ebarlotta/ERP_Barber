@@ -15,7 +15,7 @@ use Hamcrest\Type\IsNumeric;
 
 class HaberesComponent extends Component
 {
-    public $anio = 2022;
+    public $anio = 2023;
     public $mes = '00';
     public $EmpleadosActivos;
     // public $EmpleadoActivo;
@@ -298,7 +298,8 @@ class HaberesComponent extends Component
         $this->NombreEmpleado = $Empleado[0]['name'];
         $this->Cuil = $Empleado[0]['cuil'];
         $this->FechaIngreso = $Empleado[0]['ingreso'];
-        $this->Antiguedad = $this->calculaedad($this->FechaIngreso);
+        $this->Antiguedad = $this->calculaAntiguedad($this->FechaIngreso, $this->PerPago );
+        //$this->Antiguedad = $this->calculaedad($this->FechaIngreso);
         $this->Legajo = $Empleado[0]['legajo'];
         $this->Seccion = $Empleado[0]['seccion'];
         $this->Banco = $Empleado[0]['banco'];
@@ -510,10 +511,32 @@ class HaberesComponent extends Component
         $this->mes_diferencia = date("m") - $mes;
         $this->dia_diferencia   = date("d") - $dia;
         if ($this->dia_diferencia < 0 || $this->mes_diferencia < 0){ $this->ano_diferencia--; }
-        $this->Antiguedad = $this->ano_diferencia.'a'.$this->mes_diferencia.'m'; 
+        // $this->Antiguedad = $this->ano_diferencia.'a'.$this->mes_diferencia.'m'; 
+        return $this->ano_diferencia.'a'.$this->mes_diferencia.'m'; 
         //dd($this->Antiguedad);
         
-        return $this->ano_diferencia;
+        //return $this->ano_diferencia;
+      }
+
+      public function calculaAntiguedad($fechainicial,$fechadecalculo) {      
+        // list($ano,$mes,$dia) = explode("-",$fechainicial);
+        list($ano,$mes,$dia) = explode("-",$fechainicial);
+        $dia = substr($dia,0,2);
+        $fechadecalculo = substr($fechadecalculo,0,4) . "-" . substr($fechadecalculo,4,2) . "-01";
+        $fechadecalculo = strtotime('-1 day', strtotime($fechadecalculo));
+        $fechadecalculo = date('Y-m-d',$fechadecalculo);
+        list($anocalculo, $mescalculo, $diacalculo) = explode("-",$fechadecalculo);
+        //dd($diacalculo);
+        //$dia = substr($dia,0,2);
+        $this->ano_diferencia  = $anocalculo - $ano;
+        $this->mes_diferencia = $mescalculo - $mes;
+        $this->dia_diferencia   = $diacalculo - $dia;
+        if ($this->dia_diferencia < 0 || $this->mes_diferencia < 0){ $this->ano_diferencia--; }
+        // $this->Antiguedad = $this->ano_diferencia.'a'.$this->mes_diferencia.'m'; 
+        return $this->ano_diferencia.'a'.$this->mes_diferencia.'m'; 
+        //dd($this->Antiguedad);
+        
+        //return $this->ano_diferencia;
       }
 
       public function MostrarOcultarModalAgregar() {
