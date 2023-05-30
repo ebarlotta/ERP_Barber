@@ -215,7 +215,7 @@ class HaberesComponent extends Component
             ->get();
 
         //Prepara el recibo para el siguiente periodo
-        
+        //dd($a. " " . $m);
         
         // $mx = $mx + 1;
         // if ($mx == 13) {
@@ -228,7 +228,7 @@ class HaberesComponent extends Component
             case 13: $mx = 13; break;  // Si es el primer aguinaldo, coloca el mes en 13 para diferenciarlo
             case 14: $mx = 14; break; // Si es el segundo aguinaldo, coloca el mes en 14 para diferenciarlo
             case 15: $mx = 15; break; // Si son vacaciones, coloca el mes en 15 para diferenciarlo
-            default: $mx = $m;
+            default: $mx = $m + 1;
         }
         
         if (strlen($m) == 1) {
@@ -548,7 +548,8 @@ class HaberesComponent extends Component
 
     public function ModificarEscala($IdCatProf, $Opcion) {
         $ReciboRec = Recibo::find($this->IdRecibo);
-        $Empleado = Empleado::find($ReciboRec->DatosEmpleado->id);
+        $Empleado = Empleado::find($ReciboRec->empleado_id);
+        //$Empleado = Empleado::find($ReciboRec->DatosEmpleado->id);
         // dd($Empleado);
         switch ($Opcion) {
             case 1: $ReciboRec->categoriaprofesional_id = $IdCatProf; $ReciboRec->save(); break;    // Solo cambia la categoría de este recibo

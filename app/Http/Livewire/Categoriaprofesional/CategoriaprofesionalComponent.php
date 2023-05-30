@@ -42,14 +42,14 @@ class CategoriaprofesionalComponent extends Component
         $this->name = $categoria->name;
         $this->subcategoria = $categoria->subcategoria;
         $this->cct = $categoria->cct;
-        $this->preciodia = number_format($categoria->preciodia,2);
-        $this->preciomes = number_format($categoria->preciomes,2);
-        $this->preciohora = number_format($categoria->preciohora,2);
-        $this->preciounidad = number_format($categoria->preciounidad,2);
-        $this->basico    = number_format($categoria->basico   ,2);
-        $this->basico1   = number_format($categoria->basico1  ,2);
-        $this->basico2   = number_format($categoria->basico2  ,2);
-        $this->porcentaje = number_format($categoria->porcentaje,2);
+        $this->preciodia = number_format($categoria->preciodia, 2,'.','');
+        $this->preciomes = number_format($categoria->preciomes,2,'.','');
+        $this->preciohora = number_format($categoria->preciohora,2,'.','');
+        $this->preciounidad = number_format($categoria->preciounidad,2,'.','');
+        $this->basico    = number_format($categoria->basico   ,2,'.','');
+        $this->basico1   = number_format($categoria->basico1  ,2,'.','');
+        $this->basico2   = number_format($categoria->basico2  ,2,'.','');
+        $this->porcentaje = number_format($categoria->porcentaje,2,'.','');
         $this->activo = $categoria->activo;
         $this->observacion = $categoria->observacion;
     }
