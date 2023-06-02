@@ -298,8 +298,8 @@ class HaberesComponent extends Component
         $this->NombreEmpleado = $Empleado[0]['name'];
         $this->Cuil = $Empleado[0]['cuil'];
         $this->FechaIngreso = $Empleado[0]['ingreso'];
-        $this->Antiguedad = $this->calculaAntiguedad($this->FechaIngreso, $this->PerPago );
-        //$this->Antiguedad = $this->calculaedad($this->FechaIngreso);
+        //$this->Antiguedad = $this->calculaAntiguedad($this->FechaIngreso, $this->PerPago );
+        $this->Antiguedad = $this->calculaedad($this->FechaIngreso);
         $this->Legajo = $Empleado[0]['legajo'];
         $this->Seccion = $Empleado[0]['seccion'];
         $this->Banco = $Empleado[0]['banco'];
@@ -445,7 +445,7 @@ class HaberesComponent extends Component
         DE	    Total Descuentos
         
         */
-        
+        //dd($this->PerPago);
         for ($c = 0; $c < count($pieces); $c++) {
             switch ($pieces[$c]) {
                 case is_numeric($pieces[$c]): { $A[$c]=(float)$pieces[$c] ; break;}
@@ -466,7 +466,9 @@ class HaberesComponent extends Component
                 case "PD": { $A[$c] = $this->xPrecioDia;break; break;}
                 case "PH": { $A[$c] = $this->xPrecioHora; break;}
                 case "PU": { $A[$c] = $this->xPrecioUnidad; break;}
-                case "ANT": { $A[$c] = $this->Antiguedad; break;}
+                //case "ANT": { $A[$c] = $this->Antiguedad; break;}
+                
+                case "ANT": { $A[$c] = $this->calculaAntiguedad($this->FechaIngreso,$this->PerPago); break;}
 
 
                     //             case "AAOS": { if (($SH*0.03)<$C) { $A[$c]=$C-($SH*0.03); } else { $A[$c]=0;} break;}	//
@@ -485,6 +487,7 @@ class HaberesComponent extends Component
                     //                 $stmt =  $GLOBALS['pdo']->prepare($sSql); $stmt->execute();
                     //                 $row=$stmt->fetch();
                     //                 $A[$c]=$row['Tot'];   break;}// 2do SAC
+            default: $A[$c] = 1;
             }
         }
         $res = reset($A);
@@ -533,8 +536,9 @@ class HaberesComponent extends Component
         $this->dia_diferencia   = $diacalculo - $dia;
         if ($this->dia_diferencia < 0 || $this->mes_diferencia < 0){ $this->ano_diferencia--; }
         // $this->Antiguedad = $this->ano_diferencia.'a'.$this->mes_diferencia.'m'; 
-        return $this->ano_diferencia.'a'.$this->mes_diferencia.'m'; 
-        //dd($this->Antiguedad);
+        
+        //dd($this->ano_diferencia);
+        return $this->ano_diferencia; 
         
         //return $this->ano_diferencia;
       }

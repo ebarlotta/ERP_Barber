@@ -245,9 +245,9 @@ class CompraComponent extends Component
         $registros = DB::select(DB::raw($sql));       // Busca el recordset
         // Extrae los distintos Detalles si es que los hay
         $sqlDetalle = "SELECT DISTINCT detalle " . substr($sql,9);
-        //dd($sql);
         $sqlDetalle = substr($sqlDetalle,0,-27);
-        //$this->detalles = DB::select(DB::raw($sqlDetalle));        
+        $this->detalles = DB::select(DB::raw($sqlDetalle));        
+        //dd($sql);
         //dd($this->detalles);
         //Dibuja el filtro
         $Saldo=0;
@@ -444,8 +444,12 @@ class CompraComponent extends Component
                 if ($this->gfparticipa) $sql=$sql ? $sql=$sql." and ParticIva='" . $this->gfparticipa . "'" : " ParticIva='" . $this->gfparticipa . "'";
                 if ($this->gfiva) $sql=$sql ? $sql=$sql." and iva_id=" . $this->gfiva : " iva_id=" . $this->gfiva;
                 //dd($this->gfdetalle);
-                if ($this->gfdetalle<>null) $sql=$sql ? $sql=$sql." and detalle='" . $this->gfdetalle . "'" : " ";
+                //if ($this->gfdetalle<>null) $sql=$sql ? $sql=$sql." and detalle='" . $this->gfdetalle . "'" : " ";
                 // if ($this->gfdetalle=="Todos") $sql=$sql ? $sql=$sql." and detalle='" . $this->gfdetalle . "'" : " detalle='" . $this->gfdetalle . "'";
+                if ($this->gfdetalle<>null) {
+                    if ($this->gfdetalle<>"Todos") $sql=$sql . " and detalle='" . $this->gfdetalle. "'";
+                }
+                //dd($sql);
                 if ($this->gfarea) $sql=$sql ? $sql=$sql." and area_id=" . $this->gfarea : " area_id=" . $this->gfarea;
                 if ($this->gfcuenta) $sql=$sql ? $sql=$sql." and cuenta_id=" . $this->gfcuenta : " cuenta_id=" . $this->gfcuenta;
                 if ($this->gfanio) $sql=$sql ? $sql=$sql." and Anio=" . $this->gfanio : " Anio=" . $this->gfanio;

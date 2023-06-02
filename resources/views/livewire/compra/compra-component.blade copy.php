@@ -462,7 +462,7 @@
 													</select>
 												</td>
 												<td class="border border-green-600">
-													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfdetalle" wire:change="gfiltro()">
+													<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="gfdetalle" wire:dblclick="gfiltro()">
 														<option value=""></option>
 													</select>
 												</td>
