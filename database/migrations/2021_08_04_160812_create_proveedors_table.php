@@ -21,13 +21,13 @@ class CreateProveedorsTable extends Migration
             $table->bigInteger('cuit');
             $table->bigInteger('telefono');
             $table->string('email');
-            
-            $table->timestamps();
-
+            $table->unsignedBigInteger('iva_id')->default(1);
             $table->unsignedBigInteger('empresa_id');
 
-            $table->foreign('empresa_id')->references('id')->on('empresas');
+            $table->timestamps();
 
+            $table->foreign('empresa_id')->references('id')->on('empresas');
+            $table->foreign('iva_id')->references('id')->on('ivas');
         });
     }
 

@@ -15,6 +15,7 @@ class Ventas_Productos extends Model
         'cantidad',
         'precio',
         'user_id',
+        'orden',
     ];
 
     public function descripcionp()

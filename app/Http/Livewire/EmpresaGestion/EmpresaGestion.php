@@ -105,6 +105,8 @@ class EmpresaGestion extends Component
             DB::table('empresa_modulos')->insert(['modulo_id' => '6','empresa_id' => $this->empresa_id->id,]);
             DB::table('empresa_modulos')->insert(['modulo_id' => '7','empresa_id' => $this->empresa_id->id,]);
             DB::table('empresa_modulos')->insert(['modulo_id' => '14','empresa_id' => $this->empresa_id->id,]);
+
+            DB::table('clientes')->insert(['name' => 'CONSUMIDOR FINAL','cuil'=>'20-000000'.$this->empresa_id->id.'-0','direccion'=>'','email'=>'','telefono'=>'','empresa_id' => $this->empresa_id->id,]);  // Inserta al CONSUMIDOR FINAL como cliente
         }
 
         $this->closeModalPopover();
