@@ -31,6 +31,8 @@ class VentaMostradorComponent extends Component
     public $precioventa;   // Precio de venta del producto
     public $ModalProducto = false; //Modal que muestra la lista de productos para seleccionar
     public $ModalCliente = false; //Modal que muestra la lista de clientes para seleccionar
+    public $ModalVenta = false;//Modal que muestra Venta exitosa o si falta agragar algo para cerrar la venta
+    public $ModalError = false;//Modal que muestra Venta exitosa o si falta agragar algo para cerrar la venta
     public $idVenta; // Id de la venta actual
     public $VentaId = 0;
     public $html;
@@ -40,6 +42,7 @@ class VentaMostradorComponent extends Component
     public $cambio = 0;
     public $cliente_id, $iva_cliente, $cliente_name;
     public $iva_id, $monto_iva=0;
+    public $problema;
 
     public function render()
     {
@@ -139,16 +142,23 @@ class VentaMostradorComponent extends Component
         $this->openModalProducto();
     }
 
-    public function openModalProducto()
-    {
+    public function openModalProducto() {
         $this->ModalProducto = !$this->ModalProducto;
         //$this->CargarListado();
     }
 
-    public function openModalCliente()
-    {
+    public function openModalCliente() {
         $this->ModalCliente = !$this->ModalCliente;
         //$this->CargarListado();
+    }
+
+    public function openModalVenta() {
+        $this->ModalVenta = !$this->ModalVenta;
+        //$this->CargarListado();
+    }
+
+    public function openModalError() {
+        $this->ModalError = !$this->ModalError;
     }
 
     public function CargarListado()
@@ -207,21 +217,25 @@ class VentaMostradorComponent extends Component
         ->join('ivas','clientes.iva_id','ivas.id')
         ->where('empresa_id',session('empresa_id'))->get();
         //dd($a[0]['monto']);
-        $this->monto_iva = $a[0]['monto']; // Mantiene el valor y también lo devuelve
-        return $this->monto_iva;
+        if(count($a)) {
+            $this->monto_iva = $a[0]['monto']; // Mantiene el valor y también lo devuelve
+            return $this->monto_iva;
+        }
     }
 
     public function BuscarMayorNumeroDeFactura() {
-        $sql = 'SELECT * FROM ventas WHERE empresa_id=' .session('empresa_id') . ' and comprobante like "F_-000__-0_______" ORDER by comprobante DESC';
-        $datos = DB::select(DB::raw($sql));
-        
-        if(count($datos)) {
-            $a = ((int)substr($datos->comprobante,0,-8));
+        $sql = 'SELECT * FROM ventas WHERE empresa_idñ=' .session('empresa_id') . ' and comprobante like "F_-000__-0_______" ORDER by comprobante DESC';
+        $datos = Venta::where('empresa_id',session('empresa_id'))
+        ->where('comprobante', 'like','F_-000__-0_______')
+        ->orderby('comprobante','desc')
+        ->get();
+        if($datos) {
+            $a = ((int)substr($datos[0]['comprobante'],9));
             $a++;
-            if ($this->monto_iva==0) { return substr($datos->comprobante,0,1)."C'".substr($datos->comprobante,3,5)."$a"; } 
-            else { return substr($datos->comprobante,0,1)."A'".substr($datos->comprobante,3,5)."$a"; }
-        } 
-        else {
+            $a = str_pad($a, 8, "0", STR_PAD_LEFT); 
+            if ($this->monto_iva==0) { return substr($datos[0]['comprobante'],0,1)."C-".substr($datos[0]['comprobante'],3,5)."-$a"; } 
+            else { return substr($datos[0]['comprobante'],0,1)."A-".substr($datos[0]['comprobante'],3,5)."-$a"; }
+        } else {
             if ($this->monto_iva==0) { return "FC-00001-00000001"; } else { return "FA-00001-00000001"; }
         }      
     }
@@ -229,18 +243,29 @@ class VentaMostradorComponent extends Component
     public function CerrarVenta()
     {
         $nro_Fact=$this->BuscarMayorNumeroDeFactura();
-        
+        //dd($nro_Fact);
         $a = $this->BuscarElIvaDelCliente();
         if($a == 0) { $bruto=$this->suma; $neto = $this->suma; $montoiva = 0; }
         else { $neto = $this->suma; $montoiva = $this->suma*$a/100; $bruto=$neto-$montoiva; }
 
-        Venta::where("id", $this->VentaId)
-            ->update(["ParticIva" => 'Si','comprobante'=>$nro_Fact,'cliente_id'=>$this->cliente_id, 'BrutoComp' =>$bruto, 'MontoIva' => $montoiva, 'NetoComp' =>$neto, 'MontoPagadoComp'=>$this->montopagado]);
-        $this->orden = 1;
-        $this->suma = 0;
-        $this->montopagado = 0;
-        $this->cambio = 0;
-        $this->VentaId = 0;
+        $this->problema='Nada';
+        if(is_null($this->cliente_id)) { $this->problema='Debe Seleccionar Cliente'; }
+        
+        if($this->problema=='Nada') {
+            $b= Venta::where("id", $this->VentaId)
+                ->update(["ParticIva" => 'Si','comprobante'=>$nro_Fact,'cliente_id'=>$this->cliente_id, 'BrutoComp' =>$bruto, 'MontoIva' => $montoiva, 'NetoComp' =>$neto, 'MontoPagadoComp'=>$this->montopagado]);
+            if($b) {
+                $this->openModalVenta();
+                $this->orden = 1;
+                $this->suma = 0;
+                $this->montopagado = 0;
+                $this->cambio = 0;
+                $this->VentaId = 0;
+                //$this->idVenta->id=0;
+            }
+        } else {
+            $this->openModalError();
+        }
         
     }
 }

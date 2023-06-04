@@ -177,12 +177,12 @@
 																</tr>
 																
 																@if($glistado_prod)
-																	@foreach ($glistado_prod as $detalle)
+																	@foreach ($glistado_prod as $detallep)
 																		<tr>
-																			<td class="text-left pl-3" style="border: solid 1px #777;">{{ $detalle->name }}</td>
-																			<td class="text-right pr-3" style="border: solid 1px #777;">{{ number_format($detalle->cantidad, 2,'.','') }}</td>
-																			<td class="text-right pr-3" style="border: solid 1px #777;">{{ number_format($detalle->precio, 2,'.','') }}</td>
-																			<td style="border: solid 1px #777;"><button class="rounded-md border px-4 mt-1 bg-red-300 text-base leading-6 font-bold text-gray-900 shadow-sm hover:bg-red-400 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5" wire:click="eliminar_detalle({{$detalle->id}})">X</button>
+																			<td class="text-left pl-3" style="border: solid 1px #777;">{{ $detallep->name }}</td>
+																			<td class="text-right pr-3" style="border: solid 1px #777;">{{ number_format($detallep->cantidad, 2,'.','') }}</td>
+																			<td class="text-right pr-3" style="border: solid 1px #777;">{{ number_format($detallep->precio, 2,'.','') }}</td>
+																			<td style="border: solid 1px #777;"><button class="rounded-md border px-4 mt-1 bg-red-300 text-base leading-6 font-bold text-gray-900 shadow-sm hover:bg-red-400 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5" wire:click="eliminar_detalle({{$detallep->id}})">X</button>
 																				</td>
 																		</tr>
 																	@endforeach
@@ -435,10 +435,7 @@
 												<label style="font-size: 80%;">Detalle</label>
 												<select class="px-2 rounded-md h-7 py-0 leading-none" wire:model="gfdetalle" wire:change="gfiltro()">
 													<option value="">Todos</option>
-													@foreach ($detalles as $detalle)
-														<option value="{{ $detalle->detalle }}">
-															{{ $detalle->detalle }}</option>
-													@endforeach
+														{!! $combodetalle !!}
 												</select>
 											</div>
 											<div class="border px-2 grid text-left">

@@ -19,6 +19,7 @@ class CompraComponent extends Component
     public $areas, $cuentas, $ivas, $proveedores;
     public $detalles=[];       // Globales
     public $detalle;
+    public $productos;
     public $empresa_id; public $tabActivo=1; public $comprobante_id;
     
     //Comprobantes
@@ -49,7 +50,7 @@ class CompraComponent extends Component
     public $MostrarLibros, $LibroFiltro;
 
     //Listado de filtros
-    public $filtro;                 // Comprobantes
+    public $filtro, $combodetalle;                // Comprobantes
 
     public function render() {
         //dd($this->empresa_id);
@@ -247,8 +248,16 @@ class CompraComponent extends Component
         $sqlDetalle = "SELECT DISTINCT detalle " . substr($sql,9);
         $sqlDetalle = substr($sqlDetalle,0,-27);
         $this->detalles = DB::select(DB::raw($sqlDetalle));        
+        //Dibuja el combo Detalles
+        $this->combodetalle = '';
+        foreach ($this->detalles as $detalle) {
+            $this->combodetalle = $this->combodetalle . 
+            '<option value="' . $detalle->detalle .'">'. $detalle->detalle . '</option>';
+        }
+			
+        //dd($this->combodetalle);
         //dd($sql);
-        //dd($this->detalles);
+        //dd(json_encode($this->detalles)); 
         //Dibuja el filtro
         $Saldo=0;
         
@@ -305,7 +314,7 @@ class CompraComponent extends Component
             $Saldo=$Saldo+$registro->NetoComp-$registro->MontoPagadoComp;
             $Cantidad=$Cantidad+$registro->CantidadLitroComp;
             $NetoT = $NetoT + $registro->NetoComp;
-
+            
             $this->filtro=$this->filtro."
             <tr wire:click=\"gCargarRegistro(". $registro->id .")\">
                 <td class=\"p-0\">".substr($Fecha,0,6).substr($Fecha,8,2)."</td>
@@ -410,6 +419,7 @@ class CompraComponent extends Component
 
         // $this->filtro = $this->filtro."<tr class=\"bg-gradient-to-r from-purple-400 via-pink-500 to-red-500\"><td></td><td></td><td></td><td class=\"border border-green-600\">Totales</td><td class=\"border border-green-600 text-right\">".number_format($Bruto, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($MontoIvaT, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($Exento, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($ImpInterno, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($PerIva, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($RetIB, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($RetGan, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($NetoT, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($MontoPagado, 2,'.','')."</td><td class=\"border border-green-600 text-right\"><strong>".number_format($Saldo, 2,'.','')."</strong></td><td class=\"border border-green-600 text-right\">".number_format($Cantidad, 2,'.','')."</td></tr>";
         // $this->filtro=$this->filtro."</table>";
+        
     }
 
     public function ConvierteMesEnTexto($id) {
@@ -431,7 +441,7 @@ class CompraComponent extends Component
     }
     public function gsetanio($dato){
         $this->gfanio=$dato;
-        call($this->gfiltro());
+        $this->gfiltro();
     }
     public function ProcesaSQLFiltro($interfaz){
         $sql='';
@@ -447,6 +457,7 @@ class CompraComponent extends Component
                 //if ($this->gfdetalle<>null) $sql=$sql ? $sql=$sql." and detalle='" . $this->gfdetalle . "'" : " ";
                 // if ($this->gfdetalle=="Todos") $sql=$sql ? $sql=$sql." and detalle='" . $this->gfdetalle . "'" : " detalle='" . $this->gfdetalle . "'";
                 if ($this->gfdetalle<>null) {
+                    
                     if ($this->gfdetalle<>"Todos") $sql=$sql . " and detalle='" . $this->gfdetalle. "'";
                 }
                 //dd($sql);
@@ -544,7 +555,8 @@ class CompraComponent extends Component
         $this->gfecha= substr($registro->fecha,0,10);
         $this->gcomprobante=$registro->comprobante;
         $this->gdetalle=$registro->detalle;
-        //dd($registro->detalle);
+        //dd($registro);
+        //dd($this->gdetalle);
         $this->gbruto=number_format($registro->BrutoComp, 2, '.','');
         $this->gpartiva=$registro->ParticIva;
         $a=Iva::find($registro->iva_id);

@@ -200,7 +200,70 @@
         <!-- </div> <br><br> -->
     @endif
 
+    @if($ModalVenta)
+        <div class="fixed inset-0 transition-opacity" style="z-index: 999;">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+        <div class="modal-dialog modal-lg" style="position:absolute; margin: 0 auto; z-index: 1000; text-align: center;">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #1d36b6;color: white">
+                    <h4 class="modal-title">Cerrar Comprobante</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" wire:click="openModalVenta();">
+                        <span aria-hidden="true">×</span> 
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table table-responsive">
+                        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="row  bg-green-600">
+                                <div class="col-sm-12 col-md-5">
+                                    <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Mostrando 1 a 5 de 7 Productos</div>
+                                </div>
+                                <div class="col-sm-12 col-md-7">
+                                    COMPROBANTE ALMACENADO
+                                </div>
+                                <div class="p-3 mb-3" wire:click="openModalVenta();">
+                                    <input type="button" value="Cerrar" name="" id="" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- /.modal-content -->
+        </div> <!-- /.modal-dialog -->
+        <!-- </div> <br><br> -->
+    @endif
 
+    @if($ModalError)
+        <div class="fixed inset-0 transition-opacity" style="z-index: 999;">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+        <div class="modal-dialog modal-lg" style="position:absolute; margin: 0 auto; z-index: 1000; text-align: center;">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #1d36b6;color: white">
+                    <h4 class="modal-title">Cerrar Comprobante</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" wire:click="openModalVenta();">
+                        <span aria-hidden="true">×</span> 
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table table-responsive">
+                        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="row  bg-red-600">
+                                <div class="col-sm-12 col-md-7">
+                                    OCURRIO UN ERROR: {{ $problema }}
+                                </div>
+                                <div class="p-3 mb-3" wire:click="openModalError();">
+                                    <input type="button" value="Cerrar" name="" id="" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- /.modal-content -->
+        </div> <!-- /.modal-dialog -->
+        <!-- </div> <br><br> -->
+    @endif
 
     <div class="content-header">
         <div class="container-fluid">
