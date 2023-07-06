@@ -419,7 +419,7 @@ class HaberesComponent extends Component
         $recibo->totalhaberes = $this->AcumRem;
         $recibo->noremunetativo = $this->AcumNoRem;
         $recibo->descuentos = $this->AcumDescuento;
-        dd($recibo);
+        
         $recibo->save();
     }
 
