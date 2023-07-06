@@ -196,6 +196,8 @@ class HaberesComponent extends Component
             $this->CargarDatosDelEmpleado();
             $this->CargarDatosCategoriaProfesional($ReciboRec[0]['categoriaprofesional_id']);
             $this->DevolverConceptosRecibo($this->IdRecibo);
+
+            $this->ActualizaReciboTotales();
         }
     }
 
@@ -391,8 +393,6 @@ class HaberesComponent extends Component
             $this->Conceptos = $AA;
         }
 
-        $this->ActualizaReciboTotales();
-
         $this->NetoACobrar = $this->AcumRem + $this->AcumNoRem - $this->AcumDescuento;
         $this->NetoACobrarLetras = $this->convertir((int)$this->NetoACobrar) .' con '.  ((int)(($this->NetoACobrar-(int)$this->NetoACobrar)*100)) . '/100 centavos';
         //dd($this->NetoACobrarLetras);
@@ -419,6 +419,7 @@ class HaberesComponent extends Component
         $recibo->totalhaberes = $this->AcumRem;
         $recibo->noremunetativo = $this->AcumNoRem;
         $recibo->descuentos = $this->AcumDescuento;
+        dd($recibo);
         $recibo->save();
     }
 
