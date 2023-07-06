@@ -391,6 +391,8 @@ class HaberesComponent extends Component
             $this->Conceptos = $AA;
         }
 
+        $this->ActualizaReciboTotales();
+
         $this->NetoACobrar = $this->AcumRem + $this->AcumNoRem - $this->AcumDescuento;
         $this->NetoACobrarLetras = $this->convertir((int)$this->NetoACobrar) .' con '.  ((int)(($this->NetoACobrar-(int)$this->NetoACobrar)*100)) . '/100 centavos';
         //dd($this->NetoACobrarLetras);
@@ -410,6 +412,14 @@ class HaberesComponent extends Component
 
         //         $pp=floatval($this->CalcularExpresion($precios, $tipos, $this->Conceptos[0]['cantidad'], $this->Conceptos[0]['unidad'], $this->Conceptos[0]['montofijo'], $this->Conceptos[0]['calculo']));
         // $pp=$this->CalcularExpresion($precios,$tipos,$this->Conceptos->cantidad,$this->Conceptos->unidad,$this->Conceptos->montofijo,$this->Conceptos->calculo,$this->SumHaberes,$this->SumUnidades);
+    }
+
+    public function ActualizaReciboTotales() {
+        $recibo = Recibo::find($this->IdRecibo);
+        $recibo->totalhaberes = $this->AcumRem;
+        $recibo->noremunetativo = $this->AcumNoRem;
+        $recibo->descuentos = $this->AcumDescuento;
+        $recibo->save();
     }
 
     public function CalcularExpresion($precio, $tipo, $CA, $MF, $expre) {
@@ -477,16 +487,32 @@ class HaberesComponent extends Component
                     //             case "ANT": {	$Empl = new clsEmpleado($Periodo,$IdEmp); $A[$c]=$Empl->Antiguedad; unset($Empl); break;} // Devuelve la cantidad de a&ntilde;os
                     //               // case "ANTFCalc": {	$Empl = new clsEmpleado($Periodo,$IdEmp); $A[$c]=$Empl->AntiguedadFC($Periodo); unset($Empl); break;} // Devuelve la cantidad de a&ntilde;os
                     // // 			case "ANR": {	 if ($SumUnidades<=200) { $A[$c]=239*$SumUnidades/200;} else { $A[$c]=239; } break;}	// Asignacion No Remunerativa
-                    //             case "2SAC":{ $Anio=substr($Periodo,0,4);
-                    //                 $sSql="SELECT sum(TotHaberes)/12 as Tot FROM tblRecibos WHERE PerPago<=".$Anio."12 and PerPago >=".$Anio."07 and IdEmpleado=$IdEmp";
-                    //                 $stmt =  $GLOBALS['pdo']->prepare($sSql); $stmt->execute();
-                    //                 $row=$stmt->fetch();
-                    //                 $A[$c]=$row['Tot'];   break;}// 2do SAC
-                    //             case "1SAC":{ $Anio=substr($Periodo,0,4);
-                    //                 $sSql="SELECT sum(TotHaberes)/12 as Tot FROM tblRecibos WHERE PerPago<=".$Anio."06 and PerPago >=".$Anio."01 and IdEmpleado=$IdEmp";
-                    //                 $stmt =  $GLOBALS['pdo']->prepare($sSql); $stmt->execute();
-                    //                 $row=$stmt->fetch();
-                    //                 $A[$c]=$row['Tot'];   break;}// 2do SAC
+                case "2SAC":{ 
+                    //$Anio=substr($this->anio . $this->mes,0,4);
+                    $Anio = $this->anio;
+                    // $sSql="SELECT sum(TotHaberes)/12 as Tot FROM tblRecibos WHERE PerPago<=".$Anio."12 and PerPago >=".$Anio."07 and IdEmpleado=$IdEmp";
+                    //$sSql="SELECT sum(totalhaberes)/12 as Tot FROM recibos WHERE perpago<=".$Anio."12 and PerPago >=".$Anio."07 and empleado_id=".$this->IdEmpleado;
+                    //$stmt =  $GLOBALS['pdo']->prepare($sSql); $stmt->execute()
+                    $aux = Recibo::selectRaw('sum(totalhaberes)/12 as Tot')
+                    ->where('perpago','<=',$Anio.'12')
+                    ->where('perpago','>=',$Anio.'07')
+                    ->where('empleado_id','=',$this->IdEmpleado)
+                    ->get();
+                    $A[$c]= $aux[0]['Tot'];
+                    break;
+                    }// 2do SAC
+                case "1SAC":{ 
+                    $Anio = $this->anio;
+                    //$Anio=substr($Periodo,0,4);
+                    //$sSql="SELECT sum(TotHaberes)/12 as Tot FROM tblRecibos WHERE PerPago<=".$Anio."06 and PerPago >=".$Anio."01 and IdEmpleado=$IdEmp";
+                    $aux = Recibo::selectRaw('sum(totalhaberes)/12 as Tot')
+                    ->where('perpago','<=',$Anio.'06')
+                    ->where('perpago','>=',$Anio.'01')
+                    ->where('empleado_id','=',$this->IdEmpleado)
+                    ->get();
+                    //dd($aux);
+                    $A[$c]= $aux[0]['Tot'];   
+                    break;}// 1do SAC
             default: $A[$c] = 1;
             }
         }
