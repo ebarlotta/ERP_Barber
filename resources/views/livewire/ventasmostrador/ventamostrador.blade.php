@@ -371,7 +371,6 @@
                                         <input type="text" class="form-control" id="total_a_cancelar" id="suma" style="text-align: center;background-color: #fff819" value="{{ $suma }}" disabled="">
                                     </div>
                                 </div>
-                                <!-- <div class="row"> -->
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">Total pagado</label> <input type="text" id="montopagado" class="form-control" wire:model="montopagado" wire:change="calcular();">
@@ -391,8 +390,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- </div> -->
-                            <!-- <hr> -->
                         </div>
                     </div>
                 </div>
