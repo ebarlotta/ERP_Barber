@@ -19,11 +19,12 @@ class CreateEmpresasTable extends Migration
             $table->string('direccion');
             $table->bigInteger('cuit');
             $table->bigInteger('ib');
+            $table->string('imagen');
             $table->integer('establecimiento')->default(0);
             $table->bigInteger('telefono');
             $table->string('actividad');
             $table->string('actividad1');
-            $table->integer('menu');
+            $table->integer('menu')->default('2');
 
             $table->timestamps();
         });

@@ -23,7 +23,7 @@ class AreaFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
+            'name' => $this->faker->word(),
             'empresa_id' => Empresa::inRandomOrder()->value('id') ?: Empresa::factory(1)->create(),
         ];
     }

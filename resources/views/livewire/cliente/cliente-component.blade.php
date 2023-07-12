@@ -24,14 +24,51 @@
                             </div>
                         </div>
                     @endif
-                    <x-crear>Nuevo Cliente</x-crear>
-                    @if ($isModalOpen)
-                        @include('livewire.cliente.createclientes')
-                    @endif
-                    <table class="table-fixed table-striped w-full">
+                    <div class="flex justify-around">
+                        <x-crear>Nuevo Cliente</x-crear>
+                            @if ($isModalOpen)
+                                @include('livewire.cliente.createclientes')
+                            @endif
+                        <div class="w-full">{{ $datos->links() }}</div>
+                    </div>
+
+                    <div style="display: block">
+                    <label for="">Buscar por cuit</label><input class="shadow-md m-1" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;" wire:model="search" type="search" placeholder="Ingresa cuit">
+                        @foreach ($datos as $cliente)
+                            <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px; height: 100%;">
+                                <div style="width:90%;">
+                                    <div style="width:100%; display: flex">
+                                        <p class="shadow-md m-1" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;">{{ $cliente->name }}</p>
+                                        <p class="shadow-md m-1" style="background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;">{{ $cliente->direccion }}</p>
+                                    </div>
+                                    <div style="width:100%; display: flex">
+                                        <p class="shadow-md m-1" style="background-color: rgb(226, 230, 230);border-radius: 10px; padding: 3px;">{{ $cliente->telefono }}</p>
+                                        <p class="shadow-md m-1" style="background-color: rgb(226, 230, 230);border-radius: 10px; padding: 3px;">{{ $cliente->email }}</p>
+                                    </div>
+                                </div>
+                                <div style="width:10%;">
+                                    <div class="block justify-center" style="width: 20%; margin: auto; justify-content: space-around;align-items: center;">
+                                        <!-- Editar  -->
+                                        <x-editar id="{{ $cliente->id }}"></x-editar>
+                                        <!-- Eliminar -->
+                                        <x-eliminar id="{{ $cliente->id }}"></x-eliminar>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>           
+                    
+
+{{-- 
+                    <table class="table-fixed table-striped w-full" style="font-size: 1.8vw">
                         <thead>
                             <tr class="bg-gray-100">
-                                <th class="px-4 py-2">Nombre del Cliente</th>
+                                <th class="px-4 py-2">Nombre</th>
                                 <th class="px-4 py-2">Dirección</th>
                                 <th class="px-4 py-2">Cuil</th>
                                 <th class="px-4 py-2">Teléfono</th>
@@ -47,7 +84,11 @@
                                         <td class="border px-4 py-2 text-left">{{ $cliente->cuil }}</td>
                                         <td class="border px-4 py-2 text-left">{{ $cliente->telefono }}</td>
                                         <td class="border px-4 py-2">
+<<<<<<< HEAD
                                             <div class="sm:flex justify-center">
+=======
+                                            <div class="flex justify-center">
+>>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
                                                 <div class="sm:flex justify-center">
                                                     <!-- Editar  -->
                                                     <x-editar id="{{ $cliente->id }}"></x-editar>
@@ -67,4 +108,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}

@@ -10,7 +10,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Tailwind -->
+<<<<<<< HEAD
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+=======
+    <script src="https://cdn.tailwindcss.com"></script>
+    {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
+>>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
 
 
     <title>{{ config('app.name', 'Laravel') }}</title>
@@ -36,8 +41,12 @@
 
             <!-- Page Content -->
             <main>
+<<<<<<< HEAD
                 @yield('content')
                 prueba
+=======
+                {{-- @yield('content')  Desactivado --}}
+>>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
             </main>
         </div>
         @stop

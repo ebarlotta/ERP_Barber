@@ -29,7 +29,6 @@ class ProveedorFactory extends Factory
             'telefono'=> $this->faker->numberBetween(2634000000,40000000),
             'email'=> $this->faker->email(),
             'empresa_id' => Empresa::inRandomOrder()->value('id') ?: Empresa::factory(1)->create(),
-
         ];
     }
 }

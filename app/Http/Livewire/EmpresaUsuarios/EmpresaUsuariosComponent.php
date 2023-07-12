@@ -29,8 +29,12 @@ class EmpresaUsuariosComponent extends Component
     {
         $this->usuariosglobales= User::all();
         $this->empresas = Empresa::all()->sortBy('id');
+<<<<<<< HEAD
         return view('livewire.empresa-usuarios.empresa-usuarios-component',['datos'=>Empresa::OrderBy('id')->paginate(3)])->extends('layouts.adminlte')
         ->section('content'); //Enzo
+=======
+        return view('livewire.empresa-usuarios.empresa-usuarios-component',['datos'=>Empresa::OrderBy('id')->paginate(3),])->extends('layouts.adminlte');
+>>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
     }
 
     public function mostrarmodal()
@@ -50,6 +54,10 @@ class EmpresaUsuariosComponent extends Component
     public function CargarUsuarios($id)
     {
         $this->empresaseleccionada = Empresa::find($id);
+<<<<<<< HEAD
+=======
+        $this->seleccionado=$id;
+>>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
         $this->usuariosdelaempresa = DB::table('users')->distinct()
             ->join('empresa_usuarios', 'users.id', '=', 'empresa_usuarios.user_id')
             ->join('empresas',  'empresas.id', '=', 'empresa_usuarios.empresa_id',)

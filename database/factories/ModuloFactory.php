@@ -21,11 +21,11 @@ class ModuloFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'name'=>$this->faker->name(),
-            'pagina'=>$this->faker->word(),
-            'imagen'=>'http://lorempixel.com/400/200/sports/',
-            'leyenda'=>$this->faker->word(),
-        ];
+        // return [
+        //     'name'=>$this->faker->name(),
+        //     'pagina'=>$this->faker->randomElement(['compras', 'ventas','areas','cuentas','proveedores','clientes','empleados','modulos','empresas']),
+        //     'imagen'=>'http://lorempixel.com/400/200/sports/',
+        //     'leyenda'=>$this->faker->word(),
+        // ];
     }
 }

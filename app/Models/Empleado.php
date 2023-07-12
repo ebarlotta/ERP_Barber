@@ -30,6 +30,12 @@ class Empleado extends Model
         'seccion',
         'activo',
         'baja',
+<<<<<<< HEAD
+=======
+        'categoriaprofesional_id',
+        'empresa_id',
+        'user_id'
+>>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
     ];
     //Relacion uno a muchos inversa
 
@@ -46,5 +52,10 @@ class Empleado extends Model
     public function recibos()
     {
         return $this->hasMany(Recibo::class);
+    }
+
+    public function CategoriaProfesional()
+    {
+        return $this->hasOne(Categoriaprofesional::class,'id','categoriaprofesional_id');
     }
 }

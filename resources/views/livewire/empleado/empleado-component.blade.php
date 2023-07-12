@@ -24,6 +24,7 @@
                             </div>
                         </div>
                     @endif
+<<<<<<< HEAD
                     <x-crear>Nuevo Empleado</x-crear>
                     @if ($isModalOpen)
                         @include('livewire.empleado.createempleados')
@@ -79,11 +80,46 @@
                                         </td>
                                     </tr>
                                 @endforeach
+=======
+                    <div class="flex justify-around">
+                        <x-crear>Nuevo Empleado</x-crear>
+                        @if ($isModalOpen)
+                            @include('livewire.empleado.createempleados')
+                        @endif
+                        <div class="w-full">{{ $datos->links() }}</div>
+                    </div>
+                    <label for="">Buscar por nombre</label><input class="shadow-md m-1" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;" wire:model="search" type="search" placeholder="Ingresa nombre o cuit">
+                    <select wire:model="listaactivos">
+                        <option value="1" selected>Sólo Activos</option>
+                        <option value="0">Todos</option>
+                    </select>
+                    <!-- <input type="checkbox" wire:model="listaactivos" value="1">Todos / Sólo Activos -->
+                    <div style="display: block">
+                        @foreach ($datos as $empleado)
+                            @if($empleado->activo)
+                                <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px; height: 100%;">
+                            @else
+                                <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightGray 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px; height: 100%;">
+>>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
                             @endif
-                        </tbody>
-                    </table>
+                                <div style="width:90%;">
+                                    <div style="width:100%; display: flex">
+                                        <p class="shadow-md m-1" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;">{{ $empleado->legajo }}</p>
+                                        <p class="shadow-md m-1" style="background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;">{{ $empleado->name }}</p>
+                                    </div>
+                                    <div style="width:100%; display: flex">
+                                        <p class="shadow-md m-1" style="background-color: rgb(226, 230, 230);border-radius: 10px; padding: 3px;">{{ $empleado->dni }}</p>
+                                    </div>
+                                </div>
+                                <div style="width:10%;">
+                                    <div class="block justify-center" style="width: 20%; margin: auto; justify-content: space-around;align-items: center;">
+                                        <!-- Editar  -->
+                                        <x-editar id="{{ $empleado->id }}"></x-editar>
+                                        <!-- Eliminar -->
+                                        <x-eliminar id="{{ $empleado->id }}"></x-eliminar>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>

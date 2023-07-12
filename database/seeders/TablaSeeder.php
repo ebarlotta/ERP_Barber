@@ -14,7 +14,8 @@ class TablaSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('tablas')->insert(['name'=>'uno','encabezadocolumna'=>'columna','ordenarporcampo'=>'pepe','cantidadfila'=>3,'cantidadcolumna'=>2,'empresa_id'=>1]);
-        DB::table('tablas')->insert(['name'=>'dos','encabezadocolumna'=>'columna','ordenarporcampo'=>'pepe','cantidadfila'=>3,'cantidadcolumna'=>5,'empresa_id'=>1]);
+        DB::table('tablas')->insert(['name'=>'Compras','encabezadocolumna'=>'columna','ordenarporcampo'=>'pepe','cantidadfila'=>3,'cantidadcolumna'=>2,'empresa_id'=>1]);
+        DB::table('tablas')->insert(['name'=>'Ventas','encabezadocolumna'=>'columna','ordenarporcampo'=>'pepe','cantidadfila'=>3,'cantidadcolumna'=>5,'empresa_id'=>1]);
+        DB::table('tablas')->insert(['name'=>'Paretto','encabezadocolumna'=>'columna','ordenarporcampo'=>'pepe','cantidadfila'=>3,'cantidadcolumna'=>5,'empresa_id'=>1]);
     }
 }

@@ -190,7 +190,11 @@ return [
     */
 
     'use_route_url' => false,
+<<<<<<< HEAD
     'dashboard_url' => 'home',
+=======
+    'dashboard_url' => '/',
+>>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -256,6 +260,7 @@ return [
         //     'label_color' => 'success',
         // ],
         ['header' => 'account_settings'],
+<<<<<<< HEAD
         [
             'text' => 'Usuarios x Empresa',
             'url'  => 'empresausuarios',
@@ -274,6 +279,156 @@ return [
         [
             'text' => 'Gestión de empresas',
             'url'  => 'empresagestion',
+=======
+
+        [
+            'text' => 'Administración',
+            'url'  => 'tags',
+            'icon' => 'fas fa-fw fa-building',
+            'submenu' => [
+                [
+                    'text' => 'Usuarios x Empresa',
+                    'url'  => 'empresausuarios',
+                    'icon' => 'fas fa-fw fa-users',
+                ],
+                [
+                    'text' => 'Usuarios x Módulo',
+                    'url'  => 'modulousuarios',
+                    'icon' => 'fas fa-fw fa-user-cog',
+                ],
+                [
+                    'text' => 'Módulos x Empresa',
+                    'url'  => 'empresamodulos',
+                    'icon' => 'fas fa-fw fa-chart-pie',
+                ],
+                [
+                    'text' => 'Gestión de empresas',
+                    'url'  => 'empresagestion',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Ajustes',
+            'url'  => 'tags',
+            'icon' => 'fas fa-fw fa-building',
+            'submenu' => [
+                [
+                    'text' => 'Etiquetas',
+                    'url'  => 'tags',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Unidades',
+                    'url'  => 'unidades',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Categorías de Productos',
+                    'url'  => 'categoriaproducto',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Categorías Profesionales',
+                    'url'  => 'categoriaprofesional',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Estados',
+                    'url'  => 'estados',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Areas',
+                    'url'  => 'areas',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Clientes',
+                    'url'  => 'clientes',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Cuentas',
+                    'url'  => 'cuentas',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Empleados',
+                    'url'  => 'empleados',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Proveedores',
+                    'url'  => 'proveedores',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Haberes',
+                    'url'  => 'haberes',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Productos',
+            'icon' => 'fas fa-fw fa-building',
+            'submenu' => [
+                        
+                        [
+                            'text' => 'Agregar Etiqueta',
+                            'url'  => 'producto/tag',
+                        ],
+                        [
+                            'text' => 'Agregar Producto',
+                            'url'  => 'producto/create',
+                        ],
+                        [
+                            'text' => 'Gestión de Producto',
+                            'url'  => 'productos',
+                        ],
+                        [
+                            'text' => 'Modificar / Eliminar',
+                            'url'  => 'producto',
+                        ],
+                        [
+                            'text' => 'Registrar Bajas',
+                            'url'  => 'productobajas',
+                        ],   
+                        [
+                            'text' => 'Carrito Compras',
+                            'icon' => 'fas fa-fw fa-building',
+                            'submenu' => [
+                                [
+                                    'text' => 'Vista de usuario',
+                                    'url'  => 'carts',
+                                ],
+                            ],
+                        ], 
+                    ],
+        ],
+        [
+            'text' => 'Informes',
+            'icon' => 'fas fa-fw fa-building',
+            'submenu' => [
+                        [
+                            'text' => 'Permisos a Informes',
+                            'url'  => 'tablas',
+                        ],
+                        [
+                            'text' => 'Visualizar Informes',
+                            'url'  => 'tablas-ver',
+                        ],
+                        [
+                            'text' => 'Editar/Eliminar Informes',
+                            'url'  => 'tablas-edit',
+                        ],
+                    ],
+                ],
+        [
+            'text' => 'VOLVER',
+            'url'  => '/',
+>>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
             'icon' => 'fas fa-fw fa-building',
         ],
         // [
