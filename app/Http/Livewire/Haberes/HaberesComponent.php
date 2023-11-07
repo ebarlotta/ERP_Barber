@@ -553,14 +553,17 @@ class HaberesComponent extends Component
         list($ano,$mes,$dia) = explode("-",$fechainicial);
         $dia = substr($dia,0,2);
         $fechadecalculo = substr($fechadecalculo,0,4) . "-" . substr($fechadecalculo,4,2) . "-01";
-        $fechadecalculo = strtotime('-1 day', strtotime($fechadecalculo));
+        //$fechadecalculo = strtotime('-1 day', strtotime($fechadecalculo));
+        //$fechadecalculo = strtotime('-1 day', strtotime($fechadecalculo));
+        $fechadecalculo = strtotime($fechadecalculo);
         $fechadecalculo = date('Y-m-d',$fechadecalculo);
         list($anocalculo, $mescalculo, $diacalculo) = explode("-",$fechadecalculo);
-        //dd($diacalculo);
+        
         //$dia = substr($dia,0,2);
         $this->ano_diferencia  = $anocalculo - $ano;
         $this->mes_diferencia = $mescalculo - $mes;
         $this->dia_diferencia   = $diacalculo - $dia;
+       //dd($fechadecalculo);
         if ($this->dia_diferencia < 0 || $this->mes_diferencia < 0){ $this->ano_diferencia--; }
         // $this->Antiguedad = $this->ano_diferencia.'a'.$this->mes_diferencia.'m'; 
         
