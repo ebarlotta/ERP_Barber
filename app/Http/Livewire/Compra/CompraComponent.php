@@ -620,6 +620,10 @@ class CompraComponent extends Component
         $this->gneto = number_format( floatval($this->gbruto) + floatval($this->giva2) + floatval($this->gexento) + floatval($this->gimpinterno) + floatval($this->gperciva) + floatval($this->gperib) + floatval($this->gretgan),2 ,'.','' ) ;
     }
 
+    public function copiarMontoPagado() {
+        $this->gmontopagado= $this->gneto;
+    }
+
     public function CalcularDeudaProveedores($ret) {
         $registros = $this->ProcesaSQLFiltro('deuda'); // Procesa los campos a mostrar
         //dd($sql);
