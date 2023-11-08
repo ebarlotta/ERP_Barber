@@ -63,7 +63,7 @@ class ProveedorComponent extends Component
         $this->validate([
             'name' => 'required',
             'direccion' => 'required',
-            'cuit' => 'required',
+            'cuit' => 'required|size:13',
             'telefono' => 'required|integer',
         ]);
         Proveedor::updateOrCreate(['id' => $this->proveedor_id], [
