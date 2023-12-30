@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Cliente;
 use Livewire\Component;
 use App\Models\Cliente;
 
+
 class ClienteComponent extends Component
 {
     public $isModalOpen = false;
@@ -17,13 +18,17 @@ class ClienteComponent extends Component
     public $telefono;
     public $email;
 
+    public $search;
+
     public $empresa_id;
 
     public function render()
     {
         $this->empresa_id = session('empresa_id');
-        $this->clientes = Cliente::where('empresa_id', $this->empresa_id)->get();
-        return view('livewire.cliente.cliente-component');
+        $this->clientes = Cliente::where('empresa_id', $this->empresa_id)->ORDERBy('name','asc')->get();
+        //dd($this->clientes);
+        return view('livewire.cliente.cliente-component',['datos'=> Cliente::where('empresa_id', "=",$this->empresa_id)->where('cuil', 'like', '%'.$this->search.'%')->paginate(4),])->extends('layouts.adminlte');
+        //return view('livewire.cliente.cliente-component',['datos'=> Cliente::where('empresa_id', "=",$this->empresa_id)->where('cuil', 'like', '%'.$this->search.'%')->orwhere('name', 'like', '%'.$this->search.'%')->paginate(3),])->extends('layouts.adminlte');
     }
     public function create()
     {
@@ -59,11 +64,11 @@ class ClienteComponent extends Component
         $this->validate([
             'name' => 'required',
             'direccion' => 'required',
-            'cuil' => 'required|integer',
+            'cuil' => 'required',
             'telefono' => 'required|integer',
             'email' => 'email',
         ]);
-        Cliente::updateOrCreate(['id' => $this->cliente_id], [
+        $a=Cliente::updateOrCreate(['id' => $this->cliente_id], [
             'name' => $this->name,
             'empresa_id' => $this->empresa_id,
             'direccion' => $this->direccion,

@@ -26,6 +26,7 @@ class EmpresaFactory extends Factory
             'direccion' => $this->faker->address(),
             'cuit' => $this->faker->numberBetween(20000000,40000000),
             'ib' => $this->faker->numberBetween(10000,30000),
+            'imagen' => 'Barber.png',
             'establecimiento' => $this->faker->randomElement([0,1]),
             'telefono' => $this->faker->numberBetween(2634000000,2634999999),
             'actividad' => $this->faker->word(10),

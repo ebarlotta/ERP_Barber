@@ -67,6 +67,10 @@ class ModuloUsuariosComponent extends Component
             ->select('users.*', 'modulos.name as modulo')
             ->orderby('users.name')
             ->get();
+<<<<<<< HEAD
+=======
+
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
             //$this->usuariosdelaemp = $this->usuariosdelmodulo;
         $array = json_decode($this->usuariosdelmodulo, true);
         //dd($array);

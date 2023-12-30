@@ -23,6 +23,10 @@ class Comprobante extends Model
         'NetoComp',
         'MontoPagadoComp',
         'CantidadLitroComp',
+<<<<<<< HEAD
+=======
+        'Cerrado',
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
         'Anio',
         'PasadoEnMes',
         'iva_id',

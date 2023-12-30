@@ -16,6 +16,7 @@ class Proveedor extends Model
         'telefono',
         'email',
         'empresa_id',
+        'iva_id',
     ];
 
     //Relacion uno a muchos inversa

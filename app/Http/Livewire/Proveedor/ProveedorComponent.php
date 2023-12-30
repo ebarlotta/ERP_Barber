@@ -7,6 +7,7 @@ use App\Models\Proveedor;
 
 class ProveedorComponent extends Component
 {
+
     public $isModalOpen = false;
     public $proveedor, $proveedor_id;
     public $proveedores;
@@ -17,13 +18,16 @@ class ProveedorComponent extends Component
     public $telefono;
     public $email;
 
+    public $search;
+
     public $empresa_id;
 
     public function render()
     {
         $this->empresa_id=session('empresa_id');
-        $this->proveedores = Proveedor::where('empresa_id', $this->empresa_id)->get();
-        return view('livewire.proveedor.proveedor-component');
+        // $this->proveedores = Proveedor::where('empresa_id', $this->empresa_id)->get();
+        
+        return view('livewire.proveedor.proveedor-component',['datos'=> Proveedor::where('empresa_id', $this->empresa_id)->where('name', 'like', '%'.$this->search.'%')->paginate(4),])->extends('layouts.adminlte');
     }
 
     public function create()
@@ -59,9 +63,8 @@ class ProveedorComponent extends Component
         $this->validate([
             'name' => 'required',
             'direccion' => 'required',
-            'cuit' => 'required|integer',
+            'cuit' => 'required',
             'telefono' => 'required|integer',
-            'email' => 'required|email',
         ]);
         Proveedor::updateOrCreate(['id' => $this->proveedor_id], [
             'name' => $this->name,
@@ -96,6 +99,20 @@ class ProveedorComponent extends Component
     {
         Proveedor::find($id)->delete();
         session()->flash('message', 'Proveedor Eliminado.');
+    }
+
+    public function search(Request $request){
+        // Get the search value from the request
+        $search = $request->input('search');
+    
+        // Search in the title and body columns from the posts table
+        $posts = Post::query()
+            ->where('title', 'LIKE', "%{$search}%")
+            ->orWhere('body', 'LIKE', "%{$search}%")
+            ->get();
+    
+        // Return the search view with the resluts compacted
+        return view('search', compact('posts'));
     }
 
 }

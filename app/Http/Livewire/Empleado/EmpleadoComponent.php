@@ -2,9 +2,14 @@
 
 namespace App\Http\Livewire\Empleado;
 
+use App\Models\Categoriaprofesional;
 use Livewire\Component;
 use App\Models\Empleado;
 use Carbon\Carbon;
+<<<<<<< HEAD
+=======
+use Illuminate\Support\Facades\DB;
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
 
 class EmpleadoComponent extends Component
 {
@@ -13,14 +18,36 @@ class EmpleadoComponent extends Component
     public $empleados;
 
     public $name, $domicilio, $cuil, $telefono, $legajo, $dni, $nacimiento, $ingreso, $estadocivil, $tipocontratacion;
-    public $regimen, $banco, $nrocuentabanco, $jornalizado, $mensualizado=false, $hora, $unidad, $seccion, $activo, $baja;
+    public $regimen, $banco, $nrocuentabanco, $jornalizado, $mensualizado=false, $hora, $unidad, $seccion, $activo, $baja, $categoriaprofesional, $categoriasprofesionales;
 
     public $empresa_id;
+
+    public $search;
+    public $listaactivos=true;
+
     public function render()
     {
         $this->empresa_id = session('empresa_id');
-        $this->empleados = Empleado::where('empresa_id', $this->empresa_id)->get();
-        return view('livewire.empleado.empleado-component');
+//dd($this->listaactivos);
+        if($this->listaactivos) { $activos=1; } else { $activos='?'; }
+
+        $sql = "Select * from empleados where empresa_id=1 and activo=1 and (name like '%ce%')";
+        $datos = DB::select(DB::raw($sql)); 
+
+        return view('livewire.empleado.empleado-component',['datos'=> Empleado::where('empresa_id', $this->empresa_id)
+            ->where('activo', $activos)
+            ->where('name', 'like', '%'.$this->search.'%')
+            ->paginate(30),])->extends('layouts.adminlte');
+
+         
+        // else { $activos=0; 
+        //     return view('livewire.empleado.empleado-component',['datos'=> Empleado::where('empresa_id', $this->empresa_id)
+        //     ->orwhere('name', 'like', '%'.$this->search.'%')
+        //     ->paginate(30),])->extends('layouts.adminlte');
+        // }
+        // ->orwhere('domicilio', 'like', '%'.$this->search.'%')
+        // ->orwhere('cuil', 'like', '%'.$this->search.'%')
+        // ->orwhere('banco', 'like', '%'.$this->search.'%')
     }
 
     public function create()
@@ -65,6 +92,10 @@ class EmpleadoComponent extends Component
         $this->seccion = '';
         $this->activo = '';
         $this->baja = null;
+<<<<<<< HEAD
+=======
+        $this->categoriaprofesional = '';
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
     }
 
     public function store()
@@ -89,6 +120,10 @@ class EmpleadoComponent extends Component
             'unidad' => 'required|bool',
             'seccion' => 'required',
             'activo' => 'required|bool',
+<<<<<<< HEAD
+=======
+            // 'categoriaprofesional' => 'required',
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
             
         ]);
         
@@ -114,6 +149,7 @@ class EmpleadoComponent extends Component
             'seccion' => $this->seccion,
             'activo' => $this->activo,
             'baja'=> $this->baja,
+            'categoriaprofesional_id'=> $this->categoriaprofesional,
         ]);
 
         session()->flash('message', $this->empleado_id ? 'Empleado Actualizado.' : 'Empleado Creado.');
@@ -125,6 +161,7 @@ class EmpleadoComponent extends Component
     public function edit($id)
     {
         $empleado = Empleado::findOrFail($id);
+        $this->categoriasprofesionales = Categoriaprofesional::where('empresa_id',session('empresa_id'))->get();
         $this->id = $id;
         $this->empleado_id = $id;
         $this->legajo = $empleado->legajo;
@@ -148,7 +185,12 @@ class EmpleadoComponent extends Component
         $this->seccion = $empleado->seccion;
         $this->activo = $empleado->activo;
         $this->baja = Carbon::parse($empleado->baja)->format('Y-m-d');
+<<<<<<< HEAD
 
+=======
+        $this->categoriaprofesional = $empleado->categoriaprofesional->id;
+                //dd($empleado->categoriaprofesional->id);
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
         $this->openModalPopover();
     }
 

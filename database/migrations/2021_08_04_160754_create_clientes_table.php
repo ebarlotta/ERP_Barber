@@ -21,12 +21,12 @@ class CreateClientesTable extends Migration
             $table->string('direccion');
             $table->string('email')->nullable();
             $table->bigInteger('telefono');
-            
-
+            $table->unsignedBigInteger('iva_id')->default(1);
             $table->unsignedBigInteger('empresa_id');
-
+            
             $table->timestamps();
-
+            
+            $table->foreign('iva_id')->references('id')->on('ivas');
             $table->foreign('empresa_id')->references('id')->on('empresas');
 
         });

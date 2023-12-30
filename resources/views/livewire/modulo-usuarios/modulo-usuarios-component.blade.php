@@ -40,12 +40,21 @@
 						Módulos <br>
 						@foreach ($datos as $modulo)
 							<ul>
+<<<<<<< HEAD
 								<li class="border text-left @if ($seleccionado==$modulo->id) bg-red-100 @endif" wire:click="CargarUsuarios({{ $modulo->id }})">
 									<div class="w-full p-3">
 										<div class="flex rounded overflow-hidden border">
 											<img class="block rounded-md flex-none bg-cover"	src="{{ asset('images/'. $modulo->imagen) }}" style="width:100px; height: 100px;">
 											<div class="bg-white rounded-b pt-4 pl-4 flex flex-col justify-between leading-normal">
 												<div class="text-black font-bold text-lg mb-2 leading-tight">{{ $modulo->name }}</div>
+=======
+								<li class="border px-4 py-2 text-left @if ($seleccionado==$modulo->id) bg-red-100 @endif" wire:click="CargarUsuarios({{ $modulo->id }})">
+									<div class="w-full p-2">
+										<div class="flex rounded overflow-hidden border">
+											<img class="block rounded-md flex-none bg-cover" src="{{ asset('images/'. $modulo->imagen) }}" style="width:100px; height: 100px;">
+											<div class="bg-white w-full rounded-b pl-4 flex flex-col justify-between leading-normal">
+												<div class="text-black pt-4 font-bold text-lg mb-2 leading-tight">{{ $modulo->name }}</div>
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
 												<p class="text-grey-darker text-base">Read more</p>
 											</div>
 										</div>
@@ -60,11 +69,27 @@
 						@if ($usuariosdelmodulo)
 						@foreach ($usuariosdelmodulo as $usuario)
 							<ul>
+<<<<<<< HEAD
 								<li class="border text-left bg-red-100 min-h-full">
 									<div class="w-full p-3">
 										<div class="flex rounded overflow-hidden border">
 											<img class="block rounded-md flex-none bg-cover" src="https://picsum.photos/seed/picsum/80/80" style="width:100px; height: 100px;">
 											<div class="bg-white rounded-b pt-4 pl-4 flex flex-col justify-between leading-normal">
+=======
+								<li class="border px-4 py-2 text-left bg-red-100">
+									<div class="w-full p-2">
+										<div class="flex rounded overflow-hidden border">
+											@if($usuario['profile_photo_path']) 
+                                                <img class="block rounded-md flex-none bg-cover"
+                                                   src="{{ asset('images2/'. $usuario['profile_photo_path'] ) }}"
+                                                   style="width: 100px; height: 100px;">
+                                                @else
+                                                <img class="block rounded-md flex-none bg-cover"
+                                                   src="{{ asset('images/sin_imagen.jpg') }}"
+                                                   style="width: 100px; height: 100px;">
+                                                @endif
+											<div class="bg-white rounded-b pl-4 pt-4 flex flex-col justify-between leading-normal">
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
 												<div class="text-black font-bold text-lg mb-2 leading-tight">{{ $usuario['name'] }}</div>
 												<p class="text-grey-darker text-base">Read more and	more</p>
 											</div>

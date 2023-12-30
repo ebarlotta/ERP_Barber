@@ -24,10 +24,44 @@
                             </div>
                         </div>
                     @endif
-                    <x-crear>Nueva Cuenta</x-crear>
-                    @if ($isModalOpen)
-                        @include('livewire.cuenta.createcuentas')
-                    @endif
+
+                    <div class="flex justify-around">
+                        <x-crear>Nueva Cuenta</x-crear>
+                        @if ($isModalOpen)
+                            @include('livewire.cuenta.createcuentas')
+                        @endif
+                        <div class="w-1/2 justify-end">{{ $datos->links() }}</div>
+                    </div>
+                    <div style="display: block">
+                        @foreach ($datos as $cuenta)
+
+                            <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px; height: 100%;">
+                                <div style="width:90%;">
+                                    <div style="width:100%; display: flex">
+                                        <p class="shadow-md m-1" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;">{{ $cuenta->name }}</p>
+                                        
+                                    </div>
+                                </div>
+                                <div style="width:10%;">
+                                    <div class="block justify-center" style="width: 20%; margin: auto; justify-content: space-around;align-items: center;">
+                                        <!-- Editar  -->
+                                        <x-editar id="{{ $cuenta->id }}"></x-editar>
+                                        <!-- Eliminar -->
+                                        <x-eliminar id="{{ $cuenta->id }}"></x-eliminar>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{-- 
+
                     <table class="table-fixed table-striped w-full">
                         <thead>
                             <tr class="bg-gray-100">
@@ -57,4 +91,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}

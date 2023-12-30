@@ -18,7 +18,7 @@ class CreateModulosTable extends Migration
             $table->string('name',30);
             $table->string('pagina');
             $table->string('imagen');
-            $table->string('leyenda',15);
+            $table->string('leyenda',255);
 
             $table->timestamps();
         });
