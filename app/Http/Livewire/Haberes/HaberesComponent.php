@@ -15,7 +15,7 @@ use Hamcrest\Type\IsNumeric;
 
 class HaberesComponent extends Component
 {
-    public $anio = 2023;
+    public $anio = 2024;
     public $mes = '00';
     public $EmpleadosActivos;
     // public $EmpleadoActivo;

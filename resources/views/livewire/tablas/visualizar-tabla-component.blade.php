@@ -38,19 +38,20 @@
             <div class="block w-1/4">
                 <h3>Informes Habilitados</h3>
                 @if(count($ListadeTablas)>=1)
+                {{-- {{$ListadeTablas}} --}}
                     @foreach ($ListadeTablas as $tabla)
-                        @if($tabla->relac_id)
+                        {{-- @if($tabla->relac_id) --}}
                             <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px;" wire:click="Visualizar('{{ $tabla['name'] }}')">
-                                <div >
+                                <div>
                                     <div style="width:100%; display: flex">
                                         <p class="shadow-md m-1 w-full" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;">{{ $tabla['name'] }}</p>
                                     </div>
                                 </div>
                             </div>
-                        @endif
+                        {{-- @endif --}}
                     @endforeach
                 @else
-                    @if($tablas==[])
+                    @if($ListadeTablas==[])
                         Seleccione un usuario            
                     @else
                         Ningún informe habilitado

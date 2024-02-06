@@ -18,10 +18,12 @@ class VisualizarTablaComponent extends Component
 {
     public $isModalOpen = false;
     public $visualizar;
+    public $ListadeTablas;
 
     public function render()
     {
-        $this->ListadeTablas = Tabla::selectraw(' name, (select id from tabla_usuarios WHERE tabla_usuarios.tabla_id = tablas.id and tabla_usuarios.user_id = '.Auth::user()->id.') as relac_id, empresa_id, id as tabla_id')
+        // $this->ListadeTablas = Tabla::selectraw(' name, (select tabla_usuarios.id from tabla_usuarios,tablas WHERE tabla_usuarios.tabla_id = tablas.id and tabla_usuarios.user_id = '.Auth::user()->id.') as relac_id, empresa_id, id as tabla_id')
+        $this->ListadeTablas = Tabla::selectraw(' name, empresa_id, id as tabla_id')
         ->where('id','>=',1)
         ->where('empresa_id','=',session('empresa_id'))
         ->get();
@@ -205,14 +207,23 @@ class VisualizarTablaComponent extends Component
                         ->where('empresa_id', session('empresa_id'))
                         ->sum('NetoComp');
 
-                    $sql = DB::table('comprobantes')
-                    ->join('areas', 'areas.id', '=', 'comprobantes.area_id')
-                    ->whereraw("comprobantes.empresa_id", session('empresa_id'))
-                    ->whereraw('Anio', 2021)
-                    ->selectraw('sum(NetoComp) as NetoComp, area_id')
-                    ->groupby('area_id')
-                    ->orderby('NetoComp', 'desc')
-                    ->get();
+                        $sql = Comprobante::selectraw('sum(NetoComp) as NetoComp, area_id')    
+                        ->join('areas', 'areas.id', '=', 'comprobantes.area_id')
+                        ->whereraw('comprobantes.empresa_id=' . session('empresa_id'))
+                        ->whereraw('Anio=2021')
+                        ->groupby('comprobantes.area_id')
+                        ->orderby('NetoComp', 'desc')
+                        ->get();
+
+                        // dd($sql);
+                    // $sql = DB::table('comprobantes')
+                    // ->join('areas', 'areas.id', '=', 'comprobantes.area_id')
+                    // ->whereraw('comprobantes.empresa_id','=', session('empresa_id'))
+                    // ->whereraw('Anio','=', 2021)
+                    // ->selectraw('sum(NetoComp) as NetoComp, area_id')
+                    // ->groupby('area_id')
+                    // ->orderby('NetoComp', 'desc')
+                    // ->get();
                 
                
                     $a = $a .'<table class="table table-responsive table-hover" style="font-family : Verdana; font-size : 10px; font-weight : 300;" border="1">
