@@ -368,7 +368,7 @@
 											@error('gneto') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
 										<div class="mr-1 w-28">
-											<label for="">Monto Pagado</label><br>
+											<label style="font-size: 80%;" wire:click="copiarMontoPagado()">Monto Pagado</label><br>
 											<input class="num ml-2 w-full text-right rounded-md h-8" type="text" wire:model="gmontopagado">
 										</div>
 										<div class="mr-1 w-20">
