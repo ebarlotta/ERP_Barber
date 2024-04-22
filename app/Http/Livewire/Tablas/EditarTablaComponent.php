@@ -9,6 +9,7 @@ use App\Models\Tabla;
 class EditarTablaComponent extends Component
 {
     public $isModalOpen = false;
+    public $ListadeTablas;
     
     public function render()
     {
@@ -18,5 +19,17 @@ class EditarTablaComponent extends Component
         ->get();
         // dd($this->ListadeTablas);
         return view('livewire.tablas.editar-tabla-component',['datos'=> $this->ListadeTablas])->extends('layouts.adminlte');
+    }
+
+    public function edit() {
+        dd('En construcción');
+    }
+
+    public function delete() {
+        dd('En construcción');
+    }
+
+    public function create() {
+        dd('En construcción');
     }
 }

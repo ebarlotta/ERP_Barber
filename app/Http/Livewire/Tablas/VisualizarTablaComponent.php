@@ -66,7 +66,7 @@ class VisualizarTablaComponent extends Component
                 $this->visualizar = '<table class="table table-responsive table-hover" style="font-family : Verdana; font-size : 10px; font-weight : 300;" border="1">
                 <tbody>
                 <tr style="font-weight:bold; border-top: 3px solid; font-size:14px">
-                    <td colspan=9>Libros IVA Ventas</td>
+                    <td colspan=9>Libros IVA Ventas 2024</td>
                 </tr>
                 <tr style="font-weight:bold; border-top: 3px solid;">
                     <td bgcolor="white" align="center">Meses</td>
@@ -85,7 +85,7 @@ class VisualizarTablaComponent extends Component
                     ->join('ivas','ivas.id', '=', 'ventas.iva_id')
                     ->where('PasadoEnMes','=',$i)
                     ->where('ParticIva','=','Si')
-                    ->where('Anio','=',2021)
+                    ->where('Anio','=',2024)
                     ->where('empresa_id','=',session('empresa_id'))
                     ->get();
                     foreach($sql as $sql1) {
@@ -142,7 +142,7 @@ class VisualizarTablaComponent extends Component
                 $this->visualizar = '<table class="table table-responsive table-hover" style="font-family : Verdana; font-size : 10px; font-weight : 300;" border="1">
                 <tbody>
                 <tr style="font-weight:bold; border-top: 3px solid; font-size:14px">
-                    <td colspan=9>Libros IVA Compras</td>
+                    <td colspan=9>Libros IVA Compras 2024</td>
                 </tr>
                 <tr style="font-weight:bold; border-top: 3px solid;">
                     <td bgcolor="white" align="center">Meses</td>
@@ -161,7 +161,7 @@ class VisualizarTablaComponent extends Component
                     ->join('ivas','ivas.id', '=', 'comprobantes.iva_id')
                     ->where('PasadoEnMes','=',$i)
                     ->where('ParticIva','=','Si')
-                    ->where('Anio','=',2021)
+                    ->where('Anio','=',2024)
                     ->where('empresa_id','=',session('empresa_id'))
                     ->get();
                     foreach($sql as $sql1) {

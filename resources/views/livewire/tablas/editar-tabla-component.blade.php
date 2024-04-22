@@ -43,20 +43,20 @@
                     @foreach ($ListadeTablas as $tabla)
                         <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px;">
                             <div >
-                                <div style="width:100%; display: flex">
+                                <div style="width:100%;">
                                     <p class="shadow-md m-1 w-full" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;">{{ $tabla['name'] }}</p>
-                                    <div class="w-full">
-                                    <!-- Editar  -->
-                                    <x-editar id="{{ $tabla->id }}"></x-editar><br>
-                                    <!-- Eliminar -->
-                                    <x-eliminar id="{{ $tabla->id }}"></x-eliminar>
-                                </div>
+                                    <div class="w-full d-flex">
+                                        <!-- Editar  -->
+                                        <x-editar id="{{ $tabla->id }}"></x-editar><br>
+                                        <!-- Eliminar -->
+                                        <x-eliminar id="{{ $tabla->id }}"></x-eliminar>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     @endforeach
                 @else
-                    @if($tablas==[])
+                    @if(isset($tablas))
                         Seleccione un usuario            
                     @else
                         Ningún informe habilitado

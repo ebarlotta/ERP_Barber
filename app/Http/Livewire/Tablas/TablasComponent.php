@@ -18,6 +18,8 @@ class TablasComponent extends Component
     public $ModalOk;
     public $tabla_id;
     public $rel_id;
+    public $empresa_id;
+    public $users;
 
 
     public function render()
