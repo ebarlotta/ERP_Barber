@@ -25,7 +25,6 @@ class ClienteComponent extends Component
 
     use WithPagination;
 
-
     public function render()
     {
         $this->empresa_id = session('empresa_id');
@@ -40,7 +39,7 @@ class ClienteComponent extends Component
 
         else {
             $this->clientes = Cliente::where('empresa_id', $this->empresa_id)
-            ->ORDERBy('name','asc')
+            ->orderBy('name','asc')
             ->paginate(6);
         }
         

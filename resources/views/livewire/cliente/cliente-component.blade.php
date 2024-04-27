@@ -38,9 +38,9 @@
                         <thead>
                             <tr class="bg-gray-100">
                                 <th class="px-4 py-2">Nombre</th>
-                                <th class="px-4 py-2">Dirección</th>
-                                <th class="px-4 py-2">Cuil</th>
-                                <th class="px-4 py-2">Teléfono</th>
+                                <th class="px-4 py-2 hidden md:table-cell md:visible">Dirección</th>
+                                <th class="px-4 py-2 hidden md:table-cell md:visible">Cuil</th>
+                                <th class="px-4 py-2 hidden md:table-cell md:visible">Teléfono</th>
                                 <th class="px-4 py-2">Opciones</th>
                             </tr>
                         </thead>
@@ -49,9 +49,9 @@
                                 @foreach ($clientes as $cliente)
                                     <tr>
                                         <td class="border px-4 py-2 text-left">{{ $cliente->name }}</td>
-                                        <td class="border px-4 py-2 text-left">{{ $cliente->direccion }}</td>
-                                        <td class="border px-4 py-2 text-left">{{ $cliente->cuil }}</td>
-                                        <td class="border px-4 py-2 text-left">{{ $cliente->telefono }}</td>
+                                        <td class="border px-4 py-2 text-left hidden md:table-cell md:visible">{{ $cliente->direccion }}</td>
+                                        <td class="border px-4 py-2 text-left hidden md:table-cell md:visible">{{ $cliente->cuil }}</td>
+                                        <td class="border px-4 py-2 text-left hidden md:table-cell md:visible">{{ $cliente->telefono }}</td>
                                         <td class="border px-4 py-2">
                                             <div class="flex justify-center">
                                                 <div class="sm:flex justify-center">
