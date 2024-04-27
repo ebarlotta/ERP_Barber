@@ -4,13 +4,14 @@ namespace App\Http\Livewire\Cliente;
 
 use Livewire\Component;
 use App\Models\Cliente;
+use Livewire\WithPagination;
 
 
 class ClienteComponent extends Component
 {
     public $isModalOpen = false;
     public $cliente, $cliente_id;
-    public $clientes;
+    protected $clientes;
 
     public $name;
     public $direccion;
@@ -22,12 +23,30 @@ class ClienteComponent extends Component
 
     public $empresa_id;
 
+    use WithPagination;
+
+
     public function render()
     {
         $this->empresa_id = session('empresa_id');
-        $this->clientes = Cliente::where('empresa_id', $this->empresa_id)->ORDERBy('name','asc')->get();
+        if($this->search) {
+            $this->resetPage();
+            $this->clientes = Cliente::where('empresa_id', $this->empresa_id)
+            ->where('cuil', 'like', '%'.$this->search.'%')
+            ->orderBy('name','asc')
+            ->paginate(6);
+            // dd($this->clientes);
+        }
+
+        else {
+            $this->clientes = Cliente::where('empresa_id', $this->empresa_id)
+            ->ORDERBy('name','asc')
+            ->paginate(6);
+        }
+        
         //dd($this->clientes);
-        return view('livewire.cliente.cliente-component',['datos'=> Cliente::where('empresa_id', "=",$this->empresa_id)->where('cuil', 'like', '%'.$this->search.'%')->paginate(4),])->extends('layouts.adminlte');
+        return view('livewire.cliente.cliente-component',['clientes'=> $this->clientes])->extends('layouts.adminlte');
+        // return view('livewire.cliente.cliente-component',['datos'=> Cliente::where('empresa_id', "=",$this->empresa_id)->where('cuil', 'like', '%'.$this->search.'%')->paginate(4),])->extends('layouts.adminlte');
         //return view('livewire.cliente.cliente-component',['datos'=> Cliente::where('empresa_id', "=",$this->empresa_id)->where('cuil', 'like', '%'.$this->search.'%')->orwhere('name', 'like', '%'.$this->search.'%')->paginate(3),])->extends('layouts.adminlte');
     }
     public function create()

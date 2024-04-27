@@ -41,7 +41,7 @@
 						@foreach ($datos as $modulo)
 							<ul>
 								<li class="border px-4 py-2 text-left @if ($seleccionado==$modulo->id) bg-red-100 @endif" wire:click="CargarUsuarios({{ $modulo->id }})">
-									<div class="w-full p-2">
+									<div class="w-full p-2 hover:scale-110 transition-all duration-500">
 										<div class="flex rounded overflow-hidden border">
 											<img class="block rounded-md flex-none bg-cover" src="{{ asset('images/'. $modulo->imagen) }}" style="width:100px; height: 100px;">
 											<div class="bg-white w-full rounded-b pl-4 flex flex-col justify-between leading-normal">
@@ -61,7 +61,7 @@
 						@foreach ($usuariosdelmodulo as $usuario)
 							<ul>
 								<li class="border px-4 py-2 text-left bg-red-100">
-									<div class="w-full p-2">
+									<div class="w-full p-2 hover:scale-110 transition-all duration-500">
 										<div class="flex rounded overflow-hidden border">
 											@if($usuario['profile_photo_path']) 
                                                 <img class="block rounded-md flex-none bg-cover"
