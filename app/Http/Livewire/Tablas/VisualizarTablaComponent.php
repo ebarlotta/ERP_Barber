@@ -10,7 +10,7 @@ use App\Models\Comprobante;
 
 use App\Models\Area;
 use App\Models\Cuenta;
-
+use App\Models\TablaUsuario;
 use Illuminate\Support\Facades\DB;
 
 
@@ -23,10 +23,15 @@ class VisualizarTablaComponent extends Component
     public function render()
     {
         // $this->ListadeTablas = Tabla::selectraw(' name, (select tabla_usuarios.id from tabla_usuarios,tablas WHERE tabla_usuarios.tabla_id = tablas.id and tabla_usuarios.user_id = '.Auth::user()->id.') as relac_id, empresa_id, id as tabla_id')
-        $this->ListadeTablas = Tabla::selectraw(' name, empresa_id, id as tabla_id')
-        ->where('id','>=',1)
-        ->where('empresa_id','=',session('empresa_id'))
-        ->get();
+        // $this->ListadeTablas = Tabla::selectraw(' name,a empresa_id, id as tabla_id')
+        // ->where('id','>=',1)
+        // ->where('empresa_id','=',session('empresa_id'))
+        $this->ListadeTablas = TablaUsuario::join('tablas','tabla_usuarios.tabla_id','=','tablas.id')->get();
+        // dd($this->ListadeTablas);
+        // $this->ListadeTablas = Tabla::where('qid','=',Auth::user()->id)
+        // ->where('empresa_id','=',session('empresa_id'))
+        // ->get();
+        
         return view('livewire.tablas.visualizar-tabla-component',['datos'=> $this->ListadeTablas])->extends('layouts.adminlte');
     }
 
@@ -201,7 +206,7 @@ class VisualizarTablaComponent extends Component
                         <td bgcolor="white" align="right">'.number_format($NetoComp,2).'</td>
                     </tr>';
             break;
-                case "Paretto":
+            case "Paretto":
                     $a = $this->AgregarEncabezado('Areas-Compras');
                     $totalNetoCompra = Comprobante::where('Anio', 2021)
                         ->where('empresa_id', session('empresa_id'))
@@ -376,7 +381,6 @@ class VisualizarTablaComponent extends Component
                             </tr>
                         </tbody>
                         </table>';
-// dd($d);
                         //Resumen 
 
                         $r = $this->AgregarEncabezado('Paretto');
@@ -399,8 +403,8 @@ class VisualizarTablaComponent extends Component
                         </table>';
 
                         
-$this->visualizar = $r;
-                    break;
+                $this->visualizar = $r;
+                break;
         }
     }
     

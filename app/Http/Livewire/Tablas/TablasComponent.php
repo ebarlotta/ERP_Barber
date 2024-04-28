@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Tablas;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\EmpresaUsuario;
 use App\Models\Tabla;
@@ -33,9 +34,11 @@ class TablasComponent extends Component
     }
 
     public function CargarInformesHabilitados($usuario_id) {
+        // dd('entro');
         $this->tablas = TablaUsuario::join('tablas', 'tabla_usuarios.tabla_id','=', 'tablas.id')
         ->where('tablas.empresa_id','=',$this->empresa_id)
         ->where('tabla_usuarios.user_id','=',$usuario_id)
+        // ->where('tabla_usuarios.user_id','=',Auth::user()->id)
         ->get();
         $this->user_id = $usuario_id;   // Establece el ide de ususario con el que se va a trabajar
         session(['AsignacionOk'=>null]); // Borra cartel
