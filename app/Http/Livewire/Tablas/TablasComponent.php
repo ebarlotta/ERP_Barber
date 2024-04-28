@@ -55,7 +55,7 @@ class TablasComponent extends Component
 
     public function create($user_id)
     {
-        $this->openModalPopover();git 
+        $this->openModalPopover();
         $this->isModalOpen=true;
         $this->CargarInformesConEstado($user_id);
     }
