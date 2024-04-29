@@ -39,7 +39,7 @@
         <div class="flex">
             <div class="block w-1/2"><p><h3>Usuarios</h3></p>
                 @foreach ($users as $user)
-                    <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px;" wire:click="CargarInformesHabilitados({{ $user->id }})">
+                    <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px;" wire:click="CargarInformesHabilitados({{ $user->user_id }})">
                         <div style="width:70%;">
                             <div style="width:100%; display: flex">
                                 @if($user->avatar)

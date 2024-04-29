@@ -26,12 +26,16 @@ class VisualizarTablaComponent extends Component
         // $this->ListadeTablas = Tabla::selectraw(' name,a empresa_id, id as tabla_id')
         // ->where('id','>=',1)
         // ->where('empresa_id','=',session('empresa_id'))
-        $this->ListadeTablas = TablaUsuario::join('tablas','tabla_usuarios.tabla_id','=','tablas.id')->get();
+        //// $this->ListadeTablas = TablaUsuario::join('tablas','tabla_usuarios.tabla_id','=','tablas.id')->get();
         // dd($this->ListadeTablas);
         // $this->ListadeTablas = Tabla::where('qid','=',Auth::user()->id)
         // ->where('empresa_id','=',session('empresa_id'))
         // ->get();
-        
+        $this->ListadeTablas = TablaUsuario::join('tablas', 'tabla_usuarios.tabla_id','=', 'tablas.id')
+        ->where('tablas.empresa_id','=',session('empresa_id'))
+        ->where('tabla_usuarios.user_id','=',auth()->user()->id)
+        ->get();
+
         return view('livewire.tablas.visualizar-tabla-component',['datos'=> $this->ListadeTablas])->extends('layouts.adminlte');
     }
 
@@ -165,7 +169,7 @@ class VisualizarTablaComponent extends Component
                     $sql = Comprobante::selectraw('sum(BrutoComp) as BrutoComp, sum(ExentoComp) as ExentoComp, sum(ImpInternoComp) as ImpInternoComp, sum(PercepcionIvaComp) as PercepcionIvaComp, sum(RetencionIB) as RetencionIB, sum(RetencionGan) as RetencionGan, sum(NetoComp) as NetoComp, sum(ivas.monto*BrutoComp/100) as SumIva, count(ivas.monto) as CantReg')
                     ->join('ivas','ivas.id', '=', 'comprobantes.iva_id')
                     ->where('PasadoEnMes','=',$i)
-                    ->where('ParticIva','=','Si')
+                    ->where('ParticIva','=','"Si"')
                     ->where('Anio','=',2024)
                     ->where('empresa_id','=',session('empresa_id'))
                     ->get();
