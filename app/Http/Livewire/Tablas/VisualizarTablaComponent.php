@@ -169,7 +169,7 @@ class VisualizarTablaComponent extends Component
                     $sql = Comprobante::selectraw('sum(BrutoComp) as BrutoComp, sum(ExentoComp) as ExentoComp, sum(ImpInternoComp) as ImpInternoComp, sum(PercepcionIvaComp) as PercepcionIvaComp, sum(RetencionIB) as RetencionIB, sum(RetencionGan) as RetencionGan, sum(NetoComp) as NetoComp, sum(ivas.monto*BrutoComp/100) as SumIva, count(ivas.monto) as CantReg')
                     ->join('ivas','ivas.id', '=', 'comprobantes.iva_id')
                     ->where('PasadoEnMes','=',$i)
-                    ->where('ParticIva','=','"Si"')
+                    ->where('ParticIva','=','Si')
                     ->where('Anio','=',2024)
                     ->where('empresa_id','=',session('empresa_id'))
                     ->get();
