@@ -38,7 +38,44 @@
                     </select>
                     <!-- <input type="checkbox" wire:model="listaactivos" value="1">Todos / Sólo Activos -->
                     <div style="display: block">
-                        @foreach ($datos as $empleado)
+
+
+                        <table class="table-fixed table-striped w-full">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="px-4 py-2" style="width: 10%">Legajo</th>
+                                    <th class="px-4 py-2">Nombre</th>
+                                    <th class="px-4 py-2">DNI</th>
+                                    <th class="px-4 py-2">Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if ($datos)
+                                    @foreach ($datos as $empleado)
+                                        <tr>
+                                            <td class="border px-4 py-2 text-left" style="width: 10%">{{ $empleado->legajo }}</td>
+                                            <td class="border px-4 py-2 text-left">{{ $empleado->name }}</td>
+                                            <td class="border px-4 py-2 text-left">{{ $empleado->dni }}</td>
+                                            <td class="border px-4 py-2">
+                                                <div class="flex justify-center">
+                                                    <div class="sm:flex justify-center">
+                                                        <!-- Editar  -->
+                                                        <x-editar id="{{ $empleado->id }}"></x-editar>
+                                                    </div>
+                                                    <div class="sm:flex justify-center">
+                                                        <!-- Eliminar -->
+                                                        <x-eliminar id="{{ $empleado->id }}"></x-eliminar>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table> 
+
+
+                        {{-- @foreach ($datos as $empleado)
                             @if($empleado->activo)
                                 <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px; height: 100%;">
                             @else
@@ -62,6 +99,6 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @endforeach --}}
                     </div>
                 </div>

@@ -33,14 +33,14 @@ class ClienteComponent extends Component
             $this->clientes = Cliente::where('empresa_id', $this->empresa_id)
             ->where('cuil', 'like', '%'.$this->search.'%')
             ->orderBy('name','asc')
-            ->paginate(6);
+            ->paginate(7);
             // dd($this->clientes);
         }
 
         else {
             $this->clientes = Cliente::where('empresa_id', $this->empresa_id)
             ->orderBy('name','asc')
-            ->paginate(6);
+            ->paginate(7);
         }
         
         //dd($this->clientes);

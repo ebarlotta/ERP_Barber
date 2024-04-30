@@ -17,6 +17,8 @@ use WithPagination;
 
 class Productos extends Controller
 {
+
+    public $productos;
     /**
      * Display a listing of the resource.
      *
@@ -24,16 +26,16 @@ class Productos extends Controller
      */
     public function index()
     {
-+        
+
         // $productos = DB::table('productos')
         // ->join('estados', 'productos.estados_id', '=', 'estados.id')
         // ->select('productos.*','estados.name as EstadoProd')
         // ->where('productos.empresa_id', '=', session('empresa_id'))
         // ->paginate(4);
-        $productos = Producto::all();
-        dd($productos);
+        $this->productos = Producto::all();
+        dd($this->productos);
 
-        return view('producto.index');
+        return view('producto.index')->with(['productos' => $this->productos]);
         //return view('producto.index',compact('productos'));
     }
 

@@ -32,7 +32,49 @@
     </div>
     <div style="display: block">
     <label for="">Buscar por nombre</label><input class="shadow-md m-1" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;" wire:model="search" type="search" placeholder="Ingresa nombre">
-        @foreach ($datos as $proveedor)
+
+
+
+    <table class="table-fixed table-striped w-full">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="px-4 py-2">Nombre</th>
+                <th class="px-4 py-2">Dirección</th>
+                <th class="px-4 py-2">Teléfono</th>
+                <th class="px-4 py-2">Email</th>
+                <th class="px-4 py-2">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if ($datos)
+                @foreach ($datos as $proveedor)
+                    <tr>
+                        <td class="border px-4 py-2 text-left">{{ $proveedor->name }}</td>
+                        <td class="border px-4 py-2 text-left">{{ $proveedor->direccion }}</td>
+                        <td class="border px-4 py-2 text-left">{{ $proveedor->telefono }}</td>
+                        <td class="border px-4 py-2 text-left">{{ $proveedor->email }}</td>
+                        <td class="border px-4 py-2">
+                            <div class="flex justify-center">
+                                <div class="sm:flex justify-center">
+                                    <!-- Editar  -->
+                                    <x-editar id="{{ $proveedor->id }}"></x-editar>
+                                </div>
+                                <div class="sm:flex justify-center">
+                                    <!-- Eliminar -->
+                                    <x-eliminar id="{{ $proveedor->id }}"></x-eliminar>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
+        </tbody>
+    </table> 
+
+
+
+
+        {{-- @foreach ($datos as $proveedor)
             <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px; height: 100%;">
                 <div style="width:90%;">
                     <div style="width:100%; display: flex">
@@ -53,6 +95,6 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        @endforeach --}}
     </div>
 </div>

@@ -65,8 +65,8 @@
 										<div class="flex rounded overflow-hidden border">
 											@if($usuario['profile_photo_path']) 
                                                 <img class="block rounded-md flex-none bg-cover"
-                                                   src="{{ asset('images2/'. $usuario['profile_photo_path'] ) }}"
-                                                   style="width: 100px; height: 100px;">
+                                                   src="{{ asset('storage/'. $usuario['profile_photo_path'] ) }}" style="width: 100px; height: 100px;">
+                                                   {{-- src="{{ asset('images2/'. $usuario['profile_photo_path'] ) }}" style="width: 100px; height: 100px;"> --}}
                                                 @else
                                                 <img class="block rounded-md flex-none bg-cover"
                                                    src="{{ asset('images/sin_imagen.jpg') }}"

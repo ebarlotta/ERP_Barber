@@ -91,7 +91,7 @@
 								<div class="mb-4 mr-2 text-left">
 									<label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Unidad</label>
 									@if($unidades)
-										<select wire:model="unidads_id" class="rounded">
+										<select wire:model="unidads_id" class="rounded form-control" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
 										<option value="">-</option>
 											@foreach ($unidades as $unidad)
 												<option value="{{$unidad->id}}">{{$unidad->name}}</option>
@@ -103,7 +103,7 @@
 								<div class="mb-4 mr-2 text-left">
 									<label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Categoría</label>
 									@if($categoria_productos)
-										<select wire:model="categoriaproductos_id" class="rounded">
+										<select wire:model="categoriaproductos_id" class="rounded form-control">
 										<option value="">-</option>
 											@foreach ($categoria_productos as $categoria)
 												<option value="{{$categoria->id}}">{{$categoria->name}}</option>
@@ -115,7 +115,7 @@
 								<div class="mb-4 mr-2 text-left">
 									<label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Proveedor</label>
 									@if($proveedores)
-										<select wire:model="proveedor_id" class="rounded">
+										<select wire:model="proveedor_id" class="rounded form-control">
 										<option value="">-</option>
 											@foreach ($proveedores as $proveedor)
 												<option value="{{$proveedor->id}}">{{$proveedor->name}}</option>
@@ -127,7 +127,7 @@
 								<div class="mb-4 mr-2 text-left">
 									<label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Estado</label>
 									@if($estados)
-										<select wire:model="estados_id" class="rounded">
+										<select wire:model="estados_id" class="rounded form-control">
 											<option value="">-</option>
 											@foreach ($estados as $estado)
 												<option value="{{$estado->id}}">{{$estado->name}}</option>

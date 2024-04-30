@@ -7,9 +7,13 @@ use Livewire\Component;
 use App\Models\Empleado;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Livewire\WithPagination;
 
 class EmpleadoComponent extends Component
 {
+
+    use WithPagination;
+
     public $isModalOpen = false;
     public $empleado, $empleado_id;
     public $empleados;
@@ -34,7 +38,7 @@ class EmpleadoComponent extends Component
         return view('livewire.empleado.empleado-component',['datos'=> Empleado::where('empresa_id', $this->empresa_id)
             ->where('activo', $activos)
             ->where('name', 'like', '%'.$this->search.'%')
-            ->paginate(30),])->extends('layouts.adminlte');
+            ->paginate(8),])->extends('layouts.adminlte');
 
          
         // else { $activos=0; 
