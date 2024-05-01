@@ -38,70 +38,6 @@
 					@include('livewire.empresa-modulos.createempresamodulos')
 				@endif
 				@if ($empresas)
-
-					<table>
-						<tr>
-							<td>
-								<table>
-									<tr>
-										<td class="table-cell">Empresas</td>
-										<td class="table-cell">Módulos</td>
-									</tr>
-									@foreach ($empresas as $empresa)
-										<tr>
-											<td class="border px-4 py-2 text-left @if ($seleccionado==$empresa->id) bg-red-300 @endif" wire:click="CargarModulos({{ $empresa->id }})">
-												<div class="w-full p-3">
-													<div class="flex rounded overflow-hidden border">
-														<img class="block flex-none bg-cover" style="width: 100px; height: 100px;"	src="https://picsum.photos/seed/picsum/100/100">
-														<div
-															class="bg-white rounded-b pl-3 flex flex-col justify-between leading-normal">
-															<div
-																class="text-black pt-4 font-bold text-lg mb-2 leading-tight">
-																{{ $empresa->name }}</div>
-															<p class="text-grey-darker text-base">Read mores
-															</p>
-														</div>
-													</div>
-												</div>
-
-											</td>
-										</tr>
-									@endforeach
-									<div class="w-full">{{ $datos->links() }}</div>
-								</table>
-							</td>
-							<td>
-								<div class="overflow-y-auto h-1/2">
-									<table>
-										@if ($modulosdelaempresa)
-											@foreach ($modulosdelaempresa as $modulo)
-												<tr>
-													<td class="border px-4 py-2 text-left bg-red-300">
-														<div class="w-full p-3">
-															<div class="flex rounded overflow-hidden border">
-																<img class="block flex-none bg-cover" src="{{ asset('images/'. $modulo['imagen']) }}" style="width: 100px; height: 100px;">
-																<div class="bg-white rounded-b flex flex-col justify-between leading-normal">
-																	<div class="text-black font-bold text-lg pl-3 pt-3 mb-2 leading-tight"> {{ $modulo['name'] }}</div>
-																	<p class="text-grey-darker text-base">Read more and	more</p>
-																</div>
-																<div class="bg-white rounded-b pl-3 flex flex-col justify-between leading-normal">
-																	<div class="text-black pt-4 font-bold text-lg mb-2 leading-tight">
-																		<img class="block flex-none bg-cover" style="width: 50px; height: 50px;" src="{{asset('images/activo.jpg') }}" width="40" height="40">
-																	</div>
-																</div>
-															</div>
-														</div>
-													</td>
-												</tr>
-											@endforeach
-										@endif
-									</table>
-								</div>
-							</td>
-						</tr>
-					</table>
-				@else
-
 				<div class="flex">
 					<div class="h-full" style="width: 40%">
 						Empresas
@@ -179,16 +115,10 @@
 									</div>
 								</div>
 					 @else
-
-
-
-
-
 					<h1>No hay datos</h1>
 				@endif
 			</div>
 		</div>
 	</div>
 </div>
-
 

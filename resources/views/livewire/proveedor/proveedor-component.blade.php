@@ -23,45 +23,6 @@
                             </div>
                         </div>
                     @endif
-
-                    <x-crear>Nuevo Proveedor</x-crear>
-                    @if ($isModalOpen)
-                        @include('livewire.proveedor.createproveedores')
-                    @endif
-                    <table class="table-fixed table-striped w-full">
-                        <thead>
-                            <tr class="bg-gray-100">
-                                <th class="px-4 py-2">Nombre del Proveedor</th>
-                                {{-- <th class="px-4 py-2">Dirección</th>
-                                <th class="px-4 py-2">Cuit</th> --}}
-                                <th class="px-4 py-2">Teléfono</th>
-                                <th class="px-4 py-2">Email</th>
-                                <th class="px-4 py-2">Opciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($proveedores)
-                                @foreach ($proveedores as $proveedor)
-                                    <tr>
-                                        <td class="border px-4 py-2 text-left">{{ $proveedor->name }}</td>
-                                        {{-- <td class="border px-4 py-2 text-left">{{ $proveedor->direccion }}</td>
-                                        <td class="border px-4 py-2 text-left">{{ $proveedor->cuit }}</td> --}}
-                                        <td class="border px-4 py-2 text-left">{{ $proveedor->telefono }}</td>
-                                        <td class="border px-4 py-2 text-left">{{ $proveedor->email }}</td>
-                                        <td class="border px-4 py-2">
-                                            <div class="flex justify-center">
-                                                <!-- Editar  -->
-                                                <x-editar id="{{ $proveedor->id }}"></x-editar>
-                                                <!-- Eliminar -->
-                                                <x-eliminar id="{{ $proveedor->id }}"></x-eliminar>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
-
     <div class="flex justify-around">
         <x-crear>Nuevo Proveedor</x-crear>
         @if ($isModalOpen)
@@ -132,11 +93,6 @@
                         <!-- Eliminar -->
                         <x-eliminar id="{{ $proveedor->id }}"></x-eliminar>
                     </div>
-
-
-
-
-
                 </div>
             </div>
         @endforeach --}}

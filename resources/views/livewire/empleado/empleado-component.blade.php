@@ -24,63 +24,6 @@
                             </div>
                         </div>
                     @endif
-
-                    <x-crear>Nuevo Empleado</x-crear>
-                    @if ($isModalOpen)
-                        @include('livewire.empleado.createempleados')
-                    @endif
-                    <table class="table-fixed table-striped w-full">
-                        <thead>
-                            <tr class="bg-gray-100">
-                                <th class="px-4 py-2 ">Legajo</th>
-                                <th class="px-4 py-2 ">Nombre del Empleado</th>
-                                <th class="px-4 py-2 ">DNI</th>
-                                {{-- <th class="px-4 py-2  sm:hidden">Dirección</th>
-                                <th class="px-4 py-2  sm:hidden">Cuil</th>
-                                <th class="px-4 py-2  sm:hidden">Teléfono</th>
-                                <th class="px-4 py-2  sm:hidden">Nacimiento</th>
-                                <th class="px-4 py-2  sm:hidden">Ingreso</th>
-                                <th class="px-4 py-2  sm:hidden">Estado Civil</th>
-                                <th class="px-4 py-2  sm:hidden">Tipo de Contratación</th>
-                                <th class="px-4 py-2  sm:hidden">Régimen</th>
-                                <th class="px-4 py-2  sm:hidden">Banco</th>
-                                <th class="px-4 py-2  sm:hidden">NroCuentaBancaria</th>
-                                <th class="px-4 py-2  sm:hidden">Mensualizado</th>
-                                <th class="px-4 py-2  sm:hidden">Jornalizado</th>
-                                <th class="px-4 py-2  sm:hidden">Por Hora</th>
-                                <th class="px-4 py-2  sm:hidden">Por Unidad</th>
-                                <th class="px-4 py-2  sm:hidden">Activo</th>
-                                <th class="px-4 py-2  sm:hidden">Fecha de Baja</th>
-                                <th class="px-4 py-2  sm:hidden">Categoría Profesional</th> --}}
-
-                                <th class="px-4 py-2">Opciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($empleados)
-                                @foreach ($empleados as $empleado)
-                                    <tr>
-                                        <td class="border px-4 py-2 text-left">{{ $empleado->legajo }}</td>
-                                        <td class="border px-4 py-2 text-left">{{ $empleado->name }}</td>
-                                        <td class="border px-4 py-2 text-left">{{ $empleado->dni }}</td>
-                                        {{-- <td class="border px-4 py-2 sm:hidden text-left">{{ $empleado->domicilio }}</td>
-                                        <td class="border px-4 py-2 sm:hidden text-left">{{ $empleado->cuil }}</td>
-                                        <td class="border px-4 py-2 sm:hidden text-left">{{ $empleado->telefono }}</td> --}}
-                                        <td class="border px-4 py-2 ">
-                                            <div class="sm:flex justify-center">
-                                                <div class="sm: flex justify-center">
-                                                    <!-- Editar  -->
-                                                    <x-editar id="{{ $empleado->id }}"></x-editar>
-                                                </div>
-                                                <div class="sm:flex justify-center">
-                                                    <!-- Eliminar -->
-                                                    <x-eliminar id="{{ $empleado->id }}"></x-eliminar>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-
                     <div class="flex justify-around">
                         <x-crear>Nuevo Empleado</x-crear>
                         @if ($isModalOpen)
@@ -137,11 +80,6 @@
                                 <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px; height: 100%;">
                             @else
                                 <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightGray 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px; height: 100%;">
-
-
-
-
-
                             @endif
                                 <div style="width:90%;">
                                     <div style="width:100%; display: flex">

@@ -73,20 +73,7 @@ class EmpresaModulosComponent extends Component
             //$this->modulosglobales = $array;
             // dd($this->modulosdelaempresa);
             //dd($array);
-
-
-
-
-            dd($this->modulosdelaempresa);
-
-
             // dd($this->modulosdelaempresa);
-
-
-
-            dd($this->modulosdelaempresa);
-
-
             $this->modulosdelaempresa=json_decode($this->modulosdelaempresa, true);
         $this->modulosNOempresa = Modulo::all();
         //dd($this->modulosNOempresa);
