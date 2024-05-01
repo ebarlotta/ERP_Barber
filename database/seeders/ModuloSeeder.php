@@ -8,7 +8,11 @@ use Illuminate\Database\Seeder;
 =======
 use Illuminate\Support\Facades\DB;
 
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 class ModuloSeeder extends Seeder
 {
     /**
@@ -60,6 +64,10 @@ class ModuloSeeder extends Seeder
 
         DB::table('modulos')->insert(['name' => 'Ventas Mostrador', 'pagina' => 'ventasmostrador','imagen'=>'ventasmostrador.jpg','leyenda'=>'Registre comprobantes de ventas, consulte informes en distintas escalas de tiempo.']);
     
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
     }
 }

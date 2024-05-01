@@ -45,7 +45,11 @@ class CreateComprobantesTable extends Migration
 <<<<<<< HEAD:database/migrations/2021_08_04_160812_create_comprobantes_table.php
 =======
             $table->unsignedBigInteger('proveedor_id');
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163:database/migrations/2021_08_04_160813_create_comprobantes_table.php
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a:database/migrations/2021_08_04_160813_create_comprobantes_table.php
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
             $table->unsignedBigInteger('empresa_id');
             $table->unsignedBigInteger('proveedor_id');
 
@@ -58,7 +62,11 @@ class CreateComprobantesTable extends Migration
 <<<<<<< HEAD:database/migrations/2021_08_04_160812_create_comprobantes_table.php
 =======
             $table->foreign('proveedor_id')->references('id')->on('proveedors');
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163:database/migrations/2021_08_04_160813_create_comprobantes_table.php
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a:database/migrations/2021_08_04_160813_create_comprobantes_table.php
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
             $table->foreign('empresa_id')->references('id')->on('empresas');
             $table->foreign('proveedor_id')->references('id')->on('proveedors');
             

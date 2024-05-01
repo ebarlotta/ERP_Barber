@@ -68,7 +68,11 @@
 														@endif
                                             <div class="bg-white rounded-b ml-4 pt-4 pl-4 flex flex-col justify-between leading-normal bg-transparent">
                                                 <div class="text-black font-bold text-lg mb-2 leading-tight bg-transparent" style="hover:background-color: yellow;">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                                                     {{ $empresa->name }}</div>
                                                 <p class="text-grey-darker text-base">Read more</p>
                                             </div>
@@ -81,7 +85,11 @@
                         {{-- <div class="w-full">{{ $empresas->links() }}</div> --}}
 =======
                         <div class="w-full">{{ $datos->links() }}</div>
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                     </div>
                 @else
                     <h1>No hay datos</h1>

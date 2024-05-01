@@ -21,7 +21,11 @@
     <!-- Tailwind -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
     <!-- Tooltips -->
     <link rel="stylesheet" href="{{asset('css/tooltips.css')}}">
 
@@ -30,7 +34,11 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 =======
 
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -43,7 +51,11 @@
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     
     @livewireStyles

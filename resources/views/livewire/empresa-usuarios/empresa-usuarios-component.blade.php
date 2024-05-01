@@ -114,7 +114,11 @@
                                                 @endif
                                                 <div
                                                     class="bg-white w-full rounded-b pl-4 flex flex-col justify-between leading-normal">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                                                     <div class="text-black  pt-4 font-bold text-lg mb-2 leading-tight">
                                                         {{ $empresa->name }}</div>
                                                     <p class="text-grey-darker text-base">Read more
@@ -139,10 +143,14 @@
                                         <li class="border px-4 py-2 text-left bg-red-100">
 <<<<<<< HEAD
                                             <div class="w-full p-2">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
 =======
                                             <div class="w-full p-2 hover:scale-110 transition-all duration-500">
 >>>>>>> sandbox
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                                                 <div class="flex rounded overflow-hidden border">
                                                     <img class="block flex-none bg-cover"
                                                         src="https://picsum.photos/seed/picsum/80/80"

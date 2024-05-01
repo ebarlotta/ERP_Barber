@@ -7,7 +7,11 @@ use App\Http\Controllers\ImprimirPDF;
 <<<<<<< HEAD
 =======
 use App\Http\Controllers\Productos;
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 use App\Http\Livewire\Area\AreaComponent;
 use App\Http\Livewire\Empresa\EmpresaComponent;
 use App\Http\Livewire\Modulo\ModuloComponent;
@@ -37,7 +41,11 @@ use App\User;
 
 
 // use App\Http\Controllers\Cart;
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -81,7 +89,11 @@ Route::get('facebook-callback-url', [App\Http\Controllers\Auth\LoginSocialContro
 // //Login with Google
 // Route::get('login-google', [App\Http\Controllers\Auth\LoginSocialController::class,'redirect_google']);
 // Route::get('google-callback-url', [App\Http\Controllers\Auth\LoginSocialController::class,'callback_google']);
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
@@ -90,7 +102,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 Route::get('areas',AreaComponent::class)->name('areas');
 Route::get('cuentas',CuentaComponent::class)->name('cuentas');
 Route::get('proveedores',ProveedorComponent::class)->name('proveedores');
@@ -102,7 +118,11 @@ Route::get('ventas',VentaComponent::class)->name('ventas');
 <<<<<<< HEAD
 =======
 Route::get('ventasmostrador',VentaMostradorComponent::class)->name('ventasmostrador');
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 
 Route::get('empresas',EmpresaComponent::class)->name('empresas');
 //Route::get('empresagestion',EmpresaGestion::class)->name('empresagestion');
@@ -147,9 +167,13 @@ Route::get('payments',PaymentComponent::class)->name('payments');
 
 <<<<<<< HEAD
 Route::get('/search/', 'ProveedorComponent@search')->name('search');
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
 =======
 // Route::get('/search/', 'ProveedorComponent@search')->name('search');
 
 Route::post('/home',[HomeController::class,'upload']);
 >>>>>>> sandbox
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52

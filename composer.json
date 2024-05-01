@@ -7,6 +7,10 @@
     "require": {
         "php": "^7.3|^8.0",
         "barryvdh/laravel-dompdf": "^0.9.0",
+<<<<<<< HEAD
+        "doctrine/dbal": "^3.1",
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
         "dompdf/dompdf": "^1.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",

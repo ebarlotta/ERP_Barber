@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 
 return [
@@ -643,3 +644,5 @@ return [
 
     'livewire' => true,
 ];
+=======
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52

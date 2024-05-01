@@ -34,7 +34,11 @@ class EmpresaUsuariosComponent extends Component
         ->section('content'); //Enzo
 =======
         return view('livewire.empresa-usuarios.empresa-usuarios-component',['datos'=>Empresa::OrderBy('id')->paginate(3),])->extends('layouts.adminlte');
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
     }
 
     public function mostrarmodal()
@@ -57,7 +61,11 @@ class EmpresaUsuariosComponent extends Component
 <<<<<<< HEAD
 =======
         $this->seleccionado=$id;
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
         $this->usuariosdelaempresa = DB::table('users')->distinct()
             ->join('empresa_usuarios', 'users.id', '=', 'empresa_usuarios.user_id')
             ->join('empresas',  'empresas.id', '=', 'empresa_usuarios.empresa_id',)

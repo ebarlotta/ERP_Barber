@@ -35,7 +35,11 @@ class Empleado extends Model
         'categoriaprofesional_id',
         'empresa_id',
         'user_id'
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
     ];
     //Relacion uno a muchos inversa
 

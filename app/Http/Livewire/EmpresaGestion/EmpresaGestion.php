@@ -19,7 +19,11 @@ class EmpresaGestion extends Component
     use WithFileUploads;
     use WithPagination;
 
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
     public $empresas;
     public $isModalOpen;
     public $seleccionado;
@@ -28,7 +32,11 @@ class EmpresaGestion extends Component
     public $empresa_id, $name, $direccion, $cuit, $ib, $establecimiento, $telefono, $actividad, $actividad1;
 =======
     public $empresa_id, $name, $direccion, $cuit, $ib, $imagen, $establecimiento, $telefono, $actividad, $actividad1;
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 
     public function render()
     {
@@ -38,7 +46,11 @@ class EmpresaGestion extends Component
         ->section('content');
 =======
         return view('livewire.empresa-gestion.empresa-gestion',['datos'=> Empresa::orderby('name')->paginate(3),])->extends('layouts.adminlte');
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
     }
 
     public function mostrarmodal()
@@ -59,7 +71,11 @@ class EmpresaGestion extends Component
 <<<<<<< HEAD
 =======
         $this->imagen = $empresa->imagen; 
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
         $this->establecimiento = $empresa->establecimiento; 
         $this->telefono = $empresa->telefono; 
         $this->actividad = $empresa->actividad; 
@@ -77,7 +93,11 @@ class EmpresaGestion extends Component
 <<<<<<< HEAD
 =======
         $this->imagen = ""; 
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
         $this->establecimiento = ""; 
         $this->telefono = ""; 
         $this->actividad = ""; 
@@ -97,7 +117,11 @@ class EmpresaGestion extends Component
             'establecimiento' => 'required',
 =======
             'establecimiento' => 'required|integer',
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
             'telefono' => 'required',
             'actividad' => 'required',
             'actividad1' => 'required',
@@ -112,7 +136,11 @@ class EmpresaGestion extends Component
         $nombreCompleto = basename($this->imagen) . time().'.jpg';
 
         $this->empresa_id = Empresa::updateOrCreate(['id' => $this->empresa_id],[
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
             'name' => $this->name,
             'direccion' => $this->direccion,
             'cuit' => $this->cuit,
@@ -123,7 +151,11 @@ class EmpresaGestion extends Component
             // 'image' => $this->imagen,
             'imagen' => $this->imagen->storeAs('storageimages',$nombreCompleto),
             // 'imagen' => $this->imagen->storeAs('images2',$nombreCompleto),
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
             'telefono' => $this->telefono,
             'actividad' => $this->actividad,
             'actividad1' => $this->actividad1,
@@ -145,7 +177,11 @@ class EmpresaGestion extends Component
             DB::table('clientes')->insert(['name' => 'CONSUMIDOR FINAL','cuil'=>'20-000000'.$this->empresa_id->id.'-0','direccion'=>'','email'=>'','telefono'=>'','empresa_id' => $this->empresa_id->id,]);  // Inserta al CONSUMIDOR FINAL como cliente
         }
 
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
         $this->closeModalPopover();
     }
 }

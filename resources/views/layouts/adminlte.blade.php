@@ -15,7 +15,11 @@
 =======
     <script src="https://cdn.tailwindcss.com"></script>
     {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 
 
     <title>{{ config('app.name', 'Laravel') }}</title>
@@ -46,7 +50,11 @@
                 prueba
 =======
                 {{-- @yield('content')  Desactivado --}}
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
             </main>
         </div>
         @stop

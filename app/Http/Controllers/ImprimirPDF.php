@@ -9,7 +9,11 @@ use Illuminate\Support\Facades\DB;
 <<<<<<< HEAD
 =======
 use App\Http\Livewire\Haberes\HaberesComponent as Haber;
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 
 class ImprimirPDF extends Controller
 {
@@ -21,7 +25,11 @@ class ImprimirPDF extends Controller
 <<<<<<< HEAD
         ->groupBy('proveedors.id')
 =======
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
         //->whereBetween('comprobantes.fecha',["'".$this->ddesde."'","'".$this->dhasta."'"])
         // ->whereRaw('(NetoComp-MontoPagadoComp)>1')
         ->where('comprobantes.fecha','>=',$request->ddesde)
@@ -37,7 +45,11 @@ class ImprimirPDF extends Controller
         //dd($sql);
         $registros = DB::select(DB::raw($sql));
 
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
         $saldo = 0;
         foreach($registros as $registro) { 
             if($registro->Saldo>1) { $saldo = $saldo + $registro->Saldo; }
@@ -162,7 +174,11 @@ class ImprimirPDF extends Controller
         $mes = $this->ConvierteMesEnTexto($mes);
         $libro = 0;
         if ($compraventa) { $LIBRO = 'COMPRAS'; } else { $LIBRO = 'VENTAS'; }
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
         $encabezado = '<table style="font-size: 14px; line-height: 16px; width:100%; border: 1px solid #ddd; font-family: Arial, Helvetica, sans-serif">
         <tr>
             <td style="width:33%; text-align:left;">Empresa: ' . $empresa->name.'</td>
@@ -175,7 +191,11 @@ class ImprimirPDF extends Controller
             <td style="width:33%; text-align:center;"><u>REGISTRO IVA COMPRAS</u></td>
 =======
             <td style="width:33%; text-align:center;"><u>REGISTRO IVA ' . $LIBRO . '</u></td>
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
             <td style="width:33%; text-align:right;">Libro Nro: ' . $libro.'</td>
         </tr>
         <tr>
@@ -232,7 +252,11 @@ class ImprimirPDF extends Controller
             $html =  $this->encabezado($pagina, $request->mes,$request->anio);
 =======
             $html =  $this->encabezado($pagina, $request->mes,$request->anio,1); //  1:COMPRAS
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
             $row=''; $i = 0;
             foreach($registros as $registro) {
                 $row = $row . '<tr>
@@ -285,7 +309,11 @@ class ImprimirPDF extends Controller
                     $row = $row . $this->encabezado($pagina,$request->mes,$request->anio);
 =======
                     $row = $row . $this->encabezado($pagina,$request->mes,$request->anio,1);
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                     $i=0;
                 }
             }        
@@ -514,5 +542,9 @@ class ImprimirPDF extends Controller
         return $pdf->stream('recibos/pdf_recibo_view.pdf');
     }
 
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 }

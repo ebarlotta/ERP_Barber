@@ -54,7 +54,11 @@
 											<img class="block rounded-md flex-none bg-cover" src="{{ asset('images/'. $modulo->imagen) }}" style="width:100px; height: 100px;">
 											<div class="bg-white w-full rounded-b pl-4 flex flex-col justify-between leading-normal">
 												<div class="text-black pt-4 font-bold text-lg mb-2 leading-tight">{{ $modulo->name }}</div>
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 												<p class="text-grey-darker text-base">Read more</p>
 											</div>
 										</div>
@@ -89,7 +93,11 @@
                                                    style="width: 100px; height: 100px;">
                                                 @endif
 											<div class="bg-white rounded-b pl-4 pt-4 flex flex-col justify-between leading-normal">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 												<div class="text-black font-bold text-lg mb-2 leading-tight">{{ $usuario['name'] }}</div>
 												<p class="text-grey-darker text-base">Read more and	more</p>
 											</div>

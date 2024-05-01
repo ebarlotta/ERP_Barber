@@ -7,7 +7,11 @@
                     <div class="bg-gray-200 p-2 text-center rounded-lg shadow-lg w-auto m-1">
 =======
                     <div class="bg-gray-200 p-2 text-center rounded-lg shadow-lg w-auto m-1 justify-center">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                         <div wire:click="configurarempresa({{ $empresa['id'] }})" class="flex justify-end">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                 viewBox="0 0 24 24" stroke="gray">
@@ -27,7 +31,11 @@
                         
                         <img class="rounded-md" src="{{ asset(''.$empresa['imagen']) }}" style="margin: auto; margin-top: 10px; width: 150px; height: 150px;">
                         <!-- <img wire:click="cargamodulos({{ $empresa['id'] }})" class="rounded-md" src="{{ asset('/images2/'.$empresa['imagen']) }}" style="margin: auto; margin-top: 10px; width: 150px; height: 150px;"> -->
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                     </div>
                 @endforeach
             @else
@@ -47,7 +55,11 @@
                         </button>
                         </a>
                     </form>
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                 </div>
             @endif
         </div>

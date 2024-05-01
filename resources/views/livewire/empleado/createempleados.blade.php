@@ -61,7 +61,11 @@
                         <select class="rounded text-gray-700" wire:model="estadocivil">
 =======
                         <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" wire:model="estadocivil" >
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                             <option value="">-</option>
                             <option value="Separado/a">Separado/a</option>
                             <option value="Soltero/a">Soltero/a</option>
@@ -78,7 +82,11 @@
 =======
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Tipo Contratación</label>
                         <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" wire:model="tipocontratacion">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                             <option value="">-</option>
                             <option value="Por Contrato">Por Contrato</option>
                             <option value="A tiempo parcial">A tiempo parcial</option>
@@ -126,7 +134,11 @@
                         <select class="rounded text-gray-700" name="mensualizado" id="" wire:model="mensualizado">
 =======
                         <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="mensualizado" id="" wire:model="mensualizado">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                             <option value="1">Mensualizado</option>
                             <option value="0">No Mensualizado</option>
                         </select>
@@ -138,7 +150,11 @@
                         <select class="rounded text-gray-700" name="jornalizado" id="" wire:model="jornalizado">
 =======
                         <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="jornalizado" id="" wire:model="jornalizado">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                             <option value="1">Jornalizado</option>
                             <option value="0">No Jornalizado</option>
                         </select>
@@ -150,7 +166,11 @@
                         <select class="rounded text-gray-700" name="hora" id="" wire:model="hora">
 =======
                         <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="hora" id="" wire:model="hora">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                             <option value="1">Por Hora</option>
                             <option value="0">No por hora</option>
                         </select>
@@ -163,7 +183,11 @@
                             <select class="rounded text-gray-700" name="unidad" id="" wire:model="unidad">
 =======
                             <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="unidad" id="" wire:model="unidad">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                                 <option value="1">Por Unidad</option>
                                 <option value="0">No por Unidad</option>
                             </select>
@@ -175,7 +199,11 @@
                         <select class="rounded text-gray-700" name="activo" id="" wire:model="activo">
 =======
                         <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="activo" id="" wire:model="activo">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                             <option value="1">Activo</option>
                             <option value="0">Pasivo</option>
                         </select>

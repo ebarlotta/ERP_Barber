@@ -10,10 +10,14 @@ use Carbon\Carbon;
 =======
 use Illuminate\Support\Facades\DB;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
 =======
 use Livewire\WithPagination;
 >>>>>>> sandbox
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 
 class EmpleadoComponent extends Component
 {
@@ -102,7 +106,11 @@ class EmpleadoComponent extends Component
 <<<<<<< HEAD
 =======
         $this->categoriaprofesional = '';
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
     }
 
     public function store()
@@ -130,7 +138,11 @@ class EmpleadoComponent extends Component
 <<<<<<< HEAD
 =======
             // 'categoriaprofesional' => 'required',
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
             
         ]);
         
@@ -197,7 +209,11 @@ class EmpleadoComponent extends Component
 =======
         $this->categoriaprofesional = $empleado->categoriaprofesional->id;
                 //dd($empleado->categoriaprofesional->id);
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
         $this->openModalPopover();
     }
 

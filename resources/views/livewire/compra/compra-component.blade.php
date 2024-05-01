@@ -5,7 +5,11 @@
 	<div class="content-center flex">
 =======
 	<div class="content-center block">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 		<div class="bg-white p-2 text-center rounded-lg shadow-lg w-full">
 			
 			<!-- Tabs  -->
@@ -16,7 +20,11 @@
 						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
 =======
 						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center" style="text-decoration: none;">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 							@if($tabActivo==1)
 								<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-white bg-pink-600" wire:click="CambiarTab(1)">
 							@else 
@@ -28,7 +36,11 @@
 =======
 								<!-- <button class="btn btn-" wire:click="Ejecutar">Ejecutar</button> -->
 								</a>
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 						</li>
 						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
 							@if($tabActivo==2)
@@ -138,7 +150,11 @@
 													</div>
 												@endif
 											</div>
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 										</div>
 									</div>
 									<!-- Modals -->
@@ -274,7 +290,11 @@
 										<div class="w-44 mr-1 grid text-left">
 											<label style="font-size: 80%;">Proveedor</label>
 											<select class="px-2 w-full rounded-md h-8 leading-none" wire:model="gproveedor">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 												<option value=" "> </option>
 												@foreach ($proveedores as $proveedor)
 													<option value="{{ $proveedor->id }}">
@@ -300,7 +320,11 @@
 										<div class="w-32 mr-1 grid text-left">
 											<label style="font-size: 80%;">Participa Iva</label>
 											<select class="w-4/5 px-2 rounded-md h-8 leading-none" wire:model="gpartiva">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 												<option value=""></option>
 												<option value="Si">Si</option>
 												<option value="No">No</option>
@@ -331,7 +355,11 @@
 												<option value="2024">2024</option>
 												<option value="2023">2023</option>
 												<option value="2022">2022</option>
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 												<option value="2021">2021</option>
 												<option value="2020">2020</option>
 												<option value="2019">2019</option>
@@ -353,7 +381,11 @@
 										<div class="w-24 mr-1 grid text-left">
 											<label style="font-size: 80%;">Mes</label>
 											<select class="w-full px-2 rounded-md h-8 leading-none" wire:model="gmes">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 												<option value=""></option>
 												<option value="1">enero
 												</option>
@@ -393,7 +425,11 @@
 										<div class="w-32 mr-1 grid text-left">
 											<label style="font-size: 80%;">Areas</label>
 											<select class="w-full px-2 rounded-md h-8 leading-none" wire:model="garea">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 												<option value=" "> </option>
 												@foreach ($areas as $area)
 													<option value="{{ $area->id }}">
@@ -411,7 +447,11 @@
 										<div class="w-32 mr-1 grid text-left">
 											<label style="font-size: 80%;">Cuentas</label>
 											<select class="w-full px-2 rounded-md h-8 leading-none" wire:model="gcuenta" >
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 												<option value=" "> </option>
 												@foreach ($cuentas as $cuenta)
 													<option value="{{ $cuenta->id }}">
@@ -442,7 +482,11 @@
 										<div class="w-28 mr-1 grid text-left">
 											<label style="font-size: 80%;">IVA</label>
 											<select class="w-full rounded-md h-8 leading-none" wire:model="giva" wire:change="CalcularIva()">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 												<option value="1" selected>Iva 0%</option>
 												@foreach ($ivas as $iva)
 													<option value="{{ $iva->id }}">
@@ -757,7 +801,11 @@
 										</div>
 										{!! $filtro !!}
 									{{-- </div> --}}
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 								</div>
 							</div>
 
@@ -781,6 +829,7 @@
 												<option value="0">Todos</option>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 												<option value="2024">2024</option>
@@ -788,6 +837,12 @@
 												<option value="2023">2023</option>
 												<option value="2022">2022</option>
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+=======
+												<option value="2023">2023</option>
+												<option value="2022">2022</option>
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 												<option value="2021">2021</option>
 												<option value="2020">2020</option>
 												<option value="2019">2019</option>
@@ -820,7 +875,11 @@
 										</div>
 									
 										<div class="block mb-4 justify-center">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 											Hasta <br>
 											<input class="ml-2 text-xs rounded-md h-7" type="date" wire:model="dhasta"><br>
 										</div>
@@ -845,7 +904,11 @@
 										</div>
 									</div>
 
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 									<div class="flex justify-center w-full">
 										@if ($MostrarDeudaProveedores)
 											{!! $DeudaProveedoresFiltro !!}
@@ -975,7 +1038,11 @@
 									</div>
 								</div>
 							</div>
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 {{-- Cuentas Corrientes  --}}
 {{-- =================== --}}
 							<div class="{{ $tabActivo != 4 ? 'hidden' : '' }}">
@@ -996,7 +1063,11 @@
 													<select class="mr-4 w-full text-xs px-1 rounded-md h-7 leading-none" wire:model="lmes" wire:change="MostrarLibros()">
 =======
 													<select class="mr-4 w-full text-xs px-2 rounded-md h-7 leading-none" wire:model="lmes" wire:change="MostrarLibros()">
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 														<option value=""></option>
 														<option value="1">enero
 														</option>
@@ -1031,6 +1102,9 @@
 														<option value=""></option>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 =======
 														<option value="2023">2023</option	on>
 =======
@@ -1038,7 +1112,11 @@
 														<option value="2023">2023</option>
 >>>>>>> sandbox
 														<option value="2022">2022</option>
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 														<option value="2021">2021</option>
 														<option value="2020">2020</option>
 														<option value="2019">2019</option>
@@ -1062,7 +1140,11 @@
 														<button class="rounded-md bg-green-300 px-8 py-1 ml-4 mt-6" style="color: black;">Imprimir Libro</button>
 													</a><br>
 													<button class="rounded-md bg-yellow-300 px-8 py-1 ml-4 mt-6 white" wire:click="openModalCerrarLibro()">Cerrar Libro</button>
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 												</td>
 											</tr>
 										</table>
@@ -1097,7 +1179,11 @@
 =======
 	{{-- &nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-info"
 		onclick="javascript: window.location.href='../../sistema/menu.php';">&nbsp;&nbsp;&nbsp;Volver&nbsp;&nbsp;&nbsp;</button> --}}
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 </footer>
 </div>
 

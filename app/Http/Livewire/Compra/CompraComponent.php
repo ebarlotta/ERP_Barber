@@ -13,7 +13,11 @@ use App\Models\Iva;
 =======
 use App\Models\Producto;
 use App\Models\Compras_Productos;
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 use Illuminate\Support\Facades\DB;
 
 
@@ -26,7 +30,11 @@ class CompraComponent extends Component
     public $detalles=[];       // Globales
     public $detalle;
     public $productos;
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
     public $empresa_id; public $tabActivo=1; public $comprobante_id;
     
     //Comprobantes
@@ -50,7 +58,11 @@ class CompraComponent extends Component
     public $gfmes, $gfproveedor, $gfparticipa, $gfiva, $gfdetalle, $gfarea, $gfcuenta, $gfanio, $fgascendente, $gfsaldo; //Comprobantes
     
     
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
     // Deuda Proveedores
     public $darea, $ddesde, $dhasta, $danio;
     public $DeudaProveedoresFiltro, $MostrarDeudaProveedores; 
@@ -77,7 +89,11 @@ class CompraComponent extends Component
         //dd($this->empresa_id);
         if ($this->gfanio==null) { $this->gfanio = date("Y"); } 
         
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
         if (!is_null(session('empresa_id'))) { $this->empresa_id = session('empresa_id'); } 
         else { 
             $userid=auth()->user()->id;
@@ -97,7 +113,11 @@ class CompraComponent extends Component
         $this->ivas = Iva::where('id','>',1)->get();
         $this->productos = Producto::where('empresa_id', $this->empresa_id)->orderBy('name','asc')->get();
         
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
         return view('livewire.compra.compra-component');
     }
 
@@ -115,7 +135,11 @@ class CompraComponent extends Component
     public function openModalAgregarDetalle() { $this->ModalAgregarDetalle = true; $this->listado_productos(); }
     public function closeModalAgregarDetalle() { $this->ModalAgregarDetalle = false;  }
 
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
     public function RellenarCamposVacios() {
         if(is_null($this->gfecha)) $this->gfecha=now();
         if(is_null($this->gbruto)) $this->gbruto=0.00;
@@ -134,7 +158,11 @@ class CompraComponent extends Component
         
 =======
         if(is_null($this->giva2)) $this->giva2=0.00;        
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
     }
 
     public function store() {
@@ -172,7 +200,11 @@ class CompraComponent extends Component
 
             // dd(count($cerrado));
         if(!count($cerrado) || (count($cerrado) && $this->gpartiva='Si')) {
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
             Comprobante::create([
                 'fecha'             => $this->gfecha,
                 'comprobante'       => $this->gcomprobante,
@@ -341,7 +373,11 @@ class CompraComponent extends Component
                   </tr>
                 </thead>";
                 
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
             $Cantidad = 0; $MontoPagado = 0; $Neto = 0; $RetGan = 0; $RetIB = 0; $PerIva = 0; $Exento = 0 ;$ImpInterno = 0; $Bruto = 0; $MontoIvaT =0; $NetoT = 0;
         foreach($registros as $registro) {
             //dd($registro);
@@ -482,7 +518,11 @@ class CompraComponent extends Component
         // $this->filtro = $this->filtro."<tr class=\"bg-gradient-to-r from-purple-400 via-pink-500 to-red-500\"><td></td><td></td><td></td><td class=\"border border-green-600\">Totales</td><td class=\"border border-green-600 text-right\">".number_format($Bruto, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($MontoIvaT, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($Exento, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($ImpInterno, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($PerIva, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($RetIB, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($RetGan, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($NetoT, 2,'.','')."</td><td class=\"border border-green-600 text-right\">".number_format($MontoPagado, 2,'.','')."</td><td class=\"border border-green-600 text-right\"><strong>".number_format($Saldo, 2,'.','')."</strong></td><td class=\"border border-green-600 text-right\">".number_format($Cantidad, 2,'.','')."</td></tr>";
         // $this->filtro=$this->filtro."</table>";
         
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
     }
 
     public function ConvierteMesEnTexto($id) {
@@ -509,7 +549,11 @@ class CompraComponent extends Component
         $this->gfanio=$dato;
         $this->gfiltro();
     }
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
     public function ProcesaSQLFiltro($interfaz){
         $sql='';
         switch ($interfaz) {
@@ -543,7 +587,11 @@ class CompraComponent extends Component
                 if ($this->gfcuenta) $sql=$sql ? $sql=$sql." and cuenta_id=" . $this->gfcuenta : " cuenta_id=" . $this->gfcuenta;
                 if ($this->gfanio) $sql=$sql ? $sql=$sql." and Anio=" . $this->gfanio : " Anio=" . $this->gfanio;
                 $sql=$sql ? $sql=$sql." and empresa_id=" . session('empresa_id') : $sql." empresa_id=" . session('empresa_id');
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                 //Fecha	Comprobante	Proveedor	Detalle	Bruto	Iva	exento	Imp.Interno	Percec.Iva	Retenc.IB	Retenc.Gan	Neto	Pagado	Saldo	Cant.Litros	Partic.Iva	Pasado EnMes	Area	Cuenta
                 $sql = "SELECT * FROM comprobantes WHERE" . $sql . " ORDER BY fecha, comprobante";
                 if ($this->fgascendente) $sql=$sql . " ASC";
@@ -616,7 +664,11 @@ class CompraComponent extends Component
 <<<<<<< HEAD
 =======
                     ->where('comprobantes.empresa_id','=',session('empresa_id'))
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                     //->orderByDesc('avg_salary')
                     ->get();
                 $this->MostrarCreditoProveedores=true;break;
@@ -641,7 +693,11 @@ class CompraComponent extends Component
 =======
         //dd($registro);
         //dd($this->gdetalle);
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
         $this->gbruto=number_format($registro->BrutoComp, 2, '.','');
         $this->gpartiva=$registro->ParticIva;
         $a=Iva::find($registro->iva_id);
@@ -666,7 +722,11 @@ class CompraComponent extends Component
 
 =======
         
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
         $this->validate([
             'gfecha'            => 'required|date',
             'gbruto'            => 'numeric',
@@ -740,7 +800,11 @@ class CompraComponent extends Component
 =======
                 <td class=\"center bg-gray-300\"><b>Nombre</b></td>
                 <td class=\"center bg-gray-300\"><b>Deuda</b></td>
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
             </tr>";
         foreach($registros as $registro) {
             if ($registro->Saldo>1) {
@@ -766,7 +830,11 @@ class CompraComponent extends Component
                     </td>
                 </tr>";
 
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                 $Saldo = $Saldo + $registro->Saldo;
             }
         }
@@ -777,7 +845,11 @@ class CompraComponent extends Component
                 <td class=\"text-right bg-gray-300\"><b>".number_format($Saldo,2,',','.')."</b></td>
 =======
                 <td class=\"text-right bg-gray-300 pr-4\"><b>".number_format($Saldo,2,',','.')."</b></td>
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
             </tr>
             </table>";
             //dd("filtro" . $this->DeudaProveedoresFiltro);
@@ -823,7 +895,11 @@ class CompraComponent extends Component
                 "<tr>
                     <td class=\"bg-gray-100 border border-blue-500 text-left pl-4\">" . $proveedor->name . "</td>
                     <td class=\"bg-gray-100 border border-blue-500 text-right pr-4\">" . number_format($registro->Saldo * -1 ,2,',','.') . "</td>
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                 </tr>";
                 $Saldo = $Saldo + $registro->Saldo * -1;
             }
@@ -839,7 +915,11 @@ class CompraComponent extends Component
             "<tr class=\"bg-green-500\">
                 <td class=\"colspan-2 bg-gray-400\">Total Crédito</td>
                 <td class=\"bg-gray-400 text-right pr-4\"><b>".number_format($Saldo,2,',','.')."</b></td>
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
             </tr>
             </table>";
     }
@@ -879,7 +959,11 @@ class CompraComponent extends Component
         //SELECT tblComprobantes2.*, proveedors.id FROM tblComprobantes2 INNER JOIN proveedors ON tblComprobantes2.CuitComp = proveedors.name and proveedors.empresa_id=2 and tblComprobantes2.Empresa='30712141790' 
         
     }
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
     public function CerrarLibro() {
         //$sSql="SELECT * FROM tblComprobantes WHERE Anio=$LibroAnio and Empresa='".$_SESSION['CuitEmpresa']."' and PasadoEnMes='$LibroMes' and ParticipaEnIva='Si'";
         $i=0;
@@ -969,5 +1053,9 @@ class CompraComponent extends Component
         //dd($this->glistado_prod);
     }
     
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+>>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
+>>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 }
