@@ -6,14 +6,8 @@ use App\Models\Empresa;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
-<<<<<<< HEAD
-=======
+
 use App\Http\Livewire\Haberes\HaberesComponent as Haber;
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 
 class ImprimirPDF extends Controller
 {
@@ -22,34 +16,14 @@ class ImprimirPDF extends Controller
         $registros = DB::table('comprobantes')
         ->selectRaw('sum(NetoComp-MontoPagadoComp) as Saldo, proveedors.id, proveedors.name')
         ->join('proveedors', 'comprobantes.proveedor_id', '=', 'proveedors.id')
-<<<<<<< HEAD
-        ->groupBy('proveedors.id')
-=======
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
-        //->whereBetween('comprobantes.fecha',["'".$this->ddesde."'","'".$this->dhasta."'"])
-        // ->whereRaw('(NetoComp-MontoPagadoComp)>1')
         ->where('comprobantes.fecha','>=',$request->ddesde)
         ->where('comprobantes.fecha','<=',$request->dhasta)
-<<<<<<< HEAD
-        ->get();
-
-=======
         ->groupBy('proveedors.id')
         ->get();
 
         //$sql ="select sum(NetoComp-MontoPagadoComp) as Saldo, proveedors.* from `comprobantes` inner join `proveedors` on `comprobantes`.`proveedor_id` = `proveedors`.`id` where `comprobantes`.`fecha` >= $request->ddesde and `comprobantes`.`fecha` <= $request->dhasta group by comprobantes.proveedor_id";
         //dd($sql);
         $registros = DB::select(DB::raw($sql));
-
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
         $saldo = 0;
         foreach($registros as $registro) { 
             if($registro->Saldo>1) { $saldo = $saldo + $registro->Saldo; }
@@ -101,7 +75,7 @@ class ImprimirPDF extends Controller
         return $caso;
     }
 
-<<<<<<< HEAD
+
     public function ejemplo(Request $request) {
         $registros = DB::table('comprobantes')
         // ->selectRaw('sum(NetoComp-MontoPagadoComp) as Saldo'       
@@ -133,52 +107,11 @@ class ImprimirPDF extends Controller
         
     }
 
-    public function encabezado($pagina, $mes, $anio) {
-        $empresa = Empresa::find(session('empresa_id'));
-        $mes = $this->ConvierteMesEnTexto($mes);
-        $libro = 0;
-=======
-    // public function ejemplo(Request $request) {
-    //     $registros = DB::table('comprobantes')
-    //     // ->selectRaw('sum(NetoComp-MontoPagadoComp) as Saldo'       
-    //     ->where('comprobantes.Anio','>=',$request->anio)
-    //     ->where('comprobantes.PasadoEnMes','<=',$request->mes)
-    //     ->where('comprobantes.empresa_id','=',session('empresa_id'))
-    //     ->where('ParticIva','=','Si')
-    //     ->join('proveedors', 'comprobantes.proveedor_id', '=', 'proveedors.id')
-    //     ->get();
-    //     // dd($registros);
-    //     $BrutoComp=0; $MontoIva=0; $ExentoComp=0; $ImpInternoComp=0; $PercepcionIvaComp=0; $RetencionIB=0; $RetencionGan=0; $NetoComp=0;$MontoPagadoComp = 0; $CantidadLitroComp=0;
-        
-    //     foreach($registros as $registro) { 
-    //         $BrutoComp=$BrutoComp + $registro->BrutoComp; 
-    //         $MontoIva=$MontoIva + $registro->MontoIva; 
-    //         $ExentoComp=$ExentoComp + $registro->ExentoComp; 
-    //         $ImpInternoComp=$ImpInternoComp + $registro->ImpInternoComp; 
-    //         $PercepcionIvaComp=$PercepcionIvaComp + $registro->PercepcionIvaComp; 
-    //         $RetencionIB=$RetencionIB + $registro->RetencionIB; 
-    //         $RetencionGan=$RetencionGan + $registro->RetencionGan; 
-    //         $NetoComp=$NetoComp + $registro->NetoComp;
-    //     }
-    //     $mes = $this->ConvierteMesEnTexto($request->mes);
-    //     $anio = $request->anio;
-    //     //dd($registros);
-    //     $empresa = Empresa::find(session('empresa_id'));
-    //     $pdf = PDF::loadView('livewire.compra.pdf_iva_view',compact('registros','BrutoComp', 'MontoIva', 'ExentoComp', 'ImpInternoComp', 'PercepcionIvaComp', 'RetencionIB', 'RetencionGan', 'NetoComp', 'empresa','mes','anio'))->setPaper('a4', 'landscape');
-    //     return $pdf->stream('pdf_file.pdf');
-        
-    // }
-
     public function encabezado($pagina, $mes, $anio, $compraventa) {
         $empresa = Empresa::find(session('empresa_id'));
         $mes = $this->ConvierteMesEnTexto($mes);
         $libro = 0;
         if ($compraventa) { $LIBRO = 'COMPRAS'; } else { $LIBRO = 'VENTAS'; }
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
         $encabezado = '<table style="font-size: 14px; line-height: 16px; width:100%; border: 1px solid #ddd; font-family: Arial, Helvetica, sans-serif">
         <tr>
             <td style="width:33%; text-align:left;">Empresa: ' . $empresa->name.'</td>
@@ -187,15 +120,10 @@ class ImprimirPDF extends Controller
         </tr>
         <tr>
             <td style="width:33%; text-align:left;">' . $empresa->direccion.'</td>
-<<<<<<< HEAD
+
             <td style="width:33%; text-align:center;"><u>REGISTRO IVA COMPRAS</u></td>
-=======
+
             <td style="width:33%; text-align:center;"><u>REGISTRO IVA ' . $LIBRO . '</u></td>
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
             <td style="width:33%; text-align:right;">Libro Nro: ' . $libro.'</td>
         </tr>
         <tr>
@@ -213,22 +141,22 @@ class ImprimirPDF extends Controller
             <td style="width:33%; text-align:center;"></td>
             <td style="width:33%; text-align:right;"></td>
         </tr>
-    </table>
-    <table style=" margin-top:3px; font-size: 12px; line-height: 12px; border-collapse: collapse; width:100%;">
-        <tr style="color:black; background-color:#ddd; border: 1px solid #ddd;">
-            <td style="border: 1px solid #ddd; text-align:center;">Fecha</td>
-            <td style="border: 1px solid #ddd; text-align:center;">Comprobante</td>
-            <td style="border: 1px solid #ddd; text-align:center;">Vendedor</td>
-            <td style="border: 1px solid #ddd; text-align:center;">Cuit</td>
-            <td style="border: 1px solid #ddd; text-align:center;">Bruto</td>
-            <td style="border: 1px solid #ddd; text-align:center;">Iva</td>
-            <td style="border: 1px solid #ddd; text-align:center;">Exento</td>
-            <td style="border: 1px solid #ddd; text-align:center;">Imp.Interno</td>
-            <td style="border: 1px solid #ddd; text-align:center;">Perc.Iva</td>
-            <td style="border: 1px solid #ddd; text-align:center;">Ret.IB</td>
-            <td style="border: 1px solid #ddd; text-align:center;">Ret.GAN</td>
-            <td style="border: 1px solid #ddd; text-align:center;">Total</td>
-        </tr>';
+        </table>
+        <table style=" margin-top:3px; font-size: 12px; line-height: 12px; border-collapse: collapse; width:100%;">
+            <tr style="color:black; background-color:#ddd; border: 1px solid #ddd;">
+                <td style="border: 1px solid #ddd; text-align:center;">Fecha</td>
+                <td style="border: 1px solid #ddd; text-align:center;">Comprobante</td>
+                <td style="border: 1px solid #ddd; text-align:center;">Vendedor</td>
+                <td style="border: 1px solid #ddd; text-align:center;">Cuit</td>
+                <td style="border: 1px solid #ddd; text-align:center;">Bruto</td>
+                <td style="border: 1px solid #ddd; text-align:center;">Iva</td>
+                <td style="border: 1px solid #ddd; text-align:center;">Exento</td>
+                <td style="border: 1px solid #ddd; text-align:center;">Imp.Interno</td>
+                <td style="border: 1px solid #ddd; text-align:center;">Perc.Iva</td>
+                <td style="border: 1px solid #ddd; text-align:center;">Ret.IB</td>
+                <td style="border: 1px solid #ddd; text-align:center;">Ret.GAN</td>
+                <td style="border: 1px solid #ddd; text-align:center;">Total</td>
+            </tr>';
         return $encabezado;
     }
 
@@ -248,15 +176,7 @@ class ImprimirPDF extends Controller
         // <body style="font-family: Arial, Helvetica, sans-serif">';
         if(count($registros)) {
             $pagina=$registros->first()->Cerrado; $libro='0';
-<<<<<<< HEAD
-            $html =  $this->encabezado($pagina, $request->mes,$request->anio);
-=======
             $html =  $this->encabezado($pagina, $request->mes,$request->anio,1); //  1:COMPRAS
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
             $row=''; $i = 0;
             foreach($registros as $registro) {
                 $row = $row . '<tr>
@@ -305,28 +225,17 @@ class ImprimirPDF extends Controller
                     $row = $row . $pie;
                     $row = $row . '<div style="page-break-after:always;"></div>';
                     $pagina++;
-<<<<<<< HEAD
-                    $row = $row . $this->encabezado($pagina,$request->mes,$request->anio);
-=======
                     $row = $row . $this->encabezado($pagina,$request->mes,$request->anio,1);
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
                     $i=0;
                 }
             }        
-            $html =  $html . $row .$pie ;
-        
+            $html =  $html . $row .$pie ;        
         }        
         $pdf = PDF::loadHtml($html);
         $pdf->setPaper('A4', 'landscape');
         //$pdf->render();
         return $pdf->stream('pdf_iva_view.pdf');
     }
-<<<<<<< HEAD
-=======
 
     public function IvaVentas(Request $request) {
         $html = "No hay registros para este período!!!";
@@ -541,10 +450,4 @@ class ImprimirPDF extends Controller
         //$pdf->render();
         return $pdf->stream('recibos/pdf_recibo_view.pdf');
     }
-
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 }

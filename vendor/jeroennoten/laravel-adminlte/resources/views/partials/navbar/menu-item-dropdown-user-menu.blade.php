@@ -22,20 +22,9 @@
                  class="user-image img-circle elevation-2"
                  alt="{{ Auth::user()->name }}">
         @endif
-        <div class="d-flex">
-            <span>
-                @if(is_null(Auth::user()->profile_photo_path))
-                {{-- <img src="images/sin_imagen.jpg" width="40px;" height="30px;" style="border-radius: 50%"> --}}
-                    <img src="images/sin_imagen.jpg" class="user-image img-circle elevation-3" >
-                @else
-                    <img src="storage/{{ Auth::user()->profile_photo_path }}" class="user-image img-circle elevation-3" >
-                @endif
-            </span>
-            {{-- <span @if(config('adminlte.usermenu_image')) class="d-none d-md-inline" @endif>
-                {{ Auth::user()->name }}
-            </span> --}}
+        <span @if(config('adminlte.usermenu_image')) class="d-none d-md-inline" @endif>
             {{ Auth::user()->name }}
-        </div>
+        </span>
     </a>
 
     {{-- User menu dropdown --}}
@@ -74,7 +63,7 @@
         {{-- User menu footer --}}
         <li class="user-footer">
             @if($profile_url)
-                <a href="{{ $profile_url }}" class="btn btn-default btn-flat">
+                <a href="{{ $profile_url }}" class="nav-link btn btn-default btn-flat d-inline-block">
                     <i class="fa fa-fw fa-user text-lightblue"></i>
                     {{ __('adminlte::menu.profile') }}
                 </a>

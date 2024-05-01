@@ -5,13 +5,13 @@
     
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<<<<<<< HEAD
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Tailwind -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 
-=======
+
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -21,41 +21,41 @@
     <!-- Tailwind -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
     <!-- Tooltips -->
     <link rel="stylesheet" href="{{asset('css/tooltips.css')}}">
 
 
-<<<<<<< HEAD
-    <title>{{ config('app.name', 'Laravel') }}</title>
-=======
 
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+
+
+
+
+
+
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-<<<<<<< HEAD
+
     <!-- Styles -->
-=======
+
 
     <!-- Styles -->
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     
     @livewireStyles

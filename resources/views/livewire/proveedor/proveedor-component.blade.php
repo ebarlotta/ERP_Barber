@@ -23,7 +23,7 @@
                             </div>
                         </div>
                     @endif
-<<<<<<< HEAD
+
                     <x-crear>Nuevo Proveedor</x-crear>
                     @if ($isModalOpen)
                         @include('livewire.proveedor.createproveedores')
@@ -61,7 +61,7 @@
                             @endif
                         </tbody>
                     </table>
-=======
+
     <div class="flex justify-around">
         <x-crear>Nuevo Proveedor</x-crear>
         @if ($isModalOpen)
@@ -132,11 +132,11 @@
                         <!-- Eliminar -->
                         <x-eliminar id="{{ $proveedor->id }}"></x-eliminar>
                     </div>
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
                 </div>
             </div>
         @endforeach --}}

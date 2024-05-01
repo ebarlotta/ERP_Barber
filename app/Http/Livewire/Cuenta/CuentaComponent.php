@@ -21,15 +21,15 @@ class CuentaComponent extends Component
     {
         $this->empresa_id=session('empresa_id');
         $this->cuentas = Cuenta::where('empresa_id', $this->empresa_id)->orderby('name')->get();
-<<<<<<< HEAD
+
         return view('livewire.cuenta.cuenta-component');
-=======
+
         return view('livewire.cuenta.cuenta-component',['datos'=> Cuenta::where('empresa_id', $this->empresa_id)->orderby('name')->paginate(3),])->extends('layouts.adminlte');
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
     }
 
     public function create()

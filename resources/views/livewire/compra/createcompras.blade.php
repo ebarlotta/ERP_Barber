@@ -11,15 +11,15 @@
 			<form>
 				<div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
 					<div class="mb-4">
-<<<<<<< HEAD
+
 						<label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Nombre del Cliente</label>
-=======
+
 						<label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Nombre del Proveedor</label>
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 						<input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput1" placeholder="Ingrese Nombre" wire:model="name">
 						@error('name') <span class="text-red-500">{{ $message }}</span>@enderror
 					</div>

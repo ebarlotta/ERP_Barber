@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <?php
 
 return [
@@ -192,11 +192,11 @@ return [
     */
 
     'use_route_url' => false,
-<<<<<<< HEAD
+
     'dashboard_url' => 'home',
-=======
+
     'dashboard_url' => '/',
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -263,7 +263,7 @@ return [
         // ],
         
         ['header' => 'account_settings'],
-<<<<<<< HEAD
+
         [
             'text' => 'Usuarios x Empresa',
             'url'  => 'empresausuarios',
@@ -282,7 +282,7 @@ return [
         [
             'text' => 'Gestión de empresas',
             'url'  => 'empresagestion',
-=======
+
 
         [
             'text' => 'Administración',
@@ -431,7 +431,7 @@ return [
         [
             'text' => 'VOLVER',
             'url'  => '/',
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+
             'icon' => 'fas fa-fw fa-building',
         ],
         // [
@@ -642,7 +642,19 @@ return [
     |
     */
 
+    /*
+    |--------------------------------------------------------------------------
+    | Livewire
+    |--------------------------------------------------------------------------
+    |
+    | Here we can enable the Livewire support.
+    |
+    | For detailed instructions you can look the livewire here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Other-Configuration
+    |
+    */
+
     'livewire' => true,
+    ],
 ];
-=======
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+

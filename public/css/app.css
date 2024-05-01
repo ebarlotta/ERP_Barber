@@ -1,9 +1,9 @@
-<<<<<<< HEAD
+
 /*! tailwindcss v2.2.7 | MIT License | https://tailwindcss.com *//*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
 /*
 Document
-========
+=
 */
 
 /**
@@ -38,7 +38,7 @@ html {
 
 /*
 Sections
-========
+=
 */
 
 /**
@@ -68,7 +68,7 @@ body {
 
 /*
 Grouping content
-================
+==
 */
 
 /**
@@ -83,7 +83,7 @@ hr {
 
 /*
 Text-level semantics
-====================
+======
 */
 
 /**
@@ -153,7 +153,7 @@ sup {
 
 /*
 Tabular data
-============
+=====
 */
 
 /**
@@ -289,7 +289,7 @@ Remove the inner padding in Chrome and Safari on macOS.
 
 /*
 Interactive
-===========
+====
 */
 
 /*
@@ -332,10 +332,10 @@ button {
 fieldset {
   margin: 0;
   padding: 0;
-=======
+
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 
-<<<<<<< HEAD
+
 *,
 *::before,
 *::after {
@@ -442,16 +442,16 @@ address {
   margin-bottom: 1rem;
   font-style: normal;
   line-height: inherit;
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 }
 
 ol,
 ul {
-<<<<<<< HEAD
+
   list-style: none;
   margin: 0;
   padding: 0;
@@ -615,7 +615,7 @@ textarea {
  * 'mono' font family.
  */
 
-=======
+
   padding-left: 2rem;
 }
 
@@ -689,16 +689,16 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
   text-decoration: none;
 }
 
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 pre,
 code,
 kbd,
 samp {
-<<<<<<< HEAD
+
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
@@ -2814,7 +2814,7 @@ select {
 	}
 }
 
-=======
+
   font-family: var(--bs-font-monospace);
   font-size: 1em;
   direction: ltr /* rtl:ignore */;
@@ -13835,10 +13835,10 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> sandbox
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
+
+

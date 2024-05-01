@@ -53,15 +53,15 @@
                                         <td class="border px-4 py-2 text-left hidden md:table-cell md:visible">{{ $cliente->cuil }}</td>
                                         <td class="border px-4 py-2 text-left hidden md:table-cell md:visible">{{ $cliente->telefono }}</td>
                                         <td class="border px-4 py-2">
-<<<<<<< HEAD
+
                                             <div class="sm:flex justify-center">
-=======
+
                                             <div class="flex justify-center">
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
                                                 <div class="sm:flex justify-center">
                                                     <!-- Editar  -->
                                                     <x-editar id="{{ $cliente->id }}"></x-editar>

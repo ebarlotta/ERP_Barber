@@ -24,7 +24,7 @@
                             </div>
                         </div>
                     @endif
-<<<<<<< HEAD
+
                     <x-crear>Nuevo Empleado</x-crear>
                     @if ($isModalOpen)
                         @include('livewire.empleado.createempleados')
@@ -80,7 +80,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
-=======
+
                     <div class="flex justify-around">
                         <x-crear>Nuevo Empleado</x-crear>
                         @if ($isModalOpen)
@@ -137,11 +137,11 @@
                                 <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px; height: 100%;">
                             @else
                                 <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightGray 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px; height: 100%;">
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
                             @endif
                                 <div style="width:90%;">
                                     <div style="width:100%; display: flex">

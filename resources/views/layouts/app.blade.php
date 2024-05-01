@@ -47,7 +47,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-<<<<<<< HEAD
+
     <div class="bg-gray-100 h-full">
         {{-- @livewire('navigation-menu') --}}
 
@@ -59,7 +59,7 @@
                 </div>
             </header>
         @endif --}}
-=======
+
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
@@ -110,11 +110,11 @@
                 </div>
             </div>
         </nav>
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 
         <main class="py-4">
             @yield('content')

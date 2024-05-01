@@ -139,7 +139,7 @@
 											<div class="absolute flex justify-center w-full mt-10 p-18">
 												<div class=" bg-gray-400 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-2 shadow-lg my-2" role="dialog">
 													<div class=" bg-gray-400 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-														<input class="ml-2 w-full text-xs rounded-md h-7 text-center" style="disabled" type="text" wire:model="gcantidad_prod" placeholder="Agregar elemntos al Stock General">
+														<input class="ml-2 w-full text-xs rounded-md h-7 text-center" type="text" wire:model="gcantidad_prod" placeholder="Agregar elemntos al Stock General">
 												</div>
 													@if($comprobante_id)
 														<div class="flex flex-wrap mt-3 text-xs justify-left">
@@ -511,7 +511,7 @@
 							</div>
 
 {{-- Deuda a Proveedores --}}
-{{-- =================== --}}
+{{-- ===== --}}
 							<div class="{{ $tabActivo != 2 ? 'hidden' : '' }}">
 								<div class="flex justify-center">
 									<div class="flex">
@@ -571,7 +571,7 @@
 								</div>								
 							</div>
 {{-- Crédito de Proveedores --}}
-{{-- ======================= --}}							
+{{-- == --}}							
 							<div class="{{ $tabActivo != 3 ? 'hidden' : '' }}">
 								<div class="block">
 									{{-- Areas / Años --}}
@@ -639,14 +639,14 @@
 								</div>
 							</div>
 {{-- Cuentas Corrientes  --}}
-{{-- =================== --}}
+{{-- ===== --}}
 							<div class="{{ $tabActivo != 4 ? 'hidden' : '' }}">
 								<div class="flex flex-auto justify-center">
 									<img src="{{ asset('images/under-construction.jpg') }}" alt="" class="w-36">
 								</div>
 							</div>
 {{-- Libros de IVA  --}}
-{{-- ============== --}}
+{{--  --}}
 							<div class="{{ $tabActivo != 5 ? 'hidden' : '' }}">
 								<div class="flex flex-auto justify-center">
 									<div>

@@ -13,6 +13,6 @@ class TablaUsuarioSeeder extends Seeder
      */
     public function run()
     {
-        //
+        /////
     }
 }

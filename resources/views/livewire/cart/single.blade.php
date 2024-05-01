@@ -86,9 +86,9 @@
             z-index: 99999;
             text-align: center;
         }
-        /* ============================================================
+        /* ====
 RIGHT SIDEBAR SECTION
-============================================================ */
+==== */
         
         #right-sidebar {
             width: 90px;
@@ -104,9 +104,9 @@ RIGHT SIDEBAR SECTION
             transition: all .5s ease-in-out;
             overflow-y: auto;
         }
-        /* ============================================================
+        /* ====
 RIGHT SIDEBAR TOGGLE SECTION
-============================================================ */
+==== */
         
         .hide-right-bar-notifications {
             margin-right: -300px !important;

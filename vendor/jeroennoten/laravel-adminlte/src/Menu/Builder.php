@@ -44,8 +44,12 @@ class Builder
     {
         $items = $this->transformItems($newItems);
 
+        
         if (! empty($items)) {
             array_push($this->menu, ...$items);
+        }
+        else {
+            array_push($this->menu, []);
         }
     }
 

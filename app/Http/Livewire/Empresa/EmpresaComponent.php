@@ -28,15 +28,15 @@ class EmpresaComponent extends Component
             //dd($empresa->empresa_id);
             $this->empresas[] = Empresa::find($empresa->empresa_id);
         }
-<<<<<<< HEAD
+
         
-=======
+
         //dd($this->empresas[2]);
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
         return view('livewire.empresa.empresa-component');
     }
 
@@ -49,15 +49,15 @@ class EmpresaComponent extends Component
         $a = Empresa::find($id);
         session(['nombre_empresa' => $a->name]);
         //dd(session('empresa_id'));
-<<<<<<< HEAD
+
         $empresa_modulos = EmpresaModulo::where('empresa_id',$this->empresa_id)->get('modulo_id');
-=======
+
         ////$empresa_modulos = EmpresaModulo::where('empresa_id',$this->empresa_id)->get('modulo_id');
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
         // $modulos=Modulo::find($empresa_modulos);
         //return view('livewire.modulo.modulo-component',$empresa_modulos);
         return redirect('modulos');

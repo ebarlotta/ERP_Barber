@@ -38,7 +38,7 @@
 					@include('livewire.empresa-modulos.createempresamodulos')
 				@endif
 				@if ($empresas)
-<<<<<<< HEAD
+
 					<table>
 						<tr>
 							<td>
@@ -101,7 +101,7 @@
 						</tr>
 					</table>
 				@else
-=======
+
 				<div class="flex">
 					<div class="h-full" style="width: 40%">
 						Empresas
@@ -179,11 +179,11 @@
 									</div>
 								</div>
 					 @else
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 					<h1>No hay datos</h1>
 				@endif
 			</div>

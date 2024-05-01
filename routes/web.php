@@ -4,14 +4,14 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImprimirPDF;
-<<<<<<< HEAD
-=======
+
+
 use App\Http\Controllers\Productos;
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 use App\Http\Livewire\Area\AreaComponent;
 use App\Http\Livewire\Empresa\EmpresaComponent;
 use App\Http\Livewire\Modulo\ModuloComponent;
@@ -23,8 +23,8 @@ use App\Http\Livewire\Empleado\EmpleadoComponent;
 
 use App\Http\Livewire\Compra\CompraComponent;
 use App\Http\Livewire\Venta\VentaComponent;
-<<<<<<< HEAD
-=======
+
+
 use App\Http\Livewire\Venta\VentaMostradorComponent;
 
 use App\Http\Controllers\SocialController;
@@ -41,11 +41,11 @@ use App\User;
 
 
 // use App\Http\Controllers\Cart;
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,9 +61,9 @@ use App\User;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-<<<<<<< HEAD
+
 Route::get('/', EmpresaComponent::class);
-=======
+
 
 
 // Route::get('auth/facebook', [SocialController::class, 'facebookRedirect']);
@@ -89,24 +89,16 @@ Route::get('facebook-callback-url', [App\Http\Controllers\Auth\LoginSocialContro
 // //Login with Google
 // Route::get('login-google', [App\Http\Controllers\Auth\LoginSocialController::class,'redirect_google']);
 // Route::get('google-callback-url', [App\Http\Controllers\Auth\LoginSocialController::class,'callback_google']);
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-<<<<<<< HEAD
-=======
-
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
 Route::get('areas',AreaComponent::class)->name('areas');
 Route::get('cuentas',CuentaComponent::class)->name('cuentas');
 Route::get('proveedores',ProveedorComponent::class)->name('proveedores');
@@ -115,14 +107,14 @@ Route::get('empleados',EmpleadoComponent::class)->name('empleados');
 
 Route::get('compras',CompraComponent::class)->name('compras');
 Route::get('ventas',VentaComponent::class)->name('ventas');
-<<<<<<< HEAD
-=======
+
+
 Route::get('ventasmostrador',VentaMostradorComponent::class)->name('ventasmostrador');
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 
 Route::get('empresas',EmpresaComponent::class)->name('empresas');
 //Route::get('empresagestion',EmpresaGestion::class)->name('empresagestion');
@@ -131,7 +123,7 @@ Route::get('modulos',ModuloComponent::class)->name('modulos');
 Route::get('pdf/deuda/{ddesde}/{dhasta}', [ImprimirPDF::class, 'DeudaPFD'])->name('DeudaPFD');
 Route::get('pdf/credito/{cdesde}/{chasta}', [ImprimirPDF::class, 'CreditoPFD'])->name('CreditoPFD');
 Route::get('pdf/ivacompras/{anio}/{mes}', [ImprimirPDF::class, 'IvaCompras'])->name('IvaCompras');
-<<<<<<< HEAD
+
 
 // Route::get('empresas/config', function () {
 //     return view('adminlte');
@@ -140,7 +132,7 @@ Route::get('pdf/ivacompras/{anio}/{mes}', [ImprimirPDF::class, 'IvaCompras'])->n
 // Route::get('welcome', function () {
 //     return view('welcome');
 // });
-=======
+
 Route::get('pdf/ivaventas/{anio}/{mes}', [ImprimirPDF::class, 'IvaVentas'])->name('IvaVentas');
 
 Route::get('pdf/recibos/{anio}/{mes}/{empleadoseleccionado}', [ImprimirPDF::class, 'Recibo'])->name('Recibos');
@@ -165,15 +157,15 @@ Route::get('payments',PaymentComponent::class)->name('payments');
 
 //Route::get('deletion/?id=abc123',EmpleadoComponent::class)->name('deletion'); //Eliminación de datos en Facebook
 
-<<<<<<< HEAD
+
 Route::get('/search/', 'ProveedorComponent@search')->name('search');
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
+
+
+
 // Route::get('/search/', 'ProveedorComponent@search')->name('search');
 
 Route::post('/home',[HomeController::class,'upload']);
->>>>>>> sandbox
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+

@@ -1,5 +1,5 @@
 <div class="fixed z-10 inset-0 overflow-y-auto ease-out duration-400">
-<<<<<<< HEAD
+
 	<div class="flex items-end justify-center mt-24 pt-4 px-4 pb-20 text-center sm:block sm:p-0"
 		style="background-color: beige; ">
 		<div class="fixed inset-0 transition-opacity">
@@ -46,7 +46,7 @@
 			</form>
 		</div>
 	</div>
-=======
+
 
     <div class="flex items-end justify-center mt-24 pt-4 px-4 pb-20 text-center sm:block sm:p-0"
         style="background-color: beige; ">
@@ -100,9 +100,9 @@
             </form>
         </div>
     </div>
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 </div>

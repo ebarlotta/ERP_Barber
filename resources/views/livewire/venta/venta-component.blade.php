@@ -1,8 +1,8 @@
-<<<<<<< HEAD
+
 <div>
     {{-- In work, do what you enjoy. --}}
 </div>
-=======
+
 @extends('layouts.app2')
 <div>
 	<x-tituloslim>Comprobantes de Ventas</x-tituloslim>
@@ -595,7 +595,7 @@
 							</div>
 
 {{-- Deuda a Clientes --}}
-{{-- =================== --}}
+{{-- ===== --}}
 							<div class="{{ $tabActivo != 2 ? 'hidden' : '' }}">
 								<div class="flex justify-center">
 									<div class="flex">
@@ -658,7 +658,7 @@
 								</div>								
 							</div>
 {{-- Crédito de Clientes --}}
-{{-- ======================= --}}							
+{{-- == --}}							
 							<div class="{{ $tabActivo != 3 ? 'hidden' : '' }}">
 								<div class="block">
 									{{-- Areas / Años --}}
@@ -729,14 +729,14 @@
 								</div>
 							</div>
 {{-- Cuentas Corrientes  --}}
-{{-- =================== --}}
+{{-- ===== --}}
 							<div class="{{ $tabActivo != 4 ? 'hidden' : '' }}">
 								<div class="flex flex-auto justify-center">
 									<img src="{{ asset('images/under-construction.jpg') }}" alt="" class="w-36">
 								</div>
 							</div>
 {{-- Libros de IVA  --}}
-{{-- ============== --}}
+{{--  --}}
 							<div class="{{ $tabActivo != 5 ? 'hidden' : '' }}">
 								<div class="flex flex-auto justify-center">
 									<div>
@@ -833,8 +833,8 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="js/jquery.mask.js"></script>
 <script src="js/examples.js"></script>
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+

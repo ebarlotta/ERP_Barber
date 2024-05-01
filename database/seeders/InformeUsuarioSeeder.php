@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-
-class TablaUsuarioSeeder extends Seeder
+class InformeUsuarioSeeder extends Seeder
+// class TablaUsuarioSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +13,6 @@ class TablaUsuarioSeeder extends Seeder
      */
     public function run()
     {
-        //
+        ////
     }
 }

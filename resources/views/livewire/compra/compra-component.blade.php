@@ -1,46 +1,46 @@
 @extends('layouts.app2')
 <div>
 	<x-tituloslim>Comprobantes de Compras</x-tituloslim>
-<<<<<<< HEAD
+
 	<div class="content-center flex">
-=======
+
 	<div class="content-center block">
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 		<div class="bg-white p-2 text-center rounded-lg shadow-lg w-full">
 			
 			<!-- Tabs  -->
 			<div class="flex flex-wrap" id="tabs-id">
 				<div class="w-full">
 					<ul class="flex mb-0 list-none flex-wrap pb-4 flex-row">
-<<<<<<< HEAD
+
 						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-=======
+
 						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center" style="text-decoration: none;">
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 							@if($tabActivo==1)
 								<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-white bg-pink-600" wire:click="CambiarTab(1)">
 							@else 
 								<a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white" wire:click="CambiarTab(1)">
 							@endif
 								<i class="fas fa-space-shuttle text-base mr-1"></i> Gestionar Comprobantes
-<<<<<<< HEAD
+
 							</a>
-=======
+
 								<!-- <button class="btn btn-" wire:click="Ejecutar">Ejecutar</button> -->
 								</a>
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 						</li>
 						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
 							@if($tabActivo==2)
@@ -85,7 +85,7 @@
 								<div style="background-color: #E3F6CE" class="block">
 									<!-- Botones -->
 									<div class="flex justify-center">
-<<<<<<< HEAD
+
 										<button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" wire:click="store">Agregar</button>
 										<button class="rounded-md bg-yellow-300 px-6 py-1 mx-2 mt-3" wire:click="openModalModify">Modificar</button>
 										<button class="rounded-md bg-red-300 px-6 py-1 mx-2 mt-3" wire:click="openModalDelete">Eliminar</button>
@@ -120,7 +120,7 @@
 													</div>
 												</div>
 											@endif
-=======
+
 										<div class="flex flex-wrap justify-center fse-1">
 											<button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;" wire:click="store">Agregar</button>
 											<button class="rounded-md bg-yellow-300 px-6 py-1 mx-2 mt-3" style="box-shadow: 2px 2px 5px #999;" wire:click="openModalModify">Modificar</button>
@@ -150,11 +150,11 @@
 													</div>
 												@endif
 											</div>
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 										</div>
 									</div>
 									<!-- Modals -->
@@ -193,7 +193,7 @@
 											</div>
 										</div>
 									@endif
-<<<<<<< HEAD
+
 									<!-- Gestionar Comprobantes -->
 									<div class="flex flex-wrap mt-3 text-xs justify-around">
 										<div class="w-32 mr-1">
@@ -204,7 +204,7 @@
 										<div class="w-44 mr-1">
 											<label for="">Proveedor</label><br>
 											<select class="ml-2 w-full text-xs rounded-md h-7 leading-none" wire:model="gproveedor">
-=======
+
 
 									@if ($this->ModalAgregarDetalle)
 										<div class="inset-0 fixed">
@@ -290,11 +290,11 @@
 										<div class="w-44 mr-1 grid text-left">
 											<label style="font-size: 80%;">Proveedor</label>
 											<select class="px-2 w-full rounded-md h-8 leading-none" wire:model="gproveedor">
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 												<option value=" "> </option>
 												@foreach ($proveedores as $proveedor)
 													<option value="{{ $proveedor->id }}">
@@ -304,7 +304,7 @@
 											</select>
 											@error('gproveedor') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
-<<<<<<< HEAD
+
 										<div class="w-36 mr-1">
 											<label for="">Comprobante</label><br>
 											<input class="ml-2 w-full text-xs rounded-md h-7" type="text" wire:model="gcomprobante">
@@ -312,7 +312,7 @@
 										<div class="w-32 mr-1">
 											<label for="">Participa Iva</label><br>
 											<select class="ml-2 w-full text-xs px-1 rounded-md h-7 leading-none" wire:model="gpartiva">
-=======
+
 										<div class="w-36 mr-1 grid text-left">
 											<label style="font-size: 80%;">Comprobante</label>
 											<input class="px-2 w-full rounded-md h-8" type="text" wire:model="gcomprobante">
@@ -320,11 +320,11 @@
 										<div class="w-32 mr-1 grid text-left">
 											<label style="font-size: 80%;">Participa Iva</label>
 											<select class="w-4/5 px-2 rounded-md h-8 leading-none" wire:model="gpartiva">
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 												<option value=""></option>
 												<option value="Si">Si</option>
 												<option value="No">No</option>
@@ -334,7 +334,7 @@
 											</select>
 											@error('gpartiva') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
-<<<<<<< HEAD
+
 										<div class="w-40 mr-1">
 											<label for="">Detalle</label><br>
 											<input type="text" class="ml-2 w-full text-xs rounded-md h-7" wire:model="gdetalle">
@@ -343,7 +343,7 @@
 											<label for="">Año</label><br>
 											<select class="ml-2 w-full text-xs rounded-md h-7 leading-none" wire:model="ganio">
 												<option value=""></option>
-=======
+
 										<div class="w-40 mr-1 grid text-left">
 											<label style="font-size: 80%;">Detalle</label>
 											<input type="text" class="px-2 w-full rounded-md h-8" wire:model="gdetalle">
@@ -355,11 +355,11 @@
 												<option value="2024">2024</option>
 												<option value="2023">2023</option>
 												<option value="2022">2022</option>
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 												<option value="2021">2021</option>
 												<option value="2020">2020</option>
 												<option value="2019">2019</option>
@@ -373,19 +373,19 @@
 											</select>
 											@error('ganio') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
-<<<<<<< HEAD
+
 										<div class="w-24 mr-1">
 											<label for="">Mes</label><br>
 											<select class="ml-2 w-full text-xs px-1 rounded-md h-7 leading-none" wire:model="gmes">
-=======
+
 										<div class="w-24 mr-1 grid text-left">
 											<label style="font-size: 80%;">Mes</label>
 											<select class="w-full px-2 rounded-md h-8 leading-none" wire:model="gmes">
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 												<option value=""></option>
 												<option value="1">enero
 												</option>
@@ -417,19 +417,19 @@
 											</select>
 											@error('gmes') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
-<<<<<<< HEAD
+
 										<div class="w-32 mr-1">
 											<label for="">Areas</label><br>
 											<select class="ml-2 w-full text-xs px-1 rounded-md h-7 leading-none" wire:model="garea">
-=======
+
 										<div class="w-32 mr-1 grid text-left">
 											<label style="font-size: 80%;">Areas</label>
 											<select class="w-full px-2 rounded-md h-8 leading-none" wire:model="garea">
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 												<option value=" "> </option>
 												@foreach ($areas as $area)
 													<option value="{{ $area->id }}">
@@ -439,19 +439,19 @@
 											</select>
 											@error('garea') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
-<<<<<<< HEAD
+
 										<div class="w-32 mr-1">
 											<label for="">Cuentas</label><br>
 											<select class="ml-2 w-full text-xs px-1 rounded-md h-7 leading-none" wire:model="gcuenta" >
-=======
+
 										<div class="w-32 mr-1 grid text-left">
 											<label style="font-size: 80%;">Cuentas</label>
 											<select class="w-full px-2 rounded-md h-8 leading-none" wire:model="gcuenta" >
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 												<option value=" "> </option>
 												@foreach ($cuentas as $cuenta)
 													<option value="{{ $cuenta->id }}">
@@ -461,7 +461,7 @@
 											</select>
 											@error('gcuenta') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
-<<<<<<< HEAD
+
 									{{-- </div>
 									<div class="flex flex-wrap text-xs justify-around"> --}}
 										<div class="mr-1 w-28">
@@ -472,7 +472,7 @@
 										<div class="w-28 mr-1">
 											<label for="">IVA</label><br>
 											<select class="ml-2 w-full text-xs rounded-md h-7 leading-none" wire:model="giva" wire:change="CalcularIva()">
-=======
+
 									
 										<div class="mr-1 w-28 grid text-left">
 											<label style="font-size: 80%;">Bruto</label>
@@ -482,11 +482,11 @@
 										<div class="w-28 mr-1 grid text-left">
 											<label style="font-size: 80%;">IVA</label>
 											<select class="w-full rounded-md h-8 leading-none" wire:model="giva" wire:change="CalcularIva()">
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 												<option value="1" selected>Iva 0%</option>
 												@foreach ($ivas as $iva)
 													<option value="{{ $iva->id }}">
@@ -496,7 +496,7 @@
 											</select>
 											@error('giva') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
-<<<<<<< HEAD
+
 										<div class="mr-1 w-24">
 											<label for="">Iva</label><br>
 											<input class="ml-2 w-full text-xs text-right rounded-md h-7 leading-none" disabled type="text" wire:model="giva2">
@@ -651,7 +651,7 @@
 											</tr>
 										</table>
 									</div>
-=======
+
 										<div class="mr-1 w-24 grid text-left">
 											<label style="font-size: 80%;">Iva</label>
 											<input class="w-full text-right rounded-md h-8 leading-none" disabled type="text" wire:model="giva2">
@@ -801,16 +801,16 @@
 										</div>
 										{!! $filtro !!}
 									{{-- </div> --}}
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 								</div>
 							</div>
 
 {{-- Deuda a Proveedores --}}
-{{-- =================== --}}
+{{-- ===== --}}
 							<div class="{{ $tabActivo != 2 ? 'hidden' : '' }}">
 								<div class="flex justify-center">
 									<div class="flex">
@@ -827,22 +827,22 @@
 											<label for="">Años a incluir </label><br>
 											<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="danio">
 												<option value="0">Todos</option>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
+
+
+
+
+
 												<option value="2024">2024</option>
->>>>>>> sandbox
+
 												<option value="2023">2023</option>
 												<option value="2022">2022</option>
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
-=======
+
+
+
 												<option value="2023">2023</option>
 												<option value="2022">2022</option>
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
 												<option value="2021">2021</option>
 												<option value="2020">2020</option>
 												<option value="2019">2019</option>
@@ -856,7 +856,7 @@
 										</div>
 									</div>
 								</div>
-<<<<<<< HEAD
+
 								<div class="flex justify-center">
 									<div class="flex">
 										<div class="block mb-4 justify-start">
@@ -866,7 +866,7 @@
 									</div>
 									<div class="flex">
 										<div class="block mb-4 justify-start">
-=======
+
 								<div class="block justify-center">
 									<div class="flex justify-center">
 										<div class="block mb-4 justify-center">
@@ -875,16 +875,16 @@
 										</div>
 									
 										<div class="block mb-4 justify-center">
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 											Hasta <br>
 											<input class="ml-2 text-xs rounded-md h-7" type="date" wire:model="dhasta"><br>
 										</div>
 									</div>
-<<<<<<< HEAD
+
 									<div class="flex mt-4 justify-center">
 										<div class="block mb-4 justify-start">
 											<button class="rounded-md bg-green-300 px-8 py-1 mx-2 mt-3" wire:click="CalcularDeudaProveedores(0)">Solicitar Listado</button>
@@ -893,7 +893,7 @@
 											</a>
 										</div>
 									</div>
-=======
+
 
 									<div class="flex mt-4 justify-center">
 										<div class="block mb-4 justify-start">
@@ -904,11 +904,11 @@
 										</div>
 									</div>
 
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 									<div class="flex justify-center w-full">
 										@if ($MostrarDeudaProveedores)
 											{!! $DeudaProveedoresFiltro !!}
@@ -917,9 +917,9 @@
 								</div>								
 							</div>
 {{-- Crédito de Proveedores --}}
-{{-- ======================= --}}							
+{{-- == --}}							
 							<div class="{{ $tabActivo != 3 ? 'hidden' : '' }}">
-<<<<<<< HEAD
+
 								<div class="flex justify-center">
 									<div class="flex">
 										<div class="block mb-4 justify-start">
@@ -969,7 +969,7 @@
 										@endif
 									</div>
 								</div>
-=======
+
 								<div class="block">
 									{{-- Areas / Años --}}
 									<div class="flex justify-center">
@@ -1038,20 +1038,20 @@
 									</div>
 								</div>
 							</div>
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 {{-- Cuentas Corrientes  --}}
-{{-- =================== --}}
+{{-- ===== --}}
 							<div class="{{ $tabActivo != 4 ? 'hidden' : '' }}">
 								<div class="flex flex-auto justify-center">
 									<img src="{{ asset('images/under-construction.jpg') }}" alt="" class="w-36">
 								</div>
 							</div>
 {{-- Libros de IVA  --}}
-{{-- ============== --}}
+{{--  --}}
 							<div class="{{ $tabActivo != 5 ? 'hidden' : '' }}">
 								<div class="flex flex-auto justify-center">
 									<div>
@@ -1059,15 +1059,15 @@
 											<tr>
 												<td>
 													<label for="">Mes</label><br>
-<<<<<<< HEAD
+
 													<select class="mr-4 w-full text-xs px-1 rounded-md h-7 leading-none" wire:model="lmes" wire:change="MostrarLibros()">
-=======
+
 													<select class="mr-4 w-full text-xs px-2 rounded-md h-7 leading-none" wire:model="lmes" wire:change="MostrarLibros()">
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 														<option value=""></option>
 														<option value="1">enero
 														</option>
@@ -1100,23 +1100,23 @@
 													<label for="">Año</label><br>
 													<select class="mr-4 w-full text-xs rounded-md h-7 leading-none" wire:model="lanio" wire:change="MostrarLibros()">
 														<option value=""></option>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
-=======
+
+
+
+
+
+
 														<option value="2023">2023</option	on>
-=======
+
 														<option value="2024">2024</option>
 														<option value="2023">2023</option>
->>>>>>> sandbox
+
 														<option value="2022">2022</option>
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 														<option value="2021">2021</option>
 														<option value="2020">2020</option>
 														<option value="2019">2019</option>
@@ -1130,21 +1130,21 @@
 													</select>
 												</td>
 												<td>
-<<<<<<< HEAD
+
 													<a class="btn btn-primary" href="{{ URL::to('/pdf/ivacompras'.'/'.$lanio.'/'.$lmes) }}" target="_blank">
 														<button class="rounded-md bg-green-300 px-8 py-1 ml-4 mt-6">Imprimir Libro</button>
 													</a><br>
 													<button class="rounded-md bg-yellow-300 px-8 py-1 ml-4 mt-6" wire:click="openModalCerrarLibro()">Cerrar Libro</button>
-=======
+
 													<a href="{{ URL::to('/pdf/ivacompras'.'/'.$lanio.'/'.$lmes) }}" target="_blank">
 														<button class="rounded-md bg-green-300 px-8 py-1 ml-4 mt-6" style="color: black;">Imprimir Libro</button>
 													</a><br>
 													<button class="rounded-md bg-yellow-300 px-8 py-1 ml-4 mt-6 white" wire:click="openModalCerrarLibro()">Cerrar Libro</button>
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 												</td>
 											</tr>
 										</table>
@@ -1173,17 +1173,17 @@
 <footer class="text-center text-xs bg-gray-400 mt-px3 pb-2">
 	Desarrollado por: Ing. Enzo Gabriel Barlotta - Información de Contacto<a href="mailto:ebarlotta@yahoo.com.ar">
 		ebarlotta@yahoo.com.ar</a>
-<<<<<<< HEAD
+
 	&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-info"
 		onclick="javascript: window.location.href='../../sistema/menu.php';">&nbsp;&nbsp;&nbsp;Volver&nbsp;&nbsp;&nbsp;</button>
-=======
+
 	{{-- &nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-info"
 		onclick="javascript: window.location.href='../../sistema/menu.php';">&nbsp;&nbsp;&nbsp;Volver&nbsp;&nbsp;&nbsp;</button> --}}
-<<<<<<< HEAD
->>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
-=======
->>>>>>> f7b4677012a3b7fdee8c490bea21faab66a3ad1a
->>>>>>> 3284121bdc4b0dd60eb6a642758556cf07da7e52
+
+
+
+
+
 </footer>
 </div>
 
