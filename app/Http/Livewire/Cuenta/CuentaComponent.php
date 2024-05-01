@@ -3,10 +3,13 @@
 namespace App\Http\Livewire\Cuenta;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\Cuenta;
 
 class CuentaComponent extends Component
 {
+
+    use WithPagination;
 
     public $isModalOpen = false;
     public $cuenta, $cuenta_id;

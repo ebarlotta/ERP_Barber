@@ -1,7 +1,16 @@
 (function($) {
     $(function() {
         $('.date').mask('00/00/0000');
-        $('.num').mask('9999999999.00');
+        // $('.num').mask('#9999999999.00');
+        // $('.num').maskAsNumber();
+        $('.num').mask('N999999999999999.00', {
+            translation: {
+                'N': {
+                    pattern: /[-]/,
+                    optional: true
+                }
+            }
+        });
         $('.time').mask('00:00:00');
         $('.date_time').mask('00/00/0000 00:00:00');
         $('.cep').mask('00000-000');

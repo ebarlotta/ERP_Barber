@@ -39,7 +39,7 @@ class ProductoComponent extends Component
         $this->empresa_id = session('empresa_id');
         //$this->unidades = Unidad::where('empresa_id', $this->empresa_id);
         //$this->productos = Producto::where('empresa_id', $this->empresa_id)->paginate(5);
-        return view('livewire.producto.producto-component',['productos' => Producto::where('empresa_id', $this->empresa_id)->paginate(5)])
+        return view('livewire.producto.producto-component',['productos' => Producto::where('empresa_id', $this->empresa_id)->paginate(7)])
             ->extends('layouts.adminlte')->with('unidades', Unidad::where('empresa_id', $this->empresa_id)->get());
         
         // $this->unidades = Unidad::where('empresa_id', $this->empresa_id);

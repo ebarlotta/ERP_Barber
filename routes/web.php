@@ -2,6 +2,7 @@
 
 //use App\Http\Controllers\ClienteController;
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImprimirPDF;
 <<<<<<< HEAD
 =======
@@ -30,6 +31,9 @@ use App\Http\Livewire\Cart\Payment\PaymentComponent;
 
 use Illuminate\Foundation\Auth\User as AuthUser;
 
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Routes;
+use App\User;
 
 
 // use App\Http\Controllers\Cart;
@@ -141,5 +145,11 @@ Route::get('payments',PaymentComponent::class)->name('payments');
 
 //Route::get('deletion/?id=abc123',EmpleadoComponent::class)->name('deletion'); //Eliminación de datos en Facebook
 
+<<<<<<< HEAD
 Route::get('/search/', 'ProveedorComponent@search')->name('search');
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+// Route::get('/search/', 'ProveedorComponent@search')->name('search');
+
+Route::post('/home',[HomeController::class,'upload']);
+>>>>>>> sandbox

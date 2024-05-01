@@ -101,7 +101,7 @@
                                 <ul>
                                     <li class="border text-left @if ($seleccionado == $empresa->id) bg-red-100 @endif"
                                         wire:click="CargarUsuarios({{ $empresa->id }})">
-                                        <div class="w-full p-3">
+                                        <div class="w-full p-3 hover:scale-110 transition-all duration-500">
                                             <div class="flex rounded overflow-hidden border">
                                                 @if($empresa->imagen) 
                                                 <img class="block rounded-md flex-none bg-cover"
@@ -137,8 +137,12 @@
                                             <div class="w-full p-3">
 =======
                                         <li class="border px-4 py-2 text-left bg-red-100">
+<<<<<<< HEAD
                                             <div class="w-full p-2">
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+                                            <div class="w-full p-2 hover:scale-110 transition-all duration-500">
+>>>>>>> sandbox
                                                 <div class="flex rounded overflow-hidden border">
                                                     <img class="block flex-none bg-cover"
                                                         src="https://picsum.photos/seed/picsum/80/80"

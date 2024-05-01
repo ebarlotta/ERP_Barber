@@ -39,7 +39,7 @@ class VentaComponent extends Component
     public $ModalCerrarLibro;
     public $gfecha,$gcliente, $gcomprobante, $gcuenta, $gdetalle, $ganio, $gmes, $garea, $gpartiva, $gbruto, $giva2, $gexento, $gimpinterno, $gperciva, $gretgan, $gperib, $gneto, $gmontopagado, $gcantidad;
     public $gselect_productos, $gprecio_prod, $gcantidad_prod, $glistado_prod;
-    public $gventa;
+    // public $gventa;
     //Variables del filtro
     public $gfmes, $gfcliente, $gfparticipa, $gfiva, $gfdetalle, $gfarea, $gfcuenta, $gfanio, $fgascendente, $gfsaldo; //Comprobantes
     
@@ -428,7 +428,8 @@ class VentaComponent extends Component
         $this->venta_id = $id;
         $this->id = $id; //Utilizado para buscar el registro para eliminar
         $this->gfecha= substr($registro->fecha,0,10);
-        $this->gventa=$registro->comprobante;
+        // $this->gventa=$registro->comprobante;
+        $this->gcomprobante=$registro->comprobante;
         $this->gdetalle=$registro->detalle;
         $this->gbruto=number_format($registro->BrutoComp, 2, '.','');
         $this->gpartiva=$registro->ParticIva;
@@ -659,5 +660,12 @@ class VentaComponent extends Component
         ->where('ventas_id',$this->venta_id)
         ->get(['ventas__productos.*','productos.name']);
     }
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+
+    public function copiarMontoPagado() {
+        $this->gmontopagado= $this->gneto;
+    }
+>>>>>>> sandbox
 }

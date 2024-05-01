@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Area;
 
 use Livewire\Component;
 use App\Models\Area;
+use Livewire\WithPagination;
 
 
 class AreaComponent extends Component
@@ -11,15 +12,20 @@ class AreaComponent extends Component
 
     public $isModalOpen = false;
     public $area, $area_id;
-    public $areas;
     public $name;
     public $empresa_id;
+    protected $areas;
+
+    use WithPagination;
 
     public function render()
     {
         $this->empresa_id=session('empresa_id');
-        $this->areas = Area::where('empresa_id', $this->empresa_id)->get();
-        return view('livewire.area.area-component',['datos'=> Area::where('empresa_id', $this->empresa_id)->paginate(3),])->extends('layouts.adminlte');
+        // $this->areas = Area::where('empresa_id', $this->empresa_id)->get();
+        $this->areas = Area::where('empresa_id', '=', $this->empresa_id)->paginate(5);
+
+        return view('livewire.area.area-component',['areas' => $this->areas])->extends('layouts.adminlte');
+        // return view('livewire.area.area-component',['datos'=> Area::where('empresa_id', $this->empresa_id)->paginate(3),])->extends('layouts.adminlte');
     }
 
     public function create()

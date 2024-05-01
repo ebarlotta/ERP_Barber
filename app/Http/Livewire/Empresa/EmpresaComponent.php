@@ -37,9 +37,13 @@ class EmpresaComponent extends Component
     }
 
     public function cargamodulos($id) {
+        // Establece el id de la empresaa modo global
         session(['empresa_id' => $id]);
         //sleep(2);
         $this->empresa_id=$id;
+
+        $a = Empresa::find($id);
+        session(['nombre_empresa' => $a->name]);
         //dd(session('empresa_id'));
 <<<<<<< HEAD
         $empresa_modulos = EmpresaModulo::where('empresa_id',$this->empresa_id)->get('modulo_id');

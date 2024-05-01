@@ -9,10 +9,17 @@ use Carbon\Carbon;
 <<<<<<< HEAD
 =======
 use Illuminate\Support\Facades\DB;
+<<<<<<< HEAD
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+use Livewire\WithPagination;
+>>>>>>> sandbox
 
 class EmpleadoComponent extends Component
 {
+
+    use WithPagination;
+
     public $isModalOpen = false;
     public $empleado, $empleado_id;
     public $empleados;
@@ -37,7 +44,7 @@ class EmpleadoComponent extends Component
         return view('livewire.empleado.empleado-component',['datos'=> Empleado::where('empresa_id', $this->empresa_id)
             ->where('activo', $activos)
             ->where('name', 'like', '%'.$this->search.'%')
-            ->paginate(30),])->extends('layouts.adminlte');
+            ->paginate(8),])->extends('layouts.adminlte');
 
          
         // else { $activos=0; 

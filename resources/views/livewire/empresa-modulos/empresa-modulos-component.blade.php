@@ -110,7 +110,7 @@
 									<ul>
 										<li class="border text-left @if ($seleccionado == $empresa->id) bg-red-100 @endif"
 											 wire:click="CargarModulos({{ $empresa->id }})">
-											 <div class="w-full p-3">
+											 <div class="w-full p-3 hover:scale-110 transition-all duration-500">
 												  <div class="flex rounded overflow-hidden border">
 														@if($empresa->imagen) 
 														<img class="block rounded-md flex-none bg-cover"
@@ -148,7 +148,7 @@
 
 											<ul>
 												<li class="border px-4 py-2 text-left bg-red-100">
-													 <div class="w-full p-2">
+													 <div class="w-full p-2 hover:scale-110 transition-all duration-500">
 														  <div class="flex rounded overflow-hidden border">
 															<img class="block flex-none bg-cover" src="{{ asset('images/'. $modulo['imagen']) }}" style="width: 100px; height: 100px;">
 																<div

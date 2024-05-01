@@ -12,6 +12,7 @@
                         <img class="rounded-md w-full h-40 mt-3" src="{{ asset('images/'. $modulo->imagen) }}" width="200px" height="155px">
 =======
     <div class="sm:block md:hidden lg:hidden xl:hidden">
+        <?php echo session('nombre_empresa').'<br>'; ?>
         <div class="text-left" style="font-size: 15px; margin: 12px;">
             @foreach ($modulos as $modulo)
                 <a href="{{ route($modulo->pagina) }}" class="flex mb-2 transform transition duration-500 hover:scale-105 shadow ">
@@ -33,8 +34,9 @@
     </div>
     {{-- Modo Escritorio --}}
     <div class="hidden sm:hidden md:block lg:block xl:block">
+        <?php echo session('nombre_empresa').'<br>'; ?>
         <div class="hidden sm:hidden md:block lg:block xl:block  mb-4 mr-2 text-left mt-6" style=" display: flex; flex-wrap: wrap; width: 100%; justify-content: center;">
-        @foreach ($modulos as $modulo)
+            @foreach ($modulos as $modulo)
             <a href="{{ route($modulo->pagina) }}" class="rounded-l-md flex mb-2 mt-2 transform transition duration-500 hover:scale-105" style="width:45%; margin-right: 5px; margin-left: 5px;">
                 <div style="display:flex; box-shadow: 10px 5px 5px gray">
                 {{-- <div class="flex mb-2 mt-2 transform transition duration-500 hover:scale-105 shadow  " style="width:40%; margin-right: 5px; margin-left: 5px"> --}}

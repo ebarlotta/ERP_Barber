@@ -11,11 +11,13 @@ class EmpresaGestion extends Component
 =======
 use Illuminate\Support\Facades\DB;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class EmpresaGestion extends Component
 
 {
     use WithFileUploads;
+    use WithPagination;
 
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
     public $empresas;

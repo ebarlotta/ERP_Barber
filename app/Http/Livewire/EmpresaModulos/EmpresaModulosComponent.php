@@ -14,6 +14,7 @@ class EmpresaModulosComponent extends Component
 {
 
     use WithPagination;
+    use WithPagination;
 
     public $isModalOpen = false;
 
@@ -73,9 +74,13 @@ class EmpresaModulosComponent extends Component
             // dd($this->modulosdelaempresa);
             //dd($array);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             dd($this->modulosdelaempresa);
 >>>>>>> 8a1afa81658c927b270153e13b6d49f04e24d163
+=======
+            // dd($this->modulosdelaempresa);
+>>>>>>> sandbox
             $this->modulosdelaempresa=json_decode($this->modulosdelaempresa, true);
         $this->modulosNOempresa = Modulo::all();
         //dd($this->modulosNOempresa);

@@ -55,7 +55,7 @@
                             <ul>
                                 <li class="border text-left @if ($seleccionado == $empresa->id) bg-red-100 @endif"
                                     wire:click="CargarDatosEmpresa({{ $empresa->id }})">
-                                    <div class="w-full p-3" style="hover:background-color=pink">
+                                    <div class="w-full p-3 hover:scale-105 transition-all duration-500" style="hover:background-color=pink">
                                         <div class="flex rounded overflow-hidden border hover:bg-red-100 ">
                                             @if($empresa->imagen) 
 														<img class="block rounded-md flex-none bg-cover"

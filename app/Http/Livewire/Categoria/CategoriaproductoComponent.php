@@ -5,21 +5,28 @@ namespace App\Http\Livewire\Categoria;
 use Livewire\Component;
 //use App\Models\CategoriaProducto;
 use App\Models\Categoriaproducto;
+use Livewire\WithPagination;
+
 
 class CategoriaproductoComponent extends Component
 {
 
     public $isModalOpen = false;
     public $categoria, $categoria_id;
-    public $categorias;
+    protected $categorias;
 
     public $empresa_id;
+
+    use WithPagination;
 
     public function render()
     {
         $this->empresa_id=session('empresa_id');
-        $this->categorias = Categoriaproducto::where('empresa_id', $this->empresa_id)->get();
-        return view('livewire.categoria.categoriaproducto-component',['datos'=> Categoriaproducto::where('empresa_id', $this->empresa_id)->paginate(4),])->extends('layouts.adminlte');
+        // $this->categorias = Categoriaproducto::where('empresa_id', $this->empresa_id)->get();
+        $this->categorias = Categoriaproducto::where('empresa_id', '=', $this->empresa_id)->paginate(5);
+
+        return view('livewire.categoria.categoriaproducto-component',['categorias'=> $this->categorias])->extends('layouts.adminlte');
+        // return view('livewire.categoria.categoriaproducto-component',['categorias'=> Categoriaproducto::where('empresa_id', $this->empresa_id)->paginate(2),])->extends('layouts.adminlte');
     }
 
     public function create()

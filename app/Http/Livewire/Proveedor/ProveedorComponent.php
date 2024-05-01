@@ -4,9 +4,11 @@ namespace App\Http\Livewire\Proveedor;
 
 use Livewire\Component;
 use App\Models\Proveedor;
+use Livewire\WithPagination;
 
 class ProveedorComponent extends Component
 {
+    use WithPagination;
 
     public $isModalOpen = false;
     public $proveedor, $proveedor_id;
@@ -27,7 +29,7 @@ class ProveedorComponent extends Component
         $this->empresa_id=session('empresa_id');
         // $this->proveedores = Proveedor::where('empresa_id', $this->empresa_id)->get();
         
-        return view('livewire.proveedor.proveedor-component',['datos'=> Proveedor::where('empresa_id', $this->empresa_id)->where('name', 'like', '%'.$this->search.'%')->paginate(4),])->extends('layouts.adminlte');
+        return view('livewire.proveedor.proveedor-component',['datos'=> Proveedor::where('empresa_id', $this->empresa_id)->where('name', 'like', '%'.$this->search.'%')->paginate(8),])->extends('layouts.adminlte');
     }
 
     public function create()
@@ -63,7 +65,7 @@ class ProveedorComponent extends Component
         $this->validate([
             'name' => 'required',
             'direccion' => 'required',
-            'cuit' => 'required',
+            'cuit' => 'required|size:13',
             'telefono' => 'required|integer',
         ]);
         Proveedor::updateOrCreate(['id' => $this->proveedor_id], [
@@ -101,18 +103,18 @@ class ProveedorComponent extends Component
         session()->flash('message', 'Proveedor Eliminado.');
     }
 
-    public function search(Request $request){
-        // Get the search value from the request
-        $search = $request->input('search');
+    // public function search(Request $request){
+    //     // Get the search value from the request
+    //     $search = $request->input('search');
     
-        // Search in the title and body columns from the posts table
-        $posts = Post::query()
-            ->where('title', 'LIKE', "%{$search}%")
-            ->orWhere('body', 'LIKE', "%{$search}%")
-            ->get();
+    //     // Search in the title and body columns from the posts table
+    //     $posts = Post::query()
+    //         ->where('title', 'LIKE', "%{$search}%")
+    //         ->orWhere('body', 'LIKE', "%{$search}%")
+    //         ->get();
     
-        // Return the search view with the resluts compacted
-        return view('search', compact('posts'));
-    }
+    //     // Return the search view with the resluts compacted
+    //     return view('search', compact('posts'));
+    // }
 
 }

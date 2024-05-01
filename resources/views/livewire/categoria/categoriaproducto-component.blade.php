@@ -32,8 +32,37 @@
                         @if ($isModalOpen)
                             @include('livewire.categoria.createcategoriaproducto')
                         @endif
-                        <div class="w-1/2 justify-end">{{ $datos->links() }}</div>
+                        <div class="w-1/2 justify-end">{{ $categorias->links() }}</div>
                     </div>
+
+                    <div style="display: block">
+                        <table class="table-fixed table-striped w-full">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="px-4 py-2">Nombre de la Categoría</th>
+                                    <th class="px-4 py-2">Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if ($categorias)
+                                @foreach ($categorias as $categoria)
+                                    <tr>
+                                        <td class="border px-4 py-2 text-left">{{ $categoria->name }}</td>
+                                        <td class="border px-4 py-2">
+                                            <div class="flex justify-center">
+                                                <!-- Editar  -->
+                                                <x-editar id="{{ $categoria->id }}"></x-editar>
+                                                <!-- Eliminar -->
+                                                <x-eliminar id="{{ $categoria->id }}"></x-eliminar>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                @endif
+                            </tbody>
+                        </table>                        
+                    </div>
+{{-- 
                     <div style="display: block">
                         @foreach ($datos as $categoria)
 
@@ -54,45 +83,9 @@
                                 </div>
                             </div>
                         @endforeach
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-
-{{-- 
-                    <table class="table-fixed table-striped w-full">
-                        <thead>
-                            <tr class="bg-gray-100">
-                                <th class="px-4 py-2">Nombre de la Categoría</th>
-                                <th class="px-4 py-2">Opciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($categorias)
-                                @foreach ($categorias as $categoria)
-                                    <tr>
-                                        <td class="border px-4 py-2 text-left">{{ $categoria->name }}</td>
-                                        <td class="border px-4 py-2">
-                                            <div class="flex justify-center">
-                                                <!-- Editar  -->
-                                                <x-editar id="{{ $categoria->id }}"></x-editar>
-                                                <!-- Eliminar -->
-                                                <x-eliminar id="{{ $categoria->id }}"></x-eliminar>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
