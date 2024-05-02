@@ -6,11 +6,13 @@ use Livewire\Component;
 use App\Models\Empresa;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class EmpresaGestion extends Component
 
 {
     use WithFileUploads;
+    use WithPagination;
 
     public $empresas;
     public $isModalOpen;

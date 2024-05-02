@@ -10,7 +10,7 @@ use App\Models\Comprobante;
 
 use App\Models\Area;
 use App\Models\Cuenta;
-
+use App\Models\TablaUsuario;
 use Illuminate\Support\Facades\DB;
 
 
@@ -18,13 +18,24 @@ class VisualizarTablaComponent extends Component
 {
     public $isModalOpen = false;
     public $visualizar;
+    public $ListadeTablas;
 
     public function render()
     {
-        $this->ListadeTablas = Tabla::selectraw(' name, (select id from tabla_usuarios WHERE tabla_usuarios.tabla_id = tablas.id and tabla_usuarios.user_id = '.Auth::user()->id.') as relac_id, empresa_id, id as tabla_id')
-        ->where('id','>=',1)
-        ->where('empresa_id','=',session('empresa_id'))
+        // $this->ListadeTablas = Tabla::selectraw(' name, (select tabla_usuarios.id from tabla_usuarios,tablas WHERE tabla_usuarios.tabla_id = tablas.id and tabla_usuarios.user_id = '.Auth::user()->id.') as relac_id, empresa_id, id as tabla_id')
+        // $this->ListadeTablas = Tabla::selectraw(' name,a empresa_id, id as tabla_id')
+        // ->where('id','>=',1)
+        // ->where('empresa_id','=',session('empresa_id'))
+        //// $this->ListadeTablas = TablaUsuario::join('tablas','tabla_usuarios.tabla_id','=','tablas.id')->get();
+        // dd($this->ListadeTablas);
+        // $this->ListadeTablas = Tabla::where('qid','=',Auth::user()->id)
+        // ->where('empresa_id','=',session('empresa_id'))
+        // ->get();
+        $this->ListadeTablas = TablaUsuario::join('tablas', 'tabla_usuarios.tabla_id','=', 'tablas.id')
+        ->where('tablas.empresa_id','=',session('empresa_id'))
+        ->where('tabla_usuarios.user_id','=',auth()->user()->id)
         ->get();
+
         return view('livewire.tablas.visualizar-tabla-component',['datos'=> $this->ListadeTablas])->extends('layouts.adminlte');
     }
 
@@ -64,7 +75,7 @@ class VisualizarTablaComponent extends Component
                 $this->visualizar = '<table class="table table-responsive table-hover" style="font-family : Verdana; font-size : 10px; font-weight : 300;" border="1">
                 <tbody>
                 <tr style="font-weight:bold; border-top: 3px solid; font-size:14px">
-                    <td colspan=9>Libros IVA Ventas</td>
+                    <td colspan=9>Libros IVA Ventas 2024</td>
                 </tr>
                 <tr style="font-weight:bold; border-top: 3px solid;">
                     <td bgcolor="white" align="center">Meses</td>
@@ -83,7 +94,7 @@ class VisualizarTablaComponent extends Component
                     ->join('ivas','ivas.id', '=', 'ventas.iva_id')
                     ->where('PasadoEnMes','=',$i)
                     ->where('ParticIva','=','Si')
-                    ->where('Anio','=',2021)
+                    ->where('Anio','=',2024)
                     ->where('empresa_id','=',session('empresa_id'))
                     ->get();
                     foreach($sql as $sql1) {
@@ -140,7 +151,7 @@ class VisualizarTablaComponent extends Component
                 $this->visualizar = '<table class="table table-responsive table-hover" style="font-family : Verdana; font-size : 10px; font-weight : 300;" border="1">
                 <tbody>
                 <tr style="font-weight:bold; border-top: 3px solid; font-size:14px">
-                    <td colspan=9>Libros IVA Compras</td>
+                    <td colspan=9>Libros IVA Compras 2024</td>
                 </tr>
                 <tr style="font-weight:bold; border-top: 3px solid;">
                     <td bgcolor="white" align="center">Meses</td>
@@ -159,7 +170,7 @@ class VisualizarTablaComponent extends Component
                     ->join('ivas','ivas.id', '=', 'comprobantes.iva_id')
                     ->where('PasadoEnMes','=',$i)
                     ->where('ParticIva','=','Si')
-                    ->where('Anio','=',2021)
+                    ->where('Anio','=',2024)
                     ->where('empresa_id','=',session('empresa_id'))
                     ->get();
                     foreach($sql as $sql1) {
@@ -199,20 +210,29 @@ class VisualizarTablaComponent extends Component
                         <td bgcolor="white" align="right">'.number_format($NetoComp,2).'</td>
                     </tr>';
             break;
-                case "Paretto":
+            case "Paretto":
                     $a = $this->AgregarEncabezado('Areas-Compras');
                     $totalNetoCompra = Comprobante::where('Anio', 2021)
                         ->where('empresa_id', session('empresa_id'))
                         ->sum('NetoComp');
 
-                    $sql = DB::table('comprobantes')
-                    ->join('areas', 'areas.id', '=', 'comprobantes.area_id')
-                    ->whereraw("comprobantes.empresa_id", session('empresa_id'))
-                    ->whereraw('Anio', 2021)
-                    ->selectraw('sum(NetoComp) as NetoComp, area_id')
-                    ->groupby('area_id')
-                    ->orderby('NetoComp', 'desc')
-                    ->get();
+                        $sql = Comprobante::selectraw('sum(NetoComp) as NetoComp, area_id')    
+                        ->join('areas', 'areas.id', '=', 'comprobantes.area_id')
+                        ->whereraw('comprobantes.empresa_id=' . session('empresa_id'))
+                        ->whereraw('Anio=2021')
+                        ->groupby('comprobantes.area_id')
+                        ->orderby('NetoComp', 'desc')
+                        ->get();
+
+                        // dd($sql);
+                    // $sql = DB::table('comprobantes')
+                    // ->join('areas', 'areas.id', '=', 'comprobantes.area_id')
+                    // ->whereraw('comprobantes.empresa_id','=', session('empresa_id'))
+                    // ->whereraw('Anio','=', 2021)
+                    // ->selectraw('sum(NetoComp) as NetoComp, area_id')
+                    // ->groupby('area_id')
+                    // ->orderby('NetoComp', 'desc')
+                    // ->get();
                 
                
                     $a = $a .'<table class="table table-responsive table-hover" style="font-family : Verdana; font-size : 10px; font-weight : 300;" border="1">
@@ -365,7 +385,6 @@ class VisualizarTablaComponent extends Component
                             </tr>
                         </tbody>
                         </table>';
-// dd($d);
                         //Resumen 
 
                         $r = $this->AgregarEncabezado('Paretto');
@@ -388,8 +407,8 @@ class VisualizarTablaComponent extends Component
                         </table>';
 
                         
-$this->visualizar = $r;
-                    break;
+                $this->visualizar = $r;
+                break;
         }
     }
     

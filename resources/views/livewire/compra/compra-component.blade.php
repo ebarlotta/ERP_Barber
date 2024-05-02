@@ -246,6 +246,7 @@
 											<label style="font-size: 80%;">Año</label>
 											<select class="w-2/3 px-2 rounded-md h-8 leading-none" wire:model="ganio">
 												<option value=""></option>
+												<option value="2024">2024</option>
 												<option value="2023">2023</option>
 												<option value="2022">2022</option>
 												<option value="2021">2021</option>
@@ -373,7 +374,7 @@
 											@error('gneto') <span class="text-red-500">{{ $message }}</span>@enderror
 										</div>
 										<div class="mr-1 w-28 grid text-left">
-											<label style="font-size: 80%;">Monto Pagado</label>
+											<label style="font-size: 80%;" wire:click="copiarMontoPagado()">Monto Pagado</label>
 											<input class="num w-full text-right rounded-md h-8" type="text" wire:model="gmontopagado">
 										</div>
 										<div class="mr-1 w-2 grid text-left0">
@@ -462,6 +463,7 @@
 												<label style="font-size: 80%;">Año</label>
 												<!-- <select class="px-2 rounded-md h-7 py-0 leading-none" wire:model="gfanio" wire:change="gfiltro()"> -->
 												<select class="px-2 rounded-md h-7 py-0 leading-none" wire:model="gfanio" wire:change="gsetanio(gfanio)">
+													<option value="2024">2024</option>
 													<option value="2023">2023</option>
 													<option value="2022">2022</option>
 													<option value="2021">2021</option>
@@ -506,6 +508,7 @@
 											<label for="">Años a incluir </label><br>
 											<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="danio">
 												<option value="0">Todos</option>
+												<option value="2024">2024</option>
 												<option value="2023">2023</option>
 												<option value="2022">2022</option>
 												<option value="2021">2021</option>
@@ -570,6 +573,7 @@
 												<label for="">Años a incluir</label><br>
 												<select class=" text-xs rounded-md h-7 py-0 leading-none" wire:model="canio">
 													<option value="0">Todos</option>
+													<option value="2024">2024</option>
 													<option value="2023">2023</option>
 													<option value="2022">2022</option>
 													<option value="2021">2021</option>
@@ -669,7 +673,8 @@
 													<label for="">Año</label><br>
 													<select class="mr-4 w-full text-xs rounded-md h-7 leading-none" wire:model="lanio" wire:change="MostrarLibros()">
 														<option value=""></option>
-														<option value="2023">2023</option	on>
+														<option value="2024">2024</option>
+														<option value="2023">2023</option>
 														<option value="2022">2022</option>
 														<option value="2021">2021</option>
 														<option value="2020">2020</option>

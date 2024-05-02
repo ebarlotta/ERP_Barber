@@ -11,7 +11,7 @@
     </x-slot>
 
     <table class="table table-responsive table-hover" border="1" style="font-size: 0.7rem;">
-        <tbody bordercolor="#FFFFFF" style="font-family : Verdana; font-size : 18px; font-weight : 300;" bgcolor="#EFF3F7">
+        <tbody bordercolor="#FFFFFF" style="font-size : 18px; font-weight : 300;" bgcolor="#EFF3F7">  <!-- font-family : Verdana; -->
             <tr>
                 <td>
                     <div class="flex flex-wrap justify-items-stretch" style="font-size: 0.8rem;">
@@ -76,7 +76,7 @@
             <tr>
                 <td colspan="2">
                     <!-- <div id="DivCategorias"> -->
-                        <table style="font-size: 0.7rem;" class="table table-responsive table-hover" border="1">
+                        <table style="font-size: 0.7rem;" class="table table-responsive" border="1"> <!-- table-hover -->
                             <tbody>
                                 <tr>
                                     <td align="center">ID</td>

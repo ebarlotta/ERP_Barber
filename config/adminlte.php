@@ -49,6 +49,7 @@ return [
     // 'logo' => '<div style="display:inline-block"><b>BarBer</b><br><p style="font-size: 8px;">DESARROLLOS</p></div>',
     // 'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img' => 'images/BarBer.png',
+    // session('empresa_id');
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -196,7 +197,7 @@ return [
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
-    'profile_url' => false,
+    'profile_url' => 'user/profile',
 
     /*
     |--------------------------------------------------------------------------
@@ -255,6 +256,7 @@ return [
         //     'label'       => 6,
         //     'label_color' => 'success',
         // ],
+        
         ['header' => 'account_settings'],
 
         [

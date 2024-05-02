@@ -74,7 +74,7 @@
                      <div class="mb-4 mr-2 text-left">
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Unidad</label>
                         @if($unidades)
-                           <select name="unidads_id" class="rounded">
+                           <select name="unidads_id" class="rounded" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                               <option></option>
                               @foreach ($unidades as $unidad)
                                  <option value="{{$unidad->id}}">{{$unidad->name}}</option>

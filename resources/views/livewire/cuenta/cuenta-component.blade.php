@@ -33,7 +33,37 @@
                         <div class="w-1/2 justify-end">{{ $datos->links() }}</div>
                     </div>
                     <div style="display: block">
-                        @foreach ($datos as $cuenta)
+
+                        <table class="table-fixed table-striped w-full">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="px-4 py-2">Cuenta</th>
+                                    <th class="px-4 py-2">Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if ($datos)
+                                    @foreach ($datos as $cuenta)
+                                        <tr>
+                                            <td class="border px-4 py-2 text-left">{{ $cuenta->name }}</td>
+                                            <td class="border px-4 py-2">
+                                                <div class="flex justify-center">
+                                                    <div class="sm:flex justify-center">
+                                                        <!-- Editar  -->
+                                                        <x-editar id="{{ $cuenta->id }}"></x-editar>
+                                                    </div>
+                                                    <div class="sm:flex justify-center">
+                                                        <!-- Eliminar -->
+                                                        <x-eliminar id="{{ $cuenta->id }}"></x-eliminar>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                        {{-- @foreach ($datos as $cuenta)
 
                             <div class="p-2 shadow-lg" style="background:linear-gradient(90deg, lightblue 20%, white 50%); width:93%; height:100px; display: flex; margin: 1.25rem; border-radius: 10px; height: 100%;">
                                 <div style="width:90%;">
@@ -51,7 +81,7 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @endforeach --}}
                     </div>
                 </div>
             </div>

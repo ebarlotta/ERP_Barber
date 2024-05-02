@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Tablas;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\EmpresaUsuario;
 use App\Models\Tabla;
@@ -18,6 +19,9 @@ class TablasComponent extends Component
     public $ModalOk;
     public $tabla_id;
     public $rel_id;
+    public $empresa_id;
+    public $users;
+    public $ListadeTablas;
 
 
     public function render()
@@ -26,15 +30,19 @@ class TablasComponent extends Component
         $this->empresa_id=session('empresa_id');
         $this->users = User::join('empresa_usuarios', 'empresa_usuarios.user_id','=', 'users.id')
         ->where('empresa_usuarios.empresa_id','=',$this->empresa_id)->get();
-
+        // dd($this->users);
         return view('livewire.tablas.tablas-component',['datos'=> Tabla::where('empresa_id', $this->empresa_id)->paginate(4),])->extends('layouts.adminlte');
     }
 
     public function CargarInformesHabilitados($usuario_id) {
+        
         $this->tablas = TablaUsuario::join('tablas', 'tabla_usuarios.tabla_id','=', 'tablas.id')
-        ->where('tablas.empresa_id','=',$this->empresa_id)
+        ->where('tablas.empresa_id','=',session('empresa_id'))
+        // ->where('tablas.empresa_id','=',$this->empresa_id)
         ->where('tabla_usuarios.user_id','=',$usuario_id)
+        // ->where('tabla_usuarios.user_id','=',Auth::user()->id)
         ->get();
+        // dd($this->tablas);
         $this->user_id = $usuario_id;   // Establece el ide de ususario con el que se va a trabajar
         session(['AsignacionOk'=>null]); // Borra cartel
     }

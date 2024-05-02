@@ -4,21 +4,25 @@ namespace App\Http\Livewire\Estado;
 
 use Livewire\Component;
 use App\Models\Estado;
+use Livewire\WithPagination;
+
 
 class EstadoComponent extends Component
 {
     public $isModalOpen = false;
     public $estado, $estado_id;
-    public $estados;
+    protected $estados;
 
     public $empresa_id;
+
+    use WithPagination;
 
     public function render()
     {
         $this->empresa_id=session('empresa_id');
-        $this->estados = Estado::where('empresa_id', $this->empresa_id)->get();
-
-        return view('livewire.estado.estado-component',['datos'=> Estado::where('empresa_id', $this->empresa_id)->paginate(3),])->extends('layouts.adminlte');
+        $this->estados = Estado::where('empresa_id', '=', $this->empresa_id)->paginate(5);
+        return view('livewire.estado.estado-component',['estados' => $this->estados])->extends('layouts.adminlte');
+        // return view('livewire.estado.estado-component',['datos'=> Estado::where('empresa_ids', $this->empresa_id)->paginate(3),])->extends('layouts.adminlte');
     }
     public function create()
     {
