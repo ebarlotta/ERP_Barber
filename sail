@@ -65,26 +65,20 @@ function display_help {
     echo "  ${GREEN}sail npx${NC}            Run a npx command"
     echo "  ${GREEN}sail npm run prod${NC}"
     echo
-<<<<<<< HEAD
     echo "${YELLOW}PNPM Commands:${NC}"
     echo "  ${GREEN}sail pnpm ...${NC}        Run a pnpm command"
     echo "  ${GREEN}sail pnpx${NC}            Run a pnpx command"
     echo "  ${GREEN}sail pnpm run prod${NC}"
     echo
-=======
->>>>>>> c6ac1c8bfa7f0c0d0670ed8db70ab65cd6f6f4dc
     echo "${YELLOW}Yarn Commands:${NC}"
     echo "  ${GREEN}sail yarn ...${NC}        Run a Yarn command"
     echo "  ${GREEN}sail yarn run prod${NC}"
     echo
-<<<<<<< HEAD
     echo "${YELLOW}Bun Commands:${NC}"
     echo "  ${GREEN}sail bun ...${NC}        Run a bun command"
     echo "  ${GREEN}sail bunx${NC}           Run a bunx command"
     echo "  ${GREEN}sail bun run prod${NC}"
     echo
-=======
->>>>>>> c6ac1c8bfa7f0c0d0670ed8db70ab65cd6f6f4dc
     echo "${YELLOW}Database Commands:${NC}"
     echo "  ${GREEN}sail mysql${NC}     Start a MySQL CLI session within the 'mysql' container"
     echo "  ${GREEN}sail mariadb${NC}   Start a MySQL CLI session within the 'mariadb' container"
@@ -98,10 +92,7 @@ function display_help {
     echo "${YELLOW}Running Tests:${NC}"
     echo "  ${GREEN}sail test${NC}          Run the PHPUnit tests via the Artisan test command"
     echo "  ${GREEN}sail phpunit ...${NC}   Run PHPUnit"
-<<<<<<< HEAD
     echo "  ${GREEN}sail pest ...${NC}      Run Pest"
-=======
->>>>>>> c6ac1c8bfa7f0c0d0670ed8db70ab65cd6f6f4dc
     echo "  ${GREEN}sail pint ...${NC}      Run Pint"
     echo "  ${GREEN}sail dusk${NC}          Run the Dusk tests (Requires the laravel/dusk package)"
     echo "  ${GREEN}sail dusk:fails${NC}    Re-run previously failed Dusk tests (Requires the laravel/dusk package)"
@@ -115,10 +106,7 @@ function display_help {
     echo
     echo "${YELLOW}Sharing:${NC}"
     echo "  ${GREEN}sail share${NC}   Share the application publicly via a temporary URL"
-<<<<<<< HEAD
     echo "  ${GREEN}sail open${NC}    Open the site in your browser"
-=======
->>>>>>> c6ac1c8bfa7f0c0d0670ed8db70ab65cd6f6f4dc
     echo
     echo "${YELLOW}Binaries:${NC}"
     echo "  ${GREEN}sail bin ...${NC}   Run Composer binary scripts from the vendor/bin directory"
@@ -140,15 +128,10 @@ else
 fi
 
 # Source the ".env" file so Laravel's environment variables are available...
-<<<<<<< HEAD
 if [ ! -z "$APP_ENV" ] && [ -f ./.env.$APP_ENV ]; then
   source ./.env.$APP_ENV;
 elif [ -f ./.env ]; then
   source ./.env;
-=======
-if [ -f ./.env ]; then
-    source ./.env
->>>>>>> c6ac1c8bfa7f0c0d0670ed8db70ab65cd6f6f4dc
 fi
 
 # Define environment variables...
@@ -163,11 +146,8 @@ export SAIL_SHARE_DASHBOARD=${SAIL_SHARE_DASHBOARD:-4040}
 export SAIL_SHARE_SERVER_HOST=${SAIL_SHARE_SERVER_HOST:-"laravel-sail.site"}
 export SAIL_SHARE_SERVER_PORT=${SAIL_SHARE_SERVER_PORT:-8080}
 export SAIL_SHARE_SUBDOMAIN=${SAIL_SHARE_SUBDOMAIN:-""}
-<<<<<<< HEAD
 export SAIL_SHARE_DOMAIN=${SAIL_SHARE_DOMAIN:-"$SAIL_SHARE_SERVER_HOST"}
 export SAIL_SHARE_SERVER=${SAIL_SHARE_SERVER:-""}
-=======
->>>>>>> c6ac1c8bfa7f0c0d0670ed8db70ab65cd6f6f4dc
 
 # Function that outputs Sail is not running...
 function sail_is_not_running {
@@ -274,11 +254,7 @@ elif [ "$1" == "composer" ]; then
     fi
 
 # Proxy Artisan commands to the "artisan" binary on the application container...
-<<<<<<< HEAD
 elif [ "$1" == "artisan" ] || [ "$1" == "art" ] || [ "$1" == "a" ]; then
-=======
-elif [ "$1" == "artisan" ] || [ "$1" == "art" ]; then
->>>>>>> c6ac1c8bfa7f0c0d0670ed8db70ab65cd6f6f4dc
     shift 1
 
     if [ "$EXEC" == "yes" ]; then
@@ -325,7 +301,6 @@ elif [ "$1" == "phpunit" ]; then
         sail_is_not_running
     fi
 
-<<<<<<< HEAD
 # Proxy the "pest" command to "php vendor/bin/pest"...
 elif [ "$1" == "pest" ]; then
     shift 1
@@ -338,8 +313,6 @@ elif [ "$1" == "pest" ]; then
         sail_is_not_running
     fi
 
-=======
->>>>>>> c6ac1c8bfa7f0c0d0670ed8db70ab65cd6f6f4dc
 # Proxy the "pint" command to "php vendor/bin/pint"...
 elif [ "$1" == "pint" ]; then
     shift 1
@@ -428,7 +401,6 @@ elif [ "$1" == "npx" ]; then
         sail_is_not_running
     fi
 
-<<<<<<< HEAD
 # Proxy PNPM commands to the "pnpm" binary on the application container...
 elif [ "$1" == "pnpm" ]; then
     shift 1
@@ -453,8 +425,6 @@ elif [ "$1" == "pnpx" ]; then
         sail_is_not_running
     fi
 
-=======
->>>>>>> c6ac1c8bfa7f0c0d0670ed8db70ab65cd6f6f4dc
 # Proxy YARN commands to the "yarn" binary on the application container...
 elif [ "$1" == "yarn" ]; then
     shift 1
@@ -467,7 +437,6 @@ elif [ "$1" == "yarn" ]; then
         sail_is_not_running
     fi
 
-<<<<<<< HEAD
 # Proxy Bun commands to the "bun" binary on the application container...
 elif [ "$1" == "bun" ]; then
     shift 1
@@ -492,8 +461,6 @@ elif [ "$1" == "bunx" ]; then
         sail_is_not_running
     fi
 
-=======
->>>>>>> c6ac1c8bfa7f0c0d0670ed8db70ab65cd6f6f4dc
 # Initiate a MySQL CLI terminal session within the "mysql" container...
 elif [ "$1" == "mysql" ]; then
     shift 1
@@ -578,13 +545,9 @@ elif [ "$1" == "share" ]; then
             --server-host="$SAIL_SHARE_SERVER_HOST" \
             --server-port="$SAIL_SHARE_SERVER_PORT" \
             --auth="$SAIL_SHARE_TOKEN" \
-<<<<<<< HEAD
             --server="$SAIL_SHARE_SERVER" \
             --subdomain="$SAIL_SHARE_SUBDOMAIN" \
             --domain="$SAIL_SHARE_DOMAIN" \
-=======
-            --subdomain="$SAIL_SHARE_SUBDOMAIN" \
->>>>>>> c6ac1c8bfa7f0c0d0670ed8db70ab65cd6f6f4dc
             "$@"
 
         exit
@@ -592,7 +555,6 @@ elif [ "$1" == "share" ]; then
         sail_is_not_running
     fi
 
-<<<<<<< HEAD
 # Open the site...
 elif [ "$1" == "open" ]; then
     shift 1
@@ -605,8 +567,6 @@ elif [ "$1" == "open" ]; then
         sail_is_not_running
     fi
 
-=======
->>>>>>> c6ac1c8bfa7f0c0d0670ed8db70ab65cd6f6f4dc
 # Pass unknown commands to the "docker-compose" binary...
 else
     ARGS+=("$@")

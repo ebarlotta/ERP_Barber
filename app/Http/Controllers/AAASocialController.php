@@ -10,7 +10,7 @@ use Exception;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 
-class SocialController extends Controller
+class AAASocialController extends Controller
 {
     public function facebookRedirect()
     {

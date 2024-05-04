@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'bf112cf8496a1f0f95c5726fb8731acaed73c7ad',
+        'reference' => '7dd8a4449d3ff189411c0a9e74b4ac6af0cd4322',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -541,7 +541,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'bf112cf8496a1f0f95c5726fb8731acaed73c7ad',
+            'reference' => '7dd8a4449d3ff189411c0a9e74b4ac6af0cd4322',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -598,6 +598,15 @@
             'reference' => '65ec5c03f7fee2c8ecae785795b829a15be48c2c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laravel/ui',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'laraveles/spanish' => array(
+            'pretty_version' => '1.5.0',
+            'version' => '1.5.0.0',
+            'reference' => '2224e3db7ec399952523b0769a7677de0b6afd8b',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laraveles/spanish',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -997,8 +1006,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0',
             ),
         ),
         'psr/simple-cache' => array(
