@@ -13,6 +13,8 @@ use App\Models\Producto;
 use App\Models\Compras_Productos;
 use Illuminate\Support\Facades\DB;
 
+// require 'vendor/autoload.php';
+use Afip;
 
 class CompraComponent extends Component
 {
@@ -840,6 +842,96 @@ class CompraComponent extends Component
         ->get(['compras__productos.*','productos.name']);
         //falta el where
         //dd($this->glistado_prod);
+    }
+
+    public function GenerarCertificado() {
+        // CUIT al cual le queremos generar el certificado
+        $tax_id = 20255083571; 
+
+        // Usuario para ingresar a AFIP.
+        // Para la mayoria es el mismo CUIT, pero al administrar
+        // una sociedad el CUIT con el que se ingresa es el del administrador
+        // de la sociedad.
+        $username = '20255083571'; 
+
+        // Contraseña para ingresar a AFIP.
+        $password = 'sOCIEDAD2023';
+
+        // Alias para el certificado (Nombre para reconocerlo en AFIP)
+        // un alias puede tener muchos certificados, si estas renovando
+        // un certificado podes utilizar el mismo alias
+        $alias = 'afipsdkCertificado';
+
+        // Creamos una instancia de la libreria
+        $afip = new Afip(array('CUIT' => $tax_id ));
+
+        // Creamos el certificado (¡Paciencia! Esto toma unos cuantos segundos)
+        $res = $afip->CreateCert($username, $password, $alias);
+
+        // Mostramos el certificado por pantalla
+        var_dump($res->cert);
+
+        // Mostramos la key por pantalla
+        var_dump($res->key);
+
+        dd($res->cert);
+    }
+
+    public function Facturar(){
+
+        // Certificado (Puede estar guardado en archivos, DB, etc)
+        $cert = file_get_contents('/home/enzo/Escritorio/erp.softxplus.com/app/Http/Livewire/Compra/certificado.crt');
+
+        // Key (Puede estar guardado en archivos, DB, etc)
+        $key = file_get_contents('/home/enzo/Escritorio/erp.softxplus.com/app/Http/Livewire/Compra/key.key');
+
+        // Tu CUIT
+        $tax_id = 20255083571;
+
+        $afip = new Afip(array(
+            'CUIT' => $tax_id,
+            'cert' => $cert,
+            'key' => $key
+        ));
+
+
+        // Para hacer pruebas
+        // Tu CUIT
+        // $tax_id = 20111111112;
+        // $afip = new Afip(array('CUIT' => 20255083571));
+
+        $voucher_types = $afip->ElectronicBilling->GetVoucherTypes();
+        dd($voucher_types);
+        $sales_points = $afip->ElectronicBilling->GetSalesPoints();
+    }
+
+    public function AutorizarCertificado() {
+        // CUIT al cual le queremos generar la autorización
+        $tax_id = 20255083571; 
+
+        // Usuario para ingresar a AFIP.
+        // Para la mayoria es el mismo CUIT, pero al administrar
+        // una sociedad el CUIT con el que se ingresa es el del administrador
+        // de la sociedad.
+        $username = '20255083571'; 
+
+        // Contraseña para ingresar a AFIP.
+        $password = 'sOCIEDAD2023';
+
+        // Alias del certificado a autorizar (previamente creado)
+        $alias = 'afipsdkCertificado';
+
+        // Id del web service a autorizar
+        $wsid = 'wsfe';
+
+        // Creamos una instancia de la libreria
+        $afip = new Afip(array('CUIT' => $tax_id ));
+
+        // Creamos la autorizacion (¡Paciencia! Esto toma unos cuantos segundos)
+        $res = $afip->CreateWSAuth($username, $password, $alias, $wsid);
+
+        // Mostramos el resultado por pantalla
+        var_dump($res);
     }
     
 }

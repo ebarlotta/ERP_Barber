@@ -484,6 +484,17 @@
 												<input class=" mr-2 rounded-sm py-0" type="checkbox" wire:model="gfsaldo" wire:change="gfiltro()">
 												</div>
 											</div>
+											<div>
+												<button class="btn btn-info" wire:click="Facturar();">
+													Facturar
+												</button>
+												<button class="btn btn-info" wire:click="Facturar();">
+													Autorizar Certificado
+												</button>
+												<button class="btn btn-info" wire:click="Facturar();">
+													Generar Certificado
+												</button>
+											</div>
 										</div>
 										{!! $filtro !!}
 									{{-- </div> --}}
