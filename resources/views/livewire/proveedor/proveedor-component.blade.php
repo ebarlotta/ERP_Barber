@@ -23,53 +23,56 @@
                             </div>
                         </div>
                     @endif
-    <div class="flex justify-around">
-        <x-crear>Nuevo Proveedor</x-crear>
-        @if ($isModalOpen)
-            @include('livewire.proveedor.createproveedores')
-        @endif
-        <div class="w-full">{{ $datos->links() }}</div>
-    </div>
-    <div style="display: block">
-    <label for="">Buscar por nombre</label><input class="shadow-md m-1" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;" wire:model="search" type="search" placeholder="Ingresa nombre">
-
-
-
-    <table class="table-fixed table-striped w-full">
-        <thead>
-            <tr class="bg-gray-100">
-                <th class="px-4 py-2">Nombre</th>
-                <th class="px-4 py-2">Dirección</th>
-                <th class="px-4 py-2">Teléfono</th>
-                <th class="px-4 py-2">Email</th>
-                <th class="px-4 py-2">Opciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if ($datos)
-                @foreach ($datos as $proveedor)
-                    <tr>
-                        <td class="border px-4 py-2 text-left">{{ $proveedor->name }}</td>
-                        <td class="border px-4 py-2 text-left">{{ $proveedor->direccion }}</td>
-                        <td class="border px-4 py-2 text-left">{{ $proveedor->telefono }}</td>
-                        <td class="border px-4 py-2 text-left">{{ $proveedor->email }}</td>
-                        <td class="border px-4 py-2">
-                            <div class="flex justify-center">
-                                <div class="sm:flex justify-center">
-                                    <!-- Editar  -->
-                                    <x-editar id="{{ $proveedor->id }}"></x-editar>
-                                </div>
-                                <div class="sm:flex justify-center">
-                                    <!-- Eliminar -->
-                                    <x-eliminar id="{{ $proveedor->id }}"></x-eliminar>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-            @endif
-        </tbody>
-    </table> 
+                    <div class="flex justify-around">
+                        @if(session('Proveedores.Agregar'))
+                            <x-crear>Nuevo Proveedor</x-crear>
+                            @if ($isModalOpen)
+                                @include('livewire.proveedor.createproveedores')
+                            @endif
+                            <div class="w-full">{{ $datos->links() }}</div>
+                        @endif
+                    </div>
+                    <div style="display: block">
+                    <label for="">Buscar por nombre</label><input class="shadow-md m-1" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;" wire:model="search" type="search" placeholder="Ingresa nombre">
+                    <table class="table-fixed table-striped w-full">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="px-4 py-2">Nombre</th>
+                                <th class="px-4 py-2">Dirección</th>
+                                <th class="px-4 py-2">Teléfono</th>
+                                <th class="px-4 py-2">Email</th>
+                                <th class="px-4 py-2">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if ($datos)
+                                @foreach ($datos as $proveedor)
+                                    <tr>
+                                        <td class="border px-4 py-2 text-left">{{ $proveedor->name }}</td>
+                                        <td class="border px-4 py-2 text-left">{{ $proveedor->direccion }}</td>
+                                        <td class="border px-4 py-2 text-left">{{ $proveedor->telefono }}</td>
+                                        <td class="border px-4 py-2 text-left">{{ $proveedor->email }}</td>
+                                        <td class="border px-4 py-2">
+                                            <div class="flex justify-center">
+                                                @if(session('Proveedores.Editar'))
+                                                    <div class="sm:flex justify-center">
+                                                        <!-- Editar  -->
+                                                        <x-editar id="{{ $proveedor->id }}"></x-editar>
+                                                    </div>
+                                                @endif
+                                                @if(session('Proveedores.Eliminar'))
+                                                    <div class="sm:flex justify-center">
+                                                        <!-- Eliminar -->
+                                                        <x-eliminar id="{{ $proveedor->id }}"></x-eliminar>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table> 
 
 
 

@@ -27,11 +27,13 @@
                     @endif
 
                     <div class="flex justify-around">
-                        <x-crear>Nuevo Estado</x-crear>
-                        @if ($isModalOpen)
-                            @include('livewire.estado.createestado')
+                        @if(session('Estados.Agregar'))
+                            <x-crear>Nuevo Estado</x-crear>
+                            @if ($isModalOpen)
+                                @include('livewire.estado.createestado')
+                            @endif
+                            <div class="w-1/2 justify-end">{{ $estados->links() }}</div>
                         @endif
-                        <div class="w-1/2 justify-end">{{ $estados->links() }}</div>
                     </div>
                         <table class="table-fixed table-striped w-full">
                             <thead>
@@ -47,10 +49,14 @@
                                             <td class="border px-4 py-2 text-left">{{ $estado->name }}</td>
                                             <td class="border px-4 py-2">
                                                 <div class="flex justify-center">
-                                                    <!-- Editar  -->
-                                                    <x-editar id="{{ $estado->id }}"></x-editar>
-                                                    <!-- Eliminar -->
-                                                    <x-eliminar id="{{ $estado->id }}"></x-eliminar>
+                                                    @if(session('Estados.Modificar'))
+                                                        <!-- Editar  -->
+                                                        <x-editar id="{{ $estado->id }}"></x-editar>
+                                                    @endif
+                                                    @if(session('Estados.Eliminar'))
+                                                        <!-- Eliminar -->
+                                                        <x-eliminar id="{{ $estado->id }}"></x-eliminar>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>

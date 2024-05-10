@@ -26,9 +26,11 @@
                     @endif
 
                     <div class="flex justify-around">
-                        <x-crear>Nueva Unidad</x-crear>
-                        @if ($isModalOpen)
-                            @include('livewire.unidad.createunidad')
+                        @if(session('Unidades.Agregar'))
+                            <x-crear>Nueva Unidad</x-crear>
+                            @if ($isModalOpen)
+                                @include('livewire.unidad.createunidad')
+                            @endif
                         @endif
                         <div class="w-1/2 justify-end">{{ $datos->links() }}</div>
                     </div>
@@ -47,10 +49,14 @@
                                         <td class="border px-4 py-2 text-left">{{ $unidad->name }}</td>
                                         <td class="border px-4 py-2">
                                             <div class="flex justify-center">
-                                                <!-- Editar  -->
-                                                <x-editar id="{{ $unidad->id }}"></x-editar>
-                                                <!-- Eliminar -->
-                                                <x-eliminar id="{{ $unidad->id }}"></x-eliminar>
+                                                @if(session('Unidades.Editar'))
+                                                    <!-- Editar  -->
+                                                    <x-editar id="{{ $unidad->id }}"></x-editar>
+                                                @endif
+                                                @if(session('Unidades.Eliminar'))
+                                                    <!-- Eliminar -->
+                                                    <x-eliminar id="{{ $unidad->id }}"></x-eliminar>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>

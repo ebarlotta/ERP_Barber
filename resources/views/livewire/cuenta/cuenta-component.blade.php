@@ -26,11 +26,13 @@
                     @endif
 
                     <div class="flex justify-around">
-                        <x-crear>Nueva Cuenta</x-crear>
-                        @if ($isModalOpen)
-                            @include('livewire.cuenta.createcuentas')
+                        @if(session('Cuentas.Agregar'))
+                            <x-crear>Nueva Cuenta</x-crear>
+                            @if ($isModalOpen)
+                                @include('livewire.cuenta.createcuentas')
+                            @endif
+                            <div class="w-1/2 justify-end">{{ $datos->links() }}</div>
                         @endif
-                        <div class="w-1/2 justify-end">{{ $datos->links() }}</div>
                     </div>
                     <div style="display: block">
 
@@ -49,13 +51,17 @@
                                             <td class="border px-4 py-2">
                                                 <div class="flex justify-center">
                                                     <div class="sm:flex justify-center">
-                                                        <!-- Editar  -->
-                                                        <x-editar id="{{ $cuenta->id }}"></x-editar>
-                                                    </div>
-                                                    <div class="sm:flex justify-center">
-                                                        <!-- Eliminar -->
-                                                        <x-eliminar id="{{ $cuenta->id }}"></x-eliminar>
-                                                    </div>
+                                                        @if(session('Cuentas.Editar'))
+                                                            <!-- Editar  -->
+                                                            <x-editar id="{{ $cuenta->id }}"></x-editar>
+                                                        </div>
+                                                        @endif
+                                                        @if(session('Cuentas.Eliminar'))
+                                                            <div class="sm:flex justify-center">
+                                                                <!-- Eliminar -->
+                                                                <x-eliminar id="{{ $cuenta->id }}"></x-eliminar>
+                                                            </div>
+                                                        @endif
                                                 </div>
                                             </td>
                                         </tr>

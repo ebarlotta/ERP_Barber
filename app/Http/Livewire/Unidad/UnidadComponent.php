@@ -17,7 +17,7 @@ class UnidadComponent extends Component
     {
         $this->empresa_id=session('empresa_id');
         $this->unidades = Unidad::where('empresa_id', $this->empresa_id)->get();
-        return view('livewire.unidad.unidad-component',['datos'=> Unidad::where('empresa_id', $this->empresa_id)->paginate(3),])->extends('layouts.adminlte');
+        return view('livewire.unidad.unidad-component',['datos'=> Unidad::where('empresa_id', $this->empresa_id)->paginate(7),])->extends('layouts.adminlte');
     }
 
     public function create()

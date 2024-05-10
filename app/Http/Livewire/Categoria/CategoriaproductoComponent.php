@@ -23,7 +23,7 @@ class CategoriaproductoComponent extends Component
     {
         $this->empresa_id=session('empresa_id');
         // $this->categorias = Categoriaproducto::where('empresa_id', $this->empresa_id)->get();
-        $this->categorias = Categoriaproducto::where('empresa_id', '=', $this->empresa_id)->paginate(5);
+        $this->categorias = Categoriaproducto::where('empresa_id', '=', $this->empresa_id)->paginate(7);
 
         return view('livewire.categoria.categoriaproducto-component',['categorias'=> $this->categorias])->extends('layouts.adminlte');
         // return view('livewire.categoria.categoriaproducto-component',['categorias'=> Categoriaproducto::where('empresa_id', $this->empresa_id)->paginate(2),])->extends('layouts.adminlte');

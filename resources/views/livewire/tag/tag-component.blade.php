@@ -24,9 +24,11 @@
                             </div>
                         </div>
                     @endif
-                    <x-crear>Nueva Etiqueta</x-crear>
-                    @if ($isModalOpen)
-                        @include('livewire.tag.createtag')
+                    @if(session('Etiqueta.Agregar'))
+                        <x-crear>Nueva Etiqueta</x-crear>
+                        @if ($isModalOpen)
+                            @include('livewire.tag.createtag')
+                        @endif
                     @endif
                     <table class="table-fixed table-striped w-full">
                         <thead>
@@ -37,17 +39,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if ($tags)
-                                @foreach ($tags as $tag)
+                            @if ($datos)
+                                @foreach ($datos as $tag)
                                     <tr>
                                         <td class="border px-4 py-2 text-left">{{ $tag->name }}</td>
                                         <td class="border px-4 py-2 text-left">{{ $tag->valor }}</td>
                                         <td class="border px-4 py-2">
                                             <div class="flex justify-center">
-                                                <!-- Editar  -->
-                                                <x-editar id="{{ $tag->id }}"></x-editar>
-                                                <!-- Eliminar -->
-                                                <x-eliminar id="{{ $tag->id }}"></x-eliminar>
+                                                @if(session('Clientes.Editar'))
+                                                    <!-- Editar  -->
+                                                    <x-editar id="{{ $tag->id }}"></x-editar>
+                                                @endif
+                                                @if(session('Clientes.Eliminar'))
+                                                    <!-- Eliminar -->
+                                                    <x-eliminar id="{{ $tag->id }}"></x-eliminar>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>

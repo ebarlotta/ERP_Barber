@@ -18,7 +18,7 @@ class TagComponent extends Component
     {
         $this->empresa_id=session('empresa_id');
         $this->tags = Tag::where('empresa_id', $this->empresa_id)->get();
-        return view('livewire.tag.tag-component')->extends('layouts.adminlte');
+        return view('livewire.tag.tag-component',['datos'=> Tag::where('empresa_id', $this->empresa_id)->orderby('name')->paginate(7),])->extends('layouts.adminlte');
     }
 
     public function create()

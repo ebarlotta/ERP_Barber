@@ -22,7 +22,7 @@ class AreaComponent extends Component
     {
         $this->empresa_id=session('empresa_id');
         // $this->areas = Area::where('empresa_id', $this->empresa_id)->get();
-        $this->areas = Area::where('empresa_id', '=', $this->empresa_id)->paginate(5);
+        $this->areas = Area::where('empresa_id', '=', $this->empresa_id)->paginate(7);
 
         return view('livewire.area.area-component',['areas' => $this->areas])->extends('layouts.adminlte');
         // return view('livewire.area.area-component',['datos'=> Area::where('empresa_id', $this->empresa_id)->paginate(3),])->extends('layouts.adminlte');
