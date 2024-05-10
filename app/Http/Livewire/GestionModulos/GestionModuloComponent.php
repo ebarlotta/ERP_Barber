@@ -5,6 +5,8 @@ namespace App\Http\Livewire\GestionModulos;
 use Livewire\Component;
 use App\Models\Modulo as Modulos;
 use Spatie\Permission\Models\Permission;
+use Livewire\WithPagination;
+
 
 class GestionModuloComponent extends Component
 {
@@ -18,16 +20,21 @@ class GestionModuloComponent extends Component
 
     public $modulo_id;
 
+    use WithPagination;
+
+
     public function render()
     {
         if ($this->buscar) {
-            $this->modulos = Modulos::where('name', 'LIKE', "%" . $this->buscar . "%")
-                ->get();
+            $this->modulos = Modulos::where('name', 'LIKE', "%" . $this->buscar . "%")->get();
+
+            return view('livewire.modulos.modulo-component',['datos'=> Modulos::where('name', 'LIKE', "%" . $this->buscar . "%")->orderby('name')->paginate(7),])->extends('layouts.adminlte');
         } else {
             $this->modulos = Modulos::where('id','>',1)->get();
+            // dd($this->modulos);
             // $this->modulos = Modulos::all();
+            return view('livewire.modulos.modulo-component',['datos'=> Modulos::where('id','>',0)->orderby('name')->paginate(7),])->extends('layouts.adminlte');
         }
-        return view('livewire.modulos.modulo-component')->extends('layouts.adminlte');;
     }
 
     public function showNew()

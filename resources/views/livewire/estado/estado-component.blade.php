@@ -49,7 +49,7 @@
                                             <td class="border px-4 py-2 text-left">{{ $estado->name }}</td>
                                             <td class="border px-4 py-2">
                                                 <div class="flex justify-center">
-                                                    @if(session('Estados.Modificar'))
+                                                    @if(session('Estados.Editar'))
                                                         <!-- Editar  -->
                                                         <x-editar id="{{ $estado->id }}"></x-editar>
                                                     @endif

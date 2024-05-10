@@ -19,6 +19,7 @@
                                                 <button type="button" class="ml-3 mb-1 btn btn-info" wire:click="showNew()" data-toggle="modal" data-target="#ModalEdit">
                                                     Nuevo
                                                 </button>
+                                                <div class="w-1/2 justify-end">{{ $datos->links() }}</div>
                                             </div>
                                             <div class="col-3">
                                                 <input wire:model="buscar" type="text" class="form-control rounded-md" placeholder="Buscar">
@@ -29,8 +30,8 @@
                                                 <td>Módulo</td>
                                                 <td>Opciones</td>
                                             </tr>
-                                            @if($modulos)
-                                                @foreach ($modulos as $modulo)
+                                            @if($datos)
+                                                @foreach ($datos as $modulo)
                                                 <tr>
                                                     <td>{{ $modulo->name }}</td>
                                                     <td>
