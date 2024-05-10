@@ -6,7 +6,6 @@ use Livewire\Component;
 use App\Models\Cliente;
 use Livewire\WithPagination;
 
-
 class ClienteComponent extends Component
 {
     public $isModalOpen = false;
@@ -42,12 +41,10 @@ class ClienteComponent extends Component
             ->orderBy('name','asc')
             ->paginate(7);
         }
-        
-        //dd($this->clientes);
+
         return view('livewire.cliente.cliente-component',['clientes'=> $this->clientes])->extends('layouts.adminlte');
-        // return view('livewire.cliente.cliente-component',['datos'=> Cliente::where('empresa_id', "=",$this->empresa_id)->where('cuil', 'like', '%'.$this->search.'%')->paginate(4),])->extends('layouts.adminlte');
-        //return view('livewire.cliente.cliente-component',['datos'=> Cliente::where('empresa_id', "=",$this->empresa_id)->where('cuil', 'like', '%'.$this->search.'%')->orwhere('name', 'like', '%'.$this->search.'%')->paginate(3),])->extends('layouts.adminlte');
     }
+
     public function create()
     {
         $this->resetCreateForm();

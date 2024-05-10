@@ -284,6 +284,16 @@ return [
                     'url'  => 'empresagestion',
                     'icon' => 'fas fa-fw fa-building',
                 ],
+                [
+                    'text' => 'Gestión de Módulos',
+                    'url'  => 'gestionmodulos',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Gestión de Roles',
+                    'url'  => 'roles',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
             ],
         ],
         [

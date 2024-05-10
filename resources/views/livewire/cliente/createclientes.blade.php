@@ -37,7 +37,9 @@
                     </div>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                    <x-guardar></x-guardar>
+                    @if(session('Clientes.Modificar'))
+                        <x-guardar></x-guardar>
+                    @endif
                     <x-cerrar></x-cerrar>
                 </div>
             </form>

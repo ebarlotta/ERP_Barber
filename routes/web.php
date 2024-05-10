@@ -13,6 +13,8 @@ use App\Http\Livewire\Cuenta\CuentaComponent;
 use App\Http\Livewire\Proveedor\ProveedorComponent;
 use App\Http\Livewire\Cliente\ClienteComponent;
 use App\Http\Livewire\Empleado\EmpleadoComponent;
+use App\Http\Livewire\GestionModulos\GestionModuloComponent;
+use App\Http\Livewire\Roles\RolesComponent;
 
 use App\Http\Livewire\Compra\CompraComponent;
 use App\Http\Livewire\Venta\VentaComponent;
@@ -122,3 +124,6 @@ Route::get('payments',PaymentComponent::class)->name('payments');
 // Route::get('/search/', 'ProveedorComponent@search')->name('search');
 
 Route::post('/home',[HomeController::class,'upload']);
+
+Route::get('roles', RolesComponent::class)->name('roles');
+Route::get('gestionmodulos', GestionModuloComponent::class)->name('gestionmodulos');

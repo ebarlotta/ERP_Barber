@@ -25,10 +25,12 @@
                         </div>
                     @endif
                     <div class="flex justify-around">
-                        <x-crear>Nuevo Cliente</x-crear>
-                            @if ($isModalOpen)
-                                @include('livewire.cliente.createclientes')
-                            @endif
+                        @if(session('Clientes.Agregar'))
+                            <x-crear>Nuevo Cliente</x-crear>
+                        @endif
+                        @if ($isModalOpen)
+                            @include('livewire.cliente.createclientes')
+                        @endif
                         <div style="display: block">
                             <label for="">Buscar por cuit</label><input class="shadow-md m-1" style="font-size: 18px; background-color: rgb(226, 230, 230); border-radius: 10px; padding: 3px;" wire:model="search" type="search" placeholder="Ingresa cuit">
                         </div>        
@@ -58,10 +60,12 @@
                                                     <!-- Editar  -->
                                                     <x-editar id="{{ $cliente->id }}"></x-editar>
                                                 </div>
-                                                <div class="sm:flex justify-center">
-                                                    <!-- Eliminar -->
-                                                    <x-eliminar id="{{ $cliente->id }}"></x-eliminar>
-                                                </div>
+                                                @if(session('Clientes.Eliminar'))
+                                                    <div class="sm:flex justify-center">
+                                                        <!-- Eliminar -->
+                                                        <x-eliminar id="{{ $cliente->id }}"></x-eliminar>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>
