@@ -411,6 +411,10 @@ return [
                             'text' => 'Editar/Eliminar Informes',
                             'url'  => 'tablas-edit',
                         ],
+                        [
+                            'text' => 'Diseñar Informes',
+                            'url'  => 'tablas-disenar',
+                        ],
                     ],
                 ],
         [

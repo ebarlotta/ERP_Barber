@@ -16,6 +16,7 @@ use App\Http\Livewire\Tablas\EditarTablaComponent;
 use App\Http\Livewire\Tablas\VisualizarTablaComponent;
 use App\Http\Livewire\Haberes\HaberesComponent;
 use App\Http\Livewire\Categoriaprofesional\CategoriaprofesionalComponent;
+use App\Http\Livewire\Tablas\DisenarComponent;
 
 Route::get('empresausuarios',EmpresaUsuariosComponent::class)->name('empresausuarios');
 Route::get('empresamodulos',EmpresaModulosComponent::class)->name('empresamodulos');
@@ -29,5 +30,6 @@ Route::get('productos',ProductoComponent::class)->name('productos');
 Route::get('tablas',TablasComponent::class)->name('tablas');
 Route::get('tablas-edit',EditarTablaComponent::class)->name('tablas-edit');
 Route::get('tablas-ver',VisualizarTablaComponent::class)->name('tablas-ver');
+Route::get('tablas-disenar',DisenarComponent::class)->name('tablas-disenar');
 Route::get('haberes',HaberesComponent::class)->name('haberes');
 Route::get('categoriaprofesional',CategoriaprofesionalComponent::class)->name('categoriaprofesional');

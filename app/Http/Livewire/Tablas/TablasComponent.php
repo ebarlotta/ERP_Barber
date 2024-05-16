@@ -8,7 +8,7 @@ use App\Models\EmpresaUsuario;
 use App\Models\Tabla;
 use App\Models\TablaUsuario;
 use App\Models\User;
-
+use Livewire\WithPagination;
 
 class TablasComponent extends Component
 {
@@ -22,6 +22,7 @@ class TablasComponent extends Component
     public $empresa_id;
     public $users;
     public $ListadeTablas;
+    use WithPagination;
 
 
     public function render()
@@ -58,6 +59,9 @@ class TablasComponent extends Component
 
     public function create($user_id)
     {
+        // dd('por entrar');
+        // return redirect('livewire.tablas.vista')->extends('layouts.adminlte');
+
         $this->openModalPopover();
         $this->isModalOpen=true;
         $this->CargarInformesConEstado($user_id);
