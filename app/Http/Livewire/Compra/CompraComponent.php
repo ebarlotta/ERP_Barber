@@ -13,6 +13,9 @@ use App\Models\Producto;
 use App\Models\Compras_Productos;
 use Illuminate\Support\Facades\DB;
 
+// require 'vendor/autoload.php';
+use Afip;
+use ElectronicBilling;
 
 class CompraComponent extends Component
 {
@@ -243,10 +246,14 @@ class CompraComponent extends Component
     public function gfiltro(){
         
         $sql = $this->ProcesaSQLFiltro('comprobantes'); // Procesa los campos a mostrar
-        $registros = DB::select(DB::raw($sql));       // Busca el recordset
+        // if ($this->fgascendente) { $sql=$sql . " ASC"; } else { $sql=$sql . " DESC"; }
+        // $registros = DB::select(DB::raw($sql));       // Busca el recordset
+        $registros = DB::select($sql);       // Busca el recordset
+        
+        // dd($sql);
         // Extrae los distintos Detalles si es que los hay
         $sqlDetalle = "SELECT DISTINCT detalle " . substr($sql,9);
-        $sqlDetalle = substr($sqlDetalle,0,-27);
+        // $sqlDetalle = substr($sqlDetalle,0,-37);
         $this->detalles = DB::select(DB::raw($sqlDetalle));        
         //Dibuja el combo Detalles
         $this->combodetalle = '';
@@ -263,10 +270,10 @@ class CompraComponent extends Component
         
         // <div class=\"table-responsive-sm\">
         $this->filtro="
-                <table class=\"table table-striped\" style=\"font-size:13px; word-wrap: anywhere;\">
+                <table class=\"table table-striped small\" style=\"font-size:12px; word-wrap: anywhere;\">
                 <thead>
                   <tr>
-                    <th class=\"p-0\" scope=\"col\">Fecha</th>
+                    <th scope=\"col\">Fecha</th>
                     <th class=\"p-0\" scope=\"col\">Comprobante</th>
                     <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Proveedor</th>
                     <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Detalle</th>
@@ -281,8 +288,8 @@ class CompraComponent extends Component
                     <th class=\"p-0\" scope=\"col\">Pagado</th>
                     <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Saldo</th>
                     <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Cant.Litros</th>
-                    <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Partic.Iva</th>
-                    <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Pasado EnMes</th>
+                    <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Part.Iva</th>
+                    <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Mes</th>
                     <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Area</th>
                     <th class=\"p-0 col d-none d-sm-table-cell\" scope=\"col\">Cuenta</th>
                   </tr>
@@ -320,7 +327,7 @@ class CompraComponent extends Component
                 <td class=\"p-0\">".substr($Fecha,0,6).substr($Fecha,8,2)."</td>
                 <td class=\"p-0\">$registro->comprobante</td>
                 <td class=\"p-0 col d-none d-sm-table-cell text-left\">$Proveedor->name</td>
-                <td class=\"p-0 col d-none d-sm-table-cell text-left\">$registro->detalle</td>
+                <td style=\"max-width:200px; width:200px; overflow: hidden;\" class=\"p-0 col d-none d-sm-table-cell text-left\">$registro->detalle</td>
                 <td class=\"p-0 text-right\">".number_format($registro->BrutoComp, 2,'.','')."</td>
                 <td class=\"p-0 text-right\">".number_format($MontoIva, 2,'.','')."</td>
                 <td class=\"p-0 text-right\">".number_format($registro->ExentoComp, 2,'.','')."</td>
@@ -466,9 +473,9 @@ class CompraComponent extends Component
                 if ($this->gfanio) $sql=$sql ? $sql=$sql." and Anio=" . $this->gfanio : " Anio=" . $this->gfanio;
                 $sql=$sql ? $sql=$sql." and empresa_id=" . session('empresa_id') : $sql." empresa_id=" . session('empresa_id');
                 //Fecha	Comprobante	Proveedor	Detalle	Bruto	Iva	exento	Imp.Interno	Percec.Iva	Retenc.IB	Retenc.Gan	Neto	Pagado	Saldo	Cant.Litros	Partic.Iva	Pasado EnMes	Area	Cuenta
-                $sql = "SELECT * FROM comprobantes WHERE" . $sql . " ORDER BY fecha, comprobante";
-                if ($this->fgascendente) $sql=$sql . " ASC";
-                //dd($sql);
+                $sql = "SELECT * FROM comprobantes WHERE" . $sql; // . " ORDER BY fecha, comprobante";
+                // dd($sql);
+                if ($this->fgascendente) { $sql=$sql . " ORDER BY fecha, comprobante"; } else { $sql=$sql . " ORDER BY fecha DESC, comprobante DESC"; }
                 break;
             }
             case "deuda" : {
@@ -837,5 +844,212 @@ class CompraComponent extends Component
         //falta el where
         //dd($this->glistado_prod);
     }
+
+
+    
+    public function GenerarCertificado() {
+        // CUIT al cual le queremos generar el certificado
+        $tax_id = 20255083571; 
+
+        // Usuario para ingresar a AFIP.
+        // Para la mayoria es el mismo CUIT, pero al administrar
+        // una sociedad el CUIT con el que se ingresa es el del administrador
+        // de la sociedad.
+        $username = '20255083571'; 
+
+        // Contraseña para ingresar a AFIP.
+        $password = 'sOCIEDAD2023';
+
+        // Alias para el certificado (Nombre para reconocerlo en AFIP)
+        // un alias puede tener muchos certificados, si estas renovando
+        // un certificado podes utilizar el mismo alias
+        $alias = 'afipsdkCertificado';
+
+        // Creamos una instancia de la libreria
+        $afip = new Afip(array('CUIT' => $tax_id ));
+
+        // Creamos el certificado (¡Paciencia! Esto toma unos cuantos segundos)
+        $res = $afip->CreateCert($username, $password, $alias);
+
+        // Mostramos el certificado por pantalla
+        var_dump($res->cert);
+
+        // Mostramos la key por pantalla
+        var_dump($res->key);
+
+        dd($res->cert);
+    }
+
+    public function AutorizarCertificado() {
+        // CUIT al cual le queremos generar la autorización
+        $tax_id = 20255083571; 
+
+        // Usuario para ingresar a AFIP.
+        // Para la mayoria es el mismo CUIT, pero al administrar
+        // una sociedad el CUIT con el que se ingresa es el del administrador
+        // de la sociedad.
+        $username = '20255083571'; 
+
+        // Contraseña para ingresar a AFIP.
+        $password = 'sOCIEDAD2023';
+
+        // Alias del certificado a autorizar (previamente creado)
+        $alias = 'afipsdkCertificado';
+
+        // Id del web service a autorizar
+        $wsid = 'wsfe';
+
+        // Creamos una instancia de la libreria
+        $afip = new Afip(array('CUIT' => $tax_id ));
+
+        // Creamos la autorizacion (¡Paciencia! Esto toma unos cuantos segundos)
+        $res = $afip->CreateWSAuth($username, $password, $alias, $wsid);
+
+        // Mostramos el resultado por pantalla
+        var_dump($res);
+    }
+
+    public function Emitidos() {
+
+        // Certificado (Puede estar guardado en archivos, DB, etc)
+        $cert = file_get_contents('/home/enzo/Escritorio/erp.softxplus.com/app/Http/Livewire/Compra/certificado.crt');
+
+        // Key (Puede estar guardado en archivos, DB, etc)
+        $key = file_get_contents('/home/enzo/Escritorio/erp.softxplus.com/app/Http/Livewire/Compra/key.key');
+
+        // Tu CUIT
+        // $tax_id = 30712141790;
+        $tax_id = 20255083571;
+
+        $afip = new Afip(array(
+            'CUIT' => $tax_id,
+            'cert' => $cert,
+            'key' => $key
+        ));
+
+        $voucher_types = $afip->ElectronicBilling->GetVoucherTypes();
+        $CbteTipo = $voucher_types[0]->Id;
+        // dd($CbteTipo);
+
+        $sales_points = $afip->ElectronicBilling->GetSalesPoints();
+        $PtoVta = $sales_points[0]->Nro;
+        // dd($PtoVta);
+        /**
+        * @param int $number 		Number of voucher to get information
+        * @param int $sales_point 	Sales point of voucher to get information
+        * @param int $type 			Type of voucher to get information */
+        $number = 2;
+        $sales_point = $PtoVta;
+        $a = $afip->ElectronicBilling->GetVoucherInfo($number, $sales_point, $CbteTipo);
+        dd($a);
+    }
+
+    public function Facturar(){
+
+        // Certificado (Puede estar guardado en archivos, DB, etc)
+        $cert = file_get_contents('/home/enzo/Escritorio/erp.softxplus.com/app/Http/Livewire/Compra/certificado.crt');
+
+        // Key (Puede estar guardado en archivos, DB, etc)
+        $key = file_get_contents('/home/enzo/Escritorio/erp.softxplus.com/app/Http/Livewire/Compra/key.key');
+
+        // Tu CUIT
+        // $tax_id = 30712141790;
+        $tax_id = 20255083571;
+
+        $afip = new Afip(array(
+            'CUIT' => $tax_id,
+            'cert' => $cert,
+            'key' => $key
+        ));
+
+
+        // Para hacer pruebas
+        // Tu CUIT
+        // $tax_id = 20111111112;
+        // $afip = new Afip(array('CUIT' => 20255083571));
+
+        $voucher_types = $afip->ElectronicBilling->GetVoucherTypes();
+        $CbteTipo = $voucher_types[0]->Id;
+        // dd($CbteTipo);
+
+        $sales_points = $afip->ElectronicBilling->GetSalesPoints();
+        $PtoVta = $sales_points[0]->Nro;
+        // dd($PtoVta);
+
+        $DocTipos = $afip->ElectronicBilling->GetDocumentTypes();
+        $DocTipo = $DocTipos[0]->Id;    // 0: CUIT  y 9:DNI
+        // dd($DocTipos);
+
+        $TiposIva = $afip->ElectronicBilling->GetAliquotTypes();
+        $TipoIva = $TiposIva[2]->Id;   // El Concepto del arrary en la posición 2, tiene en su ID el valor 5 que es IVA al 21%
+        // dd($TipoIva);
+
+        $Conceptos = $afip->ElectronicBilling->GetConceptTypes();
+        $Concepto = $Conceptos[2]->Id;  // Concepto del Comprobante: (1)Productos, (2)Servicios, (3)Productos y Servicios
+        // El Concepto del arrary en la posición 2, tiene en su ID el valor 3 que es Productos y Servicios
+        // dd($Conceptos); 
+
+        $Tributos = $afip->ElectronicBilling->GetTaxTypes();
+        $Tributo = $Tributos[4]->Id; // El Concepto del arrary en la posición 4, tiene en su ID el valor 99 que es Otros Tributos
+        $TributoDesc = $Tributos[4]->Desc; 
+        // dd($Tributo);
+
+
+        //$CbteNro = $afip->ElectronicBilling->GetLastVoucher($PtoVta,$CbteTipo);
+        //dd($CbteNro);
+
+
+        $data = array(
+            'CantReg' 		=> 1, // Cantidad de comprobantes a registrar
+            'PtoVta' 		=> $PtoVta, // Punto de venta
+            'CbteTipo' 		=> $CbteTipo, // Tipo de comprobante (ver tipos disponibles) 
+            'Concepto' 		=> $Concepto, // Concepto del Comprobante: (1)Productos, (2)Servicios, (3)Productos y Servicios
+            'DocTipo' 		=> $DocTipo, // Tipo de documento del comprador (ver tipos disponibles)
+            'DocNro' 		=> 20111111112, // Numero de documento del comprador
+            'CbteDesde' 	=> 1, // Numero de comprobante o numero del primer comprobante en caso de ser mas de uno
+            'CbteHasta' 	=> 1, // Numero de comprobante o numero del ultimo comprobante en caso de ser mas de uno
+            'CbteFch' 		=> intval(date('Ymd')), // (Opcional) Fecha del comprobante (yyyymmdd) o fecha actual si es nulo
+            'ImpTotal' 		=> 189.3, // Importe total del comprobante
+            'ImpTotConc' 	=> 0, // Importe neto no gravado
+            'ImpNeto' 		=> 150, // Importe neto gravado
+            'ImpOpEx' 		=> 0, // Importe exento de IVA
+            'ImpIVA' 		=> 31.5, //Importe total de IVA
+            'ImpTrib' 		=> 7.8, //Importe total de tributos
+            'FchServDesde' 	=> intval(date('Ymd')), // (Opcional) Fecha de inicio del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
+            'FchServHasta' 	=> intval(date('Ymd')), // (Opcional) Fecha de fin del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
+            'FchVtoPago' 	=> intval(date('Ymd')), // (Opcional) Fecha de vencimiento del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
+            'MonId' 		=> 'PES', //Tipo de moneda usada en el comprobante (ver tipos disponibles)('PES' para pesos argentinos) 
+            'MonCotiz' 	    => 1, 
+            'Tributos' 		=> array( // (Opcional) Tributos asociados al comprobante
+                array(
+                    'Id' 		=>  $Tributo, // Id del tipo de tributo (ver tipos disponibles) 
+                    'Desc' 		=>  $TributoDesc, //'Ingresos Brutos', // (Opcional) Descripcion
+                    'BaseImp' 	=> 150, // Base imponible para el tributo
+                    'Alic' 		=> 5.2, // Alícuota
+                    'Importe' 	=> 7.8 // Importe del tributo
+                )
+            ),
+	        'Iva' 			=> array( // (Opcional) Alícuotas asociadas al comprobante
+		        array(
+			        'Id' 		=> $TipoIva, // Id del tipo de IVA (ver tipos disponibles) 
+        			'BaseImp' 	=> 150, // Base imponible
+		        	'Importe' 	=> 31.5 // Importe 
+                ),
+            ),
+        );
+
+        $a = $afip->ElectronicBilling->CreateNextVoucher($data);
+
+        dd($a);
+
+        // include('/home/enzo/Escritorio/erp.softxplus.com/app/Http/Livewire/Compra/ElectronicBilling.php');
+        // $Factura = new ElectronicBilling('wsfe');
+        // $sales_points = $Factura->GetDocumentTypes();
+
+        // $sales_points = $afip->ElectronicBilling->GetDocumentTypes();
+        // $sales_points = $afip->ElectronicBilling->GetAliquotTypes();
+    }
+
+
     
 }
