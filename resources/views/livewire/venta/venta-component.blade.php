@@ -375,6 +375,17 @@
 											<label for="">Cantidad</label><br>
 											<input class="num ml-2 w-full text-right rounded-md h-8" type="text" wire:model="gcantidad">
 										</div>
+										<div>
+											<button class="btn btn-info" wire:click="Facturar();">
+												Facturar
+											</button>
+											<button class="btn btn-info" wire:click="Facturar();">
+												Autorizar Certificado
+											</button>
+											<button class="btn btn-info" wire:click="Facturar();">
+												Generar Certificado
+											</button>
+										</div>
 									</div>
 									<div>
 

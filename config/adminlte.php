@@ -294,6 +294,11 @@ return [
                     'url'  => 'roles',
                     'icon' => 'fas fa-fw fa-building',
                 ],
+                [
+                    'text' => 'Gestión de Certificados',
+                    'url'  => 'certificados',
+                    'icon' => 'fas fa-fw fa-building',
+                ],
             ],
         ],
         [
