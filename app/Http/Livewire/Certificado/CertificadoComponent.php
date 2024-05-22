@@ -16,7 +16,7 @@ class CertificadoComponent extends Component
     public $ModalDelete,$ModalModify,$ModalAgregarDetalle;
     public $txttax_id=null, $txtusername='', $txtpassword=null, $txtalias=null;
     public $txtcertificado, $txtkey, $certificado_crt, $certificado_key;
-    public $estado='Habilitado', $estado_color='green', $txtvisible_guardar=true;
+    public $estado='Habilitado', $estado_color='green', $txtvisible_guardar=true,$certificado_id;
     public $demora=false;
     public $res; // Certificado
     public $certificados;
@@ -30,6 +30,7 @@ class CertificadoComponent extends Component
     {
         $this->certificados = Certificado::where('empresa_id','=',session('empresa_id'))->get();
         if(count($this->certificados)) { 
+            $this->certificado_id = $this->certificados[0]->id;
             $this->estado = $this->certificados[0]->estado; 
             $this->estado_color='lightgreen';
             
@@ -166,7 +167,12 @@ class CertificadoComponent extends Component
 
             $res = $afip->CreateWSAuth($username, $password, $alias, $wsid);
 
-            dd($res);
+            $cert = Certificado::where('id','=',$this->certificado_id);
+            $cert->estado = 'Activo - Autorizado';
+            $cert->estado_color='lightgreen';
+            $cert->save();            
+            
+            // dd($res);
         } catch (Exception $ex) {
             session(['message' => 'Se produjo un error, controle todos los datos']);
         }
@@ -175,14 +181,18 @@ class CertificadoComponent extends Component
     public function Emitidos() {
 
         // Certificado (Puede estar guardado en archivos, DB, etc)
-        $cert = file_get_contents('/home/enzo/Escritorio/erp.softxplus.com/app/Http/Livewire/Compra/certificado.crt');
+        // $cert = file_get_contents('/home/enzo/Escritorio/erp.softxplus.com/app/Http/Livewire/Compra/certificado.crt');
 
         // Key (Puede estar guardado en archivos, DB, etc)
-        $key = file_get_contents('/home/enzo/Escritorio/erp.softxplus.com/app/Http/Livewire/Compra/key.key');
+        // $key = file_get_contents('/home/enzo/Escritorio/erp.softxplus.com/app/Http/Livewire/Compra/key.key');
 
         // Tu CUIT
         // $tax_id = 30712141790;
-        $tax_id = 20255083571;
+        // $tax_id = 20255083571;
+
+        $tax_id = $this->certificados[0]->tax_id;
+        $cert = Storage::disk('local')->get('certificados/'.$this->certificados[0]->tax_id.'_'.$this->certificados[0]->alias.'.crt');
+        $key  = Storage::disk('local')->get('certificados/'.$this->certificados[0]->tax_id.'_'.$this->certificados[0]->alias.'.key');
 
         $afip = new Afip(array(
             'CUIT' => $tax_id,
@@ -210,10 +220,12 @@ class CertificadoComponent extends Component
     public function Facturar(){
 
         // Certificado (Puede estar guardado en archivos, DB, etc)
-        $cert = file_get_contents('/home/enzo/Escritorio/erp.softxplus.com/app/Http/Livewire/Compra/certificado.crt');
+        // $cert = file_get_contents('/home/enzo/Escritorio/erp.softxplus.com/app/Http/Livewire/Compra/certificado.crt');
 
         // Key (Puede estar guardado en archivos, DB, etc)
-        $key = file_get_contents('/home/enzo/Escritorio/erp.softxplus.com/app/Http/Livewire/Compra/key.key');
+        // $key = file_get_contents('/home/enzo/Escritorio/erp.softxplus.com/app/Http/Livewire/Compra/key.key');
+        $cert = Storage::disk('local')->get('certificados/'.$this->certificados[0]->tax_id.'_'.$this->certificados[0]->alias.'.crt');
+        $key  = Storage::disk('local')->get('certificados/'.$this->certificados[0]->tax_id.'_'.$this->certificados[0]->alias.'.key');
 
         // Tu CUIT
         // $tax_id = 30712141790;
@@ -236,8 +248,8 @@ class CertificadoComponent extends Component
         // dd($CbteTipo);
 
         $sales_points = $afip->ElectronicBilling->GetSalesPoints();
+        dd($sales_points);
         $PtoVta = $sales_points[0]->Nro;
-        // dd($PtoVta);
 
         $DocTipos = $afip->ElectronicBilling->GetDocumentTypes();
         $DocTipo = $DocTipos[0]->Id;    // 0: CUIT  y 9:DNI

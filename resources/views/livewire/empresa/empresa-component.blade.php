@@ -1,6 +1,6 @@
 <div>
     <div class="content-center flex">
-        <div class="bg-white p-2 text-center rounded-lg shadow-lg w-full flex justify-center">
+        <div class="flex-wrap bg-white p-2 text-center rounded-lg shadow-lg w-full flex justify-center">
             @if ($empresas)
                 @foreach ($empresas as $empresa)
                     <div class="bg-gray-200 p-2 text-center rounded-lg shadow-lg w-auto m-1 justify-center">

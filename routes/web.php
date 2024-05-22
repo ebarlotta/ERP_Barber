@@ -86,6 +86,7 @@ Route::get('proveedores',ProveedorComponent::class)->name('proveedores');
 Route::get('clientes',ClienteComponent::class)->name('clientes');
 Route::get('empleados',EmpleadoComponent::class)->name('empleados');
 
+Route::get('Comprassimple',[CompraComponent::class,'render2'])->name('Comprassimple');
 Route::get('compras',CompraComponent::class)->name('compras');
 Route::get('ventas',VentaComponent::class)->name('ventas');
 Route::get('ventasmostrador',VentaMostradorComponent::class)->name('ventasmostrador');

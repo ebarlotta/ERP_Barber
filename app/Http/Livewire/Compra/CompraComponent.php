@@ -72,7 +72,13 @@ class CompraComponent extends Component
         $this->productos = Producto::where('empresa_id', $this->empresa_id)->orderBy('name','asc')->get();
         
         return view('livewire.compra.compra-component');
+        // return view('livewire.compra.comprasimple');
     }
+
+    public function render2() {
+        return view('livewire.compra.comprasimple');    
+    }
+
 
     public function openModalDelete() { $this->ModalDelete = true;  }
     public function closeModalDelete() { $this->ModalDelete = false;  }

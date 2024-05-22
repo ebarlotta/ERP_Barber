@@ -68,6 +68,7 @@
             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                 <div class="tab-content tab-space">
                     <div class="{{ $tabActivo != 1 ? 'hidden' : '' }}">
+                        <input type="text" name="" id="" wire:click="Facturar()" value="Facturar">
                         <div style="background-color: rgb(137, 168, 168); font-size: 14px;" class="d-flex p-3">
                             <div class="col-3 grid text-left">
                                 <label style="font-size: 80%;">CUIT de la persona (física/jurídica) </label>
@@ -118,6 +119,12 @@
                                 <input class="btn btn-info shadow-md p-3 m-3" type="button" value="Generar Certificado" wire:click="GenerarCertificado()">
                             </div>
                             <div class="col-3"></div>
+                        </div>
+                        <div style="background-color: rgb(137, 168, 168); font-size: 14px;" class="d-flex p-3">
+                            <div class="col-6 grid text-left">
+                                <label for="">Certificados Emitidos</label>
+                                <input class="btn btn-info shadow-md p-3 m-3" type="button" value="Generar Certificado" wire:click="Emitidos()">
+                            </div>
                         </div>
                             
                             <!-- Botones -->
