@@ -4,10 +4,14 @@
         <div class="text-left" style="font-size: 15px; margin: 12px;">
             @foreach ($modulos as $modulo)
                 @if($modulo->name === "Compras")
-                    <a href="http://localhost:8000/Comprassimple" class="flex mb-2 transform transition duration-500 hover:scale-105 shadow ">Mini
                     {{-- <a href="{{ route('Comprassimple') }}" class="flex mb-2 transform transition duration-500 hover:scale-105 shadow ">Mini --}}
+                    <a href="http://localhost:8000/VentaSimple?Compras" class="flex mb-2 transform transition duration-500 hover:scale-105 shadow ">Mini
                 @else
-                    <a href="{{ route($modulo->pagina) }}" class="flex mb-2 transform transition duration-500 hover:scale-105 shadow ">
+                    @if($modulo->name === "Ventas")
+                        <a href="http://localhost:8000/VentaSimple?Ventas" class="flex mb-2 transform transition duration-500 hover:scale-105 shadow ">Mini
+                    @else
+                        <a href="{{ route($modulo->pagina) }}" class="flex mb-2 transform transition duration-500 hover:scale-105 shadow ">
+                    @endif
                 @endif
                     <div style="width:20%">
                         <img class="rounded-l-md w-full w-36 h-36" src="{{ asset('images/'. $modulo->imagen) }}" style="width:100%; height:100%;" >

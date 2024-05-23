@@ -38,21 +38,29 @@
                                     </div>
                                 @endforeach
                                 {{-- {{ $usuarioSeleccionado }} --}}
-                                <select wire:model="txtRol">
+                                <select wire:model="txtRol" wire:change="ActualizarRol();">
                                     @foreach ($roles as $rol)
                                         @if($id_rolActual==$rol->id)
-                                            <option value="{{ $rol->id }}" selected>{{ $rol->name . " - " . $id_rolActual }}</option>
+                                            <option value="{{ $rol->id }}" selected>{{ $rol->name }}</option>
                                         @else
                                             {{-- <option value="{{ $rol->id }}" selected>{{ $rol->name . " - " . $usuarioSeleccionado->rol_id }}</option> --}}
-                                            <option value="{{ $rol->id }}">{{ $rol->name . " - " . $id_rolActual }}</option>
+                                            <option value="{{ $rol->id }}">{{ $rol->name }}</option>
                                         @endif
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-
+                        @if (session()->has('message'))
+                            <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3" role="alert">
+                                <div class="flex">
+                                    <div>
+                                        <p class="text-xm bg-lightgreen">{{ session('message') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <x-guardar></x-guardar>
+                            {{-- <x-guardar></x-guardar> --}}
                             <span class="mt-3 flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
                                 <button wire:click="CerrarModalRoles()" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-yellow-300 text-base leading-6 font-bold text-gray-900 shadow-sm hover:bg-yellow-400 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
                                     Cerrar

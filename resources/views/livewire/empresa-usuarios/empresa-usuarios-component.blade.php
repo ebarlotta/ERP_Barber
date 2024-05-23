@@ -96,7 +96,7 @@
                                                         </div>
                                                     </div>
                                                     {{-- @endif --}}
-                                                    <div>
+                                                    <div style="margin: auto;">
                                                         <button class="btn btn-info" wire:click="CambiarRol({{ $usuario['user_id'] }})">
                                                             Cambiar Rol
                                                         </button>

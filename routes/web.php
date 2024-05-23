@@ -23,7 +23,7 @@ use App\Http\Livewire\Venta\VentaMostradorComponent;
 use App\Http\Controllers\SocialController;
 use App\Http\Livewire\Cart\Cart;
 use App\Http\Livewire\Cart\Payment\PaymentComponent;
-
+use App\Http\Livewire\Compra\CompraSimpleComponent;
 //use App\Http\Livewire\EmpresaGestion\EmpresaGestion;
 
 use Illuminate\Foundation\Auth\User as AuthUser;
@@ -86,7 +86,8 @@ Route::get('proveedores',ProveedorComponent::class)->name('proveedores');
 Route::get('clientes',ClienteComponent::class)->name('clientes');
 Route::get('empleados',EmpleadoComponent::class)->name('empleados');
 
-Route::get('Comprassimple',[CompraComponent::class,'render2'])->name('Comprassimple');
+Route::get('VentaSimple',CompraSimpleComponent::class)->name('VentaSimple');
+// Route::get('VentaSimple/compra',CompraSimpleComponent::class)->name('VentaSimple');
 Route::get('compras',CompraComponent::class)->name('compras');
 Route::get('ventas',VentaComponent::class)->name('ventas');
 Route::get('ventasmostrador',VentaMostradorComponent::class)->name('ventasmostrador');

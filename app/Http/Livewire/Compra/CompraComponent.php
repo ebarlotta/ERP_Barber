@@ -15,11 +15,12 @@ use Illuminate\Support\Facades\DB;
 
 // require 'vendor/autoload.php';
 use Afip;
+use App\Models\Cliente;
 use ElectronicBilling;
 
 class CompraComponent extends Component
 {
-    public $areas, $cuentas, $ivas, $proveedores;
+    public $areas, $cuentas, $ivas, $proveedores, $clientes;
     public $detalles=[];       // Globales
     public $detalle;
     public $productos;
@@ -75,11 +76,6 @@ class CompraComponent extends Component
         // return view('livewire.compra.comprasimple');
     }
 
-    public function render2() {
-        return view('livewire.compra.comprasimple');    
-    }
-
-
     public function openModalDelete() { $this->ModalDelete = true;  }
     public function closeModalDelete() { $this->ModalDelete = false;  }
 
@@ -104,7 +100,7 @@ class CompraComponent extends Component
         if(is_null($this->gbruto)) $this->gbruto=0.00;
         if(is_null($this->gmontopagado)) $this->gmontopagado=0.00;
         if(is_null($this->gcantidad)) $this->gcantidad=0.00;
-        if(is_null($this->giva2)) $this->giva2=0.00;        
+        if(is_null($this->giva2)) $this->giva2=0.00;          
     }
 
     public function store() {
@@ -1055,7 +1051,4 @@ class CompraComponent extends Component
         // $sales_points = $afip->ElectronicBilling->GetDocumentTypes();
         // $sales_points = $afip->ElectronicBilling->GetAliquotTypes();
     }
-
-
-    
 }
