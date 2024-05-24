@@ -42,7 +42,6 @@
 					<div class="h-full" style="width: 40%">
 						Empresas
 						@foreach ($empresas as $empresa)
-
 							<ul>
 								<li class="border text-left @if ($seleccionado == $empresa->id) bg-red-100 @endif"
 										wire:click="CargarModulos({{ $empresa->id }})">

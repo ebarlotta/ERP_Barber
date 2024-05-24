@@ -20,9 +20,9 @@ class CompraSimpleComponent extends Component
 
     public $modulo; // Permite hacer elección de módulo a utilizar
 
-    public function render()  //Request $request
+    public function render(Request $request)  
     {        
-        // dd($request->venta);
+        // dd($request);
         // dd(request()->getRequestUri());
         switch (request()->getRequestUri()) {
             case "/VentaSimple?Compras" : $this->modulo='Compras'; break;
@@ -30,6 +30,8 @@ class CompraSimpleComponent extends Component
             case "/VentaSimple?Prestamos" : $this->modulo='Prestamos'; break;
             default: ;
         }
+
+        // dd($this->modulo);
         $this->areas = Area::where('empresa_id', session('empresa_id'))->ORDERBY('name')->get();
         $this->cuentas = Cuenta::where('empresa_id', session('empresa_id'))->ORDERBY('name')->get();
         $this->clientes = Cliente::where('empresa_id', session('empresa_id'))->ORDERBY('name')->get();
