@@ -13,7 +13,6 @@ use App\Models\Producto;
 use App\Models\Compras_Productos;
 use Illuminate\Support\Facades\DB;
 
-// require 'vendor/autoload.php';
 use Afip;
 use ElectronicBilling;
 
