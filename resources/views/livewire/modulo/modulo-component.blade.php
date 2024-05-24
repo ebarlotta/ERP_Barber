@@ -5,10 +5,11 @@
             @foreach ($modulos as $modulo)
                 @if($modulo->name === "Compras")
                     {{-- <a href="{{ route('Comprassimple') }}" class="flex mb-2 transform transition duration-500 hover:scale-105 shadow ">Mini --}}
-                    <a href="http://localhost:8000/VentaSimple?Compras" class="flex mb-2 transform transition duration-500 hover:scale-105 shadow ">Mini
+                    <a href="{{ route('VentaSimple?Compras') }}" class="flex mb-2 transform transition duration-500 hover:scale-105 shadow ">Mini
+                    {{-- <a href="http://localhost:8000/VentaSimple?Compras" class="flex mb-2 transform transition duration-500 hover:scale-105 shadow ">Mini --}}
                 @else
                     @if($modulo->name === "Ventas")
-                        <a href="http://localhost:8000/VentaSimple?Ventas" class="flex mb-2 transform transition duration-500 hover:scale-105 shadow ">Mini
+                        <a href="{{ route('VentaSimple?Ventas') }}" class="flex mb-2 transform transition duration-500 hover:scale-105 shadow ">Mini
                     @else
                         <a href="{{ route($modulo->pagina) }}" class="flex mb-2 transform transition duration-500 hover:scale-105 shadow ">
                     @endif
