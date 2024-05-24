@@ -72,6 +72,10 @@ class CompraComponent extends Component
         
         return view('livewire.compra.compra-component');
     }
+    
+    public function render2() {
+        return view('livewire.compra.comprasimple');    
+    }
 
     public function openModalDelete() { $this->ModalDelete = true;  }
     public function closeModalDelete() { $this->ModalDelete = false;  }

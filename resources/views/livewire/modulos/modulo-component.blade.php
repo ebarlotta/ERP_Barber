@@ -97,9 +97,9 @@
                                 @enderror
                             </div>
                             <div class="pt-3">
-                                <button type="button" class="btn btn-success"  data-dismiss="modal" wire:click="store()">
+                                {{-- <button type="button" class="btn btn-success"  data-dismiss="modal" wire:click="store()">
                                     <i class="fa-solid fa-pen-to-square"></i>Guardar
-                                </button>
+                                </button> --}}
                                 <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
                                     <i class="fa-solid fa-pen-to-square"></i>Cerrar
                                 </button>

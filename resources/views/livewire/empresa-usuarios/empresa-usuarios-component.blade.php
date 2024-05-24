@@ -38,6 +38,9 @@
                 @if ($isModalOpen)
                     @include('livewire.empresa-usuarios.createempresausuarios')
                 @endif
+                @if ($isModalRoles)
+                    @include('livewire.empresa-usuarios.adminempresausuarios-roles')
+                @endif
                 @if ($datos)
                     <div class="flex">
                         <div class="h-full" style="width: 40%">
@@ -79,26 +82,24 @@
                                         <li class="border px-4 py-2 text-left bg-red-100">
                                             <div class="w-full p-2 hover:scale-110 transition-all duration-500">
                                                 <div class="flex rounded overflow-hidden border">
-                                                    <img class="block flex-none bg-cover"
-                                                        src="https://picsum.photos/seed/picsum/80/80"
-                                                        style="width: 100px; height: 100px;">
-                                                    <div
-                                                        class="bg-white rounded-b pl-4 pt-4 flex flex-col justify-between leading-normal">
-                                                        <div class="text-black font-bold text-lg mb-2 leading-tight">
-                                                            {{ $usuario['name'] }}</div>
-                                                        <p class="text-grey-darker text-base">Read more and
-                                                            more</p>
+                                                    <img class="block flex-none bg-cover" src="https://picsum.photos/seed/picsum/80/80" style="width: 100px; height: 100px;">
+                                                <div
+                                                    class="bg-white rounded-b pl-4 pt-4 flex flex-col justify-between leading-normal">
+                                                    <div class="text-black font-bold text-lg mb-2 leading-tight">
+                                                        {{ $usuario['name'] }}</div>
+                                                    <p class="text-grey-darker text-base">Read more and more</p>
+                                                </div>
+                                                {{-- @if ($usuario->activo) --}}
+                                                <div class="bg-white rounded-b p-4 flex flex-col justify-between leading-normal">
+                                                    <div class="text-black font-bold text-xl mb-2 leading-tight">
+                                                        <img class="block w-15 h-15 flex-none bg-cover" src="{{ asset('images/activo.jpg') }}" width="40" height="40">
                                                     </div>
-                                                    {{-- @if ($usuario->activo) --}}
-                                                    <div
-                                                        class="bg-white rounded-b p-4 flex flex-col justify-between leading-normal">
-                                                        <div class="text-black font-bold text-xl mb-2 leading-tight">
-                                                            <img class="block w-15 h-15 flex-none bg-cover"
-                                                                src="{{ asset('images/activo.jpg') }}" width="40"
-                                                                height="40">
-                                                        </div>
-                                                    </div>
-                                                    {{-- @endif --}}
+                                                </div>
+                                                {{-- @endif --}}
+                                                <div style="margin: auto;">
+                                                    <button class="btn btn-info" wire:click="CambiarRol({{ $usuario['user_id'] }})">
+                                                        Cambiar Rol
+                                                    </button>
                                                 </div>
                                             </div>
                                         </li>
