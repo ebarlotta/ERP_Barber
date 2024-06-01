@@ -3,13 +3,22 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'a05c5780878b916ccf1a9fae0b87ec7ddd7daf31',
+        'reference' => '0ff2138dd220c0230ab859caf4a9d9e8351e7471',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'afipsdk/afip.php' => array(
+            'pretty_version' => 'v1.1.1',
+            'version' => '1.1.1.0',
+            'reference' => 'deb1e2cd9c8909832e80d77301e82e6e67cc0642',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../afipsdk/afip.php',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'almasaeed2010/adminlte' => array(
             'pretty_version' => 'v3.2.0',
             'version' => '3.2.0.0',
@@ -541,7 +550,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'a05c5780878b916ccf1a9fae0b87ec7ddd7daf31',
+            'reference' => '0ff2138dd220c0230ab859caf4a9d9e8351e7471',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

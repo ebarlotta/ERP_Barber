@@ -69,6 +69,18 @@
                 <div class="tab-content tab-space">
                     <div class="{{ $tabActivo != 1 ? 'hidden' : '' }}">
                         <input type="text" name="" id="" wire:click="Facturar()" value="Facturar">
+                        <input type="text" class="bnt btn-info" wire:click="Emitidos()" value="Emitido">
+                        <span wire:loading>
+                            <div class="inset-0 fixed">
+                                <div class="absolute flex justify-center w-full mt-6 p-18">
+                                    <div class=" bg-gray-400 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-2 shadow-lg my-2" role="dialog">
+                                        <div class=" bg-gray-400 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                            Espere unos segundos mientras se procesa la información ingresada...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
                         <div style="background-color: rgb(137, 168, 168); font-size: 14px;" class="d-flex p-3">
                             <div class="col-3 grid text-left">
                                 <label style="font-size: 80%;">CUIT de la persona (física/jurídica) </label>
@@ -114,6 +126,10 @@
                                 <label style="font-size: 80%; margin-right: 5px;">Estado del <br>Certificado</label>
                                 <input style="width: 33px; padding-top: 14px; background-color: {{ $estado_color }}"  class="rounded-xl h-8"  disabled>
                                 <label style="padding-bottom: 9px;vertical-align: middle;padding-left: 6px;">{{ $estado }}</label>
+                            </div>
+                            <div class="p-3 col-3">
+                                <label style="font-size: large; margin-right: 5px;"><b>Modo de Trabajo</b></label>
+                                <label style="padding: 8px; border-radius: 4px; margin: 3px; font-size: large; {{  $certificado_production ?  'background-color: lightcoral;' : 'background-color: lightgreen;'}}">{{ $certificado_production ? 'PRODUCCIÓN' : 'TESTING' }}</label>
                             </div>
                             <div class="col-6 text-center d-flex justify-center">
                                 <input class="btn btn-info shadow-md p-3 m-3" type="button" value="Generar Certificado" wire:click="GenerarCertificado()">
@@ -287,12 +303,22 @@
                                             <table class="table table-striped w-80" style="width: 80%;">
                                                 <tr style="background-color: #777;">
                                                     <td style="border: 1px solid black;">Certificados</td>
+                                                    <td style="border: 1px solid black;">Punto de Venta Habilitado</td>
                                                     <td style="border: 1px solid black;">Opciones</td>
                                                 </tr>
                                                 @foreach($certificados as $certificado)
                                                 <tr>
                                                     <td style="border: 1px solid black;vertical-align: middle;">
                                                         {{ $certificado->alias }}
+                                                    </td>
+                                                    <td style="border: 1px solid black;vertical-align: middle;">
+                                                        {{-- Seleccionar Punto de Venta --}}
+                                                        {{-- <select name="" id=""> --}}
+                                                            {{ $certificado_PtoVta }}
+                                                            {{-- @foreach($puntosdeventas as $puntodeventa)
+                                                                <option value=""></option>
+                                                            @endforeach --}}
+                                                        {{-- </select> --}}
                                                     </td>
                                                     <td style="border: 1px solid black;">
                                                         <input class="btn btn-info shadow-md p-3 m-3" type="button" value="Solicitar Autorización" wire:click="AutorizarCertificado()">

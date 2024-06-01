@@ -3,7 +3,17 @@
 	<x-tituloslim>Comprobantes de Ventas</x-tituloslim>
 	<div class="content-center block">
 		<div class="bg-white p-2 text-center rounded-lg shadow-lg w-full">
-			
+			<span wire:loading>
+				<div class="inset-0 fixed">
+					<div class="absolute flex justify-center w-full mt-6 p-18">
+						<div class=" bg-gray-400 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-2 shadow-lg my-2" role="dialog">
+							<div class=" bg-gray-400 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+								Espere unos segundos mientras se procesa la información ingresada...
+							</div>
+						</div>
+					</div>
+				</div>
+			</span>
 			<!-- Tabs  -->
 			<div class="flex flex-wrap" id="tabs-id">
 				<div class="w-full">
@@ -64,6 +74,7 @@
 											<button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;" wire:click="store">Agregar</button>
 											<button class="rounded-md bg-yellow-300 px-6 py-1 mx-2 mt-3" style="box-shadow: 2px 2px 5px #999;" wire:click="openModalModify">Modificar</button>
 											<button class="rounded-md bg-red-300 px-6 py-1 mx-2 mt-3" style="box-shadow: 2px 2px 5px #999;" wire:click="openModalDelete">Eliminar</button>
+											<button class="rounded-md bg-blue-300 px-6 py-1 mx-2 mt-3" style="box-shadow: 2px 2px 5px #999;" wire:click="Facturar();">Facturar</button>
 											<button class="rounded-md bg-green-300 px-6 mx-2 py-1 mt-3" style="box-shadow: 2px 2px 5px #999;" wire:click="openModalAgregarDetalle">Agregar Productos</button>
 										
 											<div class=" right-0">
@@ -191,6 +202,24 @@
 													<div class="flex justify-end">
 														<!-- Botón de Cerrar -->
 														<button class="rounded-md border m-6 px-4 py-2 bg-yellow-300 text-base leading-6 font-bold text-gray-900 shadow-sm hover:bg-yellow-400 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5" wire:click="closeModalAgregarDetalle()">Cerrar</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									@endif
+
+									@if ($this->ModalGenerarFactura)
+										<div class="inset-0 fixed">
+											<div class="absolute flex justify-center w-full mt-10 p-18">
+												<div class=" bg-gray-400 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-2 shadow-lg my-2" role="dialog">
+													<div class=" bg-gray-400 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+														Se generará una factura que será enviada a AFIP, seguro que quiere continuar con la operación?
+													</div>
+													<div class="flex justify-end">
+														<!-- Botón de Eliminar-->
+														<button class="rounded-md border m-6 px-4 py-2 bg-red-300 text-base leading-6 font-bold text-gray-900 shadow-sm hover:bg-red-400 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5" wire:click="GenerarFactura()">Si, generar Factura</button>
+														<!-- Botón de Cerrar -->
+														<button class="rounded-md border m-6 px-4 py-2 bg-yellow-300 text-base leading-6 font-bold text-gray-900 shadow-sm hover:bg-yellow-400 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5" wire:click="closeModalGenerarFactura()">Cerrar</button>
 													</div>
 												</div>
 											</div>
@@ -374,17 +403,6 @@
 										<div class="mr-1 w-20">
 											<label for="">Cantidad</label><br>
 											<input class="num ml-2 w-full text-right rounded-md h-8" type="text" wire:model="gcantidad">
-										</div>
-										<div>
-											<button class="btn btn-info" wire:click="Facturar();">
-												Facturar
-											</button>
-											<button class="btn btn-info" wire:click="Facturar();">
-												Autorizar Certificado
-											</button>
-											<button class="btn btn-info" wire:click="Facturar();">
-												Generar Certificado
-											</button>
 										</div>
 									</div>
 									<div>
@@ -599,7 +617,6 @@
 									</div>
 								</div>
 							</div>
-
 {{-- Deuda a Clientes --}}
 {{-- =================== --}}
 							<div class="{{ $tabActivo != 2 ? 'hidden' : '' }}">
@@ -818,6 +835,12 @@
 								</div>
 							</div>
 						</div>
+					</div>
+					<div class="d-flex center-block" style="justify-content: center">
+						<div style="margin-right: 20px;"><input style="background-color: lightslategray; width: 20px;border-radius: 7px;height: 20px;margin-right: 3px;">Registro Generado</div>
+						<div style="margin-right: 20px;"><input style="background-color: rgb(238, 238, 79); width: 20px;border-radius: 7px;height: 20px;margin-right: 3px;">Comprobante para Emitir</div>
+						<div style="margin-right: 20px;"><input style="background-color: rgb(242, 120, 120);width: 20px;border-radius: 7px;height: 20px;margin-right: 3px;">Comprobante Emitido</div>
+						<div style="margin-right: 20px;"><input style="background-color: brown;width: 20px;border-radius: 7px;height: 20px;margin-right: 3px;">Comprobante Cerrado</div>
 					</div>
 				</div>
 			</div>
