@@ -29,6 +29,8 @@ class CertificadoComponent extends Component
     public $filtro;
     public $gbruto;
 
+    public $datosCliente;
+
     public function render()
     {
         $this-> setDatosCertificado();  // Llama al método para cargar todos los datos del certificado si es que encuentra alguno para la empresa seleccionada
@@ -46,11 +48,12 @@ class CertificadoComponent extends Component
     public function setDatosCertificado() {
         $this->certificados = Certificado::where('empresa_id','=',session('empresa_id'))->get();
         if(count($this->certificados)) { 
-           $this->certificado_id = $this->certificados[0]->id;
+            $this->certificado_id = $this->certificados[0]->id;
             $this->certificado_tax_id = $this->certificados[0]->tax_id;
             $this->certificado_alias = $this->certificados[0]->alias;
             $this->certificado_crt = Storage::disk('local')->get('certificados/'.$this->certificados[0]->tax_id.'_'.$this->certificados[0]->alias.'.crt');
             $this->certificado_key = Storage::disk('local')->get('certificados/'.$this->certificados[0]->tax_id.'_'.$this->certificados[0]->alias.'.key');
+            // dd($this->certificados);
         }
     }
 
@@ -113,7 +116,6 @@ class CertificadoComponent extends Component
         $datos = $this->res->cert;
         $key   = $this->res->key;
 
-        $this->
         // Escribir los contenidos en el fichero,
         Storage::disk('local')->put('certificados/'.$this->txttax_id.'_'.$this->txtalias.'.crt', $datos) ? $this->estado = "Grabado" : $this->estado = 'Error!';
         Storage::disk('local')->put('certificados/'.$this->txttax_id.'_'.$this->txtalias.'.key', $key  ) ? $this->estado = "Grabado" : $this->estado = 'Error!';    
@@ -166,11 +168,12 @@ class CertificadoComponent extends Component
             $username =strval($this->certificados[0]->username);
             $password =$this->certificados[0]->password;
             $alias =$this->certificados[0]->alias;
-            $wsid = 'wsfe';
-
+            // $wsid = 'wsfe';
+            $wsid = 'ws_sr_constancia_inscripcion';
+            
             $afip = new Afip(array('CUIT' => $tax_id ));
-
             $res = $afip->CreateWSAuth($username, $password, $alias, $wsid);
+            dd($username. $password. $alias. $wsid.' ' . $res);
 
             $cert = Certificado::where('id','=',$this->certificado_id);
             $cert->estado = 'Activo - Autorizado';
@@ -346,6 +349,47 @@ class CertificadoComponent extends Component
         // $sales_points = $afip->ElectronicBilling->GetDocumentTypes();
         // $sales_points = $afip->ElectronicBilling->GetAliquotTypes();
 
-}
+    }
 
+    public function ObtenerDatosCliente() {
+        
+
+        // $certificado_tax_id = 20255083571;
+        // $certificado_alias = 'NUEVO';
+        // $certificado_crt = Storage::disk('local')->get('certificados/'.$certificado_tax_id.'_'.$certificado_alias.'.crt');
+        // $certificado_key = Storage::disk('local')->get('certificados/'.$certificado_tax_id.'_'.$certificado_alias.'.key');
+
+        $Aafip = new Afip(array(
+            'CUIT' => $this->certificado_tax_id,
+            'cert' => $this->certificado_crt,
+            'key' =>  $this->certificado_key,
+            'access_token' => env('AFIP_ACCESS_TOKEN'),
+        ));
+        // $server_status = $afip->RegisterInscriptionProof->GetServerStatus();
+
+        // echo 'Este es el estado del servidor:';
+        // echo '<pre>';
+        // dd($server_status);
+        // echo '</pre>';
+        // dd($afip->RegisterScopeTen->GetTaxpayerDetails(27273497159));
+        // dd($afip->RegisterScopeTen->GetServerStatus());
+
+        $afip = new Afip(array('CUIT' => 20409378472, 'production' => FALSE));
+
+
+        // CUIT del contribuyente
+        // $identifier=20000000516;
+        $tax_id = 20000000516;
+        $taxpayer_details = $afip->RegisterInscriptionProof->GetTaxpayerDetails($tax_id); 
+        // $taxpayer_details = $afip->RegisterScopeTen->GetTaxpayerDetails($tax_id);
+        // dd($taxpayer_details);   
+        // CUITs de los contribuyentes
+        // $tax_ids = Array(20111111111, 20111111112);
+
+        // $taxpayers_details = $afip->getPersona_v2($tax_id);
+        // $taxpayers_details = $afip->RegisterInscriptionProof->GetTaxpayersDetails($tax_ids);
+
+
+        $this->datosCliente = json_encode($taxpayer_details);
+    }
 }

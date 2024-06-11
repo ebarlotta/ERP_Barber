@@ -7,6 +7,12 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+//Gráficos
+// use ArielMejiaDev\LarapexCharts\LarapexChart as Chart;
+use ArielMejiaDev\LarapexCharts\LarapexChart;
+
+
+
 class RedirectIfAuthenticated
 {
     /**
@@ -17,6 +23,24 @@ class RedirectIfAuthenticated
      * @param  string|null  ...$guards
      * @return mixed
      */
+    
+    //  public function __construct(LarapexChart $chart)
+    //  {
+    //      $this->chart = $chart;
+    //  }
+ 
+    //      public function index(Chart $chart)
+    //  {
+         
+    //      return view('livewire.modulo.modulo-component1', ['chart' => $chart->build()]);
+    // //  }
+    // public $chart;
+
+    // public function __construct(LarapexChart $chart)
+    // {
+    //     $this->chart = $chart;
+    // }
+
     public function handle(Request $request, Closure $next, ...$guards)
     {
         $guards = empty($guards) ? [null] : $guards;
@@ -27,6 +51,21 @@ class RedirectIfAuthenticated
             }
         }
 
-        return $next($request);
+    
+
+    // return view('livewire.modulo.modulo-component1', ['chart' => $this->chart->build()]);
+
+    return $next($request);
+    // }
+
+    // public function build(): \ArielMejiaDev\LarapexCharts\AreaChart
+    // {
+
+    //     return $this->chart->areaChart()
+    //         ->setTitle('Sales during 2021.')
+    //         ->setSubtitle('Physical sales vs Digital sales.')
+    //         ->addData('Physical sales', [40, 93, 35, 42, 18, 82])
+    //         ->addData('Digital sales', [70, 29, 77, 28, 55, 45])
+    //         ->setXAxis(['January', 'February', 'March', 'April', 'May', 'June']);
     }
 }

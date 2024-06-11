@@ -25,16 +25,16 @@
                     <i class="fas fa-cog text-base mr-1"></i> Autorizar Certificado
                 </a>
             </li>
-            <!-- <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+            <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
                 @if($tabActivo==3)
                     <a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-white bg-pink-600" wire:click="CambiarTab(3)">
                 @else 
                     <a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white" wire:click="CambiarTab(3)">
                 @endif
-                    <i class="fas fa-briefcase text-base mr-1"></i> Crédito de Clientes
+                    <i class="fas fa-briefcase text-base mr-1"></i> Datos de Clientes
                 </a>
             </li>
-            <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+            <!-- <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
                 @if($tabActivo==4)
                     <a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-white bg-pink-600" wire:click="CambiarTab(4)">
                 @else 
@@ -292,7 +292,7 @@
                                 {!! $filtro !!}
                             </div> --}}
                     </div>
-                </div>
+                
                     <div class="{{ $tabActivo != 2 ? 'hidden' : '' }}">
                         <div style="background-color: #E3F6CE" class="block">
                             <!-- Botones -->
@@ -468,6 +468,12 @@
                             @endif         --}}
                         </div>
                     </div>
+
+                    <div class="{{ $tabActivo != 3 ? 'hidden' : '' }}">
+                        <input type="button" value="Obtener Datos" wire:click="ObtenerDatosCliente();">
+                        {!! $datosCliente !!}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

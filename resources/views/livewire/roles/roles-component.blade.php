@@ -69,7 +69,7 @@
                         <div class="px-3 py-3">
                             <div>
                                 <label for="">Nombre del Rol</label>
-                                <input type="text" class="form-control" value="{{ old('name') }}" wire:model="name">
+                                {{-- <input type="text" class="form-control" value="{{ old('name') }}" wire:model="name"> --}}
                                 @error('name')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -95,7 +95,7 @@
                             <div>
                                 <label for="">Permisos Disponibles</label>
                                 <div>
-                                    @if($permisos)
+                                    @if(!is_null($permisos))
                                         @foreach ($permisos as $permiso)
                                             @if($modulo_seleccionado == $modulo->id)
                                                 <button type="button" class="btn btn-success" wire:click="SeleccionarModulo(0,'a')">
@@ -117,7 +117,7 @@
                             <div>
                                 <label for="">Permisos Habilitados</label>
                                 <div>
-                                    @if($permisoshabilitados)
+                                    @if(!is_null($permisoshabilitados))
                                         @foreach ($permisoshabilitados as $permisohabilitado)
                                             <button type="button" class="btn btn-success mb-1 ml-1">
                                                 {{ $permisohabilitado->name }}
