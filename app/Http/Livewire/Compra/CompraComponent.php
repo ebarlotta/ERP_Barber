@@ -13,7 +13,6 @@ use App\Models\Producto;
 use App\Models\Compras_Productos;
 use Illuminate\Support\Facades\DB;
 
-// require 'vendor/autoload.php';
 use Afip;
 use App\Models\Cliente;
 use ElectronicBilling;
@@ -74,6 +73,10 @@ class CompraComponent extends Component
         
         return view('livewire.compra.compra-component');
         // return view('livewire.compra.comprasimple');
+    }
+    
+    public function render2() {
+        return view('livewire.compra.comprasimple');    
     }
 
     public function openModalDelete() { $this->ModalDelete = true;  }
@@ -744,31 +747,17 @@ class CompraComponent extends Component
         }
     }
 
-
-    public function Ejecutar() {
-        $sql="SELECT tblComprobantes2.*, proveedors.id FROM tblComprobantes2 
-        INNER JOIN proveedors ON tblComprobantes2.CuitComp = proveedors.name and proveedors.empresa_id=4 and tblComprobantes2.Empresa='20255083571'
-        INTO OUTFILE '/home/casa-pc/Descargas/Migracion/location.csv';";
-
-        /*$sql="SELECT tblComprobantes2.*, proveedors.id
-        FROM tblComprobantes2
-        INNER JOIN proveedors ON tblComprobantes2.CuitComp = proveedors.name
-        INTO OUTFILE '/home/casa-pc/Descargas/Migracion/location.csv';";*/
-        $registros = DB::select(DB::raw($sql));  
-
-        //SELECT tblComprobantes2.*, proveedors.id FROM tblComprobantes2 INNER JOIN proveedors ON tblComprobantes2.CuitComp = proveedors.name and proveedors.empresa_id=1
-        //SELECT tblComprobantes2.*, proveedors.id FROM tblComprobantes2 INNER JOIN proveedors ON tblComprobantes2.CuitComp = proveedors.name and proveedors.empresa_id=2 and tblComprobantes2.Empresa='30712141790' 
-        
-    }
     public function CerrarLibro() {
         //$sSql="SELECT * FROM tblComprobantes WHERE Anio=$LibroAnio and Empresa='".$_SESSION['CuitEmpresa']."' and PasadoEnMes='$LibroMes' and ParticipaEnIva='Si'";
         $i=0;
+        dd('jhkhkjh');
         $registros = DB::table('comprobantes')              // Busca la última página utilizada para la empresa seleccionada
             ->where('empresa_id','=',session('empresa_id'))
             ->where('ParticIva','=','Si')
             ->groupByRaw('Anio,PasadoEnMes,Cerrado')
             ->orderBy('Cerrado')
             ->get();
+        dd($registros);
         $UltimaPaginaCerrada = $registros->last()->Cerrado; // Asigna el valor en $UltimaPaginaCerrada
         $registros = DB::table('comprobantes')        // Carga todos los registros que van a ser modificados que corresponden al mes y año
             ->where('Anio','=',$this->lanio)

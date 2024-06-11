@@ -41,44 +41,41 @@
 				<div class="flex">
 					<div class="h-full" style="width: 40%">
 						Empresas
-									@foreach ($empresas as $empresa)
+						@foreach ($empresas as $empresa)
+							<ul>
+								<li class="border text-left @if ($seleccionado == $empresa->id) bg-red-100 @endif"
+										wire:click="CargarModulos({{ $empresa->id }})">
+										<div class="w-full p-3 hover:scale-110 transition-all duration-500">
+											<div class="flex rounded overflow-hidden border">
+												@if($empresa->imagen) 
+												<img class="block rounded-md flex-none bg-cover"
+														src="{{ asset('/images/'. $empresa->imagen) }}"
+														style="width: 100px; height: 100px;">
+												@else
+												<img class="block rounded-md flex-none bg-cover"
+														src="{{ asset('images/sin_imagen.jpg') }}"
+														style="width: 100px; height: 100px;">
+												@endif
+												<div class="bg-white w-full rounded-b pl-4 flex flex-col justify-between leading-normal">
+													<div class="text-black  pt-4 font-bold text-lg mb-2 leading-tight">
+														{{ $empresa->name }}</div>
+													<p class="text-grey-darker text-base">Read more</p>
+												</div>
+											</div>
+										</div>
+								</li>
+							</ul>
+								
+						@endforeach
+						<div class="w-full">{{ $datos->links() }}</div>
+					</div>
 
-									<ul>
-										<li class="border text-left @if ($seleccionado == $empresa->id) bg-red-100 @endif"
-											 wire:click="CargarModulos({{ $empresa->id }})">
-											 <div class="w-full p-3 hover:scale-110 transition-all duration-500">
-												  <div class="flex rounded overflow-hidden border">
-														@if($empresa->imagen) 
-														<img class="block rounded-md flex-none bg-cover"
-															 src="{{ asset('/images/'. $empresa->imagen) }}"
-															 style="width: 100px; height: 100px;">
-														@else
-														<img class="block rounded-md flex-none bg-cover"
-															 src="{{ asset('images/sin_imagen.jpg') }}"
-															 style="width: 100px; height: 100px;">
-														@endif
-														<div
-															 class="bg-white w-full rounded-b pl-4 flex flex-col justify-between leading-normal">
-															 <div class="text-black  pt-4 font-bold text-lg mb-2 leading-tight">
-																  {{ $empresa->name }}</div>
-															 <p class="text-grey-darker text-base">Read more
-															 </p>
-														</div>
-												  </div>
-											 </div>
-										</li>
-								  </ul>
-										
-									@endforeach
-									<div class="w-full">{{ $datos->links() }}</div>
-								</div>
-
-							</td>
-							<td>
-								<div style="width: 40%">
-									<div class="bg-transparent">Módulos</div>
-										@if ($modulosdelaempresa)
-											@foreach ($modulosdelaempresa as $modulo)
+					</td>
+					<td>
+						<div style="width: 40%">
+							<div class="bg-transparent">Módulos</div>
+								@if ($modulosdelaempresa)
+									@foreach ($modulosdelaempresa as $modulo)
 
 
 

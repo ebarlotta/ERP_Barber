@@ -12,6 +12,9 @@ use App\Models\Producto;
 use App\Models\Ventas_Productos;
 use Illuminate\Support\Facades\DB;
 use App\Models\Venta;
+use Afip;
+use App\Models\Certificado;
+use Illuminate\Support\Facades\Storage;
 
 
 class VentaComponent extends Component
@@ -19,6 +22,8 @@ class VentaComponent extends Component
 
     public $areas, $cuentas, $ivas, $clientes;       // Globales
     public $empresa_id; public $tabActivo=1; public $venta_id;
+    private $afip;
+    public $certificado_tax_id, $certificado_crt, $certificado_key, $certificado_id, $certificado_alias;
     
     //Comprobantes
     public $iva_value=0;
@@ -28,6 +33,7 @@ class VentaComponent extends Component
     public $ModalModify, $openModalModify;
     public $ModalAgregarDetalle, $openModalAgregarDetalle;
     public $ModalCerrarLibro;
+    public $ModalGenerarFactura, $openModalGenerarFactura;
     public $gfecha,$gcliente, $gcomprobante, $gcuenta, $gdetalle, $ganio, $gmes, $garea, $gpartiva, $gbruto, $giva2, $gexento, $gimpinterno, $gperciva, $gretgan, $gperib, $gneto, $gmontopagado, $gcantidad;
     public $gselect_productos, $gprecio_prod, $gcantidad_prod, $glistado_prod;
     // public $gventa;
@@ -64,6 +70,12 @@ class VentaComponent extends Component
         $this->clientes = Cliente::where('empresa_id', $this->empresa_id)->ORDERBy('name','asc')->get();
         $this->ivas = Iva::where('id','>',0)->get();
         // $this->productos = Producto::where('empresa_id', $this->empresa_id)->orderBy('name','asc')->get();
+<<<<<<< HEAD
+=======
+
+        $this->ConstructorFacturacion();
+
+>>>>>>> experimental
         return view('livewire.venta.venta-component');
     }
 
@@ -75,6 +87,9 @@ class VentaComponent extends Component
 
     public function openModalModify() { $this->ModalModify = true;  }
     public function closeModalModify() { $this->ModalModify = false;  }
+
+    public function  openModalGenerarFactura() { $this->ModalGenerarFactura = true;  }
+    public function closeModalGenerarFactura() { $this->ModalGenerarFactura = false;  }
 
     public function openModalAgregarDetalle() { $this->ModalAgregarDetalle = true; $this->listado_productos(); }
     public function closeModalAgregarDetalle() { $this->ModalAgregarDetalle = false;  }
@@ -94,6 +109,45 @@ class VentaComponent extends Component
         if(is_null($this->giva2)) $this->giva2=0.00;
         
         
+    }
+
+    public function ConstructorFacturacion() {
+
+        $certificados = Certificado::where('empresa_id','=',session('empresa_id'))->get();
+        // console.log($certificados);
+        if(count($certificados)) { 
+            $this->certificado_id = $certificados[0]['id'];
+            // dd($certificados[0]['id']);
+            $this->certificado_tax_id = $certificados[0]['tax_id'];
+            $this->certificado_alias = $certificados[0]['alias'];
+            $this->certificado_crt = Storage::disk('local')->get('certificados/'.$certificados[0]['tax_id'].'_'.$certificados[0]['alias'].'.crt');
+            $this->certificado_key = Storage::disk('local')->get('certificados/'.$certificados[0]['tax_id'].'_'.$certificados[0]['alias'].'.key');
+            $this->afip = new Afip(array(
+                'CUIT' => $this->certificado_tax_id,
+                'cert' => $this->certificado_crt,
+                'key' =>  $this->certificado_key,
+                'access_token' => env('AFIP_ACCESS_TOKEN'),
+            ));     
+        }
+        
+    }
+    public function GenerarFactura() {
+        
+        // CUIT del contribuyente
+        $tax_id = 30712141790;
+        $afip = new Afip(array(
+            'CUIT' => $this->certificado_tax_id,
+            'cert' => $this->certificado_crt,
+            'key' =>  $this->certificado_key,
+            'access_token' => env('AFIP_ACCESS_TOKEN'),
+        ));
+
+        $taxpayer_details = $afip->RegisterInscriptionProof->GetTaxpayerDetails($tax_id);
+        dd($taxpayer_details);
+
+        // $res['CAE']; //CAE asignado el comprobante
+        // $res['CAEFchVto']; //Fecha de vencimiento del CAE (yyyy-mm-dd)
+        session()->flash('message3', 'Ingresó a generar factura. el valor del modal es '. $this->ModalGenerarFactura);
     }
 
     public function store() {
@@ -243,12 +297,13 @@ class VentaComponent extends Component
 
         $this->filtro="
             <div class=\"table-responsive-sm\">
-                <table class=\"table table-striped\" style=\"font-size:13px;\">
+                <table class=\"table table-striped\" style=\"font-size:13px; padding: 0rem 0rem;\">
                 <thead>
                   <tr>
                     <th scope=\"col\">Fecha</th>
                     <th scope=\"col\">Comprobante</th>
                     <th scope=\"col\">Cliente</th>
+                    <th scope=\"col\"></th>
                     <th class=\"col d-none d-sm-table-cell\" scope=\"col\">Detalle</th>
                     <th scope=\"col\">Bruto</th>
                     <th scope=\"col\">Iva</th>
@@ -295,7 +350,21 @@ class VentaComponent extends Component
             <tr wire:click=\"gCargarRegistro(". $registro->id .")\">
                 <td>$Fecha</td>
                 <td>$registro->comprobante</td>
-                <td class=\" text-left\">$Cliente->name</td>
+                <td class=\" text-left\">$Cliente->name</td>";
+                
+                //Comprobante común de color gris
+                if($registro->ParticIva=='No') { $this->filtro=$this->filtro."<td class=\" text-left\"><div style=\"background-color: lightslategray;width: 20px;border-radius: 7px;height: 20px;margin-right: 3px;\"></div></td>"; }
+                // Si va a ser registrado en iva entonces
+                if($registro->ParticIva=='Si') {
+                    // Si está cerrado lo coloca de color marrón
+                    if($registro->Cerrado>1) { $this->filtro=$this->filtro."<td class=\" text-left\"><div style=\"background-color: brown;width: 20px;border-radius: 7px;height: 20px;margin-right: 3px;\"></div></td>"; }                
+                    // Si Es un comprobante que está preparado para ser enviado a AFIP
+                    if($registro->Cerrado==0)  { $this->filtro=$this->filtro."<td class=\" text-left\"><div wire:click=\"openModalGenerarFactura();\" style=\"background-color: rgb(238, 238, 79);width: 20px;border-radius: 7px;height: 20px;margin-right: 3px;\" value=\" >\"> </div></td>"; }
+                    // Si es un comprobante que ha sido enviado a AFIP pero todavía no se encuentra cerrado
+                    if($registro->Cerrado==-1) { $this->filtro=$this->filtro."<td class=\" text-left\"><div style=\"background-color: rgb(242, 120, 120); width: 20px;border-radius: 7px;height: 20px;margin-right: 3px;\"><img src=\"images/archivo-pdf.svg\"></div></td>"; }
+                }
+                
+                $this->filtro=$this->filtro."
                 <td class=\" d-none d-sm-table-cell text-left\">$registro->detalle</td>
                 <td class=\"col text-right\">".number_format($registro->BrutoComp, 2,'.','')."</td>
                 <td class=\"col text-right\">".number_format($MontoIva, 2,'.','')."</td>

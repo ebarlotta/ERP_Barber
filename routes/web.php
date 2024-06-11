@@ -2,6 +2,7 @@
 
 //use App\Http\Controllers\ClienteController;
 
+use App\Charts\Graficos\Chart;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImprimirPDF;
 use App\Http\Controllers\Productos;
@@ -129,3 +130,6 @@ Route::post('/home',[HomeController::class,'upload']);
 
 Route::get('roles', RolesComponent::class)->name('roles');
 Route::get('gestionmodulos', GestionModuloComponent::class)->name('gestionmodulos');
+
+Route::get('pruebas', [Chart::class, 'index'])->name('pruebas');
+

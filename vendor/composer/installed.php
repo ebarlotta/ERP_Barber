@@ -3,7 +3,11 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
+<<<<<<< HEAD
         'reference' => '60f853c44fb91207e7a79a852eedfe033cb3bf14',
+=======
+        'reference' => '2c144779e31529ce692dff5683e76fe14a6de0b2',
+>>>>>>> experimental
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -25,6 +29,15 @@
             'reference' => 'bd4d9c72931f1dd28601b6bfb387554a381ad540',
             'type' => 'library',
             'install_path' => __DIR__ . '/../almasaeed2010/adminlte',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'arielmejiadev/larapex-charts' => array(
+            'pretty_version' => '6.0.0',
+            'version' => '6.0.0.0',
+            'reference' => '21dc8bfd8f9577ac51e5031de643aa7130679771',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../arielmejiadev/larapex-charts',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -550,7 +563,11 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
+<<<<<<< HEAD
             'reference' => '60f853c44fb91207e7a79a852eedfe033cb3bf14',
+=======
+            'reference' => '2c144779e31529ce692dff5683e76fe14a6de0b2',
+>>>>>>> experimental
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

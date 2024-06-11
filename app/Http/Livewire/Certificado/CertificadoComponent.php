@@ -6,52 +6,60 @@ use Livewire\Component;
 use Afip;
 use App\Models\Certificado;
 use Exception;
+use Illuminate\Support\Facades\Config;
 use JeroenNoten\LaravelAdminLte\View\Components\Form\Input;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\JsonDecoder;
+
 
 class CertificadoComponent extends Component
 {
     public $tabActivo=1; 
     public $ModalDelete,$ModalModify,$ModalAgregarDetalle;
-    public $txttax_id=null, $txtusername='', $txtpassword=null, $txtalias=null;
-    public $txtcertificado, $txtkey, $certificado_crt, $certificado_key;
-    public $estado='Habilitado', $estado_color='green', $txtvisible_guardar=true,$certificado_id;
+    public $txttax_id=null, $txtusername='', $txtpassword=null, $txtalias=null,$txtPtoVta;
+    public $txtcertificado, $txtkey, $txtvisible_guardar=true; 
+    public $estado='Habilitado', $estado_color='green';
+    public $certificado_id, $certificado_PtoVta=null, $certificado_tax_id, $certificado_crt, $certificado_key, $certificado_alias, $certificado_production=false;
+
     public $demora=false;
     public $res; // Certificado
     public $certificados;
 
-    public $clientes;
+    public $clientes, $puntosdeventas;
     public $filtro;
     public $gbruto;
 
+    public $datosCliente;
 
     public function render()
     {
-        $this->certificados = Certificado::where('empresa_id','=',session('empresa_id'))->get();
+        $this-> setDatosCertificado();  // Llama al método para cargar todos los datos del certificado si es que encuentra alguno para la empresa seleccionada
         if(count($this->certificados)) { 
-            $this->certificado_id = $this->certificados[0]->id;
             $this->estado = $this->certificados[0]->estado; 
             $this->estado_color='lightgreen';
             
-            $this->certificado_crt = Storage::disk('local')->get('certificados/'.$this->certificados[0]->tax_id.'_'.$this->certificados[0]->alias.'.crt');
-            $this->certificado_key = Storage::disk('local')->get('certificados/'.$this->certificados[0]->tax_id.'_'.$this->certificados[0]->alias.'.key');
+            $puntosVtas = $this->TraerPuntosDeVentas();
+            session()->flash('message', $puntosVtas ? null : 'Debe agregar un punto de venta antes de continuar');
 
         } else { $this->estado = 'Vacio'; $this->estado_color='lightcoral'; }
         return view('livewire.certificado.certificado-component')->extends('layouts.adminlte');
     }
 
+    public function setDatosCertificado() {
+        $this->certificados = Certificado::where('empresa_id','=',session('empresa_id'))->get();
+        if(count($this->certificados)) { 
+            $this->certificado_id = $this->certificados[0]->id;
+            $this->certificado_tax_id = $this->certificados[0]->tax_id;
+            $this->certificado_alias = $this->certificados[0]->alias;
+            $this->certificado_crt = Storage::disk('local')->get('certificados/'.$this->certificados[0]->tax_id.'_'.$this->certificados[0]->alias.'.crt');
+            $this->certificado_key = Storage::disk('local')->get('certificados/'.$this->certificados[0]->tax_id.'_'.$this->certificados[0]->alias.'.key');
+            // dd($this->certificados);
+        }
+    }
+
     public function CambiarTab($id) {
         $this->tabActivo=$id;
     }
-
-    // public function GrabarFichero() {
-    //     $datos = $this->res->cert;
-    //     $key   = $this->res->key;
-    //     // Escribir los contenidos en el fichero,
-    //     Storage::disk('local')->put('certificados/'.$this->txttax_id.'_'.$this->txtalias.'.crt', $datos) ? $this->estado = "Grabado" : $this->estado = 'Error!';
-    //     Storage::disk('local')->put('certificados/'.$this->txttax_id.'_'.$this->txtalias.'.key', $key  ) ? $this->estado = "Grabado" : $this->estado = 'Error!';    
-    // }
 
     public function GenerarCertificado() {
         // CUIT al cual le queremos generar el certificado
@@ -108,7 +116,6 @@ class CertificadoComponent extends Component
         $datos = $this->res->cert;
         $key   = $this->res->key;
 
-        $this->
         // Escribir los contenidos en el fichero,
         Storage::disk('local')->put('certificados/'.$this->txttax_id.'_'.$this->txtalias.'.crt', $datos) ? $this->estado = "Grabado" : $this->estado = 'Error!';
         Storage::disk('local')->put('certificados/'.$this->txttax_id.'_'.$this->txtalias.'.key', $key  ) ? $this->estado = "Grabado" : $this->estado = 'Error!';    
@@ -161,18 +168,18 @@ class CertificadoComponent extends Component
             $username =strval($this->certificados[0]->username);
             $password =$this->certificados[0]->password;
             $alias =$this->certificados[0]->alias;
-            $wsid = 'wsfe';
-
+            // $wsid = 'wsfe';
+            $wsid = 'ws_sr_constancia_inscripcion';
+            
             $afip = new Afip(array('CUIT' => $tax_id ));
-
             $res = $afip->CreateWSAuth($username, $password, $alias, $wsid);
+            dd($username. $password. $alias. $wsid.' ' . $res);
 
             $cert = Certificado::where('id','=',$this->certificado_id);
             $cert->estado = 'Activo - Autorizado';
             $cert->estado_color='lightgreen';
             $cert->save();            
-            
-            // dd($res);
+
         } catch (Exception $ex) {
             session(['message' => 'Se produjo un error, controle todos los datos']);
         }
@@ -180,33 +187,63 @@ class CertificadoComponent extends Component
 
     public function Emitidos() {
 
-        // Certificado (Puede estar guardado en archivos, DB, etc)
-        // $cert = file_get_contents('/home/enzo/Escritorio/erp.softxplus.com/app/Http/Livewire/Compra/certificado.crt');
-
-        // Key (Puede estar guardado en archivos, DB, etc)
-        // $key = file_get_contents('/home/enzo/Escritorio/erp.softxplus.com/app/Http/Livewire/Compra/key.key');
-
-        // Tu CUIT
-        // $tax_id = 30712141790;
-        // $tax_id = 20255083571;
-
-        $tax_id = $this->certificados[0]->tax_id;
-        $cert = Storage::disk('local')->get('certificados/'.$this->certificados[0]->tax_id.'_'.$this->certificados[0]->alias.'.crt');
-        $key  = Storage::disk('local')->get('certificados/'.$this->certificados[0]->tax_id.'_'.$this->certificados[0]->alias.'.key');
-
         $afip = new Afip(array(
-            'CUIT' => $tax_id,
-            'cert' => $cert,
-            'key' => $key
+            'CUIT' => $this->certificado_tax_id,
+            'cert' => $this->certificado_crt,
+            'key' =>  $this->certificado_key,
+            'access_token' => env('AFIP_ACCESS_TOKEN'),
         ));
 
         $voucher_types = $afip->ElectronicBilling->GetVoucherTypes();
         $CbteTipo = $voucher_types[0]->Id;
         // dd($CbteTipo);
+        // dd($voucher_types);
+        $CbteTipo=11;
+        // $sales_points = $afip->ElectronicBilling->GetSalesPoints();
+        // $PtoVta = $sales_points[0]->Nro;
 
+        /**
+        * @param int $number 		Number of voucher to get information
+        * @param int $sales_point 	Sales point of voucher to get information
+        * @param int $type 			Type of voucher to get information */
+        $number = 58;
+        $sales_point = 9;
+        // $sales_point = $PtoVta;
+        $a = $afip->ElectronicBilling->GetVoucherInfo($number, $sales_point, $CbteTipo);
+        dd($a);
+    }
+
+    public function TraerPuntosDeVentas() {
+
+        $afip = new Afip(array(
+            'CUIT' => $this->certificado_tax_id,
+            'cert' => $this->certificado_crt,
+            'key' =>  $this->certificado_key,
+            'access_token' => env('AFIP_ACCESS_TOKEN'),
+        ));
+        // dd($afip->options['production']);
         $sales_points = $afip->ElectronicBilling->GetSalesPoints();
+        
+        foreach($sales_points as $sale_point) {
+            if($sale_point->FchBaja === "NULL" && $sale_point->Bloqueado=='N') { 
+                $this->certificado_PtoVta = $sale_point->Nro;                 
+            }
+        }
+
+        // Revisa si el certificado es de producción o testing
+        if($afip->options['production']===FALSE) { 
+            $this->certificado_PtoVta=10; 
+            $this->certificado_production=false;
+        } else {
+            $this->certificado_production=true;
+        }
+        
+        // dd($this->certificado_PtoVta);
+        return $this->certificado_PtoVta;
+
+        if($this->certificado_PtoVta)
+
         $PtoVta = $sales_points[0]->Nro;
-        // dd($PtoVta);
         /**
         * @param int $number 		Number of voucher to get information
         * @param int $sales_point 	Sales point of voucher to get information
@@ -219,24 +256,12 @@ class CertificadoComponent extends Component
 
     public function Facturar(){
 
-        // Certificado (Puede estar guardado en archivos, DB, etc)
-        // $cert = file_get_contents('/home/enzo/Escritorio/erp.softxplus.com/app/Http/Livewire/Compra/certificado.crt');
-
-        // Key (Puede estar guardado en archivos, DB, etc)
-        // $key = file_get_contents('/home/enzo/Escritorio/erp.softxplus.com/app/Http/Livewire/Compra/key.key');
-        $cert = Storage::disk('local')->get('certificados/'.$this->certificados[0]->tax_id.'_'.$this->certificados[0]->alias.'.crt');
-        $key  = Storage::disk('local')->get('certificados/'.$this->certificados[0]->tax_id.'_'.$this->certificados[0]->alias.'.key');
-
-        // Tu CUIT
-        // $tax_id = 30712141790;
-        $tax_id = 20255083571;
-
         $afip = new Afip(array(
-            'CUIT' => $tax_id,
-            'cert' => $cert,
-            'key' => $key
+            'CUIT' => $this->certificado_tax_id,
+            'cert' => $this->certificado_crt,
+            'key' =>  $this->certificado_key,
+            'access_token' => env('AFIP_ACCESS_TOKEN'),
         ));
-
 
         // Para hacer pruebas
         // Tu CUIT
@@ -248,8 +273,8 @@ class CertificadoComponent extends Component
         // dd($CbteTipo);
 
         $sales_points = $afip->ElectronicBilling->GetSalesPoints();
-        dd($sales_points);
         $PtoVta = $sales_points[0]->Nro;
+        // dd($PtoVta);
 
         $DocTipos = $afip->ElectronicBilling->GetDocumentTypes();
         $DocTipo = $DocTipos[0]->Id;    // 0: CUIT  y 9:DNI
@@ -323,5 +348,48 @@ class CertificadoComponent extends Component
 
         // $sales_points = $afip->ElectronicBilling->GetDocumentTypes();
         // $sales_points = $afip->ElectronicBilling->GetAliquotTypes();
+
+    }
+
+    public function ObtenerDatosCliente() {
+        
+
+        // $certificado_tax_id = 20255083571;
+        // $certificado_alias = 'NUEVO';
+        // $certificado_crt = Storage::disk('local')->get('certificados/'.$certificado_tax_id.'_'.$certificado_alias.'.crt');
+        // $certificado_key = Storage::disk('local')->get('certificados/'.$certificado_tax_id.'_'.$certificado_alias.'.key');
+
+        $Aafip = new Afip(array(
+            'CUIT' => $this->certificado_tax_id,
+            'cert' => $this->certificado_crt,
+            'key' =>  $this->certificado_key,
+            'access_token' => env('AFIP_ACCESS_TOKEN'),
+        ));
+        // $server_status = $afip->RegisterInscriptionProof->GetServerStatus();
+
+        // echo 'Este es el estado del servidor:';
+        // echo '<pre>';
+        // dd($server_status);
+        // echo '</pre>';
+        // dd($afip->RegisterScopeTen->GetTaxpayerDetails(27273497159));
+        // dd($afip->RegisterScopeTen->GetServerStatus());
+
+        $afip = new Afip(array('CUIT' => 20409378472, 'production' => FALSE));
+
+
+        // CUIT del contribuyente
+        // $identifier=20000000516;
+        $tax_id = 20000000516;
+        $taxpayer_details = $afip->RegisterInscriptionProof->GetTaxpayerDetails($tax_id); 
+        // $taxpayer_details = $afip->RegisterScopeTen->GetTaxpayerDetails($tax_id);
+        // dd($taxpayer_details);   
+        // CUITs de los contribuyentes
+        // $tax_ids = Array(20111111111, 20111111112);
+
+        // $taxpayers_details = $afip->getPersona_v2($tax_id);
+        // $taxpayers_details = $afip->RegisterInscriptionProof->GetTaxpayersDetails($tax_ids);
+
+
+        $this->datosCliente = json_encode($taxpayer_details);
     }
 }

@@ -45,6 +45,8 @@ class RolesComponent extends Component
         $roles = Roles::find($id);
         $this->name = $roles->name;
         $this->rol_id = $id; //Establece el rol
+        $this->SeleccionarModulo(1, 'Areas');
+        //  dd($this->rol_id);
     }
 
     public function showDelete($id)
@@ -74,7 +76,9 @@ class RolesComponent extends Component
     }
 
     public function SeleccionarModulo($id, $nombreModulo) {
-        // dd('entro');
+        // dd($nombreModulo);
+        unset($this->permisos);
+        unset($this->permisoshabilitados);
         if($id == 0) { $this->modulo_seleccionado = null; }
         else { 
             $this->modulo_seleccionado = $id;
@@ -82,15 +86,20 @@ class RolesComponent extends Component
 
             // $sql = "Select * from permissions where name like '%".$this->modulo_name."%'";
 
-            $sql = "SELECT * from (Select * from permissions left join role_has_permissions on permissions.id = role_has_permissions.permission_id) as a WHERE a.permission_id is null;";
+            $sql = "SELECT * FROM permissions where name like '%" . $nombreModulo . "%'";
+            // $sql = "SELECT * FROM (Select * from permissions left join role_has_permissions on permissions.id = role_has_permissions.permission_id and role_id<>".$this->rol_id . ") as a where a.role_id is not null and name like '%" . $nombreModulo . "%'";
+            // $sql = "SELECT * from (Select * from permissions left join role_has_permissions on permissions.id = role_has_permissions.permission_id where role_id=".$this->rol_id.") as a WHERE a.permission_id is null;";
             // $sql="SELECT * FROM permissions
             // WHERE NOT EXISTS (
             //     SELECT * FROM permissions WHERE name LIKE '%".$this->modulo_name."%')";
-
             // dd($sql);
-
+            
+            unset($this->permisos);
             $this->permisos = db::select($sql);
-            $this->permisoshabilitados = db::select('SELECT * FROM role_has_permissions join permissions WHERE role_has_permissions.permission_id = permissions.id and role_has_permissions.role_id='.$this->rol_id);
+            // dd($this->permisos);
+            $sql = 'SELECT * FROM role_has_permissions join permissions WHERE role_has_permissions.permission_id = permissions.id and role_has_permissions.role_id='.$this->rol_id." and name like '%". $nombreModulo."%'";
+            // dd($sql);
+            $this->permisoshabilitados = db::select($sql);
         }
     }
 

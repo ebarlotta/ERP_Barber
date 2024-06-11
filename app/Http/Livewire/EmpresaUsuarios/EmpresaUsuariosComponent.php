@@ -23,8 +23,13 @@ class EmpresaUsuariosComponent extends Component
     public $empresas;
     public $empresaseleccionada;
     public $seleccionado=1;
+<<<<<<< HEAD
     public $roles, $txtRol;
     public $usuarioSeleccionado, $id_rolActual, $usuario_id;
+=======
+    public $roles;
+    public $usuarioSeleccionado, $id_rolActual;
+>>>>>>> experimental
 
     use WithPagination;
 
@@ -108,6 +113,7 @@ class EmpresaUsuariosComponent extends Component
         ->where('user_id', "=", $id)->get();
 
         $this->id_rolActual = $this->usuarioSeleccionado[0]['rol_id'];
+<<<<<<< HEAD
         $this->usuario_id = $this->usuarioSeleccionado[0]['id'];
         $this->roles = Roles::all();            
     }
@@ -124,4 +130,8 @@ class EmpresaUsuariosComponent extends Component
         session()->flash('message', $affected ? 'Rol Actualizado.' : 'No se pudo Actualizar');
             //   dd($this->id_rolActual.'-'.$this->txtRol.'-'. $this->seleccionado, $this->usuario_id);
     }
+=======
+        $this->roles = Roles::all();            
+    }
+>>>>>>> experimental
 }

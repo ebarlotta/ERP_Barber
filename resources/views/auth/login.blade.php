@@ -70,11 +70,17 @@
                         <a href="/login-facebook" class="w-1/3 mx-2"><button class="btn btn-primary m-2 w-1/2">Facebook</button></a>
                         <a href="/login-google" class="w-1/3 mx-2"><button class="btn btn-danger m-2 w-1/2">Google</button></a>
                     </div>
+                    <div>
+                        {{-- {!! $chart->container() !!} --}}
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+{{-- <script src="{{ $chart->cdn() }}"></script> --}}
+{{-- {{ $chart->script() }} --}}
 @endsection
 
 
