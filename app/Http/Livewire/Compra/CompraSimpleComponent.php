@@ -20,15 +20,14 @@ class CompraSimpleComponent extends Component
 
     public $modulo; // Permite hacer elección de módulo a utilizar
 
-<<<<<<< HEAD
-    public function render()  //Request $request
-    {        
+
+    // public function render()  //Request $request
+    // {        
         // dd($request->venta);
-=======
+
     public function render(Request $request)  
     {        
         // dd($request);
->>>>>>> experimental
         // dd(request()->getRequestUri());
         switch (request()->getRequestUri()) {
             case "/VentaSimple?Compras" : $this->modulo='Compras'; break;
@@ -36,11 +35,8 @@ class CompraSimpleComponent extends Component
             case "/VentaSimple?Prestamos" : $this->modulo='Prestamos'; break;
             default: ;
         }
-<<<<<<< HEAD
-=======
 
         // dd($this->modulo);
->>>>>>> experimental
         $this->areas = Area::where('empresa_id', session('empresa_id'))->ORDERBY('name')->get();
         $this->cuentas = Cuenta::where('empresa_id', session('empresa_id'))->ORDERBY('name')->get();
         $this->clientes = Cliente::where('empresa_id', session('empresa_id'))->ORDERBY('name')->get();
@@ -150,8 +146,4 @@ class CompraSimpleComponent extends Component
         // dd($a);
         session()->flash('message', 'Comprobante Creado.');  
     }    
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> experimental

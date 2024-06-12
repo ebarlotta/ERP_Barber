@@ -17,8 +17,4 @@ class Certificado extends Model
         'estado',
         'empresa_id',
     ];
-<<<<<<< HEAD
-=======
-
->>>>>>> experimental
 }

@@ -70,12 +70,9 @@ class VentaComponent extends Component
         $this->clientes = Cliente::where('empresa_id', $this->empresa_id)->ORDERBy('name','asc')->get();
         $this->ivas = Iva::where('id','>',0)->get();
         // $this->productos = Producto::where('empresa_id', $this->empresa_id)->orderBy('name','asc')->get();
-<<<<<<< HEAD
-=======
 
         $this->ConstructorFacturacion();
 
->>>>>>> experimental
         return view('livewire.venta.venta-component');
     }
 

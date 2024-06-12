@@ -25,31 +25,20 @@
                     <i class="fas fa-cog text-base mr-1"></i> Autorizar Certificado
                 </a>
             </li>
-<<<<<<< HEAD
-            <!-- <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-=======
             <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
->>>>>>> experimental
                 @if($tabActivo==3)
                     <a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-white bg-pink-600" wire:click="CambiarTab(3)">
                 @else 
                     <a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white" wire:click="CambiarTab(3)">
                 @endif
-<<<<<<< HEAD
+
                     <i class="fas fa-briefcase text-base mr-1"></i> Crédito de Clientes
                 </a>
             </li>
-            <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-=======
-                    <i class="fas fa-briefcase text-base mr-1"></i> Datos de Clientes
-                </a>
-            </li>
-            <!-- <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
->>>>>>> experimental
+
                 @if($tabActivo==4)
                     <a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-white bg-pink-600" wire:click="CambiarTab(4)">
                 @else 
-                    <a class="text-xs font-bold uppercase px-5 py-1 shadow-lg rounded block leading-normal text-pink-600 bg-white" wire:click="CambiarTab(4)">
                 @endif
                     <i class="fas fa-cog text-base mr-1"></i> Cuentas Corrientes
                 </a>
@@ -80,8 +69,6 @@
                 <div class="tab-content tab-space">
                     <div class="{{ $tabActivo != 1 ? 'hidden' : '' }}">
                         <input type="text" name="" id="" wire:click="Facturar()" value="Facturar">
-<<<<<<< HEAD
-=======
                         <input type="text" class="bnt btn-info" wire:click="Emitidos()" value="Emitido">
                         <span wire:loading>
                             <div class="inset-0 fixed">
@@ -94,7 +81,6 @@
                                 </div>
                             </div>
                         </span>
->>>>>>> experimental
                         <div style="background-color: rgb(137, 168, 168); font-size: 14px;" class="d-flex p-3">
                             <div class="col-3 grid text-left">
                                 <label style="font-size: 80%;">CUIT de la persona (física/jurídica) </label>
@@ -141,27 +127,12 @@
                                 <input style="width: 33px; padding-top: 14px; background-color: {{ $estado_color }}"  class="rounded-xl h-8"  disabled>
                                 <label style="padding-bottom: 9px;vertical-align: middle;padding-left: 6px;">{{ $estado }}</label>
                             </div>
-<<<<<<< HEAD
-=======
                             <div class="p-3 col-3">
-                                <label style="font-size: large; margin-right: 5px;"><b>Modo de Trabajo</b></label>
-                                <label style="padding: 8px; border-radius: 4px; margin: 3px; font-size: large; {{  $certificado_production ?  'background-color: lightcoral;' : 'background-color: lightgreen;'}}">{{ $certificado_production ? 'PRODUCCIÓN' : 'TESTING' }}</label>
                             </div>
->>>>>>> experimental
                             <div class="col-6 text-center d-flex justify-center">
                                 <input class="btn btn-info shadow-md p-3 m-3" type="button" value="Generar Certificado" wire:click="GenerarCertificado()">
-                            </div>
                             <div class="col-3"></div>
                         </div>
-<<<<<<< HEAD
-                        <div style="background-color: rgb(137, 168, 168); font-size: 14px;" class="d-flex p-3">
-                            <div class="col-6 grid text-left">
-                                <label for="">Certificados Emitidos</label>
-                                <input class="btn btn-info shadow-md p-3 m-3" type="button" value="Generar Certificado" wire:click="Emitidos()">
-                            </div>
-                        </div>
-=======
->>>>>>> experimental
                             
                             <!-- Botones -->
                             {{-- <div class="flex justify-center">
@@ -318,11 +289,7 @@
                                 {!! $filtro !!}
                             </div> --}}
                     </div>
-<<<<<<< HEAD
-                </div>
-=======
                 
->>>>>>> experimental
                     <div class="{{ $tabActivo != 2 ? 'hidden' : '' }}">
                         <div style="background-color: #E3F6CE" class="block">
                             <!-- Botones -->
@@ -333,10 +300,7 @@
                                             <table class="table table-striped w-80" style="width: 80%;">
                                                 <tr style="background-color: #777;">
                                                     <td style="border: 1px solid black;">Certificados</td>
-<<<<<<< HEAD
-=======
                                                     <td style="border: 1px solid black;">Punto de Venta Habilitado</td>
->>>>>>> experimental
                                                     <td style="border: 1px solid black;">Opciones</td>
                                                 </tr>
                                                 @foreach($certificados as $certificado)
@@ -344,8 +308,6 @@
                                                     <td style="border: 1px solid black;vertical-align: middle;">
                                                         {{ $certificado->alias }}
                                                     </td>
-<<<<<<< HEAD
-=======
                                                     <td style="border: 1px solid black;vertical-align: middle;">
                                                         {{-- Seleccionar Punto de Venta --}}
                                                         {{-- <select name="" id=""> --}}
@@ -355,7 +317,6 @@
                                                             @endforeach --}}
                                                         {{-- </select> --}}
                                                     </td>
->>>>>>> experimental
                                                     <td style="border: 1px solid black;">
                                                         <input class="btn btn-info shadow-md p-3 m-3" type="button" value="Solicitar Autorización" wire:click="AutorizarCertificado()">
                                                     </td>
@@ -504,15 +465,12 @@
                             @endif         --}}
                         </div>
                     </div>
-<<<<<<< HEAD
-=======
 
                     <div class="{{ $tabActivo != 3 ? 'hidden' : '' }}">
                         <input type="button" value="Obtener Datos" wire:click="ObtenerDatosCliente();">
                         {!! $datosCliente !!}
                     </div>
                 </div>
->>>>>>> experimental
             </div>
         </div>
     </div>

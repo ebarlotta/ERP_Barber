@@ -34,8 +34,4 @@ Route::get('tablas-ver',VisualizarTablaComponent::class)->name('tablas-ver');
 Route::get('tablas-disenar',DisenarComponent::class)->name('tablas-disenar');
 Route::get('haberes',HaberesComponent::class)->name('haberes');
 Route::get('categoriaprofesional',CategoriaprofesionalComponent::class)->name('categoriaprofesional');
-<<<<<<< HEAD
 Route::get('certificados',CertificadoComponent::class)->name('certificados');
-=======
-Route::get('certificados',CertificadoComponent::class)->name('certificados');
->>>>>>> experimental

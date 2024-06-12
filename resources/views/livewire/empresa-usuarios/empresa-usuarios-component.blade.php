@@ -83,26 +83,6 @@
                                             <div class="w-full p-2 hover:scale-110 transition-all duration-500">
                                                 <div class="flex rounded overflow-hidden border">
                                                     <img class="block flex-none bg-cover" src="https://picsum.photos/seed/picsum/80/80" style="width: 100px; height: 100px;">
-<<<<<<< HEAD
-                                                    <div
-                                                        class="bg-white rounded-b pl-4 pt-4 flex flex-col justify-between leading-normal">
-                                                        <div class="text-black font-bold text-lg mb-2 leading-tight">
-                                                            {{ $usuario['name'] }}</div>
-                                                        <p class="text-grey-darker text-base">{{ $usuario['rol_name'] }}</p>
-                                                    </div>
-                                                    {{-- @if ($usuario->activo) --}}
-                                                    <div class="bg-white rounded-b p-4 flex flex-col justify-between leading-normal">
-                                                        <div class="text-black font-bold text-xl mb-2 leading-tight">
-                                                            <img class="block w-15 h-15 flex-none bg-cover" src="{{ asset('images/activo.jpg') }}" width="40" height="40">
-                                                        </div>
-                                                    </div>
-                                                    {{-- @endif --}}
-                                                    <div style="margin: auto;">
-                                                        <button class="btn btn-info" wire:click="CambiarRol({{ $usuario['user_id'] }})">
-                                                            Cambiar Rol
-                                                        </button>
-                                                    </div>
-=======
                                                 <div
                                                     class="bg-white rounded-b pl-4 pt-4 flex flex-col justify-between leading-normal">
                                                     <div class="text-black font-bold text-lg mb-2 leading-tight">
@@ -120,7 +100,6 @@
                                                     <button class="btn btn-info" wire:click="CambiarRol({{ $usuario['user_id'] }})">
                                                         Cambiar Rol
                                                     </button>
->>>>>>> experimental
                                                 </div>
                                             </div>
                                         </li>

@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "c43d51c368645c5abbafed703ac47603",
-=======
     "content-hash": "c3add25237c6ebcf06d9381b66148101",
->>>>>>> experimental
     "packages": [
         {
             "name": "afipsdk/afip.php",
