@@ -23,7 +23,7 @@ class EmpresaUsuariosComponent extends Component
     public $empresas;
     public $empresaseleccionada;
     public $seleccionado=1;
-    public $roles;
+    public $roles,$txtRol;
     public $usuarioSeleccionado, $id_rolActual;
 
     use WithPagination;
@@ -54,6 +54,7 @@ class EmpresaUsuariosComponent extends Component
 
     public function CerrarModalRoles() {
         $this->isModalRoles = false;
+        $this->CargarUsuarios($this->empresaseleccionada->id);
     }
 
     public function CargarUsuarios($id)
@@ -100,14 +101,21 @@ class EmpresaUsuariosComponent extends Component
         return view('livewire.empresa-usuarios.empresa-usuarios-component');
     }
 
-    public function CambiarRol($id) {
-
+    public function CambiarRol($id) {        
         $this->OpenModalRoles();
         $this->usuarioSeleccionado = EmpresaUsuario::where('empresa_id', "=", $this->empresaseleccionada->id)
         ->join('users','users.id','=','empresa_usuarios.user_id')
         ->where('user_id', "=", $id)->get();
-
         $this->id_rolActual = $this->usuarioSeleccionado[0]['rol_id'];
+        
         $this->roles = Roles::all();            
+    }
+
+    public function ActualizarRol() {
+        $a = DB::table('empresa_usuarios')->where('empresa_id', $this->empresaseleccionada->id)
+        ->where('user_id', $this->seleccionado)
+        ->update(array('rol_id' => $this->txtRol));  
+
+        session()->flash('message', $a ? 'Rol Actualizado.' : 'Rol no actualizado.');
     }
 }

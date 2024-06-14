@@ -26,6 +26,8 @@ class DisenarComponent extends Component
 
     public $txttitulo, $txtcantidadfila, $txtcantidadcolumna;
     public $txtfila, $txtcolumna, $txtcolorfondo, $txtalineacion, $txtexpresion;
+
+    public $visualizar;
     
     public function render()
     {
@@ -51,7 +53,6 @@ class DisenarComponent extends Component
             'encabezadocolumna' => $this->encabezadocolumna,
             'empresa_id' => session('empresa_id'),
         ]);
-
         session()->flash('message', $this->id ? 'Tabla Actualizada.' : 'Tabla Creada.');
         $this->Resetear();
         $this->CargarTablas();
@@ -65,6 +66,7 @@ class DisenarComponent extends Component
     }
 
     public function DibujarTabla($id) {
+        
         $this->tabla_id = $id;
         $tabla = Tabla::find($id);
         $this->mostrartabla = true;
@@ -78,7 +80,6 @@ class DisenarComponent extends Component
 
         
         // $aux = '';
-        // dd($this->cantidadcolumna);
         $p = 0;
         $aux = '<table style="width:100%; border: 1px solid black;\">';
         for($i=1;$i<=$this->cantidadfila;$i++) {
@@ -97,7 +98,6 @@ class DisenarComponent extends Component
             $aux = $aux . '</tr>';
         }
         $this->mostrartabla = $aux . '</table>';
-        // dd($this->mostrartabla);
     }
 
     public function CargarDato($i, $j, $dato_id) {
@@ -106,13 +106,11 @@ class DisenarComponent extends Component
         ->where('columna',$j)
         ->get();
         $this->registro_id = $dato_id;
-        // dd($dato);
         $this->txtfila=$dato[0]['fila'];
         $this->txtcolumna=$dato[0]['columna'];
         $this->txtcolorfondo=$dato[0]['colorfondocelda'];
         $this->txtexpresion=$dato[0]['expresion'];
         $this->txtalineacion=$dato[0]['alineacion'];
-        // dd($dato);
     }
 
     public function ActualizarDato() {
@@ -123,7 +121,6 @@ class DisenarComponent extends Component
             'txtexpresion' => 'required',
             'txtalineacion' => 'required',
         ]);
-// dd( $this->registro_id);
 
         Registro::updateOrCreate(['id' => $this->registro_id], [
             'fila' => $this->txtfila,
@@ -320,7 +317,6 @@ class DisenarComponent extends Component
                         ->orderby('NetoComp', 'desc')
                         ->get();
 
-                        // dd($sql);
                     // $sql = DB::table('comprobantes')
                     // ->join('areas', 'areas.id', '=', 'comprobantes.area_id')
                     // ->whereraw('comprobantes.empresa_id','=', session('empresa_id'))
@@ -526,5 +522,6 @@ class DisenarComponent extends Component
         //     <td width="11" align="right"><img src="images/sup-der.gif" width="11" height="11"></td>
         // </tr>
     }
-}
+
+}   
 

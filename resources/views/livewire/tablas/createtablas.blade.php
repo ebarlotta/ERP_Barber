@@ -23,7 +23,7 @@
                         {{-- @if($ModalOk)
                             @include('livewire.tablas.ModalOk')
                         @endif --}}
-                        <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2 ml-1">Informes</label>
+                        <label class="block text-gray-700 text-sm font-bold mb-2 ml-1">Informes</label>
                         @if($user_id<>0)
                             <div class="mb-4 flex">
                                 @foreach ($ListadeTablas as $item)

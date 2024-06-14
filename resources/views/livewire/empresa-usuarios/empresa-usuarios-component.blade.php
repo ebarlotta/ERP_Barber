@@ -86,7 +86,7 @@
                                                     <div class="bg-white rounded-b pl-4 pt-4 flex flex-col justify-between leading-normal">
                                                         <div class="text-black font-bold text-lg mb-2 leading-tight">
                                                             {{ $usuario['name'] }}</div>
-                                                        {{-- <p class="text-grey-darker text-base">Read more and more</p> --}}
+                                                        <p class="text-grey-darker text-base">{{ $usuario['rol_name'] }}</p>
                                                     </div>
                                                     {{-- @if ($usuario->activo) --}}
                                                     <div class="bg-white rounded-b p-4 flex flex-col justify-between leading-normal">

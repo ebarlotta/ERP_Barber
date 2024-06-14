@@ -1,29 +1,26 @@
 <div>
     @if (session()->has('message'))
-            <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
-                role="alert">
-                <div class="flex">
-                    <div>
-                        <p class="text-xm bg-lightgreen">{{ session('message') }}</p>
-                    </div>
+        <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3" role="alert">
+            <div class="flex">
+                <div>
+                    <p class="text-xm bg-lightgreen">{{ session('message') }}</p>
                 </div>
             </div>
-        @endif
+        </div>
+    @endif
     <section class="d-flex w-full">
         <section class="w-1/5 mt-2" style="background-color: beige;">
-            {{-- <div class="d-flex"> --}}
             <div>
                 Menu de informes
             </div>
             <div class="d-flex mx-1">
-                <button class="form-control col-6"  data-toggle="modal" data-target="#AgregarInformes">+</button>
+                <button class="form-control col-6" data-toggle="modal" data-target="#AgregarInformes">+</button>
                 <button class="form-control col-6">PDF</button>
             </div>
-            {{-- </div> --}}
             <div>
                 <ul>
-                    @foreach($ListadeTablas as $Tabla)
-                        <li wire:click="DibujarTabla({{ $Tabla->id }})">{{ $Tabla->name}}</li>
+                    @foreach ($ListadeTablas as $Tabla)
+                        <li wire:click="DibujarTabla({{ $Tabla->id }})">{{ $Tabla->name }}</li>
                     @endforeach
                 </ul>
             </div>
@@ -54,11 +51,11 @@
                         <div id="BotoneraTablas" class="d-flex col-12 mb-3">
                             <div class="grid col-1">
                                 <label>Fila</label>
-                                <input wire:model="txtfila" class="form-control col-12" type="text"value="1">
+                                <input wire:model="txtfila" class="form-control col-12" type="text" value="1">
                             </div>
                             <div class="grid col-1">
                                 <label>Columna</label>
-                                <input wire:model="txtcolumna" class="form-control col-12" type="text"value="1">
+                                <input wire:model="txtcolumna" class="form-control col-12" type="text" value="1">
                             </div>
                             <div class="grid col-2">
                                 <label>Color Fondo</label>
@@ -80,21 +77,10 @@
                                     <option value="right">Derecha</option>
                                 </select>
                             </div>
-                            {{-- <div class="grid col-4">
-                                <label>Expresión</label>
-                                <textarea wire:model="txtexpresion" cols="60" rows="3">{{ $txtexpresion }}</textarea>
-                                {{-- <input wire:model="txtexpresion" class="form-control col-12" type="text"value="1"> --}}
-                            {{-- </div> --}}
-                            
                             <div class="grid col-3">
                                 <label>Opción</label>
-                                {{-- <div class="d-flex"> --}}
-                                    <input class="btn btn-info" type="button" wire:click="ActualizarDato()" value="Actualizar">
-                                    {{-- <button class="form-control col-6 btn btn-info">Actualizar</button> --}}
-                                    {{-- <button class="form-control col-6">PDF</button> --}}
-                                {{-- </div> --}}
+                                <input wire:click="ActualizarDato()" class="btn btn-info" type="button" value="Actualizar">
                             </div>
-
                         </div>
                         <div class="grid col-12 mb-3">
                             <label>Fórmula / Expresión</label>
@@ -102,14 +88,18 @@
                         </div>
                     </div>
                     <div id="celdas">
-                        <div id="DatosCeldas"></div>
-                        <div id="BotoneraCeldas"></div>
+                        <div id="DatosCeldas">
+
+                        </div>
+                        <div id="BotoneraCeldas">
+
+                        </div>
                     </div>
                 </div>
                 <div id="areatrabajo" class="m-2 p-2" style="background-color: lightslategrey; height: 100vh; border-radius: 5px;">
-                    <label for=""> Vista Previa</label>
+                    <label> Vista Previa</label>
                     <div class="p-2">
-                        @if($mostrartabla) 
+                        @if ($mostrartabla)
                             {!! $mostrartabla !!}
                         @else
                             Nada seleccionado
@@ -128,55 +118,51 @@
             <div class="modal-content" style="width: inherit">
                 <div class="modal-header">
                     <h5 class="modal-title">Alta/Modificación Informes</h5>
-                    <button type="button" class="close" data-dismiss="modal" wire:click="Resetear()" aria-label="Close">
+                    <button wire:click="Resetear()" type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="px-3 py-3 d-flex flex">
                     <div class="col-10">
-                        <label for="">Nombre Informe</label>
-                        <input class="form-control" type="text" wire:model="name" value="{{ old('name') }}">
-                        @error('name')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        <label for="name">Nombre Informe</label>
+                        <input wire:model="name" id="name" class="form-control" type="text" value="{{ old('name') }}" autocomplete="off">
+                        @error('name') <div class="alert alert-danger">{{ $message }}</div> @enderror
                     </div>
                     <div class="col-2">
-                        <label for="">Filas</label>
-                        <input class="form-control" type="text" wire:model="cantidadfila" value="{{ old('cantidadfila') }}">
-                        @error('cantidadfila')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        <label for="cantidadfila">Filas</label>
+                        <input wire:model="cantidadfila" id="cantidadfila" class="form-control" type="text" value="{{ old('cantidadfila') }}">
+                        @error('cantidadfila') <div class="alert alert-danger">{{ $message }}</div> @enderror
                     </div>
                 </div>
                 <div class="px-3 py-3 d-flex flex">
                     <div class="col-10">
-                        <label for="">Encabezado</label>
-                        <input class="form-control" type="text" wire:model="encabezadocolumna" value="{{ old('encabezadocolumna') }}">
-                        @error('encabezadocolumna')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        <label>Encabezado</label>
+                        <input wire:model="encabezadocolumna" class="form-control" type="text" value="{{ old('encabezadocolumna') }}">
+                        @error('encabezadocolumna') <div class="alert alert-danger">{{ $message }}</div> @enderror
                     </div>
                     <div class="col-2">
-                        <label for="">Columnas</label>
-                        <input class="form-control" type="text" wire:model="cantidadcolumna" value="{{ old('cantidadcolumna') }}">
-                        @error('cantidadcolumna')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        <label>Columnas</label>
+                        <input wire:model="cantidadcolumna" class="form-control" type="text" value="{{ old('cantidadcolumna') }}">
+                        @error('cantidadcolumna') <div class="alert alert-danger">{{ $message }}</div> @enderror
                     </div>
                 </div>
 
                 <div class="pb-3 ml-3">
-                    <button type="button" class="btn btn-success" wire:click="store()">
+                    <button wire:click="CrearEmpresa()" class="bg-green-300 hover:bg-green-400 text-white-900 font-bold py-2 px-4 rounded">
+                        Crear empresa
+                    </button>
+                    <input wire:click="store()" type="button" value="LALALA">
+                    <button wire:click="store()" type="button" class="btn btn-success">
                         <i class="fa-solid fa-pen-to-square"></i>Guardar
                     </button>
-                    <button type="button" class="btn btn-info" wire:click="Resetear()" data-dismiss="modal" aria-label="Close">
+                    <button wire:click="Resetear()" type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
                         <i class="fa-solid fa-pen-to-square"></i>Cerrar
                     </button>
                 </div>
-                @if(session("mensaje"))
-                <div class="bg-green round-md alert alert-success">
-                    {{ session('mensaje') }}
-                </div>
+                @if (session('mensaje'))
+                    <div class="bg-green round-md alert alert-success">
+                        {{ session('mensaje') }}
+                    </div>
                 @endif
             </div>
         </div>

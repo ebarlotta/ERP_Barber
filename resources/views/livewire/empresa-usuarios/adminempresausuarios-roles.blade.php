@@ -38,7 +38,7 @@
                                     </div>
                                 @endforeach
                                 {{-- {{ $usuarioSeleccionado }} --}}
-                                <select class="form-control col-12" wire:model="txtRol" wire:change="ActualizarRol();">
+                                <select class="form-control col-12" wire:model="txtRol" wire:change="ActualizarRol({{ $txtRol }});">
                                     @foreach ($roles as $rol)
                                         @if($id_rolActual==$rol->id)
                                             <option value="{{ $rol->id }}" selected>{{ $rol->name }}</option>
