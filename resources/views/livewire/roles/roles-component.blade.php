@@ -129,8 +129,11 @@
                                     @endif
                                 </div>
                             </div>
-
                             <div class="pt-3">
+                                <div style="color: lightslategray">
+                                    Agregar Editar Eliminar
+                                </div>
+                                
                                 {{-- <button type="button" class="btn btn-success"  data-dismiss="modal" wire:click="store()">
                                     <i class="fa-solid fa-pen-to-square"></i>Guardar
                                 </button> --}}

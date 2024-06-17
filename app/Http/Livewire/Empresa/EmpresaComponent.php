@@ -11,8 +11,6 @@ use App\Charts\Graficos;
 use App\Charts\Graficos\Chart;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
-
-
 class EmpresaComponent extends Component
 {
     public $empresas;
@@ -23,17 +21,11 @@ class EmpresaComponent extends Component
     public function render()
     {
         $userid=auth()->user()->id;
-        //$empresas_usuario = EmpresaUsuario::where('user_id',$userid)->get('id');
-        //$this->empresas=Empresa::find($empresas_usuario);
-        //$this->empresas=EmpresaUsuario::where('user_id',$userid)->get('id');
         $empresas_usuario = EmpresaUsuario::where('user_id',$userid)->get();
-        //dd($userid);
-        //dd($empresas_usuario);
         foreach($empresas_usuario as $empresa) {
             //dd($empresa->empresa_id);
             $this->empresas[] = Empresa::find($empresa->empresa_id);
         }
-        //dd($this->empresas[2]);
 
         //Compras
         $this->compras = [
@@ -58,22 +50,16 @@ class EmpresaComponent extends Component
             'labels' => ['November', 'February', 'March', 'April', 'May'],
             'data' => [15, 39, 22, 55, 16]
         ];
-// dd($this->compras);
         return view('livewire.empresa.empresa-component');
     }
 
     public function cargamodulos($id) {
         // Establece el id de la empresaa modo global
         session(['empresa_id' => $id]);
-        //sleep(2);
         $this->empresa_id=$id;
 
         $a = Empresa::find($id);
         session(['nombre_empresa' => $a->name]);
-        //dd(session('empresa_id'));
-        ////$empresa_modulos = EmpresaModulo::where('empresa_id',$this->empresa_id)->get('modulo_id');
-        // $modulos=Modulo::find($empresa_modulos);
-        //return view('livewire.modulo.modulo-component',$empresa_modulos);
         return redirect('modulos');
     }
 
@@ -82,14 +68,4 @@ class EmpresaComponent extends Component
         return redirect('empresausuarios');
     }
     
-    // public static function login() {
-    //     $userid=auth()->user()->id;
-    //     $empresas_usuario = EmpresaUsuario::where('user_id',$userid)->get();
-    //     foreach($empresas_usuario as $empresa) {
-    //         $empresas_del_usuario[] = Empresa::find($empresa->empresa_id);
-    //     }
-    //     return view('livewire.empresa.empresa-component',compact(['empresas'=>$empresas_del_usuario]));
-    //     //return $empresas_del_usuario;
-    // }
-
 }

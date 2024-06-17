@@ -155,7 +155,7 @@
 						</div>
 						@foreach ($productos as $producto)
 							<ul>
-								<li class="border text-left" wire:click="edit({{ $producto->id }})">
+								<li class="border text-left" @if(session('Productos.Editar')) wire:click="edit({{ $producto->id }})" @endif>
 									<div class="w-full">
 										<div class="flex rounded overflow-hidden border">
 											@if($producto->ruta != 'sin_imagen.jpg') 

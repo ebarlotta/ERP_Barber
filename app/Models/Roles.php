@@ -21,7 +21,6 @@ class Roles extends Model
         $a = EmpresaUsuario::where('empresa_id','=',session('empresa_id'))
         ->where('user_id','=',Auth()->user()->id)
         ->get('rol_id');
-        // ->get();
         session(['rol_id' => $a[0]['rol_id']]);
         
         $r = Roles::find($a[0]['rol_id']);
@@ -35,10 +34,14 @@ class Roles extends Model
         
         //Busca todos los permisos habilitados para el Rol y los coloca a nivel global
         $sql = 'select roles.name, permissions.name as nombre from roles inner join role_has_permissions inner join permissions where roles.name="' . $rol . '" and roles.id = role_has_permissions.role_id and role_has_permissions.permission_id = permissions.id';
+        // dd($sql);
+
         $a = DB::select($sql);
         foreach($a as $permiso) {
             session([$permiso->nombre => true ]);
+            // $b[] =  $permiso->nombre;
         }
+        // dd($b);
     }
 
     // public function Permisos($rol,$permiso) {
