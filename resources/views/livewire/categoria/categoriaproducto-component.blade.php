@@ -51,7 +51,8 @@
                                         <td class="border px-4 py-2 text-left">{{ $categoria->name }}</td>
                                         <td class="border px-4 py-2">
                                             <div class="flex justify-center">
-                                                @if(session('CategoriaProducto.Editar'))
+                                                {{ session('Categorias de Productos.Editar') }}
+                                                @if(session('CategoríasdeProductos.Editar'))
                                                     <!-- Editar  -->
                                                     <x-editar id="{{ $categoria->id }}"></x-editar>
                                                 @endif

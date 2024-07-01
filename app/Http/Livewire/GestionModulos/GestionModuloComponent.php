@@ -86,8 +86,10 @@ class GestionModuloComponent extends Component
         $this->validate([
             'nombre_permiso' => 'required|max:255',
         ]);
-
-        $name = $this->name.'.'.$this->nombre_permiso;
+        
+        // $name = $this->name.'.'.$this->nombre_permiso;
+        $name = str_replace ( ' ', '' , $this->name).'.'.$this->nombre_permiso;
+        
         $permission = Permission::create(['name' => $name]);
 
         $this->nombre_permiso = null;

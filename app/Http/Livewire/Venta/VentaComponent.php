@@ -12,7 +12,7 @@ use App\Models\Producto;
 use App\Models\Ventas_Productos;
 use Illuminate\Support\Facades\DB;
 use App\Models\Venta;
-use Afip;
+// use Afip;
 use App\Models\Certificado;
 use Illuminate\Support\Facades\Storage;
 
@@ -119,12 +119,12 @@ class VentaComponent extends Component
             $this->certificado_alias = $certificados[0]['alias'];
             $this->certificado_crt = Storage::disk('local')->get('certificados/'.$certificados[0]['tax_id'].'_'.$certificados[0]['alias'].'.crt');
             $this->certificado_key = Storage::disk('local')->get('certificados/'.$certificados[0]['tax_id'].'_'.$certificados[0]['alias'].'.key');
-            $this->afip = new Afip(array(
-                'CUIT' => $this->certificado_tax_id,
-                'cert' => $this->certificado_crt,
-                'key' =>  $this->certificado_key,
-                'access_token' => env('AFIP_ACCESS_TOKEN'),
-            ));     
+            // $this->afip = new Afip(array(
+            //     'CUIT' => $this->certificado_tax_id,
+            //     'cert' => $this->certificado_crt,
+            //     'key' =>  $this->certificado_key,
+            //     'access_token' => env('AFIP_ACCESS_TOKEN'),
+            // ));     
         }
         
     }
@@ -132,14 +132,14 @@ class VentaComponent extends Component
         
         // CUIT del contribuyente
         $tax_id = 30712141790;
-        $afip = new Afip(array(
-            'CUIT' => $this->certificado_tax_id,
-            'cert' => $this->certificado_crt,
-            'key' =>  $this->certificado_key,
-            'access_token' => env('AFIP_ACCESS_TOKEN'),
-        ));
+        // $afip = new Afip(array(
+        //     'CUIT' => $this->certificado_tax_id,
+        //     'cert' => $this->certificado_crt,
+        //     'key' =>  $this->certificado_key,
+        //     'access_token' => env('AFIP_ACCESS_TOKEN'),
+        // ));
 
-        $taxpayer_details = $afip->RegisterInscriptionProof->GetTaxpayerDetails($tax_id);
+        // $taxpayer_details = $afip->RegisterInscriptionProof->GetTaxpayerDetails($tax_id);
         dd($taxpayer_details);
 
         // $res['CAE']; //CAE asignado el comprobante

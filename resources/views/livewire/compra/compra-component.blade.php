@@ -490,8 +490,8 @@
 								</div>
 							</div>
 
-{{-- Deuda a Proveedores --}}
-{{-- =================== --}}
+							{{-- Deuda a Proveedores --}}
+							{{-- =================== --}}
 							<div class="{{ $tabActivo != 2 ? 'hidden' : '' }}">
 								<div class="flex justify-center">
 									<div class="flex">
