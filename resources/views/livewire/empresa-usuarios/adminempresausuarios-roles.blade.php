@@ -30,7 +30,7 @@
                                     </div>
                                 @endforeach
                             </div> --}}
-                            <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+                            <div style="display: grid; flex-wrap: wrap; justify-content: center;">
                                 @foreach ($usuarioSeleccionado as $usx)
                                     <div style="width: max-content; background-color: rgb(160, 233, 100);border-radius: 20px;height: 5rem;justify-content: center;display: block; margin: 4px; align-items: center; text-align: center; padding-top:1px; padding-left:2rem; padding-right:2rem;">
                                         Usuario:<b>{{ $usx['name'] }}</b> <br>
@@ -38,7 +38,7 @@
                                     </div>
                                 @endforeach
                                 {{-- {{ $usuarioSeleccionado }} --}}
-                                <select wire:model="txtRol" wire:change="ActualizarRol();">
+                                <select class="form-control col-12" wire:model="txtRol" wire:change="ActualizarRol();">
                                     @foreach ($roles as $rol)
                                         @if($id_rolActual==$rol->id)
                                             <option value="{{ $rol->id }}" selected>{{ $rol->name }}</option>
