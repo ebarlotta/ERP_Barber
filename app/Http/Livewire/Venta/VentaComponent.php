@@ -71,7 +71,8 @@ class VentaComponent extends Component
         $this->ivas = Iva::where('id','>',0)->get();
         // $this->productos = Producto::where('empresa_id', $this->empresa_id)->orderBy('name','asc')->get();
 
-        $this->ConstructorFacturacion();
+        //Desactivado Temporalmente
+        // $this->ConstructorFacturacion();
 
         return view('livewire.venta.venta-component');
     }
