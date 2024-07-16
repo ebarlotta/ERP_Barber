@@ -22,6 +22,7 @@ class EmpresaComponent extends Component
 
     public function render()
     {
+        // dd(auth()->user());
         $userid=auth()->user()->id;
         //$empresas_usuario = EmpresaUsuario::where('user_id',$userid)->get('id');
         //$this->empresas=Empresa::find($empresas_usuario);
